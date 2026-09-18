@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_sticky_cta" name="HH Sticky CTA">
+    <div class="hh-sticky-cta" id="hhStickyCta"
+         data-snippet="s_hh_sticky_cta"
+         data-name="HH Sticky CTA">
+        <span class="hh-sticky-cta__text">Chci žít <strong class="hh-text-gradient-warm">naplno</strong></span>
+        <a href="#kontakt" class="hh-btn hh-btn--warm">Bezplatná konzultace</a>
+    </div>
+</template>
+
+</odoo>

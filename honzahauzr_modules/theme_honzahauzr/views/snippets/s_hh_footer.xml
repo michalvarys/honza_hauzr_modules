@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_footer" name="HH Footer">
+    <section class="hh-footer o_cc o_colored_level"
+             data-snippet="s_hh_footer"
+             data-name="HH Footer">
+        <div class="container">
+            <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena.</p>
+        </div>
+    </section>
+</template>
+
+</odoo>

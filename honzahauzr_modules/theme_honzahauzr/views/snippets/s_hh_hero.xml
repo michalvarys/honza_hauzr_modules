@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_hero" name="HH Hero Banner">
+    <section class="hh-hero o_cc o_colored_level" id="hero"
+             data-snippet="s_hh_hero"
+             data-name="HH Hero Banner">
+        <div class="hh-hero__photo">
+            <div class="photo-placeholder">
+                <div class="photo-placeholder__tooltip">
+                    <div class="photo-placeholder__tooltip-title">Hero fotka</div>
+                    <div class="photo-placeholder__tooltip-desc">
+                        Klidný zážitek — hory, západ slunce, volnost. Nic přehnaného, spíš klid a inspirace.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hh-hero__bg"/>
+        <div class="container">
+            <div class="hh-hero__content">
+                <p class="hh-hero__tagline" data-anim="fade-up">
+                    Osobní rozvoj &#8226; Koučink &#8226; Mentoring
+                </p>
+                <h1 data-anim="fade-up" data-delay="150">
+                    Začni žít život,<br/>který <em>stojí za to</em>
+                </h1>
+                <p class="hh-hero__sub" data-anim="fade-up" data-delay="300">
+                    Pomáhám lidem najít odvahu změnit to, co jim nefunguje. Protože
+                    každý si zaslouží cítit se živě.
+                </p>
+                <div class="hh-hero__ctas" data-anim="fade-up" data-delay="450">
+                    <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Chci bezplatnou konzultaci</a>
+                    <a href="#o-mne" class="hh-btn hh-btn--ghost">Zjistit víc</a>
+                </div>
+            </div>
+        </div>
+        <div class="hh-hero__scroll">
+            <span>Scrolluj</span>
+            <div class="hh-hero__scroll-line"/>
+        </div>
+    </section>
+</template>
+
+</odoo>

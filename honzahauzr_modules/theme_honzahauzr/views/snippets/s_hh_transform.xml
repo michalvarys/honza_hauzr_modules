@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_transform" name="HH Transformation">
+    <section class="hh-transform o_cc o_colored_level" id="o-mne"
+             data-snippet="s_hh_transform"
+             data-name="HH Transformation">
+        <div class="hh-transform__bg">
+            <div class="photo-placeholder" data-parallax="0.08">
+                <div class="photo-placeholder__tooltip">
+                    <div class="photo-placeholder__tooltip-title">Fotka Honzy v akci</div>
+                    <div class="photo-placeholder__tooltip-desc">
+                        Honza v přírodě, s lidmi, při workshopu — autenticky, ne posed.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hh-transform__gradient"/>
+        <div class="container">
+            <div class="hh-transform__content">
+                <span class="hh-badge hh-badge--green" data-anim="fade-up">Kdo jsem</span>
+                <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                    Jsem <span class="hh-text-gradient-warm">Honza Hauzr</span>
+                </h2>
+                <p class="lead" data-anim="fade-up" data-delay="200">
+                    Věřím, že každý člověk má v sobě obrovský potenciál. Někdy stačí jen
+                    někdo, kdo ti pomůže ho odhalit.
+                </p>
+                <p data-anim="fade-up" data-delay="300">
+                    Sám jsem si prošel tou cestou. Věděl jsem, že chci víc — ale
+                    nevěděl jsem jak. Dnes žiju život, o kterém jsem snil, a pomáhám
+                    ostatním udělat to samé.
+                </p>
+                <p data-anim="fade-up" data-delay="350">
+                    Ne teorii z knih. Reálné zkušenosti, které fungujou. Pracuji s lidmi
+                    individuálně — protože každá cesta je unikátní.
+                </p>
+                <div class="hh-transform__stats" data-anim="fade-up" data-delay="450">
+                    <div class="hh-transform__stat">
+                        <strong data-anim="counter" data-count="200">0</strong>
+                        <span>klientů</span>
+                    </div>
+                    <div class="hh-transform__stat">
+                        <strong data-anim="counter" data-count="5">0</strong>
+                        <span>let praxe</span>
+                    </div>
+                    <div class="hh-transform__stat">
+                        <strong data-anim="counter" data-count="50">0</strong>
+                        <span>workshopů</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

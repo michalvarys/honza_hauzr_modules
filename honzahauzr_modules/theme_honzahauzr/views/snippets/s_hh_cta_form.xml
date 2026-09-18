@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_cta_form" name="HH Final CTA Form">
+    <section class="hh-final-cta o_cc o_colored_level" id="kontakt"
+             data-snippet="s_hh_cta_form"
+             data-name="HH Final CTA Form">
+        <div class="hh-final-cta__bg">
+            <div class="photo-placeholder" data-parallax="0.06">
+                <div class="photo-placeholder__tooltip">
+                    <div class="photo-placeholder__tooltip-title">Finální emoční fotka</div>
+                    <div class="photo-placeholder__tooltip-desc">
+                        Západ slunce, člověk na vrcholu — pocit "tady chci být".
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hh-final-cta__gradient"/>
+        <div class="hh-final-cta__content">
+            <div class="container">
+                <div class="hh-final-cta__inner">
+                    <h2 data-anim="fade-up">
+                        První krok je nejdůležitější.<br/>
+                        <span style="text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.3);">Udělej ho teď.</span>
+                    </h2>
+                    <p class="hh-final-cta__sub" data-anim="fade-up" data-delay="150">
+                        Vyplněním formuláře nic nezavazuješ. Ozvu se ti do 24 hodin.
+                    </p>
+                    <div data-anim="fade-up" data-delay="250">
+                        <div class="hh-final-cta__urgency">Volná kapacita pro 5 nových klientů</div>
+                    </div>
+                    <form class="hh-form" data-anim="fade-up" data-delay="350" action="/mv-landing/contact" method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="crm_note" value="kontakt z honzahauzr.cz"/>
+                        <input type="text" name="name" placeholder="Tvé jméno *" required="required" minlength="2"/>
+                        <input type="email" name="email" placeholder="Tvůj e-mail *" required="required"/>
+                        <input type="tel" name="phone" placeholder="Telefon"/>
+                        <select name="interest" required="required">
+                            <option value="" disabled="disabled" selected="selected">Mám zájem o... *</option>
+                            <option value="individualni-koucink">Individuální koučink</option>
+                            <option value="skupinovy-program">Skupinový program</option>
+                            <option value="workshop">Workshop nebo přednáška</option>
+                            <option value="firemni-spoluprace">Firemní spolupráce</option>
+                            <option value="konzultace">Jen konzultace zdarma</option>
+                        </select>
+                        <textarea name="message" placeholder="Co bys chtěl/a změnit? Napiš cokoliv..." rows="3"/>
+                        <button type="submit" class="hh-btn hh-btn--primary hh-btn--large">
+                            Odeslat nezávaznou přihlášku
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>
