@@ -7,22 +7,15 @@
 <!-- ================================================================ -->
 <template id="hh_page_landing" name="Honza Hauzr Landing">
     <t t-call="website.layout">
-        <t t-set="no_header" t-value="True"/>
+        <!-- Hlavicka ZAMERNE nezustava vypnuta. Logo i polozky menu jsou
+             nastavene v Odoo (Website > Konfigurace), takze si je Honza
+             spravuje sam bez sahani do kodu. Drive tu bylo no_header,
+             coz tu nastavenou hlavicku i s logem zahodilo. -->
         <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Začni žít naplno</t>
         <t t-set="meta_description">Pomáhám lidem, kteří fungují na autopilotu, vrátit si směr, hranice a respekt k sobě. Domluv si nezávazný úvodní hovor.</t>
 
         <div id="wrap" class="oe_structure oe_empty hh-landing">
-
-            <!-- NAVIGACE -->
-            <nav class="hh-nav">
-                <a href="#hero" class="hh-nav__brand">Honza Hauzr</a>
-                <div class="hh-nav__links">
-                    <a href="#o-mne">O mně</a>
-                    <a href="#jak-pracuji">Jak pracuji</a>
-                    <a href="#kontakt" class="hh-btn hh-btn--primary">Domluvit úvodní hovor</a>
-                </div>
-            </nav>
 
             <!-- 1. UVODNI OBRAZOVKA -->
             <!-- Fotka je na pozadi sekce pres oe_img_bg, aby sla v Odoo editoru

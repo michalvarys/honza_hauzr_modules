@@ -228,9 +228,15 @@
     var landing = document.querySelector(".hh-landing");
     if (!landing) return;
 
+    // Hlavicku vykresluje Odoo (website.layout), ne nase sablona. Kdyz je
+    // prilepena nahore, musi se o jeji vysku odsadit cil rolovani - jinak
+    // zacatek sekce skonci pod ni.
     function navOffset() {
-        var nav = document.querySelector(".hh-nav");
-        return (nav ? nav.getBoundingClientRect().height : 0) + 16;
+        var hlavicka = document.querySelector("#wrapwrap > header, header#top, .o_header_standard");
+        if (!hlavicka) return 16;
+        var poz = window.getComputedStyle(hlavicka).position;
+        if (poz !== "fixed" && poz !== "sticky") return 16;
+        return hlavicka.getBoundingClientRect().height + 16;
     }
 
     function targetTop(el) {

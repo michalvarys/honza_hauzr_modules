@@ -36,7 +36,7 @@ if [ "$1" = "page" ]; then
 fi
 
 echo "==> restart"
-docker compose restart odoo >/dev/null 2>&1
+docker compose -p hauzr restart odoo >/dev/null 2>&1
 
 for i in $(seq 1 45); do
     C=$(curl -s -o /dev/null -w "%{http_code}" -m 5 "http://localhost:$PORT/" 2>/dev/null || true)
