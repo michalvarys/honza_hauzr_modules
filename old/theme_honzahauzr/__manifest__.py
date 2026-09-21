@@ -43,6 +43,7 @@ Obsahuje:
         'views/snippets/snippets_registry.xml',
 
         'views/pages.xml',
+        'views/blue.xml',
     ],
     'images': [
         'static/description/cover.png',

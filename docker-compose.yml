@@ -14,7 +14,8 @@ services:
       - "8069:8069"
     volumes:
       - odoo-data:/var/lib/odoo
-      - ./:/mnt/modules:ro
+      #- ./honza_hauzr_modules:/mnt/modules:ro
+      - ./old:/mnt/modules:ro
       - ./config:/etc/odoo:ro
     environment:
       HOST: db

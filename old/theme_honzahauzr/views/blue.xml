@@ -2,65 +2,167 @@
 <odoo>
 
 <!-- ================================================================ -->
-<!-- LANDING PAGE - all content inlined for independent editing       -->
+<!-- LANDING PAGE - BLUE VARIANT                                      -->
+<!-- Přepisuje oranžové/warm barvy na modré                           -->
 <!-- ================================================================ -->
-<template id="hh_page_landing" name="Honza Hauzr Landing">
+<template id="hh_page_landing_blue" name="Honza Hauzr Landing (Blue)">
     <t t-call="website.layout">
         <t t-set="no_header" t-value="True"/>
         <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Začni žít naplno</t>
         <t t-set="meta_description">Honza Hauzr pomáhá lidem žít plnohodnotnější život. Osobní rozvoj, koučink a mentoring.</t>
 
-        <div id="wrap" class="oe_structure oe_empty hh-landing">
+        <!-- Inline style override: orange -> blue -->
+        <style>
+            .hh-landing.hh-blue {
+                --hh-warm: #4a90d9;
+                --hh-warm-light: #6bb5ff;
+                --hh-red: #3a7bd5;
+                --hh-green: #44ddff;
+                --hh-gold: #6bb5ff;
+                --hh-gradient-warm: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+                --hh-gradient-sunset: linear-gradient(135deg, #4a90d9 0%, #6bb5ff 100%);
+            }
+            /* Buttons */
+            .hh-blue .hh-btn--primary {
+                background: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+                box-shadow: 0 4px 24px rgba(74, 144, 217, 0.3);
+            }
+            .hh-blue .hh-btn--primary:hover {
+                box-shadow: 0 8px 40px rgba(74, 144, 217, 0.5);
+            }
+            .hh-blue .hh-btn--warm {
+                background: linear-gradient(135deg, #4a90d9 0%, #6bb5ff 100%);
+                box-shadow: 0 4px 24px rgba(74, 144, 217, 0.3);
+            }
+            .hh-blue .hh-btn--warm:hover {
+                box-shadow: 0 8px 40px rgba(74, 144, 217, 0.5);
+            }
+            .hh-blue .hh-btn--ghost:hover {
+                border-color: rgba(74, 144, 217, 0.4);
+            }
+            /* Badges */
+            .hh-blue .hh-badge--warm {
+                background: rgba(74, 144, 217, 0.15);
+                color: #4a90d9;
+                border-color: rgba(74, 144, 217, 0.3);
+            }
+            .hh-blue .hh-badge--red {
+                background: rgba(58, 123, 213, 0.15);
+                color: #3a7bd5;
+                border-color: rgba(58, 123, 213, 0.3);
+            }
+            .hh-blue .hh-badge--green {
+                background: rgba(68, 221, 255, 0.15);
+                color: #44ddff;
+                border-color: rgba(68, 221, 255, 0.3);
+            }
+            /* Text gradients */
+            .hh-blue .hh-text-gradient-warm {
+                background: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            /* Hero */
+            .hh-blue .hh-hero h1 em {
+                background: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .hh-blue .hh-hero__scroll-line {
+                background: linear-gradient(180deg, rgba(74, 144, 217, 0.6), transparent);
+            }
+            /* Pain section icons */
+            .hh-blue .hh-pain__item-icon {
+                background: rgba(58, 123, 213, 0.12);
+            }
+            /* Transform stats */
+            .hh-blue .hh-transform__stat strong {
+                background: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .hh-blue .hh-transform__content .lead {
+                color: #4a90d9;
+            }
+            /* Offer */
+            .hh-blue .hh-offer {
+                background: linear-gradient(180deg, var(--hh-bg) 0%, rgba(74, 144, 217, 0.03) 50%, var(--hh-bg) 100%);
+            }
+            .hh-blue .hh-offer__card:hover {
+                border-color: rgba(74, 144, 217, 0.3);
+            }
+            .hh-blue .hh-offer__card-icon {
+                background: rgba(74, 144, 217, 0.12);
+            }
+            .hh-blue .hh-offer__main-content .lead {
+                color: #4a90d9;
+            }
+            /* Process */
+            .hh-blue .hh-process__step-num {
+                background: linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%);
+            }
+            /* Testimonials */
+            .hh-blue .hh-testimonial:hover {
+                border-color: rgba(74, 144, 217, 0.2);
+            }
+            /* Final CTA */
+            .hh-blue .hh-final-cta__urgency {
+                background: rgba(74, 144, 217, 0.15);
+                border-color: rgba(74, 144, 217, 0.3);
+                color: #4a90d9;
+            }
+            .hh-blue .hh-form input:focus,
+            .hh-blue .hh-form textarea:focus,
+            .hh-blue .hh-form select:focus {
+                border-color: rgba(74, 144, 217, 0.6);
+            }
+            /* Sticky CTA */
+            .hh-blue .hh-sticky-cta {
+                border-top-color: rgba(74, 144, 217, 0.3);
+            }
+        </style>
+
+        <div id="wrap" class="oe_structure oe_empty hh-landing hh-blue">
 
             <!-- 1. HERO -->
-            <section class="hh-hero o_cc o_colored_level" id="hero"
-                     style="background-image: url('/theme_honzahauzr/static/src/img/content/hero-sunset.jpg'); background-size: cover; background-position: center;">
+            <section class="hh-hero o_cc o_colored_level" id="hero" style="background-image: url('/theme_honzahauzr/static/src/img/content/hero-sunset.jpg'); background-size: cover; background-position: center;">
                 <div class="hh-hero__bg"/>
                 <div class="container">
                     <div class="hh-hero__content">
-                        <p class="hh-hero__tagline" data-anim="fade-up">
+                        <p class="hh-hero__tagline anim-visible" data-anim="fade-up">
                             Osobní rozvoj &#8226; Koučink &#8226; Mentoring
                         </p>
-                        <h1 data-anim="fade-up" data-delay="150">
+                        <h1 data-anim="fade-up" data-delay="150" class="anim-visible">
                             Začni žít život,<br/>který <em>stojí za to</em>
                         </h1>
-                        <p class="hh-hero__sub" data-anim="fade-up" data-delay="300">
+                        <p class="hh-hero__sub anim-visible" data-anim="fade-up" data-delay="300">
                             Pomáhám lidem najít odvahu změnit to, co jim nefunguje. Protože
                             každý si zaslouží cítit se živě.
                         </p>
-                        <div class="hh-hero__ctas" data-anim="fade-up" data-delay="450">
+                        <div class="hh-hero__ctas anim-visible" data-anim="fade-up" data-delay="450">
                             <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Chci bezplatnou konzultaci</a>
                             <a href="#o-mne" class="hh-btn hh-btn--ghost">Zjistit víc</a>
                         </div>
                     </div>
                 </div>
                 <div class="hh-hero__scroll">
-                    <span>Scrolluj</span>
+                    Scrolluj
                     <div class="hh-hero__scroll-line"/>
                 </div>
             </section>
 
             <!-- 2. VISION STRIP -->
-            <section class="hh-vision-strip o_cc o_colored_level">
+            <section class="hh-vision-strip o_cc o_colored_level" data-snippet="s_hh_vision_strip" data-name="HH Vision Strip">
                 <div class="hh-vision-strip__photos">
-                    <div class="hh-vision-strip__photo-wrap">
-                        <img src="/theme_honzahauzr/static/src/img/content/vision-mountains.jpg"
-                             class="img-fluid w-100" alt="Hory a příroda"
-                             style="object-fit: cover; height: 100%;"/>
-                    </div>
-                    <div class="hh-vision-strip__photo-wrap">
-                        <img src="/theme_honzahauzr/static/src/img/content/vision-friends.jpg"
-                             class="img-fluid w-100" alt="Lidé a komunita"
-                             style="object-fit: cover; height: 100%;"/>
-                    </div>
-                    <div class="hh-vision-strip__photo-wrap">
-                        <img src="/theme_honzahauzr/static/src/img/content/vision-freefall.jpg"
-                             class="img-fluid w-100" alt="Volnost a radost"
-                             style="object-fit: cover; height: 100%;"/>
-                    </div>
+                    <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center" style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-mountains.jpg'); background-size: cover; background-position: center;"/>
+                    <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center" style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-friends.jpg'); background-size: cover; background-position: center;"/>
+                    <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center" style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-freefall.jpg'); background-size: cover; background-position: center;"/>
                 </div>
-                <div class="hh-vision-strip__overlay">
+                <div class="hh-vision-strip__overlay o_cc o_colored_level">
                     <div class="hh-vision-strip__text">
                         <h2 data-anim="fade-up">
                             Takhle vypadá život,<br/>který si
@@ -77,24 +179,20 @@
             <section class="hh-pain o_cc o_colored_level">
                 <div class="container">
                     <div class="hh-pain__grid">
-                        <div class="hh-pain__visual d-none d-lg-block" data-anim="fade-right">
-                            <img src="/theme_honzahauzr/static/src/img/content/pain-before.jpg"
-                                 class="img-fluid w-100 rounded-4" alt="Kontrastní fotka"
-                                 style="object-fit: cover; height: 400px;"/>
+                        <div class="hh-pain__visual d-none d-lg-block anim-visible" data-anim="fade-right">
+                            <img src="/web/image/604-191996f8/DSC_0079.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 400px;" data-mimetype="image/webp" data-original-id="603" data-original-src="/web/image/603-18c51f7f/DSC_0079.JPG" data-mimetype-before-conversion="image/jpeg" data-resize-width="690"/>
                         </div>
                         <div class="hh-pain__content">
-                            <span class="hh-badge hh-badge--red" data-anim="fade-up">Poznej pravdu</span>
-                            <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                            <span class="hh-badge hh-badge--red anim-visible" data-anim="fade-up">Poznej pravdu</span>
+                            <h2 style="margin-top: 20px;" data-anim="fade-up" data-delay="100" class="anim-visible">
                                 Většina lidí žije<br/>na
                                 <span class="hh-text-gradient-warm">autopilotu</span>
                             </h2>
                             <div class="d-lg-none" style="margin: 24px 0;" data-anim="fade-up" data-delay="150">
-                                <img src="/theme_honzahauzr/static/src/img/content/pain-before.jpg"
-                                     class="img-fluid w-100 rounded-4" alt="Kontrastní fotka"
-                                     style="object-fit: cover; height: 260px;"/>
+                                <img src="/web/image/604-191996f8/DSC_0079.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 260px;" data-mimetype="image/webp" data-original-id="603" data-original-src="/web/image/603-18c51f7f/DSC_0079.JPG" data-mimetype-before-conversion="image/jpeg" data-resize-width="690"/>
                             </div>
-                            <div class="hh-pain__item" data-anim="fade-left" data-delay="200">
-                                <div class="hh-pain__item-icon">
+                            <div class="hh-pain__item anim-visible" data-anim="fade-left" data-delay="200">
+                                <div class="hh-pain__item-icon" style="background: rgba(58, 123, 213, 0.12)">
                                     <i class="fa fa-frown-o" style="font-size: 20px; color: #3a7bd5;"/>
                                 </div>
                                 <div>
@@ -102,7 +200,7 @@
                                     <p>Máš všechno co "bys měl" — ale radost chybí.</p>
                                 </div>
                             </div>
-                            <div class="hh-pain__item" data-anim="fade-left" data-delay="300">
+                            <div class="hh-pain__item anim-visible" data-anim="fade-left" data-delay="300">
                                 <div class="hh-pain__item-icon" style="background: rgba(74, 144, 217, 0.12)">
                                     <i class="fa fa-clock-o" style="font-size: 20px; color: #5a9fd4;"/>
                                 </div>
@@ -111,7 +209,7 @@
                                     <p>Práce, domov, spánek, opakuj. Kde je smysl?</p>
                                 </div>
                             </div>
-                            <div class="hh-pain__item" data-anim="fade-left" data-delay="400">
+                            <div class="hh-pain__item anim-visible" data-anim="fade-left" data-delay="400">
                                 <div class="hh-pain__item-icon" style="background: rgba(107, 181, 255, 0.12)">
                                     <i class="fa fa-question-circle-o" style="font-size: 20px; color: #6bb5ff;"/>
                                 </div>
@@ -120,7 +218,7 @@
                                     <p>Bez jasného směru se točíš v kruhu a energie ubývá.</p>
                                 </div>
                             </div>
-                            <div style="margin-top: 32px" data-anim="fade-up" data-delay="500">
+                            <div style="margin-top: 32px;" data-anim="fade-up" data-delay="500" class="anim-visible">
                                 <a href="#kontakt" class="hh-btn hh-btn--warm">Chci to změnit</a>
                             </div>
                         </div>
@@ -129,8 +227,7 @@
             </section>
 
             <!-- 4. TRANSFORMATION -->
-            <section class="hh-transform o_cc o_colored_level" id="o-mne"
-                     style="background-image: url('/theme_honzahauzr/static/src/img/content/honza-mountain-selfie.jpg'); background-size: cover; background-position: center top;">
+            <section class="hh-transform o_cc o_colored_level" id="o-mne" style="background-image: url('/theme_honzahauzr/static/src/img/content/honza-mountain-selfie.jpg'); background-size: cover; background-position: center top;">
                 <div class="hh-transform__gradient"/>
                 <div class="container">
                     <div class="hh-transform__content">
@@ -173,50 +270,48 @@
             <section class="hh-offer o_cc o_colored_level">
                 <div class="container">
                     <div class="hh-offer__header">
-                        <span class="hh-badge hh-badge--warm" data-anim="fade-up">Co nabízím</span>
-                        <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                        <span class="hh-badge hh-badge--warm anim-visible" data-anim="fade-up">Co nabízím</span>
+                        <h2 style="margin-top: 20px;" data-anim="fade-up" data-delay="100" class="anim-visible">
                             Individuální spolupráce<br/><span class="hh-text-gradient-warm">přímo s tebou</span>
                         </h2>
-                        <p data-anim="fade-up" data-delay="200">
+                        <p data-anim="fade-up" data-delay="200" class="anim-visible">
                             Žádné masovky. Žádný one-size-fits-all. Jen ty, já a tvá cesta.
                         </p>
                     </div>
                     <div class="hh-offer__main">
-                        <div class="hh-offer__main-photo" data-anim="fade-right">
-                            <img src="/theme_honzahauzr/static/src/img/content/honza-nature-pose.jpg"
-                                 class="img-fluid w-100 rounded-4" alt="Osobní koučink"
-                                 style="object-fit: cover; height: 440px;"/>
+                        <div class="hh-offer__main-photo anim-visible" data-anim="fade-right">
+                            <img src="/web/image/601-e446d085/IMG_20190622_143325.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 440px;" data-mimetype="image/webp" data-original-id="598" data-original-src="/web/image/598-fcad1c4c/IMG_20190622_143325.jpg" data-mimetype-before-conversion="image/jpeg" data-resize-width="690"/>
                         </div>
                         <div class="hh-offer__main-content">
-                            <h3 data-anim="fade-left" data-delay="100">Osobní koučink 1 na 1</h3>
-                            <p class="lead" data-anim="fade-left" data-delay="200">
+                            <h3 data-anim="fade-left" data-delay="100" class="anim-visible">Osobní koučink 1 na 1</h3>
+                            <p class="lead anim-visible" data-anim="fade-left" data-delay="200">
                                 Společně rozebereme, co tě drží zpátky, a nastavíme konkrétní kroky dopředu.
                             </p>
-                            <p data-anim="fade-left" data-delay="250">
+                            <p data-anim="fade-left" data-delay="250" class="anim-visible">
                                 Každý program je na míru — protože tvůj život není šablona.
                             </p>
-                            <ul class="hh-offer__includes" data-anim="fade-left" data-delay="300">
-                                <li><i class="fa fa-check" style="color: #44ddff;"/> Bezplatná úvodní konzultace (30 min)</li>
-                                <li><i class="fa fa-check" style="color: #44ddff;"/> Plán na míru podle tvých cílů</li>
-                                <li><i class="fa fa-check" style="color: #44ddff;"/> Pravidelná sezení online nebo v Praze/Brně</li>
-                                <li><i class="fa fa-check" style="color: #44ddff;"/> Podpora mezi sezeními přes chat</li>
+                            <ul class="hh-offer__includes anim-visible" data-anim="fade-left" data-delay="300">
+                                <li><i class="fa fa-check" style="color: #44ddff;" contenteditable="false">&#8203;</i> Bezplatná úvodní konzultace (30 min)</li>
+                                <li><i class="fa fa-check" style="color: #44ddff;" contenteditable="false">&#8203;</i> Plán na míru podle tvých cílů</li>
+                                <li><i class="fa fa-check" style="color: #44ddff;" contenteditable="false">&#8203;</i> Pravidelná sezení online nebo v Praze/Brně</li>
+                                <li><i class="fa fa-check" style="color: #44ddff;" contenteditable="false">&#8203;</i> Podpora mezi sezeními přes chat</li>
                             </ul>
-                            <div data-anim="fade-up" data-delay="400">
+                            <div data-anim="fade-up" data-delay="400" class="anim-visible">
                                 <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Chci začít</a>
                             </div>
                         </div>
                     </div>
                     <div class="hh-offer__more">
-                        <div class="hh-offer__card" data-anim="fade-up" data-delay="100">
+                        <div class="hh-offer__card anim-visible" data-anim="fade-up" data-delay="100">
                             <div class="hh-offer__card-icon">
-                                <i class="fa fa-users" style="font-size: 26px; color: #4a90d9;"/>
+                                <i class="fa fa-users" style="font-size: 26px; color: #4a90d9;" contenteditable="false">&#8203;</i>
                             </div>
                             <h4>Skupinový program</h4>
                             <p>8týdenní program v malé skupině. Sdílená energie a strukturovaný proces změny.</p>
                         </div>
-                        <div class="hh-offer__card" data-anim="fade-up" data-delay="250">
+                        <div class="hh-offer__card anim-visible" data-anim="fade-up" data-delay="250">
                             <div class="hh-offer__card-icon">
-                                <i class="fa fa-calendar" style="font-size: 26px; color: #4a90d9;"/>
+                                <i class="fa fa-calendar" style="font-size: 26px; color: #4a90d9;" contenteditable="false">&#8203;</i>
                             </div>
                             <h4>Workshopy a přednášky</h4>
                             <p>Jednodenní akce na konkrétní témata — stres, návyky, smysl života.</p>
@@ -229,37 +324,31 @@
             <section class="hh-process o_cc o_colored_level">
                 <div class="container">
                     <div class="hh-process__header">
-                        <span class="hh-badge hh-badge--green" data-anim="fade-up">Jak to funguje</span>
-                        <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                        <span class="hh-badge hh-badge--green anim-visible" data-anim="fade-up">Jak to funguje</span>
+                        <h2 style="margin-top: 20px;" data-anim="fade-up" data-delay="100" class="anim-visible">
                             3 kroky k <span class="hh-text-gradient-warm">tvé změně</span>
                         </h2>
                     </div>
                     <div class="hh-process__steps">
-                        <div class="hh-process__step" data-anim="fade-up" data-delay="100">
+                        <div class="hh-process__step anim-visible" data-anim="fade-up" data-delay="100">
                             <div class="hh-process__step-photo">
-                                <img src="/theme_honzahauzr/static/src/img/content/step-consultation.jpg"
-                                     class="img-fluid w-100 rounded-4" alt="Konzultace"
-                                     style="object-fit: cover; height: 200px;"/>
+                                <img src="/web/image/593-7dc95b3f/vepr.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 200px;" data-mimetype="image/webp" data-original-id="590" data-original-src="/web/image/590-7e8ab402/vepr.jpg" data-mimetype-before-conversion="image/jpeg" data-resize-width="690" loading="lazy"/>
                             </div>
                             <div class="hh-process__step-num">1</div>
                             <h3>První konzultace zdarma</h3>
                             <p>Podíváme se, kde jsi a kam chceš. Bez závazků, bez tlaku.</p>
                         </div>
-                        <div class="hh-process__step" data-anim="fade-up" data-delay="250">
+                        <div class="hh-process__step anim-visible" data-anim="fade-up" data-delay="250">
                             <div class="hh-process__step-photo">
-                                <img src="/theme_honzahauzr/static/src/img/content/step-plan.jpg"
-                                     class="img-fluid w-100 rounded-4" alt="Plán"
-                                     style="object-fit: cover; height: 200px;"/>
+                                <img src="/web/image/597-e8a4b1a0/IMG_3059.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 200px;" data-mimetype="image/webp" data-original-id="596" data-original-src="/web/image/596-dc4718d2/IMG_3059.jpg" data-mimetype-before-conversion="image/jpeg" data-resize-width="690"/>
                             </div>
                             <div class="hh-process__step-num">2</div>
                             <h3>Plán na míru</h3>
                             <p>Společně vytvoříme konkrétní plán — co změnit, jak a kdy.</p>
                         </div>
-                        <div class="hh-process__step" data-anim="fade-up" data-delay="400">
+                        <div class="hh-process__step anim-visible" data-anim="fade-up" data-delay="400">
                             <div class="hh-process__step-photo">
-                                <img src="/theme_honzahauzr/static/src/img/content/step-results.jpg"
-                                     class="img-fluid w-100 rounded-4" alt="Výsledky"
-                                     style="object-fit: cover; height: 200px;"/>
+                                <img src="/web/image/594-a8197d31/crazy.webp" alt="" class="img-fluid w-100 rounded-4 img o_we_custom_image" style="object-fit: cover; height: 200px;" data-mimetype="image/webp" data-original-id="592" data-original-src="/web/image/592-a43db516/crazy.jpg" data-mimetype-before-conversion="image/jpeg" data-resize-width="690" loading="lazy"/>
                             </div>
                             <div class="hh-process__step-num">3</div>
                             <h3>Realizace a podpora</h3>
@@ -273,52 +362,52 @@
             <section class="hh-testimonials o_cc o_colored_level">
                 <div class="container">
                     <div class="hh-testimonials__header">
-                        <span class="hh-badge hh-badge--warm" data-anim="fade-up">Ohlasy</span>
-                        <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                        <span class="hh-badge hh-badge--warm anim-visible" data-anim="fade-up">Ohlasy</span>
+                        <h2 style="margin-top: 20px;" data-anim="fade-up" data-delay="100" class="anim-visible">
                             Co říkají <span class="hh-text-gradient-warm">lidé, kteří prošli změnou</span>
                         </h2>
                     </div>
                     <div class="hh-testimonials__grid">
-                        <div class="hh-testimonial" data-anim="fade-up" data-delay="100">
+                        <div class="hh-testimonial anim-visible" data-anim="fade-up" data-delay="100">
                             <div class="hh-testimonial__stars">
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
                             </div>
                             <p class="hh-testimonial__text">"S Honzou jsem během 3 měsíců změnila práci a konečně
                                 se cítím jako já sama. Nejlepší investice do sebe."</p>
                             <div class="hh-testimonial__author">
-                                <strong>Petra K.</strong><span>Marketing Manager</span>
+                                <strong>Petra K.</strong>Marketing Manager
                             </div>
                         </div>
-                        <div class="hh-testimonial" data-anim="fade-up" data-delay="250">
+                        <div class="hh-testimonial anim-visible" data-anim="fade-up" data-delay="250">
                             <div class="hh-testimonial__stars">
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
                             </div>
                             <p class="hh-testimonial__text">"Po 2 měsících jsem konečně věděl, co chci od života
                                 a měl jsem odvahu to udělat."</p>
                             <div class="hh-testimonial__author">
-                                <strong>Tomáš M.</strong><span>Software Developer</span>
+                                <strong>Tomáš M.</strong>Software Developer
                             </div>
                         </div>
-                        <div class="hh-testimonial" data-anim="fade-up" data-delay="400">
+                        <div class="hh-testimonial anim-visible" data-anim="fade-up" data-delay="400">
                             <div class="hh-testimonial__stars">
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
-                                <i class="fa fa-star" style="color: #6bb5ff;"/>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
+                                <i class="fa fa-star" style="color: #6bb5ff;" contenteditable="false">&#8203;</i>
                             </div>
                             <p class="hh-testimonial__text">"Honza má dar — umí klást otázky, na které si sama
                                 nedokážete odpovědět. Ty odpovědi vám změní život."</p>
                             <div class="hh-testimonial__author">
-                                <strong>Lucie V.</strong><span>Podnikatelka</span>
+                                <strong>Lucie V.</strong>Podnikatelka
                             </div>
                         </div>
                     </div>
@@ -326,20 +415,19 @@
             </section>
 
             <!-- 8. FINAL CTA + FORM -->
-            <section class="hh-final-cta o_cc o_colored_level" id="kontakt"
-                     style="background-image: url('/theme_honzahauzr/static/src/img/content/cta-sunset-river.jpg'); background-size: cover; background-position: center;">
+            <section class="hh-final-cta o_cc o_colored_level" id="kontakt" style="background-image: url('/theme_honzahauzr/static/src/img/content/cta-sunset-river.jpg'); background-size: cover; background-position: center;">
                 <div class="hh-final-cta__gradient"/>
                 <div class="hh-final-cta__content">
                     <div class="container">
                         <div class="hh-final-cta__inner">
-                            <h2 data-anim="fade-up">
+                            <h2 data-anim="fade-up" class="anim-visible">
                                 První krok je nejdůležitější.<br/>
                                 <span style="text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.3);">Udělej ho teď.</span>
                             </h2>
-                            <p class="hh-final-cta__sub" data-anim="fade-up" data-delay="150">
+                            <p class="hh-final-cta__sub anim-visible" data-anim="fade-up" data-delay="150">
                                 Vyplněním formuláře nic nezavazuješ. Ozvu se ti do 24 hodin.
                             </p>
-                            <div data-anim="fade-up" data-delay="250">
+                            <div data-anim="fade-up" data-delay="250" class="anim-visible">
                                 <div class="hh-final-cta__urgency">Volná kapacita pro 5 nových klientů</div>
                             </div>
                             <form class="hh-form s_website_form" data-anim="fade-up" data-delay="350"
@@ -387,12 +475,17 @@
             <!-- FOOTER -->
             <section class="hh-footer o_cc o_colored_level">
                 <div class="container">
-                    <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena.</p>
-                </div>
+                    <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena. Vytvořil<a href="http://www.michalvarys.eu">
+                        <font style="background-image: linear-gradient(135deg, rgb(203, 94, 238) 0%, rgb(75, 225, 236) 100%);" class="text-gradient">
+                            <strong>
+                                <span class="o_small-fs">Michal Varyš</span></strong></font></a><strong><span class="o_small-fs">&#160;běží na</span></strong><a href="http://www.varyshop.eu">
+                        <font class="text-gradient" style="background-image: linear-gradient(135deg, rgb(255, 204, 51) 0%, rgb(255, 88, 51) 100%);">
+                            <strong>
+                                <span class="o_small-fs">Varyshop</span></strong></font></a></p></div>
             </section>
 
             <!-- STICKY CTA -->
-            <div class="hh-sticky-cta" id="hhStickyCta">
+            <div class="hh-sticky-cta hh-visible" id="hhStickyCta">
                 <span class="hh-sticky-cta__text">Chci žít <strong class="hh-text-gradient-warm">naplno</strong></span>
                 <a href="#kontakt" class="hh-btn hh-btn--warm">Bezplatná konzultace</a>
             </div>
@@ -401,104 +494,9 @@
     </t>
 </template>
 
-<record id="hh_page_landing_page" model="theme.website.page">
-    <field name="url">/</field>
-    <field name="view_id" ref="hh_page_landing"/>
-    <field name="is_published" eval="True"/>
-</record>
-
-<!-- ================================================================ -->
-<!-- WORK IN PROGRESS PAGE - inlined content                          -->
-<!-- ================================================================ -->
-<template id="hh_page_wip" name="Honza Hauzr WIP">
-    <t t-call="website.layout">
-        <t t-set="no_header" t-value="True"/>
-        <t t-set="no_footer" t-value="True"/>
-        <t t-set="additional_title">Honza Hauzr | Připravujeme něco skvělého</t>
-        <t t-set="meta_description">Honza Hauzr - osobní rozvoj, koučink a mentoring. Stránka se připravuje.</t>
-
-        <div id="wrap" class="oe_structure oe_empty hh-landing hh-wip">
-            <section class="hh-wip__hero o_cc o_colored_level">
-                <div class="hh-wip__bg-glow"/>
-                <div class="hh-wip__bg-glow hh-wip__bg-glow--secondary"/>
-                <div class="container">
-                    <div class="hh-wip__content">
-                        <div class="hh-wip__badge">
-                            <span class="hh-badge hh-badge--warm">Work in Progress</span>
-                        </div>
-                        <h1 class="hh-wip__title">
-                            Něco <em>skvělého</em><br/>se připravuje
-                        </h1>
-                        <p class="hh-wip__sub">
-                            Pracuji na novém webu, který ti pomůže začít žít naplno.
-                            Mezitím mě můžeš sledovat.
-                        </p>
-                        <div class="hh-wip__divider"/>
-                        <div class="hh-wip__contact">
-                            <h2 class="hh-wip__contact-title">
-                                Kontaktuj <span class="hh-text-gradient-warm">Honzu</span>
-                            </h2>
-                            <div class="hh-wip__contact-grid">
-                                <a href="mailto:honzahauzr@gmail.com" class="hh-wip__contact-item">
-                                    <div class="hh-wip__contact-icon">
-                                        <i class="fa fa-envelope" style="font-size: 22px; color: #4a90d9;"/>
-                                    </div>
-                                    <div>
-                                        <span class="hh-wip__contact-label">E-mail</span>
-                                        <strong>honzahauzr@gmail.com</strong>
-                                    </div>
-                                </a>
-                                <a href="https://www.instagram.com/honzahauzr.cz/" target="_blank" rel="noopener" class="hh-wip__contact-item">
-                                    <div class="hh-wip__contact-icon">
-                                        <i class="fa fa-instagram" style="font-size: 22px; color: #4a90d9;"/>
-                                    </div>
-                                    <div>
-                                        <span class="hh-wip__contact-label">Instagram</span>
-                                        <strong>@honzahauzr.cz</strong>
-                                    </div>
-                                </a>
-                                <a href="https://www.facebook.com/honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
-                                    <div class="hh-wip__contact-icon">
-                                        <i class="fa fa-facebook" style="font-size: 22px; color: #4a90d9;"/>
-                                    </div>
-                                    <div>
-                                        <span class="hh-wip__contact-label">Facebook</span>
-                                        <strong>Honza Hauzr</strong>
-                                    </div>
-                                </a>
-                                <a href="https://www.youtube.com/@HonzaHauzr_cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
-                                    <div class="hh-wip__contact-icon">
-                                        <i class="fa fa-youtube-play" style="font-size: 22px; color: #4a90d9;"/>
-                                    </div>
-                                    <div>
-                                        <span class="hh-wip__contact-label">YouTube</span>
-                                        <strong>@HonzaHauzr_cz</strong>
-                                    </div>
-                                </a>
-                                <a href="https://www.tiktok.com/@honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
-                                    <div class="hh-wip__contact-icon">
-                                        <i class="fa fa-music" style="font-size: 22px; color: #4a90d9;"/>
-                                    </div>
-                                    <div>
-                                        <span class="hh-wip__contact-label">TikTok</span>
-                                        <strong>@honzahauzr.cz</strong>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="hh-wip__footer-text">
-                            <p>Osobní rozvoj &#8226; Koučink &#8226; Mentoring</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </t>
-</template>
-
-<record id="hh_page_wip_page" model="theme.website.page">
-    <field name="url">/wip</field>
-    <field name="view_id" ref="hh_page_wip"/>
+<record id="hh_page_landing_blue_page" model="theme.website.page">
+    <field name="url">/blue</field>
+    <field name="view_id" ref="hh_page_landing_blue"/>
     <field name="is_published" eval="True"/>
 </record>
 

@@ -20,24 +20,42 @@
                     <div data-anim="fade-up" data-delay="250">
                         <div class="hh-final-cta__urgency">Volná kapacita pro 5 nových klientů</div>
                     </div>
-                    <form class="hh-form" data-anim="fade-up" data-delay="350" action="/mv-landing/contact" method="POST">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <input type="hidden" name="crm_note" value="kontakt z honzahauzr.cz"/>
-                        <input type="text" name="name" placeholder="Tvé jméno *" required="required" minlength="2"/>
-                        <input type="email" name="email" placeholder="Tvůj e-mail *" required="required"/>
-                        <input type="tel" name="phone" placeholder="Telefon"/>
-                        <select name="interest" required="required">
-                            <option value="" disabled="disabled" selected="selected">Mám zájem o... *</option>
-                            <option value="individualni-koucink">Individuální koučink</option>
-                            <option value="skupinovy-program">Skupinový program</option>
-                            <option value="workshop">Workshop nebo přednáška</option>
-                            <option value="firemni-spoluprace">Firemní spolupráce</option>
-                            <option value="konzultace">Jen konzultace zdarma</option>
-                        </select>
-                        <textarea name="message" placeholder="Co bys chtěl/a změnit? Napiš cokoliv..." rows="3"/>
-                        <button type="submit" class="hh-btn hh-btn--primary hh-btn--large">
-                            Odeslat nezávaznou přihlášku
-                        </button>
+                    <form class="hh-form s_website_form" data-anim="fade-up" data-delay="350"
+                          action="/website/form/" method="post" enctype="multipart/form-data"
+                          data-model_name="crm.lead" data-success-mode="message">
+                        <div class="s_website_form_rows">
+                            <div class="s_website_form_field s_website_form_dnone">
+                                <input type="hidden" class="s_website_form_input" name="name" value="Poptávka z honzahauzr.cz"/>
+                            </div>
+                            <div class="s_website_form_field mb-3 s_website_form_required" data-type="char">
+                                <input class="hh-form__input s_website_form_input" type="text" name="contact_name" required="1" placeholder="Tvé jméno *"/>
+                            </div>
+                            <div class="s_website_form_field mb-3 s_website_form_model_required" data-type="email">
+                                <input class="hh-form__input s_website_form_input" type="email" name="email_from" required="1" placeholder="Tvůj e-mail *"/>
+                            </div>
+                            <div class="s_website_form_field mb-3" data-type="tel">
+                                <input class="hh-form__input s_website_form_input" type="tel" name="phone" placeholder="Telefon"/>
+                            </div>
+                            <div class="s_website_form_field mb-3 s_website_form_custom s_website_form_required" data-type="char">
+                                <select class="hh-form__input s_website_form_input" name="interest" required="1">
+                                    <option value="" disabled="disabled" selected="selected">Mám zájem o... *</option>
+                                    <option value="Individuální koučink">Individuální koučink</option>
+                                    <option value="Skupinový program">Skupinový program</option>
+                                    <option value="Workshop nebo přednáška">Workshop nebo přednáška</option>
+                                    <option value="Firemní spolupráce">Firemní spolupráce</option>
+                                    <option value="Jen konzultace zdarma">Jen konzultace zdarma</option>
+                                </select>
+                            </div>
+                            <div class="s_website_form_field mb-3" data-type="text">
+                                <textarea class="hh-form__input s_website_form_input" name="description" placeholder="Co bys chtěl/a změnit? Napiš cokoliv..." rows="3"/>
+                            </div>
+                            <div class="s_website_form_submit mb-0">
+                                <span id="s_website_form_result"/>
+                                <a href="#" role="button" class="hh-btn hh-btn--primary hh-btn--large s_website_form_send">
+                                    Odeslat nezávaznou přihlášku
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

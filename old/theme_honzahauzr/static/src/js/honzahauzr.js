@@ -203,4 +203,5 @@
 
         stickyObserver.observe(heroEl);
     }
+
 })();
