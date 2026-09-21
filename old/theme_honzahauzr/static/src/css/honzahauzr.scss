@@ -1871,10 +1871,20 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     visibility: visible !important;
     margin: 0 !important;
 }
-/* Odoo si pri "affixed" stavu obcas dopocitava odsazeni obsahu.
-   Lista je v toku (sticky), takze zadne odsazeni netreba. */
+/* Odoo pri "affixed" stavu dopocitava odsazeni obsahu za hlavicku.
+   Konkretne nasadi na <main> INLINE style="padding-top: 60px" v okamziku,
+   kdy prida tridu o_header_affixed - pocita s tim, ze hlavicka vyskocila
+   z toku a obsah by se pod ni schoval.
+   Lista je ale u nas position: sticky, tedy v toku porad. Kompenzace je
+   proto cista navic: dokument se pri prekroceni prahu natahne o 60 px,
+   prohlizec dorovna scroll (scroll anchoring) a stranka poskoci. Prah
+   lezi hned pod hlavickou, takze to skakalo prave pres hero sekci.
+   Nulovat se musi s !important - proti inline stylu jinak neprojdeme. */
 #wrapwrap.o_header_affixed_padding,
-#wrapwrap > header#top + * { margin-top: 0 !important; }
+#wrapwrap > header#top + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
 
 /* vyska listy se nesmi pri rolovani menit, jinak obsah poskakuje */
 #wrapwrap > header#top .navbar,
