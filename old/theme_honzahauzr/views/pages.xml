@@ -12,25 +12,24 @@
              coz tu nastavenou hlavicku i s logem zahodilo. -->
         <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Začni žít naplno</t>
-        <t t-set="meta_description">Pomáhám lidem, kteří fungují na autopilotu, vrátit si směr, hranice a respekt k sobě. Domluv si nezávazný úvodní hovor.</t>
+        <t t-set="meta_description">Pomáhám mužům, kteří navenek fungují, ale uvnitř vědí, že takhle už nechtějí pokračovat. Bezplatná třídenní výzva Z autopilota zpátky do života.</t>
 
         <div id="wrap" class="oe_structure oe_empty hh-landing">
 
             <!-- ============================================================
-                 Poradi bloku podle zadani klienta:
-                 hero - v cem se poznas - muj pribeh - jak pracuji -
-                 hlavni vyzva - newsletter - paticka.
+                 Poradi bloku:
+                 hero - v cem se poznas - jak pracuji - muj pribeh -
+                 newsletter - paticka.
 
-                 Vsechna hlavni tlacitka maji stejny popisek "Zacni zde zdarma".
-                 Cilova adresa landing page vyzvy zatim neexistuje, proto vsude
-                 miri na kotvu #zacni. Az adresa bude, preklopi se najednou -
-                 staci nahradit href="#zacni".
+                 Na cele strance je zamerne JEDINA vyzva k akci, v heru.
+                 Cilova adresa landing page vyzvy zatim neexistuje, proto
+                 miri na kotvu #zacni. Az adresa bude, staci ji nahradit.
 
                  Zamerne tu NENI: rezervace hovoru, kalendar, popis programu
                  Tvuj tah, PDF zdarma, reference ani cisla.
                  ============================================================ -->
 
-            <!-- 2. UVODNI OBRAZOVKA -->
+            <!-- 1. UVODNI OBRAZOVKA -->
             <!-- Fotka je na pozadi sekce pres oe_img_bg, aby sla v Odoo editoru
                  vymenit pres volbu Pozadi. -->
             <section class="hh-hero o_cc o_colored_level oe_img_bg o_bg_img_center" id="hero"
@@ -49,14 +48,11 @@
                         <div class="hh-hero__ctas" data-anim="fade-up" data-delay="300">
                             <a href="#zacni" class="hh-btn hh-btn--primary hh-btn--large">Začni zde zdarma</a>
                         </div>
-                        <p class="hh-hero__note" data-anim="fade-up" data-delay="400">
-                            Bezplatná třídenní výzva Z autopilota zpátky do života.
-                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- 3. V CEM SE MUZE NAVSTEVNIK POZNAT -->
+            <!-- 2. V CEM SE MUZE NAVSTEVNIK POZNAT -->
             <section class="hh-pain o_cc o_colored_level" id="problemy">
                 <div class="container">
                     <div class="hh-pain__header">
@@ -76,6 +72,31 @@
                         </div>
                         <div class="hh-pain__card" data-anim="fade-up" data-delay="320">
                             <p>Navenek máš výsledky, ale chybí ti směr a nevíš, co vlastně buduješ.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. JAK PRACUJI -->
+            <section class="hh-approach o_cc o_colored_level" id="jak-pracuji">
+                <div class="container">
+                    <div class="hh-approach__header">
+                        <h2 data-anim="fade-up">
+                            Tvoje cesta začíná u toho,<br/>co <span class="hh-text-gradient-warm">můžeš ovlivnit</span>
+                        </h2>
+                    </div>
+                    <div class="hh-approach__grid">
+                        <div class="hh-approach__item" data-anim="fade-up" data-delay="80">
+                            <h3>Pravda místo výmluv</h3>
+                        </div>
+                        <div class="hh-approach__item" data-anim="fade-up" data-delay="160">
+                            <h3>Odpovědnost místo čekání</h3>
+                        </div>
+                        <div class="hh-approach__item" data-anim="fade-up" data-delay="240">
+                            <h3>Konkrétní kroky místo další teorie</h3>
+                        </div>
+                        <div class="hh-approach__item" data-anim="fade-up" data-delay="320">
+                            <h3>Vlastní pravidla místo života podle očekávání okolí</h3>
                         </div>
                     </div>
                 </div>
@@ -136,32 +157,7 @@
                 </div>
             </section>
 
-            <!-- 5. JAK PRACUJI -->
-            <section class="hh-approach o_cc o_colored_level" id="jak-pracuji">
-                <div class="container">
-                    <div class="hh-approach__header">
-                        <h2 data-anim="fade-up">
-                            Tvoje cesta začíná u toho,<br/>co <span class="hh-text-gradient-warm">můžeš ovlivnit</span>
-                        </h2>
-                    </div>
-                    <div class="hh-approach__grid">
-                        <div class="hh-approach__item" data-anim="fade-up" data-delay="80">
-                            <h3>Pravda místo výmluv</h3>
-                        </div>
-                        <div class="hh-approach__item" data-anim="fade-up" data-delay="160">
-                            <h3>Odpovědnost místo čekání</h3>
-                        </div>
-                        <div class="hh-approach__item" data-anim="fade-up" data-delay="240">
-                            <h3>Konkrétní kroky místo další teorie</h3>
-                        </div>
-                        <div class="hh-approach__item" data-anim="fade-up" data-delay="320">
-                            <h3>Vlastní pravidla místo života podle očekávání okolí</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 7. NEWSLETTER -->
+            <!-- 5. NEWSLETTER -->
             <!-- Zamerne mensi a klidnejsi nez vyzva - je to vedlejsi moznost,
                  ne druha hlavni nabidka. Zadne PDF, zadne vyskakovaci okno.
                  Napojeni se doresi pozdeji, zatim jde o vizualni podobu. -->

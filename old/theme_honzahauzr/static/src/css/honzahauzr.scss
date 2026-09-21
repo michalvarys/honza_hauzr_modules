@@ -2018,13 +2018,6 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
    hero poznamka - opakovana CTA - hlavni vyzva - newsletter
    ============================================================ */
 
-/* Vetička pod hlavnim tlacitkem v heru */
-.hh-hero__note {
-    margin-top: 16px;
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-}
 
 /* Zadani chce zopakovat tlacitko po hlavnich blocich, ne po kazdem
    odstavci. Tenhle radek se proto vklada jen za "poznas se" a
@@ -2214,4 +2207,12 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     .hh-landing .hh-news__form { flex-direction: column; align-items: stretch; }
     .hh-landing .hh-news__form .s_website_form_field { min-width: 0; }
     .hh-landing .hh-news__form .s_website_form_send { width: 100%; }
+}
+
+/* Nadpis sekce "v cem se poznas" sedel karty prilis natesno - vypadalo
+   to jako jeden slepenec. Mezera je dost velka, aby si nadpis oddechl,
+   ale porad mensi nez odstup sekci, takze je jasne, ze patri k sobe. */
+.hh-landing .hh-pain__header { margin-bottom: 44px; }
+@media (max-width: 768px) {
+    .hh-landing .hh-pain__header { margin-bottom: 30px; }
 }
