@@ -857,7 +857,9 @@
 .hh-story__header { text-align: center; max-width: 720px; margin: 0 auto 60px; }
 .hh-story__header h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin-bottom: 16px; }
 .hh-story__header p { color: var(--hh-text-light); font-size: 1.05rem; }
-.hh-story__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 940px; margin: 0 auto; }
+/* Rozestup je v promenne, protoze se z nej pocita svisla poloha sipky
+   mezi fotkami - viz .hh-story__pair::before nize. */
+.hh-story__pair { --hh-pair-gap: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: var(--hh-pair-gap); max-width: 940px; margin: 0 auto; }
 .hh-story__photo { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; background: #14141a; }
 .hh-story__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Popisky DRIV / DNES.
@@ -1171,7 +1173,8 @@ html:has(.hh-landing) {
     content: "\2192";
     position: absolute;
     left: 50%;
-    top: 34%;
+    top: 0;
+    margin-top: calc((100% - var(--hh-pair-gap)) * 0.3125);
     z-index: 3;
     width: 44px; height: 44px;
     display: grid; place-items: center;
@@ -1189,7 +1192,8 @@ html:has(.hh-landing) {
     content: "";
     position: absolute;
     left: 50%;
-    top: 34%;
+    top: 0;
+    margin-top: calc((100% - var(--hh-pair-gap)) * 0.3125);
     z-index: 2;
     width: 44px; height: 44px;
     border-radius: 50%;
@@ -1220,7 +1224,7 @@ html:has(.hh-landing) {
 
 @media (max-width: 768px) {
     /* zustava 2 sloupce - vedle sebe je videt promena, pod sebou ne */
-    .hh-landing .hh-story__pair { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hh-landing .hh-story__pair { --hh-pair-gap: 10px; grid-template-columns: 1fr 1fr; }
     .hh-landing .hh-story__photo { border-radius: 16px; }
     /* Fotky jsou na mobilu vedle sebe, takze mista je malo - popisek se
        zmensi, ale musi zustat citelny. Tecka by uz byla jen smetim. */
