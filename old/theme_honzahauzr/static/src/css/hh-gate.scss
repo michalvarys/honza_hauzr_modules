@@ -188,24 +188,9 @@
     border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
 }
 
-/* ---------- zavreni ---------- */
-.hh-gate__skip {
-    position: absolute;
-    right: 18px;
-    top: 14px;
-    z-index: 3;
-    width: 34px;
-    height: 34px;
-    line-height: 1;
-    background: none;
-    border: 0;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1.6rem;
-    cursor: pointer;
-    opacity: 0;
-    animation: hhFadeIn 600ms ease forwards 2400ms;
-}
-.hh-gate__skip:hover { color: #fff; }
+/* Zadna moznost odejit stranou neni zamerne - na web pusti jedine
+   cervena pilulka. Klavesnici se na ni da dostat tabulatorem a odbavit
+   Enterem, takze i bez mysi cesta dovnitr existuje. */
 
 /* ---------- stavy ---------- */
 .hh-gate.is-choosing .hh-gate__stage { opacity: 0; transform: scale(1.04); }
@@ -227,6 +212,21 @@
 @keyframes hhBubbleIn {
     from { opacity: 0; transform: translateY(14px) scale(0.94); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Prepnuti na varovani po kliknuti na modrou pilulku. Bez teho poskoceni
+   by zmena textu prosla nepovsimnuta - uzivatel kouka na pilulku, ne na
+   bublinu. */
+/* opacity: 1 tu musi byt natvrdo. Tahle trida prepise zkratku animation,
+   cimz padne i puvodni hhBubbleIn vcetne jeho forwards - a bublina by se
+   vratila na vychozi opacity: 0, tedy by po zmene textu zmizela. */
+.hh-gate__bubble.is-swap {
+    opacity: 1;
+    animation: hhBubbleSwap 420ms cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+@keyframes hhBubbleSwap {
+    0%   { transform: scale(0.96); }
+    55%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }
 @keyframes hhPillIn {
     from { opacity: 0; transform: translate(-50%, calc(-50% + 20px)) scale(0.5); }
@@ -253,6 +253,19 @@
 
 html.hh-gate-active,
 html.hh-gate-active body { overflow: hidden; }
+
+/*
+   Zatemneni pred prvnim vykreslenim.
+
+   Tridu nasazuje inline skript v <head> (views/layout.xml) jeste nez se
+   vykresli telo, takze navstevnik neuvidi na okamzik hero sekci a az pak
+   branu. Skript ji taky po 3 s sam sundá, kdyby se hlavni JS nenacetl.
+
+   Schovava se pres visibility, ne display - obsah si tak podrzi rozmery
+   a stranka pod branou nepreskoci, az se odkryje.
+*/
+html.hh-gate-armed { background: #000; }
+html.hh-gate-armed #wrapwrap { visibility: hidden; }
 
 /* Na uzkem displeji je ramecek s ilustraci nizky a po stranach zbyva
    cerno. Bublina se proto presune nad nej pres celou sirku - vedle hlavy
@@ -284,9 +297,16 @@ html.hh-gate-active body { overflow: hidden; }
         border-width: 16px 10px 0 10px;
         border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
     }
+    /* Bublina je tu vycentrovana pres translateX(-50%), takze obe animace
+       musi ten posun nest s sebou - jinak by pri kazdem snimku uskocila. */
     @keyframes hhBubbleIn {
         from { opacity: 0; transform: translateX(-50%) translateY(14px) scale(0.94); }
         to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+    @keyframes hhBubbleSwap {
+        0%   { transform: translateX(-50%) scale(0.96); }
+        55%  { transform: translateX(-50%) scale(1.03); }
+        100% { transform: translateX(-50%) scale(1); }
     }
     .hh-gate__pill { min-width: 26px; }
 }

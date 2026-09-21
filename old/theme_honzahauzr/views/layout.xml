@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Prevence probliknuti hero sekce pred vstupni branou.
+
+    Branu sklada hh-gate.js az po nacteni dokumentu, takze prohlizec
+    stihne vykreslit hero a teprve pak ji prekryt. Uzivatel tedy na
+    okamzik uvidi web, coz kazi efekt.
+
+    Tenhle malinky skript bezi v <head> jeste pred vykreslenim tela
+    a nasadi na <html> tridu, ktera obsah schova. Je zamerne inline -
+    kdyby byl v bundlu, nacetl by se pozde a k nicemu by to nebylo.
+
+    Proc to nedelame jen v CSS: bez beziciho JS by nemel kdo obsah zase
+    odkryt a navstevnik by koukal na cernou stranku. Tridu proto nasazuje
+    az skript - kdyz JS nebezi, nic se neschova. Navic je tu pojistka:
+    po 3 sekundach se trida sundá sama i kdyby se hlavni skript vubec
+    nenacetl.
+-->
+
+<template id="hh_gate_arm" inherit_id="website.layout" name="HH brana - prevence probliknuti">
+    <xpath expr="//head" position="inside">
+        <script type="text/javascript">
+            (function () {
+                // jen na uvodni strance; v backendovem nahledu (iframe) ne
+                if (window.frameElement) { return; }
+                if (window.location.pathname !== "/") { return; }
+                try {
+                    if (window.sessionStorage.getItem("hhGateVidano") === "1") { return; }
+                } catch (e) { /* privatni okno - pokracujeme */ }
+
+                var d = document.documentElement;
+                d.classList.add("hh-gate-armed");
+                setTimeout(function () { d.classList.remove("hh-gate-armed"); }, 3000);
+            })();
+        </script>
+    </xpath>
+</template>
+
+</odoo>

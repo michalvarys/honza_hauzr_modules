@@ -17,19 +17,33 @@
     var KLIC = "hhGateVidano";      // v ramci jedne navstevy staci jednou
     var FOTKA = "/theme_honzahauzr/static/src/img/gate-morpheus.webp";
 
+    var UVOD = "Tohle je tvoje poslední šance. Potom už není cesty zpět. " +
+        "Vezmeš modrou pilulku – příběh končí, probudíš se ve své posteli a uvěříš " +
+        "čemukoli, čemu chceš věřit. Vezmeš červenou pilulku – zůstaneš v říši divů " +
+        "a já ti ukážu, jak hluboká je králičí nora.";
+
+    var VAROVANI = "Jsi si tím opravdu jistý? Vážně nechceš poznat pravdu? " +
+        "Pokud se rozhodneš pro modrou pilulku, všechno skončí – a už nikdy nebudeš mít šanci zjistit";
+
     function vEditoru() {
         return !!document.querySelector(".o_editable, #oe_snippets, .o_we_website_top_actions") ||
                document.body.classList.contains("editor_enable") ||
                window.frameElement !== null;   // nahled webu v backendu bezi v iframe
     }
 
+    // Zatemneni z <head> musi jit pryc vzdy, kdyz branu nestavime -
+    // jinak by stranka zustala schovana az do vyprseni pojistky.
+    function odemknout() {
+        document.documentElement.classList.remove("hh-gate-armed");
+    }
+
     function spustit() {
         // jen na landing strance - na /wip ani v administraci nema co delat
-        if (!document.querySelector(".hh-landing")) return;
-        if (vEditoru()) return;
+        if (!document.querySelector(".hh-landing")) { odemknout(); return; }
+        if (vEditoru()) { odemknout(); return; }
 
         try {
-            if (sessionStorage.getItem(KLIC) === "1") return;
+            if (sessionStorage.getItem(KLIC) === "1") { odemknout(); return; }
         } catch (e) {
             /* privatni okno muze pristup zakazat - branu proste ukazeme */
         }
@@ -51,10 +65,7 @@
             '<div class="hh-gate__door hh-gate__door--right"></div>' +
             '<div class="hh-gate__stage">' +
                 '<div class="hh-gate__scene">' +
-                    '<p class="hh-gate__bubble">Tohle je tvoje poslední šance. Potom už není cesty zpět. ' +
-                    'Vezmeš modrou pilulku – příběh končí, probudíš se ve své posteli a uvěříš čemukoli, ' +
-                    'čemu chceš věřit. Vezmeš červenou pilulku – zůstaneš v říši divů a já ti ukážu, ' +
-                    'jak hluboká je králičí nora.</p>' +
+                    '<p class="hh-gate__bubble" aria-live="polite"></p>' +
                     /* Stin lezi na dlani a zustava na miste - proto je to
                        samostatny prvek, ne pseudoprvek pilulky. Kdyby byl
                        soucasti tlacitka, poskakoval by s nim a dojem
@@ -64,11 +75,16 @@
                     '<button type="button" class="hh-gate__pill hh-gate__pill--blue" aria-label="Modrá pilulka - vstoupit"></button>' +
                     '<button type="button" class="hh-gate__pill hh-gate__pill--red" aria-label="Červená pilulka - vstoupit"></button>' +
                 '</div>' +
-            '</div>' +
-            '<button type="button" class="hh-gate__skip" aria-label="Přeskočit">&#215;</button>';
+            '</div>';
+
+        brana.querySelector(".hh-gate__bubble").textContent = UVOD;
 
         document.body.appendChild(brana);
         document.documentElement.classList.add("hh-gate-active");
+        // Brana uz sama prekryva celou plochu, takze zatemneni z <head>
+        // muze pryc. Kdyby zustalo, dvere by se pri otevirani rozjely
+        // a odhalily prazdno misto webu.
+        odemknout();
 
         // Kdyz fotka dlani chybi, nedelame z toho chybu - jen zustanou
         // pilulky ve tme. Vrstva tak funguje i bez doplneneho souboru.
@@ -100,14 +116,24 @@
             }, dobaSceny + dobaDveri + 120);
         }
 
-        brana.querySelectorAll(".hh-gate__pill").forEach(function (p) {
-            p.addEventListener("click", function () { otevrit(p); });
-        });
-        brana.querySelector(".hh-gate__skip").addEventListener("click", function () { otevrit(null); });
+        /* Na web pusti jen cervena pilulka. Modra misto toho prepise
+           bublinu na varovani - Morpheus se jeste jednou zeptá. Dalsi
+           kliknuti na modrou uz nic nemeni, text zustava. */
+        var bublina = brana.querySelector(".hh-gate__bubble");
+        var varovano = false;
 
-        // Esc funguje jako preskoceni - nikoho tu nedrzime nasilim
-        document.addEventListener("keydown", function (ev) {
-            if (ev.key === "Escape") { otevrit(null); }
+        brana.querySelector(".hh-gate__pill--blue").addEventListener("click", function () {
+            if (varovano) { return; }
+            varovano = true;
+            bublina.textContent = VAROVANI;
+            // restart animace bubliny, aby zmena textu neprosla bez povsimnuti
+            bublina.classList.remove("is-swap");
+            void bublina.offsetWidth;
+            bublina.classList.add("is-swap");
+        });
+
+        brana.querySelector(".hh-gate__pill--red").addEventListener("click", function () {
+            otevrit(brana.querySelector(".hh-gate__pill--red"));
         });
     }
 
