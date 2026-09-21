@@ -1,0 +1,7 @@
+.DS_Store
+docker-compose.override.yml
+.playwright-mcp/
+.blue/
+.sheets/
+__pycache__/
+*.pyc
