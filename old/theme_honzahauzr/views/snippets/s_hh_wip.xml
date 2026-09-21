@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_wip" name="HH Work in Progress">
+    <section class="hh-wip__hero o_cc o_colored_level"
+             data-snippet="s_hh_wip"
+             data-name="HH Work in Progress">
+        <div class="hh-wip__bg-glow"/>
+        <div class="hh-wip__bg-glow hh-wip__bg-glow--secondary"/>
+        <div class="container">
+            <div class="hh-wip__content">
+                <div class="hh-wip__badge">
+                    <span class="hh-badge hh-badge--warm">Work in Progress</span>
+                </div>
+                <h1 class="hh-wip__title">
+                    Něco <em>skvělého</em><br/>se připravuje
+                </h1>
+                <p class="hh-wip__sub">
+                    Pracuji na novém webu, který ti pomůže začít žít naplno.
+                    Mezitím mě můžeš sledovat.
+                </p>
+                <div class="hh-wip__divider"/>
+                <div class="hh-wip__contact">
+                    <h2 class="hh-wip__contact-title">
+                        Kontaktuj <span class="hh-text-gradient-warm">Honzu</span>
+                    </h2>
+                    <div class="hh-wip__contact-grid">
+                        <a href="mailto:honzahauzr@gmail.com" class="hh-wip__contact-item">
+                            <div class="hh-wip__contact-icon">
+                                <i class="fa fa-envelope" style="font-size: 22px; color: #ff8c42;"/>
+                            </div>
+                            <div>
+                                <span class="hh-wip__contact-label">E-mail</span>
+                                <strong>honzahauzr@gmail.com</strong>
+                            </div>
+                        </a>
+                        <a href="https://www.instagram.com/honzahauzr.cz/" target="_blank" rel="noopener" class="hh-wip__contact-item">
+                            <div class="hh-wip__contact-icon">
+                                <i class="fa fa-instagram" style="font-size: 22px; color: #ff8c42;"/>
+                            </div>
+                            <div>
+                                <span class="hh-wip__contact-label">Instagram</span>
+                                <strong>@honzahauzr.cz</strong>
+                            </div>
+                        </a>
+                        <a href="https://www.facebook.com/honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
+                            <div class="hh-wip__contact-icon">
+                                <i class="fa fa-facebook" style="font-size: 22px; color: #ff8c42;"/>
+                            </div>
+                            <div>
+                                <span class="hh-wip__contact-label">Facebook</span>
+                                <strong>Honza Hauzr</strong>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@HonzaHauzr_cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
+                            <div class="hh-wip__contact-icon">
+                                <i class="fa fa-youtube-play" style="font-size: 22px; color: #ff8c42;"/>
+                            </div>
+                            <div>
+                                <span class="hh-wip__contact-label">YouTube</span>
+                                <strong>@HonzaHauzr_cz</strong>
+                            </div>
+                        </a>
+                        <a href="https://www.tiktok.com/@honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
+                            <div class="hh-wip__contact-icon">
+                                <i class="fa fa-music" style="font-size: 22px; color: #ff8c42;"/>
+                            </div>
+                            <div>
+                                <span class="hh-wip__contact-label">TikTok</span>
+                                <strong>@honzahauzr.cz</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="hh-wip__footer-text">
+                    <p>Osobní rozvoj &#8226; Koučink &#8226; Mentoring</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

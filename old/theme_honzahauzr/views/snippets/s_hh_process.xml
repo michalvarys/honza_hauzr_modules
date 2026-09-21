@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_process" name="HH Process">
+    <section class="hh-process o_cc o_colored_level"
+             data-snippet="s_hh_process"
+             data-name="HH Process">
+        <div class="container">
+            <div class="hh-process__header">
+                <span class="hh-badge hh-badge--green" data-anim="fade-up">Jak to funguje</span>
+                <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                    3 kroky k <span class="hh-text-gradient-warm">tvé změně</span>
+                </h2>
+            </div>
+            <div class="hh-process__steps">
+                <div class="hh-process__step" data-anim="fade-up" data-delay="100">
+                    <div class="hh-process__step-photo">
+                        <img src="/theme_honzahauzr/static/src/img/content/step-consultation.jpg"
+                             class="img-fluid w-100 rounded-4" alt="Konzultace"
+                             style="object-fit: cover; height: 200px;"/>
+                    </div>
+                    <div class="hh-process__step-num">1</div>
+                    <h3>První konzultace zdarma</h3>
+                    <p>Podíváme se, kde jsi a kam chceš. Bez závazků, bez tlaku.</p>
+                </div>
+                <div class="hh-process__step" data-anim="fade-up" data-delay="250">
+                    <div class="hh-process__step-photo">
+                        <img src="/theme_honzahauzr/static/src/img/content/step-plan.jpg"
+                             class="img-fluid w-100 rounded-4" alt="Plán"
+                             style="object-fit: cover; height: 200px;"/>
+                    </div>
+                    <div class="hh-process__step-num">2</div>
+                    <h3>Plán na míru</h3>
+                    <p>Společně vytvoříme konkrétní plán — co změnit, jak a kdy.</p>
+                </div>
+                <div class="hh-process__step" data-anim="fade-up" data-delay="400">
+                    <div class="hh-process__step-photo">
+                        <img src="/theme_honzahauzr/static/src/img/content/step-results.jpg"
+                             class="img-fluid w-100 rounded-4" alt="Výsledky"
+                             style="object-fit: cover; height: 200px;"/>
+                    </div>
+                    <div class="hh-process__step-num">3</div>
+                    <h3>Realizace a podpora</h3>
+                    <p>Provázím tě celou cestou. Pravidelná sezení a slavení pokroku.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

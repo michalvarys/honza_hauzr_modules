@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_testimonials" name="HH Testimonials">
+    <section class="hh-testimonials o_cc o_colored_level"
+             data-snippet="s_hh_testimonials"
+             data-name="HH Testimonials">
+        <div class="container">
+            <div class="hh-testimonials__header">
+                <span class="hh-badge hh-badge--warm" data-anim="fade-up">Ohlasy</span>
+                <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
+                    Co říkají <span class="hh-text-gradient-warm">lidé, kteří prošli změnou</span>
+                </h2>
+            </div>
+            <div class="hh-testimonials__grid">
+                <div class="hh-testimonial" data-anim="fade-up" data-delay="100">
+                    <div class="hh-testimonial__stars">
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                    </div>
+                    <p class="hh-testimonial__text">"S Honzou jsem během 3 měsíců změnila práci a konečně
+                        se cítím jako já sama. Nejlepší investice do sebe."</p>
+                    <div class="hh-testimonial__author">
+                        <strong>Petra K.</strong><span>Marketing Manager</span>
+                    </div>
+                </div>
+                <div class="hh-testimonial" data-anim="fade-up" data-delay="250">
+                    <div class="hh-testimonial__stars">
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                    </div>
+                    <p class="hh-testimonial__text">"Po 2 měsících jsem konečně věděl, co chci od života
+                        a měl jsem odvahu to udělat."</p>
+                    <div class="hh-testimonial__author">
+                        <strong>Tomáš M.</strong><span>Software Developer</span>
+                    </div>
+                </div>
+                <div class="hh-testimonial" data-anim="fade-up" data-delay="400">
+                    <div class="hh-testimonial__stars">
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                    </div>
+                    <p class="hh-testimonial__text">"Honza má dar — umí klást otázky, na které si sama
+                        nedokážete odpovědět. Ty odpovědi vám změní život."</p>
+                    <div class="hh-testimonial__author">
+                        <strong>Lucie V.</strong><span>Podnikatelka</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

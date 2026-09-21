@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="s_hh_vision_strip" name="HH Vision Strip">
+    <section class="hh-vision-strip o_cc o_colored_level"
+             data-snippet="s_hh_vision_strip"
+             data-name="HH Vision Strip">
+        <div class="hh-vision-strip__photos">
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-mountains.jpg'); background-size: cover; background-position: center;"/>
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-friends.jpg'); background-size: cover; background-position: center;"/>
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-freefall.jpg'); background-size: cover; background-position: center;"/>
+        </div>
+        <div class="hh-vision-strip__overlay o_cc o_colored_level">
+            <div class="hh-vision-strip__text">
+                <h2 data-anim="fade-up">
+                    Takhle vypadá život,<br/>který si
+                    <span class="hh-text-gradient-warm">zasloužíš</span>
+                </h2>
+                <p data-anim="fade-up" data-delay="200">
+                    Ne za 10 let. Ne až bude správný čas.<br/>Teď. A já ti ukážu jak.
+                </p>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>
