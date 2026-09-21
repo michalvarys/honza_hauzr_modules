@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<!--
+    Registrace snippetu do editoru.
+
+    Odoo 18 ma dvoustupnovy model: skupiny v snippet_groups (dlazdice
+    Intro / Columns / Content ...) a samotne snippety v snippet_structure,
+    kde kazdy musi mit string a group.
+
+    Puvodne tu byla vlastni kategorie <snippets id="hh_snippets"> s holymi
+    t-snippet bez string a group. To je zapis ze starsi verze Odoo - snippety
+    se sice v panelu ukazaly, ale dostaly tridu o_disabled a neslo je nikam
+    pretahnout, protoze na jejich telo nesedela zadna templateOption s drop
+    zonou.
+-->
+
 <template id="honzahauzr_snippets" name="Honza Hauzr Snippets" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_structure']" position="after">
-        <snippets id="hh_snippets" string="Honza Hauzr">
-            <t t-snippet="theme_honzahauzr.s_hh_hero"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_vision_strip"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_vision_strip.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_pain"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_transform"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_transform.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_offer"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_offer.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_process"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_process.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_testimonials"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_testimonials.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_cta_form"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_cta_form.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_wip"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_wip.svg"/>
-        </snippets>
+
+    <!-- Vlastni skupina mezi dlazdicemi kategorii -->
+    <xpath expr="//snippets[@id='snippet_groups']//t[@id='installed_snippets_hook']" position="before">
+        <t snippet-group="honzahauzr" t-snippet="website.s_snippet_group" string="Honza Hauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
     </xpath>
+
+    <!-- Snippety samotne -->
+    <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+        <t t-snippet="theme_honzahauzr.s_hh_hero" string="HH Hero Banner" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_vision_strip" string="HH Vision Strip" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_vision_strip.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_pain" string="HH Pain" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_transform" string="HH Transformation" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_transform.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_offer" string="HH Offer" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_offer.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_process" string="HH Process" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_process.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_testimonials" string="HH Testimonials" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_testimonials.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_cta_form" string="HH Final CTA Form" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_cta_form.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_footer" string="HH Footer" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_footer.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_sticky_cta" string="HH Sticky CTA" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_sticky_cta.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_wip" string="HH Work in Progress" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_wip.png"/>
+    </xpath>
+
 </template>
 
 </odoo>

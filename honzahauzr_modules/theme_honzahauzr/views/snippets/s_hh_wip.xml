@@ -22,12 +22,12 @@
                 <div class="hh-wip__divider"/>
                 <div class="hh-wip__contact">
                     <h2 class="hh-wip__contact-title">
-                        Kontaktuj <span class="hh-text-gradient-warm">Honzu</span>
+                        Kontaktuj <span class="hh-text-gradient">Honzu</span>
                     </h2>
                     <div class="hh-wip__contact-grid">
                         <a href="mailto:honzahauzr@gmail.com" class="hh-wip__contact-item">
                             <div class="hh-wip__contact-icon">
-                                <i class="fa fa-envelope" style="font-size: 22px; color: #ff8c42;"/>
+                                <i class="fa fa-envelope" style="font-size: 22px; color: #4a90d9;"/>
                             </div>
                             <div>
                                 <span class="hh-wip__contact-label">E-mail</span>
@@ -36,7 +36,7 @@
                         </a>
                         <a href="https://www.instagram.com/honzahauzr.cz/" target="_blank" rel="noopener" class="hh-wip__contact-item">
                             <div class="hh-wip__contact-icon">
-                                <i class="fa fa-instagram" style="font-size: 22px; color: #ff8c42;"/>
+                                <i class="fa fa-instagram" style="font-size: 22px; color: #4a90d9;"/>
                             </div>
                             <div>
                                 <span class="hh-wip__contact-label">Instagram</span>
@@ -45,7 +45,7 @@
                         </a>
                         <a href="https://www.facebook.com/honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
                             <div class="hh-wip__contact-icon">
-                                <i class="fa fa-facebook" style="font-size: 22px; color: #ff8c42;"/>
+                                <i class="fa fa-facebook" style="font-size: 22px; color: #4a90d9;"/>
                             </div>
                             <div>
                                 <span class="hh-wip__contact-label">Facebook</span>
@@ -54,7 +54,7 @@
                         </a>
                         <a href="https://www.youtube.com/@HonzaHauzr_cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
                             <div class="hh-wip__contact-icon">
-                                <i class="fa fa-youtube-play" style="font-size: 22px; color: #ff8c42;"/>
+                                <i class="fa fa-youtube-play" style="font-size: 22px; color: #4a90d9;"/>
                             </div>
                             <div>
                                 <span class="hh-wip__contact-label">YouTube</span>
@@ -63,7 +63,7 @@
                         </a>
                         <a href="https://www.tiktok.com/@honzahauzr.cz" target="_blank" rel="noopener" class="hh-wip__contact-item">
                             <div class="hh-wip__contact-icon">
-                                <i class="fa fa-music" style="font-size: 22px; color: #ff8c42;"/>
+                                <i class="fa fa-music" style="font-size: 22px; color: #4a90d9;"/>
                             </div>
                             <div>
                                 <span class="hh-wip__contact-label">TikTok</span>

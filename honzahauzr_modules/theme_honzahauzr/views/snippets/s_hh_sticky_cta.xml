@@ -5,7 +5,7 @@
     <div class="hh-sticky-cta" id="hhStickyCta"
          data-snippet="s_hh_sticky_cta"
          data-name="HH Sticky CTA">
-        <span class="hh-sticky-cta__text">Chci žít <strong class="hh-text-gradient-warm">naplno</strong></span>
+        <span class="hh-sticky-cta__text">Chci žít <strong class="hh-text-gradient">naplno</strong></span>
         <a href="#kontakt" class="hh-btn hh-btn--warm">Bezplatná konzultace</a>
     </div>
 </template>
