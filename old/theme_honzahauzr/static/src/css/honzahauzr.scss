@@ -1720,3 +1720,122 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     .hh-testimonials__grid { grid-template-columns: 1fr; gap: 16px; }
     .hh-testimonial { padding: 24px 20px; }
 }
+
+/* ============================================================
+   HORNI LISTA
+   Hlavicku vykresluje Odoo (website.layout) a ve vychozim stavu je
+   bila se stinem, coz na tmavem webu bije do oci. Tady se prebarvuje
+   na tmave sklo. Obsah listy (logo, polozky menu) zustava nastaveny
+   v Odoo, tohle je jen vzhled.
+   ============================================================ */
+#wrapwrap > header#top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: transparent;
+}
+/* Pozadi a rozostreni jdou na pseudoprvek, NE na .navbar samotnou.
+   backdrop-filter na rodici vytvori containing block a offcanvas menu
+   uvnitr hlavicky pak prestane byt position:fixed vuci oknu - vyjede
+   375px vpravo a udela vodorovny scroll pres celou stranku. */
+#wrapwrap > header#top .navbar {
+    position: relative;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#wrapwrap > header#top .navbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(10, 10, 15, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background 0.3s ease;
+}
+
+/* Logo */
+#wrapwrap > header#top .navbar-brand.logo img {
+    max-height: 42px;
+    width: auto;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+#wrapwrap > header#top .navbar-brand.logo:hover img {
+    transform: translateY(-1px);
+    filter: brightness(1.12);
+}
+
+/* Polozky menu */
+#wrapwrap > header#top .top_menu .nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 2px !important;
+    margin: 0 14px;
+    transition: color 0.2s ease;
+}
+#wrapwrap > header#top .top_menu .nav-link:hover,
+#wrapwrap > header#top .top_menu .nav-item.active .nav-link {
+    color: #fff !important;
+}
+/* podtrzeni vyjizdi zleva */
+#wrapwrap > header#top .top_menu .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    border-radius: 2px;
+    background: var(--hh-gradient-warm, linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+#wrapwrap > header#top .top_menu .nav-link:hover::after,
+#wrapwrap > header#top .top_menu .nav-item.active .nav-link::after {
+    transform: scaleX(1);
+}
+
+/* Tlacitka a ikony v lite */
+#wrapwrap > header#top .btn-primary {
+    background: var(--hh-gradient-warm, linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%));
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 600;
+    box-shadow: 0 4px 18px rgba(74, 144, 217, 0.32);
+}
+#wrapwrap > header#top .btn-primary:hover {
+    box-shadow: 0 8px 28px rgba(74, 144, 217, 0.5);
+    transform: translateY(-1px);
+}
+#wrapwrap > header#top .navbar-toggler,
+#wrapwrap > header#top .o_header_mobile .navbar-toggler {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
+}
+#wrapwrap > header#top .navbar-toggler-icon {
+    filter: invert(1) brightness(2);
+}
+
+/* Rozbalene mobilni menu */
+#wrapwrap > header#top .offcanvas,
+#wrapwrap > header#top .o_header_mobile .navbar-collapse {
+    background: rgba(10, 10, 15, 0.96);
+}
+#wrapwrap > header#top .offcanvas .nav-link {
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 1.05rem;
+    padding: 12px 0 !important;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    #wrapwrap > header#top .navbar { padding-top: 6px; padding-bottom: 6px; }
+    #wrapwrap > header#top .navbar-brand.logo img { max-height: 34px; }
+}
