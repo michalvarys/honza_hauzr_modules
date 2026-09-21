@@ -23,7 +23,7 @@
         "a já ti ukážu, jak hluboká je králičí nora.";
 
     var VAROVANI = "Jsi si tím opravdu jistý? Vážně nechceš poznat pravdu? " +
-        "Pokud se rozhodneš pro modrou pilulku, všechno skončí – a už nikdy nebudeš mít šanci zjistit";
+        "Pokud se rozhodneš pro modrou pilulku, všechno skončí – a už nikdy nebudeš mít šanci zjistit pravdu.";
 
     function vEditoru() {
         return !!document.querySelector(".o_editable, #oe_snippets, .o_we_website_top_actions") ||
@@ -126,6 +126,8 @@
             if (varovano) { return; }
             varovano = true;
             bublina.textContent = VAROVANI;
+            // varovani patri na druhou stranu hlavy nez uvodni hlaska
+            bublina.classList.add("is-left");
             // restart animace bubliny, aby zmena textu neprosla bez povsimnuti
             bublina.classList.remove("is-swap");
             void bublina.offsetWidth;

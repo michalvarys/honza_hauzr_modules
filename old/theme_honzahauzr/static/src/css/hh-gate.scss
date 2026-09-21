@@ -188,6 +188,24 @@
     border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
 }
 
+/* Varovani po kliknuti na modrou stoji na druhe strane hlavy nez uvodni
+   hlaska - zmena strany sama o sobe rekne, ze se neco stalo.
+   Jen na sirokem displeji: na uzkem je bublina vycentrovana nad scenou,
+   kde leva a prava strana nedava smysl, a tahle pravidla by tamni
+   vystredeni rozbila (maji vyssi specificitu). */
+@media (min-width: 901px) {
+    .hh-gate__bubble.is-left {
+        left: auto;
+        right: 57%;
+    }
+    .hh-gate__bubble.is-left::after {
+        left: auto;
+        right: -14px;
+        border-width: 10px 0 10px 16px;
+        border-color: transparent transparent transparent rgba(255, 255, 255, 0.95);
+    }
+}
+
 /* Zadna moznost odejit stranou neni zamerne - na web pusti jedine
    cervena pilulka. Klavesnici se na ni da dostat tabulatorem a odbavit
    Enterem, takze i bez mysi cesta dovnitr existuje. */
