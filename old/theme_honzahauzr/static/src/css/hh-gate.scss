@@ -72,6 +72,11 @@
 */
 .hh-gate__scene {
     position: relative;
+    /* Scena je polozka flexboxu (.hh-gate__stage). Bez tohohle by ji
+       flexbox pri sirce vetsi nez okno smrskl na sirku rodice, zatimco
+       vyska by zustala - obrazek by se roztahl a prestal by sedet pomer
+       stran. Tyka se hlavne mobilu, kde je scena schvalne sirsi nez okno. */
+    flex: none;
     width: 100vw;
     height: 56.25vw;              /* 100 / (16/9) */
     max-height: 100vh;
