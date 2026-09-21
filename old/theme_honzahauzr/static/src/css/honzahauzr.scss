@@ -841,13 +841,44 @@
 .hh-story__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 940px; margin: 0 auto; }
 .hh-story__photo { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; background: #14141a; }
 .hh-story__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hh-story__tag {
-    position: absolute; top: 18px; left: 18px; z-index: 2;
-    padding: 8px 18px; border-radius: 999px;
-    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+/* Popisky DRIV / DNES.
+   Byly to drobne pilulky 0.75rem v rohu, psane slabym sedym pismem - na
+   fotkach zanikaly a rozdil pred/po nebyl na prvni pohled videt. Ted jsou
+   vyrazne: vetsi a tuznejsi pismo, plny podklad a tecka pred textem.
+   Pres horni okraj fotky jde jeste prechodovy zavoj, aby popisek cetl
+   i na svetlem miste fotky (fotka "dnes" ma nahore jasnou oblohu). */
+.hh-story__photo::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 40%;
+    z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(10, 10, 15, 0.7) 0%, rgba(10, 10, 15, 0) 100%);
 }
-.hh-story__tag--driv { background: rgba(10, 10, 15, 0.8); color: var(--hh-text-light); border: 1px solid rgba(255, 255, 255, 0.2); }
-.hh-story__tag--dnes { background: var(--hh-gradient-warm); color: #fff; }
+.hh-story__tag {
+    position: absolute; top: 20px; left: 20px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 24px; border-radius: 999px;
+    font-size: 1rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase;
+    line-height: 1;
+}
+/* tecka nese rozdil i pro toho, kdo popisek necte */
+.hh-story__tag::before {
+    content: ""; flex: none;
+    width: 9px; height: 9px; border-radius: 50%;
+}
+.hh-story__tag--driv {
+    background: rgba(10, 10, 15, 0.85);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+.hh-story__tag--driv::before { background: rgba(255, 255, 255, 0.55); }
+.hh-story__tag--dnes {
+    background: var(--hh-gradient-warm);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 32px rgba(74, 144, 217, 0.7);
+}
+.hh-story__tag--dnes::before { background: #fff; }
 .hh-story__caption { margin-top: 22px; }
 .hh-story__caption h3 { font-size: 1.15rem; margin-bottom: 8px; }
 .hh-story__caption p { color: var(--hh-text-light); font-size: 0.95rem; }
@@ -1120,12 +1151,17 @@ html:has(.hh-landing) {
     /* zustava 2 sloupce - vedle sebe je videt promena, pod sebou ne */
     .hh-landing .hh-story__pair { grid-template-columns: 1fr 1fr; gap: 10px; }
     .hh-landing .hh-story__photo { border-radius: 16px; }
+    /* Fotky jsou na mobilu vedle sebe, takze mista je malo - popisek se
+       zmensi, ale musi zustat citelny. Tecka by uz byla jen smetim. */
     .hh-landing .hh-story__tag {
-        top: 8px; left: 8px;
-        padding: 5px 10px;
-        font-size: 0.6rem;
-        letter-spacing: 0.08em;
+        top: 9px; left: 9px;
+        padding: 7px 12px;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        border-width: 1.5px;
+        gap: 6px;
     }
+    .hh-landing .hh-story__tag::before { display: none; }
     .hh-landing .hh-story__caption { margin-top: 12px; }
     .hh-landing .hh-story__caption h3 { font-size: 0.95rem; margin-bottom: 5px; }
     .hh-landing .hh-story__caption p { font-size: 0.82rem; line-height: 1.5; }
