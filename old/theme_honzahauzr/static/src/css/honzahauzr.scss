@@ -2194,3 +2194,24 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     box-shadow: 0 8px 24px rgba(74, 144, 217, 0.35);
 }
 .hh-landing .hh-news__form .hh-btn:hover { filter: brightness(1.1); color: #fff; }
+
+/* Newsletter je nove skutecny formular (s_website_form), takze uvnitr
+   pribyl povinny obal pole. Rozlozeni proto miri na nej, ne primo na
+   input. Bez toho by pole i tlacitko spadly pod sebe. */
+.hh-landing .hh-news__form { display: flex; gap: 10px; align-items: flex-start; }
+.hh-landing .hh-news__form .s_website_form_field {
+    flex: 1 1 auto;
+    min-width: 220px;
+    margin: 0;
+    position: relative;
+}
+.hh-landing .hh-news__form .hh-news__input { width: 100%; }
+.hh-landing .hh-news__form .s_website_form_send { flex: none; white-space: nowrap; }
+/* Potvrzeni po odeslani zabira misto po formulari, at blok nepreskoci. */
+.hh-landing .hh-news__box .s_website_form_end_message { grid-column: 1 / -1; }
+
+@media (max-width: 768px) {
+    .hh-landing .hh-news__form { flex-direction: column; align-items: stretch; }
+    .hh-landing .hh-news__form .s_website_form_field { min-width: 0; }
+    .hh-landing .hh-news__form .s_website_form_send { width: 100%; }
+}
