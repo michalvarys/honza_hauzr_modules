@@ -1849,3 +1849,37 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
 #wrapwrap > header#top .o_main_nav > ul.navbar-nav:last-child li.dropdown {
     display: none !important;
 }
+
+/* ============================================================
+   LISTA NAPEVNO, BEZ ANIMACI ODOO
+   Odoo pri rolovani prihazuje hlavicce tridy o_header_affixed
+   a o_header_is_scrolled a animuje transform - lista se pokousi
+   zajizdet a vracet, coz pusobi jako poskakovani. Tady se to vypina
+   a lista zustava proste prilepena nahore.
+   ============================================================ */
+#wrapwrap > header#top,
+#wrapwrap > header#top.o_header_affixed,
+#wrapwrap > header#top.o_header_is_scrolled,
+#wrapwrap > header#top.o_header_disappears,
+#wrapwrap > header#top.o_header_fade_out {
+    position: sticky !important;
+    top: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin: 0 !important;
+}
+/* Odoo si pri "affixed" stavu obcas dopocitava odsazeni obsahu.
+   Lista je v toku (sticky), takze zadne odsazeni netreba. */
+#wrapwrap.o_header_affixed_padding,
+#wrapwrap > header#top + * { margin-top: 0 !important; }
+
+/* vyska listy se nesmi pri rolovani menit, jinak obsah poskakuje */
+#wrapwrap > header#top .navbar,
+#wrapwrap > header#top.o_header_is_scrolled .navbar {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    transition: none !important;
+}
