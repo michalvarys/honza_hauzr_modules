@@ -872,32 +872,47 @@
     z-index: 1; pointer-events: none;
     background: linear-gradient(180deg, rgba(10, 10, 15, 0.7) 0%, rgba(10, 10, 15, 0) 100%);
 }
+/* Hranaty editorialni stitek misto obycejne pilulky. Rozdil nesou tri
+   veci najednou: tvar znacky vlevo (cara = minulost, kolecko = dnesek),
+   barva a u DNES jeste dychajici zare, ktera oko pritahne na tu spravnou
+   stranu. */
 .hh-story__tag {
-    position: absolute; top: 20px; left: 20px; z-index: 2;
-    display: inline-flex; align-items: center; gap: 9px;
-    padding: 12px 24px; border-radius: 999px;
-    font-size: 1rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase;
+    position: absolute; top: 18px; left: 18px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 11px;
+    padding: 11px 20px; border-radius: 12px;
+    font-size: 0.92rem; font-weight: 900; letter-spacing: 0.24em; text-transform: uppercase;
     line-height: 1;
+    backdrop-filter: blur(8px);
 }
-/* tecka nese rozdil i pro toho, kdo popisek necte */
-.hh-story__tag::before {
-    content: ""; flex: none;
-    width: 9px; height: 9px; border-radius: 50%;
-}
+.hh-story__tag::before { content: ""; flex: none; }
+
+/* DRIV: utlumene sklo, znacka je lezata cara - neco, co skoncilo */
 .hh-story__tag--driv {
-    background: rgba(10, 10, 15, 0.85);
-    color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.45);
+    background: rgba(10, 10, 15, 0.7);
+    color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
 }
-.hh-story__tag--driv::before { background: rgba(255, 255, 255, 0.55); }
+.hh-story__tag--driv::before {
+    width: 16px; height: 2px; border-radius: 2px;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* DNES: plna brandova modra, znacka je zive kolecko */
 .hh-story__tag--dnes {
     background: var(--hh-gradient-warm);
     color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 10px 32px rgba(74, 144, 217, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: hhTagGlow 2.6s ease-in-out infinite;
 }
-.hh-story__tag--dnes::before { background: #fff; }
+.hh-story__tag--dnes::before {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #fff;
+}
+@keyframes hhTagGlow {
+    0%, 100% { box-shadow: 0 10px 26px rgba(74, 144, 217, 0.45); }
+    50%      { box-shadow: 0 10px 42px rgba(74, 144, 217, 0.95); }
+}
 .hh-story__caption { margin-top: 22px; }
 .hh-story__caption h3 { font-size: 1.15rem; margin-bottom: 8px; }
 .hh-story__caption p { color: var(--hh-text-light); font-size: 0.95rem; }
@@ -1149,21 +1164,58 @@ html:has(.hh-landing) {
    MUJ PRIBEH - dve fotky vedle sebe i na mobilu (promena)
    ============================================================ */
 .hh-landing .hh-story__pair { position: relative; }
+/* Sipka mezi fotkami neni jen odelovac - popojizdi doprava a pousti za
+   sebou rozpinajici se kruh, aby bylo na prvni pohled jasne, ktery smer
+   je "pred" a ktery "po". */
 .hh-landing .hh-story__pair::before {
     content: "\2192";
     position: absolute;
     left: 50%;
     top: 34%;
-    transform: translate(-50%, -50%);
     z-index: 3;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     display: grid; place-items: center;
     border-radius: 50%;
     background: var(--hh-gradient-warm);
     color: #fff;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 700;
     box-shadow: 0 6px 22px rgba(10, 10, 15, 0.55);
+    transform: translate(-50%, -50%);
+    animation: hhArrowNudge 2.2s ease-in-out infinite;
+}
+/* vlna, ktera ze sipky vybiha */
+.hh-landing .hh-story__pair::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 34%;
+    z-index: 2;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--hh-warm-light);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: hhArrowRing 2.2s ease-out infinite;
+}
+@keyframes hhArrowNudge {
+    0%, 100% { transform: translate(-50%, -50%); }
+    45%      { transform: translate(calc(-50% + 5px), -50%); }
+}
+@keyframes hhArrowRing {
+    0%   { opacity: 0.75; transform: translate(-50%, -50%) scale(1); }
+    70%  { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+}
+
+/* Kdo ma v systemu vypnute animace, dostane klidnou verzi. */
+@media (prefers-reduced-motion: reduce) {
+    .hh-landing .hh-story__pair::before,
+    .hh-landing .hh-story__pair::after,
+    .hh-story__tag--dnes {
+        animation: none;
+    }
+    .hh-landing .hh-story__pair::after { opacity: 0; }
 }
 
 @media (max-width: 768px) {
