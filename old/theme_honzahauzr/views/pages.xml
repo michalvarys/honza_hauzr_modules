@@ -78,9 +78,6 @@
                             <p>Navenek máš výsledky, ale chybí ti směr a nevíš, co vlastně buduješ.</p>
                         </div>
                     </div>
-                    <div class="hh-cta-row" data-anim="fade-up">
-                        <a href="#zacni" class="hh-btn hh-btn--primary hh-btn--large">Začni zde zdarma</a>
-                    </div>
                 </div>
             </section>
 
@@ -142,30 +139,6 @@
                         <div class="hh-approach__item" data-anim="fade-up" data-delay="320">
                             <h3>Vlastní pravidla místo života podle očekávání okolí</h3>
                         </div>
-                    </div>
-                    <div class="hh-cta-row" data-anim="fade-up">
-                        <a href="#zacni" class="hh-btn hh-btn--primary hh-btn--large">Začni zde zdarma</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 6. HLAVNI VYZVA K AKCI -->
-            <!-- Jediny blok, ktery se barevne odklani od cerne a modre smerem
-                 k bezove a piskove estetice Vlastni rezie - podle zadani ma
-                 uz jemne naznacit, kam navstevnik miri. -->
-            <section class="hh-vyzva o_cc o_colored_level" id="zacni">
-                <div class="container">
-                    <div class="hh-vyzva__box" data-anim="fade-up">
-                        <h2>
-                            Začni tím, že zjistíš, kde dnes řídíš svůj život ty
-                            <span class="hh-vyzva__hl">a kde za tebe rozhoduje autopilot</span>
-                        </h2>
-                        <p>
-                            V bezplatné třídenní výzvě Z autopilota zpátky do života si pojmenuješ,
-                            kde dnes jen automaticky funguješ, co tě drží na místě a jaký první krok
-                            potřebuješ udělat.
-                        </p>
-                        <a href="#zacni" class="hh-btn hh-btn--vyzva hh-btn--large">Začni zde zdarma</a>
                     </div>
                 </div>
             </section>
@@ -230,12 +203,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- STICKY CTA -->
-            <div class="hh-sticky-cta" id="hhStickyCta">
-                <span class="hh-sticky-cta__text">Bezplatná třídenní výzva</span>
-                <a href="#zacni" class="hh-btn hh-btn--warm">Začni zde zdarma</a>
-            </div>
 
         </div>
     </t>
