@@ -9,17 +9,17 @@
             <div class="hh-testimonials__header">
                 <span class="hh-badge hh-badge--warm" data-anim="fade-up">Ohlasy</span>
                 <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
-                    Co říkají <span class="hh-text-gradient">lidé, kteří prošli změnou</span>
+                    Co říkají <span class="hh-text-gradient-warm">lidé, kteří prošli změnou</span>
                 </h2>
             </div>
             <div class="hh-testimonials__grid">
                 <div class="hh-testimonial" data-anim="fade-up" data-delay="100">
                     <div class="hh-testimonial__stars">
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
                     </div>
                     <p class="hh-testimonial__text">"S Honzou jsem během 3 měsíců změnila práci a konečně
                         se cítím jako já sama. Nejlepší investice do sebe."</p>
@@ -29,11 +29,11 @@
                 </div>
                 <div class="hh-testimonial" data-anim="fade-up" data-delay="250">
                     <div class="hh-testimonial__stars">
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
                     </div>
                     <p class="hh-testimonial__text">"Po 2 měsících jsem konečně věděl, co chci od života
                         a měl jsem odvahu to udělat."</p>
@@ -43,11 +43,11 @@
                 </div>
                 <div class="hh-testimonial" data-anim="fade-up" data-delay="400">
                     <div class="hh-testimonial__stars">
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
-                        <i class="fa fa-star" style="color: #6bb5ff;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
+                        <i class="fa fa-star" style="color: #ffd700;"/>
                     </div>
                     <p class="hh-testimonial__text">"Honza má dar — umí klást otázky, na které si sama
                         nedokážete odpovědět. Ty odpovědi vám změní život."</p>

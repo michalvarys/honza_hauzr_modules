@@ -11,7 +11,7 @@
             <div class="hh-transform__content">
                 <span class="hh-badge hh-badge--green" data-anim="fade-up">Kdo jsem</span>
                 <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
-                    Jsem <span class="hh-text-gradient">Honza Hauzr</span>
+                    Jsem <span class="hh-text-gradient-warm">Honza Hauzr</span>
                 </h2>
                 <p class="lead" data-anim="fade-up" data-delay="200">
                     Věřím, že každý člověk má v sobě obrovský potenciál. Někdy stačí jen

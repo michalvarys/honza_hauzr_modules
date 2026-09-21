@@ -20,6 +20,7 @@ Obsahuje:
     'website': 'https://honzahauzr.cz',
     'license': 'LGPL-3',
     'depends': [
+        'theme_common',
         'website',
         'website_crm',
     ],

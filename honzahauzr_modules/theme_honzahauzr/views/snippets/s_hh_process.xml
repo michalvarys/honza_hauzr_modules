@@ -9,7 +9,7 @@
             <div class="hh-process__header">
                 <span class="hh-badge hh-badge--green" data-anim="fade-up">Jak to funguje</span>
                 <h2 style="margin-top: 20px" data-anim="fade-up" data-delay="100">
-                    3 kroky k <span class="hh-text-gradient">tvé změně</span>
+                    3 kroky k <span class="hh-text-gradient-warm">tvé změně</span>
                 </h2>
             </div>
             <div class="hh-process__steps">

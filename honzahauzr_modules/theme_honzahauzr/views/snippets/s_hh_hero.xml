@@ -25,6 +25,10 @@
                 </div>
             </div>
         </div>
+        <div class="hh-hero__scroll">
+            <span>Scrolluj</span>
+            <div class="hh-hero__scroll-line"/>
+        </div>
     </section>
 </template>
 
