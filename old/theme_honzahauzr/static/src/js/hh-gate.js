@@ -55,6 +55,12 @@
                     'Vezmeš modrou pilulku – příběh končí, probudíš se ve své posteli a uvěříš čemukoli, ' +
                     'čemu chceš věřit. Vezmeš červenou pilulku – zůstaneš v říši divů a já ti ukážu, ' +
                     'jak hluboká je králičí nora.</p>' +
+                    /* Stin lezi na dlani a zustava na miste - proto je to
+                       samostatny prvek, ne pseudoprvek pilulky. Kdyby byl
+                       soucasti tlacitka, poskakoval by s nim a dojem
+                       polozeni na dlan by se ztratil. */
+                    '<span class="hh-gate__shadow hh-gate__shadow--blue"></span>' +
+                    '<span class="hh-gate__shadow hh-gate__shadow--red"></span>' +
                     '<button type="button" class="hh-gate__pill hh-gate__pill--blue" aria-label="Modrá pilulka - vstoupit"></button>' +
                     '<button type="button" class="hh-gate__pill hh-gate__pill--red" aria-label="Červená pilulka - vstoupit"></button>' +
                 '</div>' +
