@@ -1745,16 +1745,17 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     padding-top: 10px;
     padding-bottom: 10px;
 }
+/* Pozadi je ZAMERNE neprusvitne. S prusvitnosti lista menila barvu
+   podle toho, co bylo prave pod ni - nad tmavym herem tmava, nad
+   svetlejsi sekci seda. Pri rolovani to vypadalo, ze blika a je
+   dvoubarevna. Jedna pevna barva to resi. */
 #wrapwrap > header#top .navbar::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(10, 10, 15, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: #0c0c13;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: background 0.3s ease;
 }
 
 /* Logo */
@@ -1838,4 +1839,13 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
 @media (max-width: 991px) {
     #wrapwrap > header#top .navbar { padding-top: 6px; padding-bottom: 6px; }
     #wrapwrap > header#top .navbar-brand.logo img { max-height: 34px; }
+}
+
+
+/* Uzivatelske menu Odoo v hlavicce (Administrator, Muj ucet, Odhlasit).
+   Na marketingovem webu nema co delat - navstevnik ho stejne nevidi,
+   prihlasenemu spravci jen prekazi. Backend je porad na /odoo. */
+#wrapwrap > header#top li.o_no_autohide_item,
+#wrapwrap > header#top .o_main_nav > ul.navbar-nav:last-child li.dropdown {
+    display: none !important;
 }
