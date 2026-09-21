@@ -1,29 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<!--
+    Registrace snippetu do editoru.
+
+    Odoo 18 ma dvoustupnovy model:
+      1) snippet_groups  - dlazdice kategorii (Intro, Sloupce, Obsah ...)
+      2) snippet_structure - samotne snippety, kazdy MUSI mit string a group
+
+    Puvodne tu byla vlastni kategorie <snippets id="hh_snippets"> s holymi
+    t-snippet bez string a group. To je zapis ze starsi verze Odoo: snippety
+    se sice zaregistrovaly a v DOM panelu byly, ale cely jejich blok dostal
+    tridu d-none, takze je uzivatel v panelu vubec nevidel.
+
+    Prvnich sedm je vygenerovanych ze sekci landing stranky (views/pages.xml),
+    poradi odpovida poradi na strance a nahledy jsou skutecne screenshoty
+    tech sekci. Zbytek jsou starsi serverove snippety, na aktualni strance
+    nepouzite, ale nadale k dispozici.
+-->
+
 <template id="honzahauzr_snippets" name="Honza Hauzr Snippets" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_structure']" position="after">
-        <snippets id="hh_snippets" string="Honza Hauzr">
-            <t t-snippet="theme_honzahauzr.s_hh_hero"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_vision_strip"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_vision_strip.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_pain"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_transform"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_transform.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_offer"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_offer.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_process"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_process.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_testimonials"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_testimonials.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_cta_form"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_cta_form.svg"/>
-            <t t-snippet="theme_honzahauzr.s_hh_wip"
-               t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_wip.svg"/>
-        </snippets>
+
+    <!-- Vlastni dlazdice mezi kategoriemi -->
+    <xpath expr="//snippets[@id='snippet_groups']//t[@id='installed_snippets_hook']" position="before">
+        <t snippet-group="honzahauzr" t-snippet="website.s_snippet_group" string="Honza Hauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
     </xpath>
+
+    <!-- Snippety samotne -->
+    <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+
+        <!-- Sekce z landing stranky -->
+        <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_pain" string="Problémy" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_story" string="Můj příběh (Dřív / Dnes)" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_story.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_approach" string="Jak pracuji" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_approach.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_cta_form" string="Úvodní hovor (formulář)" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_cta_form.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_pdf" string="PDF zdarma" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pdf.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_footer" string="Patička" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_footer.png"/>
+
+        <!-- Starsi snippety ze serverove verze -->
+        <t t-snippet="theme_honzahauzr.s_hh_vision_strip" string="Pruh s vizí" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_vision_strip.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hh_transform" string="Proměna" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_transform.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hh_offer" string="Nabídka" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_offer.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hh_process" string="Postup" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_process.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hh_testimonials" string="Reference" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_testimonials.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hh_sticky_cta" string="Lepkavá výzva" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_sticky_cta.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_wip" string="Připravujeme" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_wip.svg"/>
+
+    </xpath>
+
 </template>
 
 </odoo>

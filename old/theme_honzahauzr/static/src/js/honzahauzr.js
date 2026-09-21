@@ -6,6 +6,19 @@
 (function () {
     "use strict";
 
+    /* Sekce jsou v CSS videt; schovat je smime az ve chvili, kdy je umime
+       zase odkryt. Proto se trida .hh-anim nasazuje odsud a jen kdyz:
+        - existuje IntersectionObserver (jinak by animace nikdy nedobehla), a
+        - nejsme v Odoo editoru ani v nahledu snippetu - tam se pozorovatel
+          nespusti a sekce by zustaly prazdne bile. */
+    var vEditoru = !!document.querySelector(
+        ".o_editable, #oe_snippets, .o_we_website_top_actions"
+    ) || document.body.classList.contains("editor_enable");
+
+    if ("IntersectionObserver" in window && !vEditoru) {
+        document.documentElement.classList.add("hh-anim");
+    }
+
     // ===== SCROLL ANIMATION ENGINE =====
     var animEls = document.querySelectorAll("[data-anim]");
     var parallaxEls = document.querySelectorAll("[data-parallax]");

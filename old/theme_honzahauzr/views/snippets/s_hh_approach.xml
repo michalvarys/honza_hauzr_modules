@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Vygenerovano ze sekce .hh-approach na landing strance (views/pages.xml).
+     Stranka si svoje sekce drzi vlastni (inline), tenhle snippet slouzi
+     k pridavani dalsich takovych sekci v Odoo editoru. -->
+<template id="s_hh_approach" name="HH Jak pracuji">
+    <section data-snippet="s_hh_approach" data-name="HH Jak pracuji" class="hh-approach o_cc o_colored_level" id="jak-pracuji">
+        <div class="container">
+            <div class="hh-approach__header">
+                <span class="hh-badge hh-badge--warm" data-anim="fade-up">Jak pracuji</span>
+                <h2 style="margin-top: 18px" data-anim="fade-up" data-delay="100">
+                    Žádné zázraky.<br/><span class="hh-text-gradient-warm">Poctivá práce.</span>
+                </h2>
+                <p data-anim="fade-up" data-delay="200">
+                    Nejsem guru a nebudu ti říkat, jak máš žít. Pomůžu ti pojmenovat,
+                    co ti nefunguje, a udržet tě u toho, co sis sám rozhodl.
+                </p>
+            </div>
+            <div class="hh-approach__grid">
+                <div class="hh-approach__item" data-anim="fade-up" data-delay="100">
+                    <input type="checkbox" class="hh-acc__toggle" id="hh-acc-pristup"/>
+                    <label class="hh-approach__head" for="hh-acc-pristup">
+                        <span class="hh-approach__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a90d9" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0-3 11v3h6v-3a6 6 0 0 0-3-11z"/><path d="M10 21h4"/></svg>
+                        </span>
+                        <h3>Přístup</h3>
+                        <span class="hh-acc__chev">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </span>
+                    </label>
+                    <div class="hh-approach__body">
+                        <p>Mluvíme na rovinu. Neomílám fráze, ptám se na to, čemu se vyhýbáš. Bez souzení, ale i bez hlazení po hlavě.</p>
+                    </div>
+                </div>
+                <div class="hh-approach__item" data-anim="fade-up" data-delay="200">
+                    <input type="checkbox" class="hh-acc__toggle" id="hh-acc-odpovednost"/>
+                    <label class="hh-approach__head" for="hh-acc-odpovednost">
+                        <span class="hh-approach__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a90d9" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+                        </span>
+                        <h3>Odpovědnost</h3>
+                        <span class="hh-acc__chev">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </span>
+                    </label>
+                    <div class="hh-approach__body">
+                        <p>Rozhodnutí jsou tvoje. Moje práce je hlídat, že u nich zůstaneš i ve chvíli, kdy se ti nechce.</p>
+                    </div>
+                </div>
+                <div class="hh-approach__item" data-anim="fade-up" data-delay="300">
+                    <input type="checkbox" class="hh-acc__toggle" id="hh-acc-kroky"/>
+                    <label class="hh-approach__head" for="hh-acc-kroky">
+                        <span class="hh-approach__icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a90d9" stroke-width="2" stroke-linecap="round"><path d="M4 20h16"/><path d="M6 20V10"/><path d="M12 20V4"/><path d="M18 20v-7"/></svg>
+                        </span>
+                        <h3>Konkrétní kroky</h3>
+                        <span class="hh-acc__chev">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </span>
+                    </label>
+                    <div class="hh-approach__body">
+                        <p>Z každého setkání odcházíš s něčím, co uděláš tenhle týden. Ne s pocitem, že to bylo hezké povídání.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

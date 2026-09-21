@@ -30,6 +30,10 @@ Obsahuje:
         'views/snippets/s_hh_hero.xml',
         'views/snippets/s_hh_vision_strip.xml',
         'views/snippets/s_hh_pain.xml',
+        # Sekce vytazene z landing stranky do snippetu
+        'views/snippets/s_hh_story.xml',
+        'views/snippets/s_hh_approach.xml',
+        'views/snippets/s_hh_pdf.xml',
         'views/snippets/s_hh_transform.xml',
         'views/snippets/s_hh_offer.xml',
         'views/snippets/s_hh_process.xml',

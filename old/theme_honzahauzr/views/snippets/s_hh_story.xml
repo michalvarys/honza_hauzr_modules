@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Vygenerovano ze sekce .hh-story na landing strance (views/pages.xml).
+     Stranka si svoje sekce drzi vlastni (inline), tenhle snippet slouzi
+     k pridavani dalsich takovych sekci v Odoo editoru. -->
+<template id="s_hh_story" name="HH Můj příběh (Dřív / Dnes)">
+    <section data-snippet="s_hh_story" data-name="HH Můj příběh (Dřív / Dnes)" class="hh-story o_cc o_colored_level" id="o-mne">
+        <div class="container">
+            <div class="hh-story__header">
+                <span class="hh-badge hh-badge--warm" data-anim="fade-up">Můj příběh</span>
+                <h2 style="margin-top: 18px" data-anim="fade-up" data-delay="100">
+                    Nemluvím o tom<br/>z <span class="hh-text-gradient-warm">učebnice</span>
+                </h2>
+                <p data-anim="fade-up" data-delay="200">
+                    Tohle nejsou dvě fotky pro efekt. Je to rozdíl mezi člověkem,
+                    který svůj život odbýval, a člověkem, který si ho vzal zpátky.
+                </p>
+            </div>
+            <div class="hh-story__pair">
+                <div class="hh-story__card" data-anim="fade-right" data-delay="150">
+                    <div class="hh-story__photo">
+                        <span class="hh-story__tag hh-story__tag--driv">Dřív</span>
+                        <img src="/theme_honzahauzr/static/src/img/pribeh-driv.webp" alt="Honza Hauzr dřív"/>
+                    </div>
+                    <div class="hh-story__caption">
+                        <h3>Utíkal jsem před sebou</h3>
+                        <p>Pivo, cigareta, další víkend pryč. Vypadalo to jako pohoda. Byl to únik.</p>
+                    </div>
+                </div>
+                <div class="hh-story__card" data-anim="fade-left" data-delay="250">
+                    <div class="hh-story__photo">
+                        <span class="hh-story__tag hh-story__tag--dnes">Dnes</span>
+                        <img src="/theme_honzahauzr/static/src/img/pribeh-dnes.webp" alt="Honza Hauzr dnes"/>
+                    </div>
+                    <div class="hh-story__caption">
+                        <h3>Vím, kam jdu</h3>
+                        <p>Ne proto, že mám vyřešeno. Proto, že jsem přestal čekat, až to přijde samo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hh-story__cesta">
+                <p class="hh-story__cesta-note" data-anim="fade-up">
+                    Tohle je moje cesta, ne návod. Ta tvoje bude vypadat jinak
+                    a je to tak v pořádku.
+                </p>
+                <p class="hh-story__swipe">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    Projeď prstem
+                </p>
+                <div class="hh-story__grid">
+                    <div class="hh-photo" data-anim="zoom-in"><img src="/theme_honzahauzr/static/src/img/cesta-seskok.webp" alt="Seskok padákem"/></div>
+                    <div class="hh-photo" data-anim="zoom-in" data-delay="80"><img src="/theme_honzahauzr/static/src/img/cesta-ferrata.webp" alt="Via ferrata"/></div>
+                    <div class="hh-photo" data-anim="zoom-in" data-delay="160"><img src="/theme_honzahauzr/static/src/img/cesta-canyoning.webp" alt="Canyoning"/></div>
+                    <div class="hh-photo" data-anim="zoom-in" data-delay="240"><img src="/theme_honzahauzr/static/src/img/cesta-paragliding.webp" alt="Paragliding"/></div>
+                    <div class="hh-photo" data-anim="zoom-in" data-delay="320"><img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="V horách"/></div>
+                    <div class="hh-photo" data-anim="zoom-in" data-delay="400"><img src="/theme_honzahauzr/static/src/img/cesta-vychod.webp" alt="Východ slunce"/></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+</odoo>

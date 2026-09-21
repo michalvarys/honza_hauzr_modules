@@ -208,20 +208,28 @@
 /* ============================================================
    GSAP-STYLE SCROLL ANIMATIONS
    ============================================================ */
-[data-anim] {
+/* Obsah je ve vychozim stavu VIDET. Schova se jen tehdy, kdyz ho ma kdo
+   zase odkryt - tridu .hh-anim nasazuje honzahauzr.js na <html>, a to az
+   kdyz existuje IntersectionObserver a nejsme v Odoo editoru.
+
+   Drive tu bylo holé [data-anim] { opacity: 0 }. V nahledu snippetu
+   v panelu "Vlozit blok" se animace nespusti, takze se sekce ukazovaly
+   jako prazdne bile obdelniky, a stejne tak hrozilo, ze vlozeny snippet
+   zustane v editoru neviditelny. Bez JS by byla stranka prazdna uplne. */
+.hh-anim [data-anim] {
     opacity: 0;
     will-change: transform, opacity;
     transition: none;
 }
-[data-anim="fade-up"] { transform: translate3d(0, 60px, 0); }
-[data-anim="fade-down"] { transform: translate3d(0, -40px, 0); }
-[data-anim="fade-left"] { transform: translate3d(80px, 0, 0); }
-[data-anim="fade-right"] { transform: translate3d(-80px, 0, 0); }
-[data-anim="zoom-in"] { transform: scale(0.85); }
-[data-anim="zoom-out"] { transform: scale(1.1); }
-[data-anim="reveal-up"] { clip-path: inset(100% 0 0 0); transform: translate3d(0, 0, 0); }
-[data-anim="split-words"] { transform: translate3d(0, 0, 0); }
-[data-anim="counter"] { transform: translate3d(0, 0, 0); }
+.hh-anim [data-anim="fade-up"] { transform: translate3d(0, 60px, 0); }
+.hh-anim [data-anim="fade-down"] { transform: translate3d(0, -40px, 0); }
+.hh-anim [data-anim="fade-left"] { transform: translate3d(80px, 0, 0); }
+.hh-anim [data-anim="fade-right"] { transform: translate3d(-80px, 0, 0); }
+.hh-anim [data-anim="zoom-in"] { transform: scale(0.85); }
+.hh-anim [data-anim="zoom-out"] { transform: scale(1.1); }
+.hh-anim [data-anim="reveal-up"] { clip-path: inset(100% 0 0 0); transform: translate3d(0, 0, 0); }
+.hh-anim [data-anim="split-words"] { transform: translate3d(0, 0, 0); }
+.hh-anim [data-anim="counter"] { transform: translate3d(0, 0, 0); }
 [data-anim].anim-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
