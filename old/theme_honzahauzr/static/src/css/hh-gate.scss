@@ -1,18 +1,15 @@
 /* ============================================================
    VSTUPNI BRANA - "vyber si pilulku"
 
-   Pres cely web se pred vstupem polozi tmava vrstva: fotka prazdnych
-   dlani, nad nimi se vynori dve pilulky a lehce se vznaseji. Po kliknuti
-   na kteroukoliv z nich vse zmizi a brana se rozevre jako dvoje dvere.
+   Pres cely web se pred vstupem polozi cerna plocha s ilustraci: postava
+   drzi dve dlane, modrou a cervenou. Nad kazdou dlani poskakuje pilulka
+   v barve te ruky a od ust vede bublina s hlaskou. Kliknuti na
+   kteroukoliv pilulku branu rozevre jako dvoje dvere.
 
    Vrstvu vklada hh-gate.js, v HTML sablonach nic neni. Duvody:
      - kdyz JS nebezi, nema co prekryt obsah a web je hned pristupny,
      - v Odoo editoru se brana vubec nevytvori, takze nezavazi pri praci
        se snippety.
-
-   Fotka dlani: /theme_honzahauzr/static/src/img/gate-hands.webp
-   Kdyz soubor chybi, JS nasadi .hh-gate--nofoto a zustanou jen pilulky
-   ve tme - porad to vypada zamerne, jen bez rukou.
    ============================================================ */
 
 .hh-gate {
@@ -20,15 +17,7 @@
     inset: 0;
     z-index: 3000;
     overflow: hidden;
-    /* Poloha a velikost pilulek nad dlanemi. Vse v procentech fotky,
-       takze pri vymene podkladu staci doladit tyhle ctyri hodnoty
-       a do JS ani do zbytku stylu se nemusi sahat.
-       Soucasne hodnoty jsou zmerene z podkladove fotky: teziste
-       cervene vyslo na 27.1 / 63.9 %, modre na 73.1 / 63.8 %. */
-    --hh-pill-y: 64%;
-    --hh-pill-x-left: 27%;
-    --hh-pill-x-right: 73%;
-    --hh-pill-w: 15%;
+    background: #000;
 }
 .hh-gate[hidden] { display: none; }
 
@@ -38,14 +27,13 @@
     top: 0;
     bottom: 0;
     width: 50.5%;                 /* prekryv, aby uprostred nesvitila spara */
-    background: #05050a;
+    background: #000;
     z-index: 1;
     transition: transform 900ms cubic-bezier(0.7, 0, 0.2, 1);
 }
 .hh-gate__door--left { left: 0; }
 .hh-gate__door--right { right: 0; }
 
-/* svetelna hrana ve stredu, odkud se dvere rozevrou */
 .hh-gate__door::after {
     content: "";
     position: absolute;
@@ -65,94 +53,68 @@
     inset: 0;
     z-index: 2;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 24px;
     transition: opacity 420ms ease, transform 420ms ease;
 }
 
-.hh-gate__title {
-    font-size: clamp(2rem, 6vw, 3.6rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.1;
-    margin: 0 0 12px;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: hhGateIn 700ms ease forwards 120ms;
-}
-.hh-gate__sub {
-    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
-    color: rgba(255, 255, 255, 0.62);
-    margin: 0;
-    max-width: 30ch;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: hhGateIn 700ms ease forwards 280ms;
-}
+/*
+   Ramecek s ilustraci.
 
-/* ---------- fotka dlani ---------- */
-/* position: relative je tu nutnost, ne kosmetika - pilulky se umistuji
-   v procentech a musi je pocitat z fotky, ne z cele sceny. */
-.hh-gate__hands {
+   Drzi pomer stran obrazku (16:9) a je co nejvetsi, ale cely se vejde do
+   okna. Pilulky i bublina jsou jeho potomci umistene v procentech, takze
+   se s obrazkem posouvaji a skaluji presne.
+
+   Zamerne se nepouziva cover pres cele okno: na uzkem displeji by cover
+   obrazek orizl po stranach a pilulky i bublina by vyjely mimo viditelnou
+   plochu. Ilustrace ma cerne pozadi a brana taky, takze "dopocitane"
+   cerne pasy nad a pod nejsou poznat - vypada to jako pres celou plochu.
+*/
+.hh-gate__scene {
     position: relative;
-    /* POZOR: nepsat width: min(760px, 94vw). Sass ma vlastni funkci min()
-       a pokusi se ji vyhodnotit uz pri prekladu - na mix vw a px spadne
-       s "Incompatible units" a shodi CELY bundle web.assets_frontend,
-       tedy i styly zbytku webu. Stejny zapis pres dve vlastnosti je
-       bezpecny a dela totez. */
-    width: 94vw;
-    max-width: 760px;
-    aspect-ratio: 16 / 9;
-    margin-top: 26px;
-    background-image: url("/theme_honzahauzr/static/src/img/gate-hands.webp");
-    background-size: contain;
+    width: 100vw;
+    height: 56.25vw;              /* 100 / (16/9) */
+    max-height: 100vh;
+    max-width: 177.78vh;          /* 100 * (16/9) */
+    background-image: url("/theme_honzahauzr/static/src/img/gate-morpheus.webp");
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
-    animation: hhHandsIn 1100ms ease forwards 420ms;
-    /* Fotka ma rovny obdelnikovy okraj, ktery na cerne plose bije do oci.
-       Maska ji po krajich rozpusti do tmy, takze ruce vypadaji, ze se
-       vynoruji ze tmy misto aby sedely v ramecku. */
-    -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 52%, #000 58%, transparent 100%);
-    mask-image: radial-gradient(ellipse 72% 68% at 50% 52%, #000 58%, transparent 100%);
+    animation: hhSceneIn 1100ms ease forwards 160ms;
 }
-.hh-gate--nofoto .hh-gate__hands {
-    background-image: none;
-    aspect-ratio: 16 / 7;
-}
+.hh-gate--nofoto .hh-gate__scene { background-image: none; }
 
-/* ---------- pilulky ---------- */
+/* ---------- pilulky ----------
+   Souradnice jsou zmerene z ilustrace: teziste spodni casti modre ruky
+   vyslo na 40 / 71 %, cervene na 60 / 71 %. V obrazku je MODRA vlevo
+   a CERVENA vpravo, proto to takhle "obracene" sedi. */
 .hh-gate__pill {
     position: absolute;
-    top: var(--hh-pill-y);
-    width: var(--hh-pill-w);
-    aspect-ratio: 2.6 / 1;          /* tvar tobolky, skaluje se s fotkou */
-    min-width: 46px;
+    top: 66%;                     /* miska dlane, ne prsty pod ni */
+    width: 7.4%;
+    aspect-ratio: 2.6 / 1;
+    min-width: 34px;
     padding: 0;
     border: 0;
     border-radius: 999px;
     cursor: pointer;
     opacity: 0;
-    /* vlastni promenna pro vznaseni, aby se neprala s vycentrovanim */
     transform: translate(-50%, -50%);
     transition: filter 200ms ease;
 }
-.hh-gate__pill--red {
-    left: var(--hh-pill-x-left);
-    background: linear-gradient(140deg, #ff4b4b 0%, #d81b2a 55%, #9c0f1c 100%);
-    box-shadow: 0 0 34px rgba(255, 60, 60, 0.75);
-    animation: hhPillIn 620ms ease forwards 900ms, hhPillFloatL 3.4s ease-in-out infinite 1.6s;
-}
 .hh-gate__pill--blue {
-    left: var(--hh-pill-x-right);
+    left: 39.5%;
     background: linear-gradient(140deg, #6bd5ff 0%, #2f8fe0 55%, #12508f 100%);
-    box-shadow: 0 0 34px rgba(74, 170, 255, 0.75);
-    animation: hhPillIn 620ms ease forwards 1080ms, hhPillFloatR 3.8s ease-in-out infinite 1.9s;
+    box-shadow: 0 0 30px rgba(74, 170, 255, 0.85);
+    animation: hhPillIn 620ms ease forwards 1400ms, hhPillFloatL 3.4s ease-in-out infinite 2.1s;
 }
-/* lesk na pilulce */
+.hh-gate__pill--red {
+    left: 60.5%;
+    background: linear-gradient(140deg, #ff4b4b 0%, #d81b2a 55%, #9c0f1c 100%);
+    box-shadow: 0 0 30px rgba(255, 60, 60, 0.85);
+    animation: hhPillIn 620ms ease forwards 1560ms, hhPillFloatR 3.8s ease-in-out infinite 2.4s;
+}
 .hh-gate__pill::after {
     content: "";
     position: absolute;
@@ -165,66 +127,83 @@
     filter: blur(3px);
 }
 .hh-gate__pill:hover,
-.hh-gate__pill:focus-visible {
-    filter: brightness(1.25);
-    outline: none;
-}
-.hh-gate__pill:focus-visible { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85); }
+.hh-gate__pill:focus-visible { filter: brightness(1.3); outline: none; }
+.hh-gate__pill:focus-visible { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9); }
 
-.hh-gate__hint {
+/* ---------- bublina ----------
+   Usta postavy jsou v ilustraci zhruba na 50 / 34 %. Bublina stoji vpravo
+   od hlavy, aby obliceji neprekazela, a ocasek miri k ustum. */
+.hh-gate__bubble {
     position: absolute;
-    left: 50%;
-    bottom: 26px;
-    transform: translateX(-50%);
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.38);
+    left: 57%;
+    bottom: 63%;
+    width: 40%;
+    padding: 20px 24px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #0a0a0f;
+    font-size: clamp(0.72rem, 1.15vw, 1rem);
+    line-height: 1.55;
+    text-align: left;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
     opacity: 0;
-    animation: hhGateIn 700ms ease forwards 1600ms;
+    animation: hhBubbleIn 800ms cubic-bezier(0.2, 1.2, 0.4, 1) forwards 700ms;
 }
+/* ocasek smerem k ustum */
+.hh-gate__bubble::after {
+    content: "";
+    position: absolute;
+    left: -14px;
+    bottom: 20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 16px 10px 0;
+    border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
+}
+
+/* ---------- zavreni ---------- */
 .hh-gate__skip {
     position: absolute;
-    right: 20px;
-    top: 18px;
+    right: 18px;
+    top: 14px;
     z-index: 3;
+    width: 34px;
+    height: 34px;
+    line-height: 1;
     background: none;
     border: 0;
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.6rem;
     cursor: pointer;
     opacity: 0;
-    animation: hhGateIn 600ms ease forwards 2000ms;
+    animation: hhFadeIn 600ms ease forwards 2400ms;
 }
 .hh-gate__skip:hover { color: #fff; }
 
 /* ---------- stavy ---------- */
-
-/* vybrano: scena zhasne, vybrana pilulka vyleti na diváka */
 .hh-gate.is-choosing .hh-gate__stage { opacity: 0; transform: scale(1.04); }
 .hh-gate__pill.is-chosen {
     animation: none;
-    transform: translate(-50%, -50%) scale(14);
+    transform: translate(-50%, -50%) scale(16);
     opacity: 0;
     transition: transform 620ms cubic-bezier(0.6, 0, 0.9, 0.4), opacity 620ms ease;
 }
-
-/* brana se rozevre */
 .hh-gate.is-opening .hh-gate__door::after { opacity: 1; }
 .hh-gate.is-opening .hh-gate__door--left { transform: translateX(-100%); }
 .hh-gate.is-opening .hh-gate__door--right { transform: translateX(100%); }
 
-@keyframes hhGateIn {
-    to { opacity: 1; transform: translateY(0); }
+@keyframes hhFadeIn { to { opacity: 1; } }
+@keyframes hhSceneIn {
+    from { opacity: 0; transform: scale(1.03); }
+    to   { opacity: 1; transform: scale(1); }
 }
-@keyframes hhHandsIn {
-    from { opacity: 0; transform: translateY(26px) scale(0.97); }
+@keyframes hhBubbleIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.94); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes hhPillIn {
-    from { opacity: 0; transform: translate(-50%, calc(-50% + 22px)) scale(0.6); }
+    from { opacity: 0; transform: translate(-50%, calc(-50% + 20px)) scale(0.5); }
     to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 @keyframes hhPillFloatL {
@@ -236,26 +215,53 @@
     50%      { transform: translate(-50%, calc(-50% - 12px)); }
 }
 
-/* hint na skryti obsahu pod branou, dokud je brana nahore */
 html.hh-gate-active,
 html.hh-gate-active body { overflow: hidden; }
 
-@media (max-width: 768px) {
-    .hh-gate__hands { aspect-ratio: 4 / 3; margin-top: 18px; }
-    .hh-gate__hint { bottom: 18px; font-size: 0.68rem; }
+/* Na uzkem displeji je ramecek s ilustraci nizky a po stranach zbyva
+   cerno. Bublina se proto presune nad nej pres celou sirku - vedle hlavy
+   uz by na ni nebylo misto. Ocasek pak miri dolu. */
+@media (max-width: 900px) {
+    /* Na uzkem displeji by se cela ilustrace vesla jen hodne mala a kolem
+       by zbyvalo prazdne cerno. Ramecek je proto sirsi nez okno - postava
+       s rukama se zvetsi a orezou se jen prazdne kraje. Pilulky drzi
+       pozici, protoze jsou umistene v procentech ramecku. */
+    .hh-gate__scene {
+        width: 168vw;
+        height: 94.5vw;           /* 168 / (16/9) */
+        max-width: none;
+        max-height: none;
+    }
+    .hh-gate__bubble {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(100% + 18px);
+        width: 90vw;
+        max-width: 460px;
+        font-size: 0.82rem;
+        padding: 16px 18px;
+    }
+    .hh-gate__bubble::after {
+        left: 50%;
+        bottom: -14px;
+        margin-left: -10px;
+        border-width: 16px 10px 0 10px;
+        border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+    }
+    @keyframes hhBubbleIn {
+        from { opacity: 0; transform: translateX(-50%) translateY(14px) scale(0.94); }
+        to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+    .hh-gate__pill { min-width: 26px; }
 }
 
-/* Kdo ma omezene animace, dostane branu bez poskakovani a bez naletu. */
 @media (prefers-reduced-motion: reduce) {
-    .hh-gate__title,
-    .hh-gate__sub,
-    .hh-gate__hands,
+    .hh-gate__scene,
+    .hh-gate__bubble,
     .hh-gate__pill,
-    .hh-gate__hint,
     .hh-gate__skip {
         animation: none;
         opacity: 1;
-        transform: translateY(0);
     }
     .hh-gate__pill { transform: translate(-50%, -50%); }
     .hh-gate__door { transition-duration: 320ms; }

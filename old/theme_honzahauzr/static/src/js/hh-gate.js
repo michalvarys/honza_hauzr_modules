@@ -15,7 +15,7 @@
     "use strict";
 
     var KLIC = "hhGateVidano";      // v ramci jedne navstevy staci jednou
-    var FOTKA = "/theme_honzahauzr/static/src/img/gate-hands.webp";
+    var FOTKA = "/theme_honzahauzr/static/src/img/gate-morpheus.webp";
 
     function vEditoru() {
         return !!document.querySelector(".o_editable, #oe_snippets, .o_we_website_top_actions") ||
@@ -43,19 +43,23 @@
         brana.setAttribute("role", "dialog");
         brana.setAttribute("aria-label", "Vyber si pilulku a vstup na web");
 
+        /* Zadny jiny text nez hlaska v bubline - zadny nadpis ani napoveda.
+           Poradi pilulek kopiruje ilustraci: modra ruka je vlevo,
+           cervena vpravo. */
         brana.innerHTML =
             '<div class="hh-gate__door hh-gate__door--left"></div>' +
             '<div class="hh-gate__door hh-gate__door--right"></div>' +
             '<div class="hh-gate__stage">' +
-                '<h2 class="hh-gate__title">Vyber si.</h2>' +
-                '<p class="hh-gate__sub">Většina lidí nevybírá. Jen jede dál.</p>' +
-                '<div class="hh-gate__hands">' +
-                    '<button type="button" class="hh-gate__pill hh-gate__pill--red" aria-label="Červená pilulka - vstoupit"></button>' +
+                '<div class="hh-gate__scene">' +
+                    '<p class="hh-gate__bubble">Tohle je tvoje poslední šance. Potom už není cesty zpět. ' +
+                    'Vezmeš modrou pilulku – příběh končí, probudíš se ve své posteli a uvěříš čemukoli, ' +
+                    'čemu chceš věřit. Vezmeš červenou pilulku – zůstaneš v říši divů a já ti ukážu, ' +
+                    'jak hluboká je králičí nora.</p>' +
                     '<button type="button" class="hh-gate__pill hh-gate__pill--blue" aria-label="Modrá pilulka - vstoupit"></button>' +
+                    '<button type="button" class="hh-gate__pill hh-gate__pill--red" aria-label="Červená pilulka - vstoupit"></button>' +
                 '</div>' +
-                '<p class="hh-gate__hint">Klikni na jednu z pilulek</p>' +
             '</div>' +
-            '<button type="button" class="hh-gate__skip">Přeskočit</button>';
+            '<button type="button" class="hh-gate__skip" aria-label="Přeskočit">&#215;</button>';
 
         document.body.appendChild(brana);
         document.documentElement.classList.add("hh-gate-active");
