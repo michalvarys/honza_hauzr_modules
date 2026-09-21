@@ -57,7 +57,9 @@ Obsahuje:
     'assets': {
         'web.assets_frontend': [
             'theme_honzahauzr/static/src/css/honzahauzr.scss',
+            'theme_honzahauzr/static/src/css/hh-gate.scss',
             'theme_honzahauzr/static/src/js/honzahauzr.js',
+            'theme_honzahauzr/static/src/js/hh-gate.js',
         ],
     },
     'installable': True,
