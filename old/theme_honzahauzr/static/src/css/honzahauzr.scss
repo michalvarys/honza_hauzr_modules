@@ -143,15 +143,20 @@
     color: #fff;
     text-decoration: none;
 }
+/* Ghost tlacitko stalo na fotce - pruhlednost 0.06 a obrys 0.15 byly
+   nad balonem prakticky neviditelne. Tmavsi sklo a poradny obrys, aby
+   bylo poznat, ze je to tlacitko, ale porad to nebylo druhe plne CTA. */
 .hh-btn--ghost {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(10, 10, 15, 0.55);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+    border: 2px solid rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(10px);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
 }
 .hh-btn--ghost:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(74, 144, 217, 0.4);
+    background: rgba(10, 10, 15, 0.7);
+    border-color: var(--hh-warm-light);
     color: #fff;
     text-decoration: none;
 }
@@ -267,6 +272,15 @@
     background: linear-gradient(180deg, rgba(10, 10, 15, 0.2) 0%, rgba(10, 10, 15, 0.5) 50%, var(--hh-bg) 100%);
     z-index: 1;
 }
+/* Stineni jen tam, kde lezi text. Zadani chtelo ostre fotky a zavoj
+   pouze kvuli citelnosti, takze se ztmavi leva cast a Honza s balonem
+   na prave strane zustane cisty. */
+.hh-hero__bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10, 10, 15, 0.82) 0%, rgba(10, 10, 15, 0.5) 40%, rgba(10, 10, 15, 0) 72%);
+}
 .hh-hero__content {
     position: relative;
     z-index: 2;
@@ -275,11 +289,12 @@
 }
 .hh-hero__tagline {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.8);
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 24px;
-    font-weight: 500;
+    font-weight: 600;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 .hh-hero h1 {
     font-size: clamp(2.8rem, 7vw, 5.5rem);
@@ -296,13 +311,17 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+/* Podtitulek byl svetle sedy (0.75 bile) a jeste v rezu 300 - na fotce
+   balonu se v nem ztracel. Plna bila, normalni rez a jeden stin, aby
+   drzel i nad svetlym mistem fotky. */
 .hh-hero__sub {
-    font-size: 1.15rem;
-    color: var(--hh-text-light);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.96);
     max-width: 480px;
-    line-height: 1.8;
-    font-weight: 300;
+    line-height: 1.75;
+    font-weight: 400;
     margin-bottom: 40px;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
 }
 .hh-hero__ctas {
     display: flex;
