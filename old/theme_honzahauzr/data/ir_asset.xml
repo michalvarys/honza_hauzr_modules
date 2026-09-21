@@ -1,3 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<data>
+
+<!--
+    Styly a skripty se registruji TADY, ne pres klic 'assets' v manifestu.
+
+    Proc: z manifestu si je Odoo cte primo a pridava do web.assets_frontend
+    pro CELOU instanci - tedy pro vsechny weby, ktere na ni bezi. Nas
+    modul prebarvuje horni listu (#wrapwrap > header#top) a schovava
+    nektere polozky menu, takze by to rozhodilo vzhled cizich webu na
+    stejnem serveru.
+
+    theme.ir.asset se pri aplikaci tematu zkopiruje do ir.asset s vazbou
+    na konkretni website_id, takze se nacita jen tam, kde je tema
+    skutecne zapnute.
+
+    Poradi je zamerne: honzahauzr.scss drzi promenne a zaklad, hh-gate.scss
+    na nej navazuje.
+-->
+
+<record id="asset_honzahauzr_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - styly</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/css/honzahauzr.scss</field>
+</record>
+
+<record id="asset_hh_gate_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - vstupni brana (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/css/hh-gate.scss</field>
+</record>
+
+<record id="asset_honzahauzr_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - skript</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/honzahauzr.js</field>
+</record>
+
+<record id="asset_hh_gate_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - vstupni brana (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-gate.js</field>
+</record>
+
+</data>
 </odoo>

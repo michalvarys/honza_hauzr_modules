@@ -56,14 +56,11 @@ Obsahuje:
     'configurator_snippets': {
         'homepage': ['s_hh_hero', 's_hh_vision_strip', 's_hh_pain', 's_hh_transform', 's_hh_offer', 's_hh_process', 's_hh_testimonials', 's_hh_cta_form'],
     },
-    'assets': {
-        'web.assets_frontend': [
-            'theme_honzahauzr/static/src/css/honzahauzr.scss',
-            'theme_honzahauzr/static/src/css/hh-gate.scss',
-            'theme_honzahauzr/static/src/js/honzahauzr.js',
-            'theme_honzahauzr/static/src/js/hh-gate.js',
-        ],
-    },
+    # Zamerne prazdne. Styly a skripty jsou v data/ir_asset.xml jako
+    # theme.ir.asset - odtud se navazou na konkretni web. Pres tenhle klic
+    # by se nacitaly do cele instance, tedy i na cizi weby na stejnem
+    # serveru, a prebarvily by jim horni listu.
+    'assets': {},
     'installable': True,
     'application': False,
     'auto_install': False,
