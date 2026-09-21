@@ -115,6 +115,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="hh-story__cesta">
+                        <p class="hh-story__cesta-note" data-anim="fade-up">
+                            Tohle je moje cesta, ne návod. Ta tvoje bude vypadat jinak
+                            a je to tak v pořádku.
+                        </p>
+                        <p class="hh-story__swipe">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                            Projeď prstem
+                        </p>
+                        <div class="hh-story__grid">
+                            <div class="hh-photo" data-anim="zoom-in"><img src="/theme_honzahauzr/static/src/img/cesta-seskok.webp" alt="Seskok padákem"/></div>
+                            <div class="hh-photo" data-anim="zoom-in" data-delay="80"><img src="/theme_honzahauzr/static/src/img/cesta-ferrata.webp" alt="Via ferrata"/></div>
+                            <div class="hh-photo" data-anim="zoom-in" data-delay="160"><img src="/theme_honzahauzr/static/src/img/cesta-canyoning.webp" alt="Canyoning"/></div>
+                            <div class="hh-photo" data-anim="zoom-in" data-delay="240"><img src="/theme_honzahauzr/static/src/img/cesta-paragliding.webp" alt="Paragliding"/></div>
+                            <div class="hh-photo" data-anim="zoom-in" data-delay="320"><img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="V horách"/></div>
+                            <div class="hh-photo" data-anim="zoom-in" data-delay="400"><img src="/theme_honzahauzr/static/src/img/cesta-vychod.webp" alt="Východ slunce"/></div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
