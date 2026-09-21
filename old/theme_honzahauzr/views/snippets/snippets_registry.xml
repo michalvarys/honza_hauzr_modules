@@ -64,6 +64,33 @@
 
     </xpath>
 
+    <!--
+        Sekce jsou krome kategorie i v "Vnitrni obsah", aby byly v panelu
+        videt rovnou pod sebou a neschovavaly se za dlazdici.
+
+        V Odoo 18 se v postrannim panelu vykresluje jen snippet_content;
+        snippet_structure je dostupny vyhradne pres dialog "Vlozit blok".
+        Kam se snippet da pustit, urcuji pravidla drop zon podle <section>,
+        ne to, v kterem seznamu je uvedeny - umisteni tady tedy meni jen
+        viditelnost, ne chovani pri pretazeni.
+    -->
+    <xpath expr="//snippets[@id='snippet_content']" position="inside">
+        <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_pain" string="Problémy"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_story" string="Můj příběh (Dřív / Dnes)"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_story.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_approach" string="Jak pracuji"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_approach.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_cta_form" string="Úvodní hovor (formulář)"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_cta_form.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_pdf" string="PDF zdarma"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pdf.png"/>
+        <t t-snippet="theme_honzahauzr.s_hh_footer" string="Patička"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_footer.png"/>
+    </xpath>
+
 </template>
 
 </odoo>
