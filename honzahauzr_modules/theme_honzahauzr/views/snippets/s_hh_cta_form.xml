@@ -2,19 +2,10 @@
 <odoo>
 
 <template id="s_hh_cta_form" name="HH Final CTA Form">
-    <section class="hh-final-cta o_cc o_colored_level" id="kontakt"
+    <section class="hh-final-cta o_cc o_colored_level oe_img_bg o_bg_img_center" id="kontakt"
              data-snippet="s_hh_cta_form"
-             data-name="HH Final CTA Form">
-        <div class="hh-final-cta__bg">
-            <div class="photo-placeholder" data-parallax="0.06">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Finální emoční fotka</div>
-                    <div class="photo-placeholder__tooltip-desc">
-                        Západ slunce, člověk na vrcholu — pocit "tady chci být".
-                    </div>
-                </div>
-            </div>
-        </div>
+             data-name="HH Final CTA Form"
+             style="background-image: url('/theme_honzahauzr/static/src/img/content/cta-sunset-river.jpg'); background-size: cover; background-position: center;">
         <div class="hh-final-cta__gradient"/>
         <div class="hh-final-cta__content">
             <div class="container">

@@ -6,26 +6,14 @@
              data-snippet="s_hh_vision_strip"
              data-name="HH Vision Strip">
         <div class="hh-vision-strip__photos">
-            <div class="photo-placeholder" data-parallax="0.15">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Hory / příroda</div>
-                    <div class="photo-placeholder__tooltip-desc">Výlety, treking, výhledy z vrcholu</div>
-                </div>
-            </div>
-            <div class="photo-placeholder" data-parallax="0.1">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Lidé / komunita</div>
-                    <div class="photo-placeholder__tooltip-desc">Skupinové zážitky, smích, sdílení</div>
-                </div>
-            </div>
-            <div class="photo-placeholder" data-parallax="0.2">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Volnost / radost</div>
-                    <div class="photo-placeholder__tooltip-desc">Volný pád, adrenalin, radost ze života</div>
-                </div>
-            </div>
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-mountains.jpg'); background-size: cover; background-position: center;"/>
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-friends.jpg'); background-size: cover; background-position: center;"/>
+            <div class="hh-vision-strip__photo-wrap oe_img_bg o_bg_img_center"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/content/vision-freefall.jpg'); background-size: cover; background-position: center;"/>
         </div>
-        <div class="hh-vision-strip__overlay">
+        <div class="hh-vision-strip__overlay o_cc o_colored_level">
             <div class="hh-vision-strip__text">
                 <h2 data-anim="fade-up">
                     Takhle vypadá život,<br/>který si

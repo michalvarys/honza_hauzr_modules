@@ -2,19 +2,10 @@
 <odoo>
 
 <template id="s_hh_transform" name="HH Transformation">
-    <section class="hh-transform o_cc o_colored_level" id="o-mne"
+    <section class="hh-transform o_cc o_colored_level oe_img_bg o_bg_img_center" id="o-mne"
              data-snippet="s_hh_transform"
-             data-name="HH Transformation">
-        <div class="hh-transform__bg">
-            <div class="photo-placeholder" data-parallax="0.08">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Fotka Honzy v akci</div>
-                    <div class="photo-placeholder__tooltip-desc">
-                        Honza v přírodě, s lidmi, při workshopu — autenticky, ne posed.
-                    </div>
-                </div>
-            </div>
-        </div>
+             data-name="HH Transformation"
+             style="background-image: url('/theme_honzahauzr/static/src/img/content/honza-mountain-selfie.jpg'); background-size: cover; background-position: center top;">
         <div class="hh-transform__gradient"/>
         <div class="container">
             <div class="hh-transform__content">

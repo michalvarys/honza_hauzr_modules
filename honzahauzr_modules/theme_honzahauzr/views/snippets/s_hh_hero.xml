@@ -2,19 +2,10 @@
 <odoo>
 
 <template id="s_hh_hero" name="HH Hero Banner">
-    <section class="hh-hero o_cc o_colored_level" id="hero"
+    <section class="hh-hero o_cc o_colored_level oe_img_bg o_bg_img_center" id="hero"
              data-snippet="s_hh_hero"
-             data-name="HH Hero Banner">
-        <div class="hh-hero__photo">
-            <div class="photo-placeholder">
-                <div class="photo-placeholder__tooltip">
-                    <div class="photo-placeholder__tooltip-title">Hero fotka</div>
-                    <div class="photo-placeholder__tooltip-desc">
-                        Klidný zážitek — hory, západ slunce, volnost. Nic přehnaného, spíš klid a inspirace.
-                    </div>
-                </div>
-            </div>
-        </div>
+             data-name="HH Hero Banner"
+             style="background-image: url('/theme_honzahauzr/static/src/img/content/hero-sunset.jpg'); background-size: cover; background-position: center;">
         <div class="hh-hero__bg"/>
         <div class="container">
             <div class="hh-hero__content">
@@ -33,10 +24,6 @@
                     <a href="#o-mne" class="hh-btn hh-btn--ghost">Zjistit víc</a>
                 </div>
             </div>
-        </div>
-        <div class="hh-hero__scroll">
-            <span>Scrolluj</span>
-            <div class="hh-hero__scroll-line"/>
         </div>
     </section>
 </template>

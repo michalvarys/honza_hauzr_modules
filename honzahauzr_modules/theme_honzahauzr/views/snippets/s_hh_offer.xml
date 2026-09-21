@@ -17,14 +17,9 @@
             </div>
             <div class="hh-offer__main">
                 <div class="hh-offer__main-photo" data-anim="fade-right">
-                    <div class="photo-placeholder">
-                        <div class="photo-placeholder__tooltip">
-                            <div class="photo-placeholder__tooltip-title">1v1 sezení</div>
-                            <div class="photo-placeholder__tooltip-desc">
-                                Autentická fotka z konzultace nebo sezení.
-                            </div>
-                        </div>
-                    </div>
+                    <img src="/theme_honzahauzr/static/src/img/content/honza-nature-pose.jpg"
+                         class="img-fluid w-100 rounded-4" alt="Osobní koučink"
+                         style="object-fit: cover; height: 440px;"/>
                 </div>
                 <div class="hh-offer__main-content">
                     <h3 data-anim="fade-left" data-delay="100">Osobní koučink 1 na 1</h3>
@@ -35,10 +30,10 @@
                         Každý program je na míru — protože tvůj život není šablona.
                     </p>
                     <ul class="hh-offer__includes" data-anim="fade-left" data-delay="300">
-                        <li><i class="fa fa-check" style="color: #44ff88;"/> Bezplatná úvodní konzultace (30 min)</li>
-                        <li><i class="fa fa-check" style="color: #44ff88;"/> Plán na míru podle tvých cílů</li>
-                        <li><i class="fa fa-check" style="color: #44ff88;"/> Pravidelná sezení online nebo v Praze/Brně</li>
-                        <li><i class="fa fa-check" style="color: #44ff88;"/> Podpora mezi sezeními přes chat</li>
+                        <li><i class="fa fa-check" style="color: #44ddff;"/> Bezplatná úvodní konzultace (30 min)</li>
+                        <li><i class="fa fa-check" style="color: #44ddff;"/> Plán na míru podle tvých cílů</li>
+                        <li><i class="fa fa-check" style="color: #44ddff;"/> Pravidelná sezení online nebo v Praze/Brně</li>
+                        <li><i class="fa fa-check" style="color: #44ddff;"/> Podpora mezi sezeními přes chat</li>
                     </ul>
                     <div data-anim="fade-up" data-delay="400">
                         <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Chci začít</a>
@@ -48,14 +43,14 @@
             <div class="hh-offer__more">
                 <div class="hh-offer__card" data-anim="fade-up" data-delay="100">
                     <div class="hh-offer__card-icon">
-                        <i class="fa fa-users" style="font-size: 26px; color: #ff8c42;"/>
+                        <i class="fa fa-users" style="font-size: 26px; color: #4a90d9;"/>
                     </div>
                     <h4>Skupinový program</h4>
                     <p>8týdenní program v malé skupině. Sdílená energie a strukturovaný proces změny.</p>
                 </div>
                 <div class="hh-offer__card" data-anim="fade-up" data-delay="250">
                     <div class="hh-offer__card-icon">
-                        <i class="fa fa-calendar" style="font-size: 26px; color: #ff8c42;"/>
+                        <i class="fa fa-calendar" style="font-size: 26px; color: #4a90d9;"/>
                     </div>
                     <h4>Workshopy a přednášky</h4>
                     <p>Jednodenní akce na konkrétní témata — stres, návyky, smysl života.</p>
