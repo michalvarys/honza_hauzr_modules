@@ -361,16 +361,10 @@
                          nejsou - ty stranky neexistuji. Doplnit az budou realne URL. -->
                     <div class="hh-footer__bottom">
                         <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena.</p>
-                        <p class="hh-footer__autor">Vytvořil <a href="https://www.varyshop.eu/" target="_blank" rel="noopener">Michal Varyš</a></p>
+                        <p class="hh-footer__autor">Vytvořil <a href="https://www.michalvarys.eu/chytil-jste-se-do-site" target="_blank" rel="noopener">Michal Varys</a> &#183; běží na <a href="https://www.varyshop.cz/jak-vypada-nas-system" target="_blank" rel="noopener">Varyshop</a></p>
                     </div>
                 </div>
             </section>
-
-            <!-- STICKY CTA -->
-            <div class="hh-sticky-cta" id="hhStickyCta">
-                <span class="hh-sticky-cta__text">Nezávazně a zdarma</span>
-                <a href="#kontakt" class="hh-btn hh-btn--warm">Domluvit úvodní hovor</a>
-            </div>
 
         </div>
     </t>

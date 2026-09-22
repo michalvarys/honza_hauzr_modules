@@ -2142,10 +2142,3 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     border-bottom-color: var(--hh-warm-light);
 }
 
-/* Lepkava lista dole prekryvala posledni radek paticky (copyright
-   a podpis autora). Paticka proto na spodku nechava misto na jeji
-   vysku, at se na ne da dostat i kliknout. */
-.hh-landing .hh-footer { padding-bottom: 96px; }
-@media (max-width: 768px) {
-    .hh-landing .hh-footer { padding-bottom: 104px; }
-}
