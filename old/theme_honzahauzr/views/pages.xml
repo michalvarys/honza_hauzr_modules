@@ -36,7 +36,6 @@
                             hranice a respekt k sobě.
                         </p>
                         <div class="hh-hero__ctas" data-anim="fade-up" data-delay="450">
-                            <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Domluvit úvodní hovor</a>
                             <a href="#o-mne" class="hh-btn hh-btn--ghost">Můj příběh</a>
                         </div>
                     </div>
@@ -362,6 +361,7 @@
                          nejsou - ty stranky neexistuji. Doplnit az budou realne URL. -->
                     <div class="hh-footer__bottom">
                         <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena.</p>
+                        <p class="hh-footer__autor">Vytvořil <a href="https://www.varyshop.eu/" target="_blank" rel="noopener">Michal Varyš</a></p>
                     </div>
                 </div>
             </section>

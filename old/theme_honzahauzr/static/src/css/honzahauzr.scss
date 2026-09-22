@@ -2112,7 +2112,6 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
         margin-top: auto;
         margin-bottom: 4vh;
     }
-    .hh-landing .hh-hero__ctas .hh-btn--primary { display: none; }
 
     /* Zavoj se prevaci: tmavy nahore pod textem, svetly pres oblicej,
        a u spodni hrany zase tmavne, aby sekce navazala na stranku. */
@@ -2124,4 +2123,29 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
             rgba(10, 10, 15, 0.55) 86%,
             var(--hh-bg) 100%);
     }
+}
+
+/* Podpis autora v paticce. Zamerne nenapadny - je to informace pro
+   toho, kdo ji hleda, ne dalsi prvek, ktery by tahal oko. */
+.hh-landing .hh-footer__autor {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.38);
+}
+.hh-landing .hh-footer__autor a {
+    color: rgba(255, 255, 255, 0.58);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.hh-landing .hh-footer__autor a:hover {
+    color: var(--hh-warm-light);
+    border-bottom-color: var(--hh-warm-light);
+}
+
+/* Lepkava lista dole prekryvala posledni radek paticky (copyright
+   a podpis autora). Paticka proto na spodku nechava misto na jeji
+   vysku, at se na ne da dostat i kliknout. */
+.hh-landing .hh-footer { padding-bottom: 96px; }
+@media (max-width: 768px) {
+    .hh-landing .hh-footer { padding-bottom: 104px; }
 }
