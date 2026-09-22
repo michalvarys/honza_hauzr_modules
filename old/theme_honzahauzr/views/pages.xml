@@ -361,7 +361,7 @@
                          nejsou - ty stranky neexistuji. Doplnit az budou realne URL. -->
                     <div class="hh-footer__bottom">
                         <p>&#169; 2026 Honza Hauzr. Všechna práva vyhrazena.</p>
-                        <p class="hh-footer__autor">Vytvořil <a href="https://www.michalvarys.eu/chytil-jste-se-do-site" target="_blank" rel="noopener">Michal Varys</a> &#183; běží na <a href="https://www.varyshop.cz/jak-vypada-nas-system" target="_blank" rel="noopener">Varyshop</a></p>
+                        <p class="hh-footer-credit">Vytvořil <a href="https://www.michalvarys.eu/chytil-jste-se-do-site" target="_blank" rel="noopener">Michal Varys</a> &#183; běží na <a href="https://www.varyshop.cz/jak-vypada-nas-system" target="_blank" rel="noopener">Varyshop</a></p>
                     </div>
                 </div>
             </section>

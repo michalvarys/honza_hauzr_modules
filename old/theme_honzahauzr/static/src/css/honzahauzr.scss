@@ -2125,19 +2125,22 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     }
 }
 
-/* Podpis autora v paticce. Zamerne nenapadny - je to informace pro
-   toho, kdo ji hleda, ne dalsi prvek, ktery by tahal oko. */
-.hh-landing .hh-footer__autor {
-    margin-top: 6px;
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.38);
+/* Autorska vizitka podle skillu /podpis - decentni, tlumena,
+   podtrzeni v brandove modre. */
+.hh-landing .hh-footer-credit {
+    margin-top: 14px;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.42);
 }
-.hh-landing .hh-footer__autor a {
-    color: rgba(255, 255, 255, 0.58);
+.hh-landing .hh-footer-credit a {
+    color: rgba(255, 255, 255, 0.62);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(74, 144, 217, 0.4);
+    padding-bottom: 1px;
+    transition: all 0.25s ease;
 }
-.hh-landing .hh-footer__autor a:hover {
+.hh-landing .hh-footer-credit a:hover {
     color: var(--hh-warm-light);
     border-bottom-color: var(--hh-warm-light);
 }
