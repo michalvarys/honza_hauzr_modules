@@ -2012,3 +2012,72 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     padding-bottom: 10px !important;
     transition: none !important;
 }
+
+/* ============================================================
+   NEWSLETTER
+   Nahradil blok PDF zdarma. Vedlejsi moznost, zamerne mensi
+   a tissi nez zbytek stranky - proto uzka karta a drobnejsi pismo.
+   ============================================================ */
+.hh-news { padding: 72px 0 88px; background: var(--hh-bg); }
+.hh-news__box {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+    padding: 38px 40px;
+    border-radius: 22px;
+    background: linear-gradient(140deg, rgba(74, 144, 217, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(74, 144, 217, 0.22);
+}
+.hh-news__text h3 { font-size: 1.35rem; margin-bottom: 10px; letter-spacing: -0.01em; }
+.hh-news__text p { color: var(--hh-text-light); font-size: 0.94rem; line-height: 1.6; margin: 0; }
+
+/* Formular ma uvnitr povinny obal pole (s_website_form_field), takze
+   rozlozeni miri na nej, ne primo na input - jinak by pole a tlacitko
+   spadly pod sebe. */
+.hh-news__form { display: flex; gap: 10px; align-items: flex-start; }
+.hh-news__form .s_website_form_field {
+    flex: 1 1 auto;
+    min-width: 220px;
+    margin: 0;
+    position: relative;
+}
+.hh-news__form .s_website_form_send { flex: none; white-space: nowrap; }
+.hh-news__input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 10, 15, 0.55);
+    color: #fff;
+    font-size: 0.95rem;
+}
+.hh-news__input::placeholder { color: rgba(255, 255, 255, 0.4); }
+.hh-news__input:focus {
+    outline: none;
+    border-color: var(--hh-warm);
+    background: rgba(10, 10, 15, 0.75);
+    color: #fff;
+}
+.hh-news__form .hh-btn {
+    border-radius: 12px;
+    padding: 14px 26px;
+    font-size: 0.95rem;
+    background: var(--hh-gradient-warm);
+    color: #fff;
+    border: 0;
+    box-shadow: 0 8px 24px rgba(74, 144, 217, 0.35);
+}
+.hh-news__form .hh-btn:hover { filter: brightness(1.1); color: #fff; }
+/* Potvrzeni po odeslani zabira misto po formulari, at blok nepreskoci. */
+.hh-news__box .s_website_form_end_message { grid-column: 1 / -1; }
+
+@media (max-width: 768px) {
+    .hh-news { padding: 56px 0 72px; }
+    .hh-news__box { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; }
+    .hh-news__form { flex-direction: column; align-items: stretch; }
+    .hh-news__form .s_website_form_field { min-width: 0; }
+    .hh-news__form .s_website_form_send { width: 100%; }
+}

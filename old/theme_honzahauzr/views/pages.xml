@@ -281,32 +281,45 @@
                 </div>
             </section>
 
-            <!-- 6. PDF ZDARMA -->
-            <section class="hh-pdf o_cc o_colored_level" id="pdf">
+            <!-- 6. NEWSLETTER -->
+            <!-- Zamerne mensi a klidnejsi nez vyzva - je to vedlejsi moznost,
+                 ne druha hlavni nabidka. Zadne PDF, zadne vyskakovaci okno.
+                 Napojeni se doresi pozdeji, zatim jde o vizualni podobu. -->
+            <section class="hh-news o_cc o_colored_level" id="newsletter">
                 <div class="container">
-                    <div class="hh-pdf__box" data-anim="fade-up">
-                        <div>
-                            <h3>Zatím nechceš mluvit?</h3>
-                            <p>Pošlu ti PDF s tím, kde nejčastěji začínáme. Žádné navazující volání, jen e-mail.</p>
+                    <div class="hh-news__box" data-anim="fade-up">
+                        <div class="hh-news__text">
+                            <h3>Chceš zůstat v kontaktu?</h3>
+                            <p>
+                                Jednou za čas ti pošlu konkrétní myšlenku, otázku nebo tip, který ti
+                                pomůže vystoupit z autopilota a žít víc podle sebe.
+                            </p>
                         </div>
-                        <form class="hh-pdf__form s_website_form"
+                        <!-- Stejny mechanismus jako u drivejsiho formulare: prazdny
+                             e-mail Odoo zastavi a ukaze hlasku, po odeslani se misto
+                             formulare objevi potvrzeni.
+
+                             Obal s_website_form_field je povinny - Odoo validuje jen
+                             vstupy uvnitr nej. Bez nej projde i prazdny formular.
+                             Skryte pole name odlisi zapis k odberu od ostatnich leadu. -->
+                        <form class="hh-news__form s_website_form"
                               action="/website/form/" method="post" enctype="multipart/form-data"
                               data-model_name="crm.lead"
                               data-success-mode="message">
-                            <input type="hidden" name="name" value="Stažení PDF z webu honzahauzr.cz"/>
+                            <input type="hidden" name="name" value="Newsletter z webu honzahauzr.cz"/>
                             <div class="s_website_form_field s_website_form_required">
-                                <label class="col-form-label s_website_form_label hh-sr-only" for="hh_pdf_email">Tvůj e-mail</label>
-                                <input type="email" id="hh_pdf_email" class="form-control s_website_form_input"
+                                <label class="col-form-label s_website_form_label hh-sr-only" for="hh_news_email">Tvůj e-mail</label>
+                                <input type="email" id="hh_news_email" class="form-control s_website_form_input hh-news__input"
                                        name="email_from" placeholder="Tvůj e-mail" required="required"/>
-                                 <span class="hh-err">Napiš e-mail, kam ti PDF poslat.</span>
+                                <span class="hh-err">Bez e-mailu ti nemám co poslat.</span>
                             </div>
-                            <button type="submit" class="s_website_form_send">Poslat PDF</button>
+                            <button type="submit" class="hh-btn s_website_form_send">Chci odebírat</button>
                         </form>
                         <div class="s_website_form_end_message d-none hh-done hh-done--inline">
                             <div class="hh-done__icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
                             </div>
-                            <p>Hotovo, PDF ti posílám na e-mail.</p>
+                            <p>Mám to. Ozvu se, až budu mít co říct.</p>
                         </div>
                     </div>
                 </div>
