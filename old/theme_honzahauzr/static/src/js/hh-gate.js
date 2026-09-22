@@ -15,7 +15,7 @@
     "use strict";
 
     var KLIC = "hhGateVidano";      // v ramci jedne navstevy staci jednou
-    var FOTKA = "/theme_honzahauzr/static/src/img/gate-morpheus.webp";
+    var FOTKA = "/theme_honzahauzr/static/src/img/gate-honza.webp";
 
     var UVOD = "Tohle je tvoje poslední šance. Potom už není cesty zpět. " +
         "Vezmeš modrou pilulku – příběh končí, probudíš se ve své posteli a uvěříš " +

@@ -61,7 +61,7 @@
 /*
    Ramecek s ilustraci.
 
-   Drzi pomer stran obrazku (16:9) a je co nejvetsi, ale cely se vejde do
+   Drzi pomer stran obrazku (1136 x 1385, tedy na vysku) a je co nejvetsi, ale cely se vejde do
    okna. Pilulky i bublina jsou jeho potomci umistene v procentech, takze
    se s obrazkem posouvaji a skaluji presne.
 
@@ -73,15 +73,13 @@
 .hh-gate__scene {
     position: relative;
     /* Scena je polozka flexboxu (.hh-gate__stage). Bez tohohle by ji
-       flexbox pri sirce vetsi nez okno smrskl na sirku rodice, zatimco
-       vyska by zustala - obrazek by se roztahl a prestal by sedet pomer
-       stran. Tyka se hlavne mobilu, kde je scena schvalne sirsi nez okno. */
+       flexbox mohl smrsknout a obrazek by se roztahl mimo pomer stran. */
     flex: none;
     width: 100vw;
-    height: 56.25vw;              /* 100 / (16/9) */
+    height: 121.95vw;          /* 100 / 0.820 */
     max-height: 100vh;
-    max-width: 177.78vh;          /* 100 * (16/9) */
-    background-image: url("/theme_honzahauzr/static/src/img/gate-morpheus.webp");
+    max-width: 82vh;           /* 100 * 0.820 */
+    background-image: url("/theme_honzahauzr/static/src/img/gate-honza.webp");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -91,13 +89,13 @@
 .hh-gate--nofoto .hh-gate__scene { background-image: none; }
 
 /* ---------- pilulky ----------
-   Souradnice jsou zmerene z ilustrace: teziste spodni casti modre ruky
-   vyslo na 40 / 71 %, cervene na 60 / 71 %. V obrazku je MODRA vlevo
+   Souradnice jsou zmerene z ilustrace: miska modre dlane vysla na
+   30.8 / 71.6 %, cervene na 69.3 / 71.7 %. V obrazku je MODRA vlevo
    a CERVENA vpravo, proto to takhle "obracene" sedi. */
 .hh-gate__pill {
     position: absolute;
-    top: 65.5%;                   /* miska dlane, ne prsty pod ni */
-    width: 5.4%;
+    top: 71.6%;                   /* miska dlane */
+    width: 9.5%;
     aspect-ratio: 2.5 / 1;
     min-width: 26px;
     padding: 0;
@@ -111,13 +109,13 @@
 /* Pilulka je natocena podle sklonu dlane a zare je kratka, aby vypadala
    jako odlesk na drobnem predmetu, ne jako svitici koule. */
 .hh-gate__pill--blue {
-    left: 39.5%;
+    left: 30.8%;
     background: linear-gradient(145deg, #8ae0ff 0%, #2f8fe0 52%, #10457c 100%);
     box-shadow: 0 0 14px rgba(74, 170, 255, 0.6);
     animation: hhPillIn 620ms ease forwards 1400ms, hhPillFloatL 3.4s ease-in-out infinite 2.1s;
 }
 .hh-gate__pill--red {
-    left: 60.5%;
+    left: 69.3%;
     background: linear-gradient(145deg, #ff6b6b 0%, #d81b2a 52%, #8a0d18 100%);
     box-shadow: 0 0 14px rgba(255, 60, 60, 0.6);
     animation: hhPillIn 620ms ease forwards 1560ms, hhPillFloatR 3.8s ease-in-out infinite 2.4s;
@@ -140,8 +138,8 @@
    u prislusne pilulky, aby to slo ruku v ruce. */
 .hh-gate__shadow {
     position: absolute;
-    top: 68.4%;
-    width: 5.6%;
+    top: 74%;
+    width: 9.8%;
     aspect-ratio: 3.6 / 1;
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -150,11 +148,11 @@
     pointer-events: none;
 }
 .hh-gate__shadow--blue {
-    left: 39.5%;
+    left: 30.8%;
     animation: hhShadowIn 620ms ease forwards 1400ms, hhShadowPulseL 3.4s ease-in-out infinite 2.1s;
 }
 .hh-gate__shadow--red {
-    left: 60.5%;
+    left: 69.3%;
     animation: hhShadowIn 620ms ease forwards 1560ms, hhShadowPulseR 3.8s ease-in-out infinite 2.4s;
 }
 .hh-gate__pill:hover,
@@ -162,7 +160,7 @@
 .hh-gate__pill:focus-visible { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9); }
 
 /* ---------- bublina ----------
-   Usta postavy jsou v ilustraci zhruba na 50 / 34 %. Bublina stoji vpravo
+   Obliceji se bublina vyhyba - stoji vedle hlavy. Bublina stoji vpravo
    od hlavy, aby obliceji neprekazela, a ocasek miri k ustum. */
 .hh-gate__bubble {
     position: absolute;
@@ -294,14 +292,23 @@ html.hh-gate-armed #wrapwrap { visibility: hidden; }
    cerno. Bublina se proto presune nad nej pres celou sirku - vedle hlavy
    uz by na ni nebylo misto. Ocasek pak miri dolu. */
 @media (max-width: 900px) {
-    /* Na uzkem displeji by se cela ilustrace vesla jen hodne mala a kolem
-       by zbyvalo prazdne cerno. Ramecek je proto sirsi nez okno - postava
-       s rukama se zvetsi a orezou se jen prazdne kraje. Pilulky drzi
-       pozici, protoze jsou umistene v procentech ramecku. */
+    /*
+       Bublina stoji nad ilustraci, takze ilustrace nesmi zabrat celou
+       vysku okna - jinak bublina uteče nad horni okraj. Merenim se
+       ukazalo, ze bez tohohle omezeni je useknuta na vsech beznych
+       telefonech krome tech nejvyssich: na 375x667 prectahovala o 83 px,
+       na 320x568 dokonce o 120 px.
+
+       Scena proto dostane pevnou vysku 54vh a sirku si dopocita z pomeru
+       stran. Nad ni tak vzdy zbyva zhruba tretina okna. Na velmi uzkem
+       displeji zaskoci max-width a vysku dopocita zpatky pomer stran.
+    */
+    .hh-gate__stage { align-items: flex-end; padding-bottom: 4vh; }
     .hh-gate__scene {
-        width: 168vw;
-        height: 94.5vw;           /* 168 / (16/9) */
-        max-width: none;
+        aspect-ratio: 1136 / 1385;
+        height: 54vh;
+        width: auto;
+        max-width: 100vw;
         max-height: none;
     }
     .hh-gate__bubble {
