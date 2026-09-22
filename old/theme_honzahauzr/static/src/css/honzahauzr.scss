@@ -2081,3 +2081,47 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     .hh-news__form .s_website_form_field { min-width: 0; }
     .hh-news__form .s_website_form_send { width: 100%; }
 }
+
+/* ============================================================
+   HERO NA MOBILU - aby byl videt oblicej
+   Na uzkem displeji se fotka orizne na stred, takze z ni zbyde
+   hlavne plast balonu a Honza zustane schovany vpravo dole za
+   tlacitky. Vyrez se proto posune k obliceji a text jde nahoru,
+   aby spodni cast fotky zustala volna.
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Pozice pozadi je na sekci inline (kvuli vymene obrazku v Odoo
+       editoru), proto tu musi byt !important - jinak by se neprosadila. */
+    .hh-landing .hh-hero {
+        align-items: stretch;
+        background-position: 70% 26% !important;
+    }
+    /* Text nahore, tlacitka dole, mezi nimi zustane volny oblicej.
+       Obsah se proto roztahne pres celou vysku sekce a tlacitka
+       odsune dolu margin-top: auto. */
+    .hh-landing .hh-hero > .container { display: flex; }
+    .hh-landing .hh-hero__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 92px 0 52px;
+    }
+    /* Na telefonu zustava jen "Muj pribeh" - hlavni tlacitko by pres
+       fotku zabralo moc mista. Posouva se dolu, pod ruku na fotce. */
+    .hh-landing .hh-hero__ctas {
+        margin-top: auto;
+        margin-bottom: 4vh;
+    }
+    .hh-landing .hh-hero__ctas .hh-btn--primary { display: none; }
+
+    /* Zavoj se prevaci: tmavy nahore pod textem, svetly pres oblicej,
+       a u spodni hrany zase tmavne, aby sekce navazala na stranku. */
+    .hh-landing .hh-hero__bg {
+        background: linear-gradient(180deg,
+            rgba(10, 10, 15, 0.88) 0%,
+            rgba(10, 10, 15, 0.62) 34%,
+            rgba(10, 10, 15, 0.18) 58%,
+            rgba(10, 10, 15, 0.55) 86%,
+            var(--hh-bg) 100%);
+    }
+}
