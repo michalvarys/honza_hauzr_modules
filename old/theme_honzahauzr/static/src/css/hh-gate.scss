@@ -166,13 +166,18 @@
    od hlavy, aby obliceji neprekazela, a ocasek miri k ustum. */
 .hh-gate__bubble {
     position: absolute;
-    /* Bublina se nesmi dotknout ilustrace, proto stoji az za jejim
-       okrajem (left: 100%) v cerne plose vedle. Sirka je v jednotkach
-       okna, ne v procentech sceny - jinak by se pri uzsim okne
-       zmensovala zaroven s obrazkem a text by se natlacil. */
-    left: 100%;
-    margin-left: 26px;
-    top: calc(42% - 34px);     /* aby ocasek vysel na usta postavy */
+    /* Bublina stoji vedle hlavy, v cerne plose obrazku - ne az za celou
+       scenou, to bylo zbytecne daleko od postavy.
+
+       Zmereno primo z ilustrace: v urovni ust konci kresba na 62 % sirky,
+       hlava saha od 36 do 64 % a ramena se rozsiruji az pod 45 % vysky.
+       Vlevo i vpravo od hlavy je tedy nad rameny cerno, kam se bublina
+       vejde, aniz by kresbu prekryla.
+
+       Sirka je v jednotkach okna, ne v procentech sceny - jinak by se
+       pri uzsim okne zmensovala zaroven s obrazkem a text by se natlacil. */
+    left: 65%;
+    bottom: 57%;               /* spodni hrana na 43 % vysky, tesne nad rameny */
     width: 19vw;
     max-width: 340px;
     min-width: 230px;
@@ -192,7 +197,7 @@
     content: "";
     position: absolute;
     left: -14px;
-    top: 24px;
+    bottom: 16px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -208,9 +213,7 @@
 @media (min-width: 1200px) {
     .hh-gate__bubble.is-left {
         left: auto;
-        margin-left: 0;
-        right: 100%;
-        margin-right: 26px;
+        right: 65%;
     }
     .hh-gate__bubble.is-left::after {
         left: auto;
