@@ -27,8 +27,6 @@ Obsahuje:
         'data/generate_primary_template.xml',
         'data/ir_asset.xml',
 
-        'views/layout.xml',
-
         'views/snippets/s_hh_hero.xml',
         'views/snippets/s_hh_vision_strip.xml',
         'views/snippets/s_hh_pain.xml',

@@ -110,18 +110,7 @@
         requestAnimationFrame(step);
     }
 
-    /*
-       Navesovani pozorovatelu je ve funkci, protoze se nesmi spustit
-       hned, kdyz pres stranku lezi vstupni brana.
-
-       Proc: IntersectionObserver hlasi protnuti i u prvku, ktere jsou
-       schovane pres visibility: hidden. Sekce v prvnim zaberu by proto
-       odanimovaly za branou a navstevnik by po vstupu nasel hero uz
-       odkryte - zadne nabehnuti by nevidel.
-
-       Brana da vedet udalosti hh-brana-otevrena. Kdyz zadna neni,
-       spousti se rovnou.
-    */
+    // Navesi pozorovatele, kteri sekce odkryvaji, jakmile se doscrolluji.
     function spustitPozorovatele() {
         if ("IntersectionObserver" in window) {
             var animObserver = new IntersectionObserver(
@@ -175,22 +164,7 @@
         }
     }
 
-    if (window.__hhBranaBude) {
-        var spusteno = false;
-        function spustitJednou() {
-            if (spusteno) { return; }
-            spusteno = true;
-            spustitPozorovatele();
-        }
-        document.addEventListener("hh-brana-otevrena", spustitJednou, { once: true });
-        // Zachrana pro pripad, ze by udalost z brany nikdy neprisla.
-        // Schvalne dlouha - navstevnik si hlasku cte klidne deset sekund
-        // a kratsi odpocet by mu animace spustil za branou, takze by o ne
-        // prisel. Presne to se stalo pri pokusu se 4 s.
-        setTimeout(spustitJednou, 30000);
-    } else {
-        spustitPozorovatele();
-    }
+    spustitPozorovatele();
 
     // ===== PARALLAX =====
     var ticking = false;
