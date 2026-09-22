@@ -37,13 +37,19 @@
         document.documentElement.classList.remove("hh-gate-armed");
     }
 
+    // Dava animacim na strance vedet, ze uz na ni je videt. Volat AZ kdyz
+    // se brana otevira, nebo kdyz se vubec nestavi - ne pri jejim vzniku.
+    function pustitAnimace() {
+        document.dispatchEvent(new Event("hh-brana-otevrena"));
+    }
+
     function spustit() {
         // jen na landing strance - na /wip ani v administraci nema co delat
-        if (!document.querySelector(".hh-landing")) { odemknout(); return; }
-        if (vEditoru()) { odemknout(); return; }
+        if (!document.querySelector(".hh-landing")) { odemknout(); pustitAnimace(); return; }
+        if (vEditoru()) { odemknout(); pustitAnimace(); return; }
 
         try {
-            if (sessionStorage.getItem(KLIC) === "1") { odemknout(); return; }
+            if (sessionStorage.getItem(KLIC) === "1") { odemknout(); pustitAnimace(); return; }
         } catch (e) {
             /* privatni okno muze pristup zakazat - branu proste ukazeme */
         }
@@ -102,6 +108,8 @@
 
             if (pilulka) { pilulka.classList.add("is-chosen"); }
             brana.classList.add("is-choosing");
+
+            pustitAnimace();
 
             // nejdriv zhasne scena, pak se teprve rozjedou dvere;
             // obe faze resi prechody v CSS pod temihle tridami

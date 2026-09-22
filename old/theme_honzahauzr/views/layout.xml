@@ -32,6 +32,11 @@
 
                 var d = document.documentElement;
                 d.classList.add("hh-gate-armed");
+                // Animace na strance podle tohohle poznaji, ze maji pockat,
+                // nez brana zmizi. Nastavuje se tady, protoze tenhle skript
+                // bezi driv nez cely balik - jakekoliv pozdejsi zjistovani
+                // "uz brana existuje?" je zavod s casem.
+                window.__hhBranaBude = true;
                 setTimeout(function () { d.classList.remove("hh-gate-armed"); }, 3000);
             })();
         </script>

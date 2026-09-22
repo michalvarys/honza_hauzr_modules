@@ -110,56 +110,86 @@
         requestAnimationFrame(step);
     }
 
-    // IntersectionObserver for scroll-triggered animations
-    if ("IntersectionObserver" in window) {
-        var animObserver = new IntersectionObserver(
-            function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        animateElement(entry.target);
-                        animObserver.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-        );
+    /*
+       Navesovani pozorovatelu je ve funkci, protoze se nesmi spustit
+       hned, kdyz pres stranku lezi vstupni brana.
 
-        animEls.forEach(function (el) {
-            if (el.getAttribute("data-anim") !== "counter") {
-                animObserver.observe(el);
-            }
-        });
+       Proc: IntersectionObserver hlasi protnuti i u prvku, ktere jsou
+       schovane pres visibility: hidden. Sekce v prvnim zaberu by proto
+       odanimovaly za branou a navstevnik by po vstupu nasel hero uz
+       odkryte - zadne nabehnuti by nevidel.
 
-        // Counter observer
-        var counterObserver = new IntersectionObserver(
-            function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting && !countersAnimated.has(entry.target)) {
-                        countersAnimated.add(entry.target);
-                        var parent = entry.target.closest("[data-anim]");
-                        if (parent && !parent.classList.contains("anim-visible")) {
-                            animateElement(parent);
+       Brana da vedet udalosti hh-brana-otevrena. Kdyz zadna neni,
+       spousti se rovnou.
+    */
+    function spustitPozorovatele() {
+        if ("IntersectionObserver" in window) {
+            var animObserver = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            animateElement(entry.target);
+                            animObserver.unobserve(entry.target);
                         }
-                        setTimeout(function () {
-                            entry.target.style.opacity = "1";
-                            animateCounter(entry.target);
-                        }, 500);
-                        counterObserver.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.5 }
-        );
+                    });
+                },
+                { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+            );
 
-        counterEls.forEach(function (el) {
-            el.style.opacity = "1";
-            counterObserver.observe(el);
-        });
+            animEls.forEach(function (el) {
+                if (el.getAttribute("data-anim") !== "counter") {
+                    animObserver.observe(el);
+                }
+            });
+
+            // Counter observer
+            var counterObserver = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting && !countersAnimated.has(entry.target)) {
+                            countersAnimated.add(entry.target);
+                            var parent = entry.target.closest("[data-anim]");
+                            if (parent && !parent.classList.contains("anim-visible")) {
+                                animateElement(parent);
+                            }
+                            setTimeout(function () {
+                                entry.target.style.opacity = "1";
+                                animateCounter(entry.target);
+                            }, 500);
+                            counterObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+
+            counterEls.forEach(function (el) {
+                el.style.opacity = "1";
+                counterObserver.observe(el);
+            });
+        } else {
+            // Fallback
+            animEls.forEach(function (el) {
+                el.classList.add("anim-visible");
+            });
+        }
+    }
+
+    if (window.__hhBranaBude) {
+        var spusteno = false;
+        function spustitJednou() {
+            if (spusteno) { return; }
+            spusteno = true;
+            spustitPozorovatele();
+        }
+        document.addEventListener("hh-brana-otevrena", spustitJednou, { once: true });
+        // Zachrana pro pripad, ze by udalost z brany nikdy neprisla.
+        // Schvalne dlouha - navstevnik si hlasku cte klidne deset sekund
+        // a kratsi odpocet by mu animace spustil za branou, takze by o ne
+        // prisel. Presne to se stalo pri pokusu se 4 s.
+        setTimeout(spustitJednou, 30000);
     } else {
-        // Fallback
-        animEls.forEach(function (el) {
-            el.classList.add("anim-visible");
-        });
+        spustitPozorovatele();
     }
 
     // ===== PARALLAX =====
