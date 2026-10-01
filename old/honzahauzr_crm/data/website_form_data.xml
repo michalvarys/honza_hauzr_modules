@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Povoleni pole hh_zdroj pro webove formulare.
+
+    Odoo vsechna pole modelu ve vychozim stavu zahazuje a pusti do
+    formulare jen ta, ktera si modul vysloveni vyzada. Bez tohohle
+    zaznamu se skryte pole hh_zdroj z formulare tise ztratilo a
+    prilezitost se zaradila jen podle toho, jestli se v jejim nazvu
+    nahodou naslo slovo "vyzva" nebo "newsletter".
+
+    Fungovalo to, ale drzelo to na tenkem vlakne: stacilo v editoru
+    prejmenovat formular a lidi zacali padat do prvniho sloupce bez
+    stitku. Zalozni rozpoznani podle nazvu v crm_lead.py zustava, uz
+    ale jen jako pojistka pro starsi formulare.
+-->
+<function model="ir.model.fields" name="formbuilder_whitelist">
+    <value>crm.lead</value>
+    <value eval="['hh_zdroj']"/>
+</function>
+
+</odoo>

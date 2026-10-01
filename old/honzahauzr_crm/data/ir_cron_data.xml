@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+<!--
+    Nocni doplneni terminu. Bez nej by okno volnych terminu postupne
+    vyschlo - kazdym dnem by se zkratilo o jeden den dopredu.
+
+    noupdate="1": az si Honza posune cas spousteni nebo ukol vypne,
+    upgrade modulu mu to nevrati zpatky.
+-->
+<record id="cron_terminy" model="ir.cron">
+    <field name="name">Honza Hauzr: doplnit termíny hovorů</field>
+    <field name="model_id" ref="model_hh_termin"/>
+    <field name="state">code</field>
+    <field name="code">model._hh_nocni_uklid()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="active" eval="True"/>
+</record>
+
+<!--
+    Rozesilani Dne 2 a Dne 3. Vychozi stav je vypnuto: Honza posila
+    odkazy na videa sam, az kdyz uzna za vhodne, stejne jako u odberu
+    novinek. Automaticke rozesilani by mu lidi posunulo dal driv, nez
+    se k nim vubec dostane.
+
+    Ukol tu presto zustava - staci ho v Nastaveni zapnout a rozesilani
+    pobezi po hodinach. Po hodinach proto, ze odpocet je navazany na
+    cas registrace kazdeho cloveka zvlast: kdo se prihlasil v poledne,
+    ma dostat druhy den take kolem poledne, ne az nasledujici noc.
+-->
+<record id="cron_vyzva_maily" model="ir.cron">
+    <field name="name">Honza Hauzr: rozeslat dny výzvy</field>
+    <field name="model_id" ref="crm.model_crm_lead"/>
+    <field name="state">code</field>
+    <field name="code">model._hh_vyzva_rozeslat()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">hours</field>
+    <field name="active" eval="False"/>
+</record>
+
+<!--
+    Navazujici zpravy z rady napsane u sloupce (druha a treti).
+    Bezi po hodinach, protoze odpocet je navazany na okamzik, kdy
+    karta do sloupce vstoupila, zvlast za kazdeho cloveka - kdo se
+    prihlasil v poledne, ma dalsi den dostat take kolem poledne,
+    ne az nasledujici noc.
+-->
+<record id="cron_stupne_maily" model="ir.cron">
+    <field name="name">Honza Hauzr: rozeslat navazující e-maily sloupců</field>
+    <field name="model_id" ref="crm.model_crm_lead"/>
+    <field name="state">code</field>
+    <field name="code">model._hh_rozeslat_navazujici()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">hours</field>
+    <field name="active" eval="True"/>
+</record>
+
+</data>
+</odoo>

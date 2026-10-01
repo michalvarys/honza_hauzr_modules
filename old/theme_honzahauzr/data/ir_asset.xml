@@ -22,10 +22,79 @@
     <field name="path">theme_honzahauzr/static/src/css/honzahauzr.scss</field>
 </record>
 
+<record id="asset_hh_novy_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - novy design (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/css/hh-novy.scss</field>
+</record>
+
+<record id="asset_hh_vyzva_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - landing page vyzvy (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/css/hh-vyzva.scss</field>
+</record>
+
 <record id="asset_honzahauzr_js" model="theme.ir.asset">
     <field name="name">Honza Hauzr - skript</field>
     <field name="bundle">web.assets_frontend</field>
     <field name="path">theme_honzahauzr/static/src/js/honzahauzr.js</field>
+</record>
+
+<record id="asset_hh_vyzva_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - landing page vyzvy (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-vyzva.js</field>
+</record>
+
+<!-- Sedi zvlast, protoze se tyka hlavni stranky i landing page.
+
+     Patri do "minimal", ne do bezneho frontend svazku. Odoo si video
+     ramecky dosazuje samo a tenhle skript ho musi predbehnout, jinak
+     dosadi adresu i schovane variante a stahnou se obe - viz hlavicka
+     skriptu. "Minimal" se nacita jako prvni, jeste pred docteni stranky.
+
+     Kotvi se o module_loader.js z jadra, ne o neco z website. Ten
+     generator sidli v ruznych verzich Odoo jinde - nekde je to vlastni
+     soubor generate_video_iframe.js, jinde jen widget uvnitr
+     snippets.animation.js - a odkaz na soubor, ktery v dane verzi
+     neexistuje, shodi celou stranku na 500. Skript musi byt az za
+     module_loader.js, protoze Odoo kazdy soubor ve svazku obali do
+     odoo.define.
+
+     Z "lazy" se skript odebira, aby nebezel dvakrat; stejne to dela
+     website se svymi soubory. -->
+<record id="asset_hh_video_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - nacitani videi (skript)</field>
+    <field name="bundle">web.assets_frontend_minimal</field>
+    <field name="directive">after</field>
+    <field name="target">web/static/src/module_loader.js</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-video.js</field>
+</record>
+
+<record id="asset_hh_video_js_lazy" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - nacitani videi (pryc z lazy)</field>
+    <field name="bundle">web.assets_frontend_lazy</field>
+    <field name="directive">remove</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-video.js</field>
+</record>
+
+<!-- Logo na landing page vede zpatky nahoru, ne na hlavni stranku.
+     Ve svazku "minimal" ze stejneho duvodu jako skript na videa: v
+     beznem frontend svazku by se dostal ke slovu az par stovek
+     milisekund po zobrazeni stranky a do te doby by logo vedlo pryc. -->
+<record id="asset_hh_logo_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - logo na landing page (skript)</field>
+    <field name="bundle">web.assets_frontend_minimal</field>
+    <field name="directive">after</field>
+    <field name="target">web/static/src/module_loader.js</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-logo.js</field>
+</record>
+
+<record id="asset_hh_logo_js_lazy" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - logo na landing page (pryc z lazy)</field>
+    <field name="bundle">web.assets_frontend_lazy</field>
+    <field name="directive">remove</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-logo.js</field>
 </record>
 
 </data>

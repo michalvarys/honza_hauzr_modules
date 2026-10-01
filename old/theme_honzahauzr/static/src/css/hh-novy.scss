@@ -1,0 +1,1597 @@
+/* ============================================================
+   NOVY DESIGN podle podkladu od klienta (prefix hhn-)
+
+   Stranka bezi na /novy vedle puvodni landing page, aby se dalo
+   porovnavat a puvodni web zustal cely funkcni. Az bude hotovo,
+   staci prohodit URL v theme.website.page.
+
+   Zaklad (promenne --hh-*, font, tmave pozadi, [data-anim]) prebira
+   z honzahauzr.scss - obal stranky nese obe tridy: hh-landing hhn.
+   Tady jsou jen veci, ktere novy design pridava nebo meni.
+   ============================================================ */
+
+/* ===== SPOLECNE PRVKY ===== */
+
+.hhn section {
+    padding: clamp(64px, 8vw, 110px) 0;
+    position: relative;
+}
+
+/* Nadrazena sekce s fotkou na pozadi si odsazeni resi sama */
+.hhn section.hhn-hero {
+    padding: 0;
+}
+
+.hhn .hhn-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hhn .hhn-eyebrow--accent {
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-h2 {
+    font-size: clamp(1.65rem, 3.1vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+}
+
+.hhn .hhn-accent {
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-lead {
+    color: var(--hh-text-light);
+    font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+    line-height: 1.7;
+}
+
+/* Drobne vety pod tlacitky jdou stejnou bilou jako nadpisy - tlumena
+   seda se na nich ztracela. Plati pro vsechny, aby ta stejna veta
+   nevypadala na kazde sekci jinak. */
+.hhn .hhn-note {
+    font-size: 12.5px;
+    color: var(--hh-text);
+}
+
+/* Pod kazdym tlacitkem "Zacni zde zdarma" stoji stejna veta o tom,
+   kam vede. Zarovnani si bere po obalu tlacitka, takze vlevo
+   i na stred sedi bez dalsiho nastavovani. */
+.hhn .hhn-cta-note {
+    margin-top: 14px;
+}
+
+/* Jedno tlacitko pro cely web - vsechny CTA vedou do vyzvy */
+.hhn .hhn-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* O petinu mensi nez puvodne - predchozi rozmer pusobil na strance
+       predimenzovane. */
+    gap: 10px;
+    padding: 13px 24px;
+    /* Svetla linka po obvodu oddeli tlacitko od tmaveho pozadi */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    /* Dve vrstvy pozadi: lesk pri horni hrane a pod nim samotna modra.
+       Driv to byl pseudoprvek se zapornym z-indexem, ktery se kreslil
+       ZA vlastnim pozadim tlacitka, takze nebyl videt vubec. Jako
+       vrstva pozadi lezi spravne nad modrou a pod napisem. */
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 56%),
+        linear-gradient(135deg, #4a90d9 0%, #2aa6ee 52%, #00c6ff 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    /* prava mezera dorovna opticke vycentrovani - prostrkani posouva
+       text doprava a bez toho sedi napis mimo stred */
+    letter-spacing: 0.15em;
+    text-indent: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    /* Zadna zare pod tlacitkem - jen cisty zakulaceny tvar. */
+    box-shadow: none;
+    transition: filter 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Najeti mysi tlacitkem nehybe. Drive vyskocilo o dva pixely nahoru,
+   coz na strance pusobilo neklidne a u tlacitka lezicino pres fotky to
+   vypadalo, jako by se posouvalo pryc. Misto pohybu se jen rozsviti
+   a zvyrazni linka po obvodu. */
+.hhn .hhn-cta:hover,
+.hhn .hhn-cta:focus-visible {
+    color: #fff;
+    filter: brightness(1.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Stisk zustava - kratke stlaceni je jedina zpetna vazba, kterou
+   clovek od tlacitka ceka. */
+.hhn .hhn-cta:active {
+    transform: scale(0.98);
+    filter: brightness(1.02);
+}
+
+/* Sipka ma svoje kolecko, aby nevisela u napisu jako prilepena */
+.hhn .hhn-cta svg {
+    flex: none;
+    box-sizing: content-box;
+    width: 13px;
+    height: 13px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.hhn .hhn-cta:hover svg {
+    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== 1. HERO ===== */
+
+.hhn .hhn-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Hero zacina pod listou, takze cela vyska okna by ho o jeji vysku
+       pretahla - na mobilu by tlacitko spadlo pod ohyb. Odecita se proto. */
+    min-height: calc(100vh - 62px);
+    min-height: calc(100svh - 62px);
+    overflow: hidden;
+}
+
+.hhn .hhn-hero__photo {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: 74% center;
+}
+
+/* Zavoj jen pod textem. Vpravo, kde je postava a balon, se fotka nechava
+   ostra - zadani nechce plosne ztmaveni ani rozmazani. */
+.hhn .hhn-hero__veil {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            var(--hh-bg) 0%,
+            rgba(10, 10, 15, 0.88) 30%,
+            rgba(10, 10, 15, 0.46) 52%,
+            rgba(10, 10, 15, 0.1) 76%,
+            rgba(10, 10, 15, 0.02) 100%
+        );
+}
+
+.hhn .hhn-hero__veil::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 28%;
+    background: linear-gradient(180deg, rgba(10, 10, 15, 0) 0%, var(--hh-bg) 100%);
+}
+
+.hhn .hhn-hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    padding: 120px 0 90px;
+}
+
+.hhn .hhn-hero h1 {
+    margin-top: 18px;
+    font-size: clamp(2.05rem, 4.4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+}
+
+.hhn .hhn-hero h1 em {
+    display: block;
+    font-family: "Playfair Display", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-hero__sub {
+    max-width: 540px;
+    margin-top: 22px;
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    line-height: 1.75;
+}
+
+/* V hero jde popisek nad nadpisem i text pod nim stejnou bilou jako
+   samotny nadpis - tlumena seda se na fotce ztracela. Poznamku pod
+   tlacitkem uz resi .hhn-note vyse. */
+.hhn .hhn-hero .hhn-eyebrow,
+.hhn .hhn-hero__sub {
+    color: var(--hh-text);
+}
+
+.hhn .hhn-hero__action {
+    margin-top: 34px;
+}
+
+.hhn .hhn-hero__note {
+    margin-top: 16px;
+}
+
+/* ===== 2. AUTOPILOT (fotka vlevo, ctyri body vpravo) ===== */
+
+/* Nadpis, fotka a body jsou tri samostatne casti, aby se na mobilu
+   dalo prehodit poradi na nadpis - fotka - body. Na sirokem displeji
+   fotka drzi vlevo pres oba radky, nadpis a body vpravo pod sebou. */
+.hhn .hhn-split {
+    display: grid;
+    grid-template-columns: 0.95fr 1.15fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "foto nadpis"
+        "foto obsah";
+    column-gap: clamp(28px, 4vw, 56px);
+    row-gap: 26px;
+    align-items: start;
+}
+
+.hhn .hhn-split__nadpis {
+    grid-area: nadpis;
+}
+
+.hhn .hhn-split__photo {
+    grid-area: foto;
+}
+
+.hhn .hhn-split__content {
+    grid-area: obsah;
+}
+
+.hhn .hhn-split__photo {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+}
+
+.hhn .hhn-split__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Odsazeni od nadpisu resi row-gap mrizky .hhn-split */
+.hhn .hhn-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.hhn .hhn-point {
+    padding: 20px 20px 22px;
+    border: 1px solid var(--hhn-karta-linka);
+    border-radius: 14px;
+    background: var(--hhn-karta);
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.hhn .hhn-point:hover {
+    background: var(--hhn-karta-hover);
+    border-color: var(--hhn-karta-linka-hover);
+}
+
+/* Ikona v tmavem kolecku. Zamerne jen o odstin svetlejsi nez karta,
+   ne modre podbarvene - vyrazna modra vypln ikonu prebijela. */
+.hhn .hhn-point__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 170, 230, 0.12);
+    background: rgba(120, 170, 230, 0.07);
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-point__icon svg {
+    width: 27px;
+    height: 27px;
+}
+
+/* Kratky vyrazny nazev problemu */
+.hhn .hhn-point h3 {
+    margin-top: 16px;
+    color: var(--hh-text);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Vysvetlujici text pod nazvem */
+.hhn .hhn-point p {
+    margin-top: 8px;
+    color: var(--hh-text-light);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.hhn .hhn-split__action {
+    margin-top: 30px;
+}
+
+/* ===== 3. MUJ PRIBEH (text vlevo, video vpravo) ===== */
+
+/* Text vlevo, svisle video vpravo. Sirka textu se drzi na cteci delce
+   radku, aby se veta netahla pres celou stranku. */
+/* Sloupce se drzi u sebe a cela dvojice sedi na stredu sekce. Kdyz
+   levy sloupec roztahoval zbytek sirky (1fr), text visel u leveho
+   okraje, video u praveho a mezi nimi zustala prazdna plocha. */
+/* Vlevo text, vpravo video zhruba v pomeru 40 : 60. */
+/* Text nahore, video pod nim pres celou sirku. Vedle sebe to video
+   maclo do uzkeho sloupce, pritom je to hlavni vec cele sekce - na
+   sirku ho je poradne videt. Na mobilu se nic nemeni, tam uz to
+   pod sebou bylo (viz media dotaz nize). */
+.hhn .hhn-story {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+}
+
+/* Text na stred sekce, stejne jako hlavicka bloku "Jak pracuji".
+   Kdyz video prislo pod text pres celou sirku, zustal text prilepeny
+   k levemu okraji a cela sekce vypadala rozhozena. */
+.hhn .hhn-story__text {
+    text-align: center;
+}
+
+/* Odstavce nesmi jit pres celou sirku kontejneru - radek dlouhy pres
+   celou obrazovku se spatne cte a oko na konci ztraci nasledujici.
+   Nadpis se meri zvlast, ten delsi radek unese. */
+.hhn .hhn-story__text p {
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hhn .hhn-video {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Sirokouhla verze na desktop, svisla na mobil. Klient dodava kazdou
+   zvlast, takze se na strance strida cely prvek, ne jen jeho pomer. */
+.hhn .hhn-video--sirokouhle {
+    width: 100%;
+    /* Stejna sirka jako dvojice fotek DRIV / DNES hned pod pribehem -
+       pres celou sirku kontejneru video prebijelo vsechno okolo a
+       oba bloky pod sebou se rozchazely. */
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+}
+
+.hhn .hhn-video--svisle {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    /* Stejny pomer jako YouTube Shorts - prehravac se vyplni bez
+       cernych pruhu po stranach. */
+    aspect-ratio: 9 / 16;
+    margin: 0 auto;
+}
+
+/* Uvnitr sedi bezny video blok Odoo. Ten si sam drzi sirokych 16:9
+   pres vypln na .media_iframe_video_size - tady ji rusime, protoze
+   pomer urcuje obal .hhn-video. */
+.hhn .hhn-video .media_iframe_video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.hhn .hhn-video .media_iframe_video_size {
+    padding: 0;
+    height: 0;
+}
+
+.hhn .hhn-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    /* Odoo svemu video bloku nasazuje margin-left: -50 %, cimz ho
+       centruje pod sirsi ramecek. My mu sirku urcujeme sami, takze
+       ten zaporny okraj jen odtahne prehravac o pul sirky doleva -
+       obraz pak lezi vedle ramu a vpravo zbyde prazdno. */
+    margin: 0;
+}
+
+.hhn .hhn-story__text p {
+    margin-top: 16px;
+    color: var(--hh-text-light);
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+/* Zaverecna veta pribehu - zamerne vyraznejsi nez zbytek odstavcu.
+   Cilena tridou, ne pres :last-child: odstavec jen pro mobil lezi az
+   za ni a pravidlo by se prevazalo na nej. */
+.hhn .hhn-story__text .hhn-zaver {
+    color: var(--hh-text);
+    font-weight: 500;
+}
+
+/* Nese rozdil DRIV / DNES tam, kde jsou popisky pod fotkami schovane */
+.hhn .hhn-jen-mobil {
+    display: none;
+}
+
+/* ===== 4. DRIV / DNES ===== */
+
+/* Na sirokem displeji obe fotky proste vedle sebe, bez prekryvu
+   a bez ramecku - fotka a popisek pod ni, nic navic. */
+.hhn .hhn-then-now {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(18px, 2.4vw, 30px);
+    max-width: 900px;
+    /* odsazeni od zaverecne vety pribehu nad fotkami */
+    margin: 34px auto 0;
+    align-items: start;
+    /* kotva pro tlacitko lezici pres obe fotky */
+    position: relative;
+}
+
+/* Tlacitko lezi pres fotky, presne na jejich rozhrani.
+
+   Svisle se stredi na polovinu vysky fotky. Ta se pocita ze sirky
+   (fotky maji pomer 4:3 a kazda zabira pulku bloku), proto se
+   odsazeni zadava v procentech - procentni margin se pocita ze
+   sirky rodice, kdezto top by se pocital z vysky vcetne popisku
+   pod fotkami. */
+.hhn .hhn-mezi-fotky {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-top: 18.2%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    text-align: center;
+}
+
+.hhn .hhn-card {
+    position: relative;
+}
+
+.hhn .hhn-card:first-child {
+    z-index: 1;
+}
+
+.hhn .hhn-card:last-child {
+    z-index: 2;
+}
+
+.hhn .hhn-card__photo {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.hhn .hhn-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hhn .hhn-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+}
+
+.hhn .hhn-tag--then {
+    background: rgba(12, 12, 18, 0.72);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hhn .hhn-tag--now {
+    background: var(--hh-gradient-warm);
+    color: #fff;
+}
+
+.hhn .hhn-card h3 {
+    margin-top: 18px;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.hhn .hhn-card p {
+    margin-top: 8px;
+    color: var(--hh-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.hhn .hhn-then-now__footnote {
+    margin-top: 34px;
+    text-align: center;
+    color: var(--hh-text);
+    font-size: 0.9rem;
+}
+
+/* ===== 5. GALERIE ===== */
+
+.hhn .hhn-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(10px, 1.2vw, 16px);
+}
+
+/* Zakladni podoba fotky mimo galerii. Blok se da pustit kamkoliv -
+   treba do dne na strance vyzvy - a tam na nej zadne pravidlo
+   galerie nesedi, takze by se obrazek roztahl pres celou stranku.
+   Uvnitr galerie tohle prebiji .hhn-gallery figure niz, ktere je
+   specifictejsi. */
+.hhn .hhn-foto {
+    margin: 0;
+    max-width: 520px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.hhn .hhn-foto img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.hhn .hhn-gallery figure {
+    position: relative;
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.hhn .hhn-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.hhn .hhn-gallery figure:hover img {
+    transform: scale(1.06);
+}
+
+.hhn .hhn-center-action {
+    margin-top: 38px;
+    text-align: center;
+}
+
+/* ===== 6. JAK PRACUJI ===== */
+
+.hhn .hhn-head-center {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hhn .hhn-head-center .hhn-h2 {
+    margin-top: 16px;
+}
+
+.hhn .hhn-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px, 1.6vw, 22px);
+    margin-top: 48px;
+}
+
+.hhn .hhn-pillar {
+    padding: 26px 22px 28px;
+    border: 1px solid var(--hhn-karta-linka);
+    border-radius: 16px;
+    background: var(--hhn-karta);
+    text-align: center;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.hhn .hhn-pillar:hover {
+    background: var(--hhn-karta-hover);
+    border-color: var(--hhn-karta-linka-hover);
+}
+
+/* Stejne kolecko jako u bodu vyse. */
+.hhn .hhn-pillar__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 170, 230, 0.12);
+    background: rgba(120, 170, 230, 0.07);
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-pillar__icon svg {
+    width: 27px;
+    height: 27px;
+}
+
+.hhn .hhn-pillar h3 {
+    margin-top: 16px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Vysvetlujici text pod nazvem - stejne jako u karet problemu vyse. */
+.hhn .hhn-pillar p {
+    margin-top: 8px;
+    color: var(--hh-text-light);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+/* Od vyzvy dolu uz se stranka nevraci do modrocerne. Prechod, ktery
+   zacal v sekci vyzvy, tady pokracuje a stranka dojede do teple hnede
+   Vlastni rezie. Kdyz se sem drive vracela puvodni barva, byla mezi
+   sekcemi videt ostra hrana. */
+/* Teply pisek patri jen dovnitr bloku vyzvy. Newsletter i paticka
+   se vraceji do puvodni cerne - vyzva ma pusobit jako samostatny
+   teply pruh vlozeny do tmave stranky, ne jako prebarveni celeho
+   konce stranky. */
+.hhn .hh-news {
+    background: var(--hh-bg);
+}
+
+.hhn .hhn-footer {
+    background: var(--hh-bg);
+    border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== 7. BEZPLATNA VYZVA ===== */
+
+/* Tahle sekce je prechod mezi dvema svety. Nahore jeste drzi modrocernou
+   barvu zbytku stranky, dolu se postupne prelevá do teplého grafitu
+   Vlastni rezie, ve kterem pokracuje stranka vyzvy. Zadny ostry rez -
+   obe barvy se do sebe ztraci. */
+.hhn .hhn-challenge {
+    overflow: hidden;
+    background:
+        linear-gradient(
+            180deg,
+            var(--hh-bg) 0%,
+            #14131a 24%,
+            #1c1a18 58%,
+            #221f1b 78%,
+            /* Posledni kus uz je plochy. Kdyby barva dojizdela az do
+               posledniho pixelu, staci zaokrouhleni a na svaru se
+               sekcemi vznikne tenka linka. */
+            var(--hh-bg) 90%,
+            var(--hh-bg) 100%
+        );
+}
+
+/* Postava sedi v prave casti fotky - vyrez je nastaveny tak, aby byla
+   cela videt vcetne hlavy, a obsah sekce ji nesmi prekryt. */
+.hhn .hhn-challenge__photo {
+    position: absolute;
+    /* O pixel vys, nez sekce konci. Vyska sekce vychazi na zlomek
+       pixelu a orez fotky presne na hrane po sobe nechaval svetly
+       prouzek. Posledni radka tak patri pozadi sekce, ktere uz je
+       cerne. */
+    inset: 0 0 1px 0;
+    background-size: cover;
+    background-position: 58% 42%;
+}
+
+/* Overlay podle zadani: shora tmavy, dolu prechazi do teple hneda,
+   aby sekce ladila s kremovou a graficitovou identitou.
+   Pod nim jeste jemne ztmaveni zleva - text lezi vlevo a na samotnem
+   svislem prechodu by se na svetlych mistech fotky ztracel. Zadani
+   pocitalo s tim, ze se intenzita doladi podle citelnosti. */
+.hhn .hhn-challenge__veil {
+    position: absolute;
+    inset: 0;
+    background:
+        /* Zaviraci vrstva do grafitu. Musi byt uplne nahore, nad
+           vodorovnym ztmavenim - to jde pres celou vysku, takze se
+           u spodni hrany scitalo se svislym prechodem a vzniklo tam
+           tmavsi pasmo, ktere na svaru se sekci pod nim koncilo
+           skokem. Tahle vrstva prekryje u spodni hrany uplne vsechno,
+           takze posledni pixel sekce je presne barva sekce nasledujici. */
+        linear-gradient(
+            180deg,
+            /* Zavirat se zacina az pod postavou. Driv zacinalo uz
+               v polovine sekce a Honzovi to zapiskovalo spodek tela. */
+            rgba(10, 10, 15, 0) 54%,
+            rgba(10, 10, 15, 0.08) 63%,
+            rgba(10, 10, 15, 0.22) 71%,
+            rgba(10, 10, 15, 0.42) 79%,
+            rgba(10, 10, 15, 0.64) 86%,
+            rgba(10, 10, 15, 0.83) 92%,
+            rgba(10, 10, 15, 0.94) 96%,
+            /* Plne kryti uz o kousek driv nez na samem konci. Pri
+               100 % zustala posledni radka pixelu jeste prusvitna
+               a na svaru prosvital prouzek fotky. */
+            var(--hh-bg) 99%,
+            var(--hh-bg) 100%
+        ),
+        /* Ztmaveni zleva, kde lezi text - na samotnem svislem prechodu
+           by se na svetlych mistech fotky ztracel. */
+        linear-gradient(
+            90deg,
+            rgba(10, 10, 15, 0.8) 0%,
+            rgba(14, 13, 16, 0.6) 42%,
+            rgba(20, 18, 16, 0.16) 72%,
+            rgba(20, 18, 16, 0) 100%
+        ),
+        /* Svisly prechod podle zadani: shora tmavy, dolu do tepleho
+           hneda. Nahore zacina modrocernou barvou stranky a od poloviny
+           se zvolna zavira, az fotka u spodni hrany uplne zmizi
+           v grafitu Vlastni rezie.
+
+           Zaviraci cast je zamerne dlouha (pres tretinu vysky sekce).
+           Kdyz se drive zavirala az na poslednich par procentech, byla
+           fotka u hrany porad jasna a pod ni zacinala plna barva - a
+           prave tam byla videt ta cara. */
+        /* Uz jen ztmaveni horni hrany, kde sekce navazuje na barvu
+           stranky. Zavirani dolu tahle vrstva delat nesmi - kdyz
+           zavirala i ona, scitala se se zaviraci vrstvou nahore
+           a jas mezi 58 % a 82 % vysky se zasekl na plochem
+           rgb(57,51,46). Prave ten plochy kus byl v sekci videt
+           jako pruh. */
+        linear-gradient(
+            180deg,
+            var(--hh-bg) 0%,
+            rgba(18, 16, 14, 0.62) 8%,
+            /* Stred zustava skoro odkryty - tady je na fotce postava
+               a hnedy zavoj ji drive prebijel. */
+            rgba(24, 21, 18, 0.12) 30%,
+            rgba(26, 23, 19, 0.06) 52%,
+            rgba(26, 23, 19, 0) 66%
+        );
+}
+
+/* Obsah sekce drzi vlevo, aby postava vpravo zustala odkryta.
+   Bez toho lezela karta s kroky presne pres obliceje. */
+.hhn .hhn-challenge__head,
+.hhn .hhn-challenge .hhn-steps,
+.hhn .hhn-challenge__action,
+.hhn .hhn-challenge__note {
+    max-width: #{"min(760px, 60%)"};
+}
+
+.hhn .hhn-challenge .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hhn .hhn-challenge__head {
+    max-width: 720px;
+}
+
+.hhn .hhn-challenge__head .hhn-h2 {
+    margin-top: 16px;
+}
+
+.hhn .hhn-challenge__head .hhn-lead {
+    margin-top: 20px;
+}
+
+.hhn .hhn-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.8vw, 26px);
+    margin-top: 42px;
+    padding: clamp(22px, 2.6vw, 34px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    background: rgba(12, 12, 20, 0.72);
+    backdrop-filter: blur(6px);
+}
+
+.hhn .hhn-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.hhn .hhn-step__num {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--hh-gradient-warm);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.hhn .hhn-step h3 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.hhn .hhn-step p {
+    margin-top: 6px;
+    color: var(--hh-text-muted);
+    font-size: 0.83rem;
+    line-height: 1.6;
+}
+
+.hhn .hhn-challenge__action {
+    margin-top: 36px;
+}
+
+.hhn .hhn-challenge__note {
+    margin-top: 16px;
+}
+
+/* Jemny prechod k piskove estetice Vlastni rezie, ve ktere bude cela
+   landing page vyzvy. Zamerne decentni - modra znacka zustava hlavni. */
+.hhn .hhn-challenge {
+    --hhn-sand: #d9c5a0;
+    --hhn-sand-soft: rgba(217, 197, 160, 0.16);
+}
+
+/* Presne ta barva, kterou ma stranka vyzvy (--hhv-graphite). Stranka
+   se od sekce vyzvy dolu prekloni do ni a uz se nevraci - navstevnik
+   tak prichazi na /zpet-do-zivota do stejneho sveta, ve kterem
+   homepage skoncila. */
+.hhn {
+    --hhn-grafit: #23211d;
+    /* Karty bodu a piliru podle puvodniho grafickeho navrhu: tmave
+       modre, ne neutralne sede. Proti pozadi stranky (#0a0a0f) je to
+       jasne modry odstin, ktery drzi celou modrou znacku pohromade. */
+    --hhn-karta: #111a26;
+    --hhn-karta-hover: #16202e;
+    --hhn-karta-linka: rgba(88, 140, 200, 0.2);
+    --hhn-karta-linka-hover: rgba(107, 181, 255, 0.42);
+}
+
+.hhn .hhn-eyebrow--sand {
+    color: var(--hhn-sand);
+}
+
+/* Piskovy nadech u spodni hrany - odtud se pokracuje na landing page */
+.hhn .hhn-challenge::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 42%;
+    pointer-events: none;
+    /* Zavoj musi u spodni hrany zase zmizet. Drive koncil na plne
+       hodnote, takze se na svaru se sekci pod nim menila barva skokem
+       a byla tam videt linka. */
+    /* Vrchol piskoveho nadechu lezi vys nez zaviraci prechod, aby ho
+       nerozsvecoval - zavoj a zavirani proti sobe drive stály a
+       vysledkem byl plochy hnedy pas. */
+    background: linear-gradient(
+        180deg,
+        rgba(217, 197, 160, 0) 0%,
+        rgba(217, 197, 160, 0.04) 34%,
+        rgba(217, 197, 160, 0.015) 64%,
+        rgba(217, 197, 160, 0) 84%,
+        rgba(217, 197, 160, 0) 100%
+    );
+}
+
+.hhn .hhn-challenge .hhn-steps {
+    border-color: var(--hhn-sand-soft);
+    background: rgba(14, 12, 10, 0.72);
+}
+
+.hhn .hhn-challenge .hhn-step__num {
+    background: linear-gradient(135deg, var(--hhn-sand) 0%, #b89f74 100%);
+    color: #1a1610;
+}
+
+/* ===== 7. NEWSLETTER =====
+   Zadani chce blok mensi a klidnejsi nez vyzvu - je to vedlejsi
+   moznost, ne druha hlavni nabidka. Rozmery i vyraznost prevzate
+   z puvodni stranky se proto stahuji dolu. */
+
+/* Odsazeni sekce zustava jako u ostatnich, aby mezery mezi sekcemi
+   byly stejne - zmensuje se samotny ramecek, ne rozestup. */
+.hhn .hh-news__box {
+    max-width: 700px;
+    gap: 22px;
+    padding: 24px 26px;
+    border-radius: 16px;
+    /* jen naznak plochy, zadny modry pruh pres celou sirku */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.hhn .hh-news__text h3 {
+    margin-bottom: 6px;
+    font-size: 1.02rem;
+}
+
+.hhn .hh-news__text p {
+    color: var(--hh-text-muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+
+.hhn .hh-news__input {
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 0.87rem;
+}
+
+/* Tlacitko nesmi prebijet hlavni CTA - zadny gradient ani zare,
+   jen tenka linka. */
+.hhn .hh-news__form .hh-btn {
+    padding: 11px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 10px;
+    background: none;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hhn .hh-news__form .hh-btn:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    filter: none;
+}
+
+/* ===== 8. PATICKA ===== */
+
+.hhn .hhn-footer {
+    padding-bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hhn .hhn-footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: clamp(26px, 3vw, 48px);
+}
+
+.hhn .hhn-footer__brand {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.hhn .hhn-footer__grid > div > p {
+    margin-top: 12px;
+    color: var(--hh-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.hhn .hhn-footer h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hhn .hhn-footer ul {
+    list-style: none;
+    margin-top: 14px;
+}
+
+.hhn .hhn-footer li + li {
+    margin-top: 8px;
+}
+
+.hhn .hhn-footer li a {
+    color: var(--hh-text-light);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hhn .hhn-footer li a:hover {
+    color: var(--hh-warm-light);
+}
+
+.hhn .hhn-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 46px;
+    padding: 22px 0 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hhn .hhn-footer__bottom p {
+    color: var(--hh-text-muted);
+    font-size: 0.78rem;
+}
+
+.hhn .hhn-footer__legal {
+    display: flex;
+    gap: 18px;
+}
+
+.hhn .hhn-footer__legal a {
+    color: var(--hh-text-muted);
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hhn .hhn-footer__legal a:hover {
+    color: var(--hh-warm-light);
+}
+
+/* ===== TABLET ===== */
+
+@media (max-width: 991px) {
+    /* Text hero sekce nahoru, ne na stred. Na uzsim okne se vycentrovany
+       text posunul pres Honzu v balonu a zakryl ho. */
+    .hhn .hhn-hero {
+        align-items: start;
+    }
+
+    .hhn .hhn-hero__content {
+        padding: 84px 0 60px;
+    }
+
+    /* Nejdriv text pribehu, pod nim video - na uzkem displeji by
+       sloupec vedle textu nemel kam. */
+    .hhn .hhn-story {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    /* Na mobilu zustava text na levo, jak byl - na uzkem sloupci se
+       odstavce na stred ctou hur nez zarovnane k jedne hrane. */
+    .hhn .hhn-story__text {
+        text-align: left;
+    }
+
+    /* Na mobilu jede svisla verze, sirokouhla se schova. */
+    .hhn .hhn-video--sirokouhle {
+        display: none;
+    }
+
+    .hhn .hhn-video--svisle {
+        display: block;
+        /* svisly format je na mobilu sam o sobe vysoky - uzsi box
+           znamena i nizsi, takze nezabira pul obrazovky */
+        max-width: 240px;
+    }
+
+    /* Nadpis nahoru, pod nej fotka a teprve pak body */
+    .hhn .hhn-split {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+            "nadpis"
+            "foto"
+            "obsah";
+    }
+
+    .hhn .hhn-split__photo {
+        aspect-ratio: 16 / 10;
+    }
+
+    .hhn .hhn-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hhn .hhn-pillars {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hhn .hhn-steps {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .hhn .hhn-footer__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== MOBIL ===== */
+
+@media (max-width: 767px) {
+    /* Na sirku mobilu se fotka orezava jinak nez na desktopu - takhle
+       vyjde oblicej doprostred, mezi text nahore a tlacitko dole. */
+    .hhn .hhn-hero__photo {
+        background-position: 76% 60%;
+    }
+
+    /* Tma nahore pod textem a dole pod tlacitkem, uprostred se nechava
+       fotka prosvitat, aby byl oblicej videt. */
+    .hhn .hhn-hero__veil {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(10, 10, 15, 0.92) 0%,
+                rgba(10, 10, 15, 0.86) 30%,
+                rgba(10, 10, 15, 0.34) 46%,
+                rgba(10, 10, 15, 0.3) 62%,
+                rgba(10, 10, 15, 0.8) 82%,
+                var(--hh-bg) 100%
+            );
+    }
+
+    /* Text nahoru, tlacitko az dolu pod ruku - mezi nimi zbyde fotka.
+       Bez stretch by container zustal jen tak vysoky jako text a
+       margin-top: auto u tlacitka by nemel co roztahnout. */
+    .hhn .hhn-hero {
+        align-items: stretch;
+    }
+
+    .hhn .hhn-hero > .container {
+        display: flex;
+    }
+
+    .hhn .hhn-hero__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        /* Text se drzi hned pod listou, at je pod nim videt co nejvic
+           fotky. Driv tu bylo 84 px a nahore zustavalo zbytecne prazdno. */
+        padding: 14px 0 38px;
+    }
+
+    .hhn .hhn-hero__sub {
+        font-size: 0.88rem;
+    }
+
+    .hhn .hhn-hero__action {
+        margin-top: auto;
+        padding-top: 30px;
+    }
+
+    .hhn .hhn-hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+    }
+
+    .hhn .hhn-points,
+    .hhn .hhn-footer__grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Na mobilu zustavaji plnohodnotne karty, jen kompaktnejsi:
+       ikona vlevo, nazev a text vedle ni. Driv se tu nazvy schovavaly
+       a ze ctyr karet zbyl proste seznam - sekce pak pusobila jako
+       jina, zjednodusena verze webu. Ramecek, pozadi i zaobleni
+       zustavaji stejne jako na pocitaci.
+
+       Dva sloupce se tu nepouzivaji zamerne: s celymi texty by karty
+       byly prilis uzke. */
+    .hhn .hhn-points {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .hhn .hhn-point {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 14px;
+        align-items: start;
+        padding: 15px 16px 16px;
+    }
+
+    /* Ikona drzi svuj sloupec pres oba radky, nazev a text jdou vedle
+       ni pod sebe. */
+    .hhn .hhn-point__icon {
+        grid-row: 1 / span 2;
+        width: 38px;
+        height: 38px;
+    }
+
+    .hhn .hhn-point__icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .hhn .hhn-point h3 {
+        margin-top: 0;
+        font-size: 0.97rem;
+    }
+
+    .hhn .hhn-point p {
+        margin-top: 4px;
+        font-size: 0.87rem;
+        line-height: 1.55;
+    }
+
+    /* Fotky zustavaji vedle sebe a pres sebe jako na pocitaci. Mrizka
+       o dvou stejnych sloupcich je ale delala zbytecne male - flex
+       dovoli dat kazde 58 % a nechat je vic zajet do sebe, takze jsou
+       o tretinu vetsi a porad se vejdou na sirku. */
+    .hhn .hhn-then-now {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        /* Mezera z desktopu by se k prekryvu pricetla a dvojice by
+           vybocila doprava - tady se fotky drzi u sebe zapornym okrajem. */
+        gap: 0;
+    }
+
+    /* Na mobilu se fotky prekryvaji, takze tlacitko pres ne by je
+       zakrylo. Vraci se do toku a stoupne si pod ne pres celou sirku. */
+    .hhn .hhn-mezi-fotky {
+        position: static;
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin-top: 22px;
+        transform: none;
+    }
+
+    .hhn .hhn-card {
+        flex: 0 0 58%;
+    }
+
+    .hhn .hhn-card:last-child {
+        margin-left: -16%;
+        margin-top: 36px;
+    }
+
+    /* Na mobilu mluvi samotne fotky se stitky DRIV / DNES. Co bylo pod
+       nimi, nese odstavec nad fotkami (.hhn-jen-mobil). */
+    .hhn .hhn-card h3,
+    .hhn .hhn-card p {
+        display: none;
+    }
+
+    /* Obe fotky jsou na vysku - pri sirokem orezu se do uzkych dlazdic
+       vesel jen pruh uprostred a hlavy zustaly mimo zaber. Stin oddeli
+       prekryvajici se fotky bez ramecku okolo nich. */
+    .hhn .hhn-card__photo {
+        aspect-ratio: 4 / 5;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+    }
+
+    .hhn .hhn-jen-mobil {
+        display: block;
+    }
+
+    /* Ctyri karty pod sebou, kompaktne: ikona vlevo, nazev a popis
+       vedle ni. Driv tu byla mrizka 2x2 se ctvercovymi kartami a
+       skrytym popisem - nazvy jsou ale dlouhe a bez popisu z bodu
+       nebylo poznat, o co jde.
+
+       Dva sloupce se tu nepouzivaji zamerne: s celymi texty by karty
+       byly prilis uzke. */
+    .hhn .hhn-pillars {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 32px;
+    }
+
+    .hhn .hhn-pillar {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 14px;
+        align-items: start;
+        aspect-ratio: auto;
+        padding: 15px 16px 16px;
+        text-align: left;
+    }
+
+    /* Ikona drzi svuj sloupec pres oba radky, nazev a text jdou vedle
+       ni pod sebe. */
+    .hhn .hhn-pillar__icon {
+        grid-row: 1 / span 2;
+        width: 38px;
+        height: 38px;
+    }
+
+    .hhn .hhn-pillar__icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .hhn .hhn-pillar h3 {
+        margin-top: 0;
+        font-size: 0.97rem;
+        line-height: 1.3;
+    }
+
+    .hhn .hhn-pillar p {
+        margin-top: 4px;
+        font-size: 0.87rem;
+        line-height: 1.55;
+    }
+
+    .hhn .hhn-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Pasy si vystaci s mensim odsazenim nez ostatni sekce - jsou uzke
+       a plne odsazeni kolem nich delalo zbytecne velke prazdno.
+       Stahuje se i spodek sekce nad nimi a vrsek sekce pod nimi, jinak
+       by se odsazeni secetla a mezera zustala stejne velka. */
+    .hhn .hhn-galerie {
+        padding: 22px 0 26px;
+    }
+
+    .hhn .hhn-pribeh {
+        padding-bottom: 26px;
+    }
+
+    .hhn .hhn-jak {
+        padding-top: 30px;
+    }
+
+    /* ===== GALERIE JAKO POSUVNIK =====
+       Jeden klidny pas ovladany prstem, zadny automaticky pohyb.
+       Delá to cely scroll-snap, zadny skript - fotka se po pusteni
+       sama dorovna na misto a z dalsi je videt kousek, takze je
+       poznat, ze se da posouvat. */
+    .hhn .hhn-gallery {
+        display: flex;
+        grid-template-columns: none;
+        gap: 12px;
+        /* Pas jde az do kraju okna, ale pocita se z odsazeni
+           kontejneru - 100vw je na mobilu o sirku posuvniku vetsi
+           nez okno a stranka by se kolibala do stran. */
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        padding: 0 20px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .hhn .hhn-gallery::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hhn .hhn-gallery figure {
+        /* Necelych 80 % sirky: hlavni fotka je velka a z nasledujici
+           zbyde viditelny kousek. */
+        flex: 0 0 78%;
+        margin: 0;
+        aspect-ratio: 4 / 5;
+        scroll-snap-align: center;
+    }
+
+    /* Fotky v posuvniku se nenabihaji. Lezi vodorovne mimo okno, takze
+       je pozorovatel nabehu nikdy neoznaci za viditelne - pri svihnuti
+       prstem by se objevovaly prazdne. */
+    .hh-anim .hhn .hhn-gallery figure[data-anim] {
+        opacity: 1;
+        transform: none;
+    }
+
+    .hhn .hhn-cta {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Fotka zustava vrstvou pres celou sekci jako na desktopu. Text ale
+       na mobilu zabira celou sirku, takze se pod nim dole nechava volne
+       misto - do nej se vejde cela postava a nic ji neprekryva. */
+    /* Zuzuje se jen karta s kroky - ta lezi vedle postavy. Nadpis, text
+       i tlacitko zustavaji pres celou sirku, jinak by se lamaly po dvou
+       slovech. */
+    /* Nadpis i text jdou pres celou sirku a na stred - v uzkem sloupci
+       se lamaly po dvou slovech a nadpis narostl na sedm radku. */
+    .hhn .hhn-challenge__head,
+    .hhn .hhn-challenge__action,
+    .hhn .hhn-challenge__note {
+        max-width: none;
+        text-align: center;
+    }
+
+    /* Zuzuje se jen karta s kroky - vedle ni je videt postava */
+    .hhn .hhn-challenge .hhn-steps {
+        max-width: 53%;
+    }
+
+    /* Na mobilu fotka neni vrstva pres celou sekci, ale samostatny
+       pruh nahore. Postava je v nem videt cela a smerem dolu se fotka
+       plynule ztrati do teple tmaveho grafitu. Nadpis, kroky i tlacitko
+       pak lezi na klidne plose pod ni a nic se nekryje. */
+    /* Na mobilu zacina sekce rovnou teplym grafitem. Svisly prechod
+       z modrocerne resi na mobilu sama fotka - a pod ni uz nesmi byt
+       nic tmaveho, jinak tam vznikne cerna hrana.
+
+       Teply grafit drzi pres cely obsah vyzvy a do cerne se prechazi
+       az uplne dole, pod poslednim radkem textu. Prechod je proto
+       ukotveny ke spodni hrane v pixelech, ne v procentech vysky -
+       procenta by se s delkou obsahu posouvala a zasahovala do textu.
+       Spodni odsazeni mu dela misto, aby lezel pod textem a ne za nim. */
+    .hhn .hhn-challenge {
+        padding-top: 0;
+        padding-bottom: 46px;
+        background:
+            linear-gradient(
+                180deg,
+                rgba(35, 33, 29, 0) 0%,
+                /* Cerne dosahne kousek nad spodni hranou. Vyska sekce
+                   vychazi na zlomek pixelu a posledni radka se pri
+                   dojezdu presne na 100 % michala s pozadim pod ni. */
+                var(--hh-bg) 88%,
+                var(--hh-bg) 100%
+            ) bottom / 100% 130px no-repeat,
+            var(--hhn-grafit);
+    }
+
+    .hhn .hhn-challenge__photo {
+        position: relative;
+        inset: auto;
+        height: 46vh;
+        max-height: 380px;
+        min-height: 260px;
+        /* !important je tu nutne: adresu fotky nese inline styl primo
+           v HTML (aby sla v editoru Odoo vymenit pres volbu Pozadi)
+           a ten by tuhle mobilni verzi prebil. Bez nej se na mobilu
+           nacita siroky desktopovy vyrez, ve kterem je postava drobna. */
+        background-image:
+            url('/theme_honzahauzr/static/src/img/vyzva-blok-mobil.webp') !important;
+        background-size: cover;
+        background-position: center 32%;
+        background-repeat: no-repeat;
+        background-color: var(--hh-bg);
+        clip-path: none;
+    }
+
+    /* Prechod pres fotku resi pseudoprvek, ne druha vrstva pozadi -
+       do background-image uz sahá inline styl z HTML a gradient by se
+       s nim pral. Nahore zacina barvou sekce nad fotkou, dole konci
+       teplym grafitem, takze fotka nema hranu ani na jedne strane. */
+    .hhn .hhn-challenge__photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            var(--hh-bg) 0%,
+            rgba(12, 12, 17, 0.62) 6%,
+            /* Stred fotky zustava odkryty, at je postava videt
+               a neni prebita hnedym zavojem. */
+            rgba(20, 18, 15, 0.1) 22%,
+            rgba(22, 20, 17, 0.08) 48%,
+            /* Zavira se az pod postavou, zato dlouze - a do teplyho
+               grafitu, protoze obsah vyzvy pod fotkou na nem lezi.
+               Do cerne stranka prechazi az uplne dole, pod textem. */
+            rgba(38, 33, 26, 0.32) 68%,
+            rgba(40, 36, 30, 0.72) 84%,
+            rgba(36, 34, 30, 0.94) 93%,
+            var(--hhn-grafit) 99%,
+            var(--hhn-grafit) 100%
+        );
+    }
+
+    /* Vrstva pres celou sekci uz nema co delat - tmu resi prechod
+       primo na fotce. */
+    .hhn .hhn-challenge__veil {
+        display: none;
+    }
+
+    /* Obsah zacina pod fotkou, na cistem grafitu. */
+    .hhn .hhn-challenge .container {
+        padding-top: 30px;
+        padding-bottom: 8px;
+    }
+
+    .hhn .hhn-challenge .hhn-steps {
+        max-width: none;
+    }
+
+    .hhn .hhn-footer__bottom {
+        justify-content: flex-start;
+    }
+}
+
+
+/* Paticka je nove v layoutu a nese tridy .hh-landing .hhn, takze
+   vsechna jeji puvodni pravidla plati beze zmeny. Zbyva jediné:
+   Odoo pod ni pridava vlastni pruh "Autorska prava (c) Jmeno
+   spolecnosti" a nas copyright uz je v paticce vyse. */
+footer .o_footer_copyright {
+    display: none;
+}
+
+/* ===== VIDEO - JEDEN BLOK, DVE ADRESY =====
+
+   Driv tu stály dva bloky vedle sebe, jeden sirokouhly a jeden
+   svisly, a media dotaz vzdycky jeden schoval. Melo to jednu vadu:
+   na schovany blok nesel v editoru kliknout, takze mu nesla nastavit
+   adresa. Mobilni nahled Odoo nepomuze - zmensi jen ramecek kolem
+   stranky, vnitrni sirka okna zustane stejna (namereno 1632 px
+   i po zapnuti) a media dotazy se neprepnou.
+
+   Ted je blok jeden. Adresu videa pro mobil drzi
+   data-hhn-video-mobil, ktera se zadava v pravem panelu editoru,
+   a hh-video.js podle sirky vybere, kterou z obou ramecku nasadi.
+   V editoru je tim padem jedno video a jedno misto, kde se nastavuje.
+
+   Stara dvojice --sirokouhle / --svisle zustava nize kvuli strankam,
+   ktere uz ji maji ulozenou. */
+.hhn .hhn-video:not(.hhn-video--sirokouhle):not(.hhn-video--svisle) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 991px) {
+    /* Na vysku se rameček prepne jen tehdy, kdyz je svisle video
+       opravdu vyplnene. Jinak by se do nej cpalo siroke video z
+       desktopu a zbyl by z nej tenky prouzek uprostred vysokeho
+       cerneho boxu. */
+    .hhn .hhn-video:not(.hhn-video--sirokouhle):not(.hhn-video--svisle)[data-hhn-video-mobil]:not([data-hhn-video-mobil=""]) {
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        max-width: 300px;
+    }
+}
+
+/* ===== CELA OBRAZOVKA =====
+
+   Na celou obrazovku jde samotny <iframe>. Prohlizec mu na to ma
+   vlastni pravidla, jenze nase o par radku vys - position: absolute
+   a rozmery podle puvodniho boxu - jsou specifictejsi a prebijou je.
+   Prehravac se pak vykresli v rozmerech male karty a prohlizec ho
+   roztahne pres obrazovku. Vypada to jako priblizeni a spodni cast
+   s titulky zustane mimo.
+
+   Tady se proto vraci to, co by nastavil prohlizec sam. Pomer si
+   uz ohlida sam prehravac, takze video zustane cele. */
+.hhn .hhn-video iframe:fullscreen,
+.hhn .hhn-video iframe:-webkit-full-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+}

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     TERMINY UVODNICH HOVORU
+
+     Hlavni je kalendar - tam si Honza naklika volne terminy a
+     rezervace pretahuje mysi na jiny den. Seznam a formular jsou
+     pro pripady, kdy potrebuje videt vic najednou nebo dopsat
+     poznamku.
+     ================================================================ -->
+
+<record id="hh_termin_view_calendar" model="ir.ui.view">
+    <field name="name">hh.termin.calendar</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <!-- date_stop dela z udalosti tazitelny blok; bez nej by sla
+             posouvat, ale ne protahovat na jinou delku.
+             color podle stavu odlisi volne terminy od zabranych. -->
+        <!--
+            Tyden, ne mesic: pri trinacti terminech denne je mesicni
+            pohled jen slouplec drobnych radku pod sebou. V tydnu je
+            mrizka hodin, takze je videt, co je kdy volne, a da se
+            do ni kliknout.
+        -->
+        <calendar string="Termíny"
+                  date_start="zacatek"
+                  date_stop="konec"
+                  color="stav"
+                  quick_create="0"
+                  mode="week"
+                  event_open_popup="true">
+            <field name="stav" filters="1"/>
+            <field name="jmeno"/>
+            <field name="email"/>
+            <field name="lead_id"/>
+        </calendar>
+    </field>
+</record>
+
+<!--
+    Seznam je hlavni misto na preskrtavani. Otevira se rovnou
+    seskupeny po dnech (viz context akce), takze Honza rozbali den
+    a prepinacem vyradi hodiny, ktere se mu zrovna nehodi.
+-->
+<record id="hh_termin_view_list" model="ir.ui.view">
+    <field name="name">hh.termin.list</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <list string="Termíny"
+              editable="bottom"
+              decoration-muted="stav in ('zruseny', 'zablokovany')"
+              decoration-success="stav == 'rezervovany'">
+            <field name="stav" column_invisible="1"/>
+            <field name="zacatek" readonly="stav == 'rezervovany'"/>
+            <field name="hh_nabizet" widget="boolean_toggle"
+                   readonly="stav == 'rezervovany'"/>
+            <field name="stav" widget="badge" string="Stav"
+                   decoration-success="stav == 'rezervovany'"
+                   decoration-info="stav == 'volny'"
+                   decoration-muted="stav in ('zruseny', 'zablokovany')"/>
+            <field name="jmeno" readonly="1"/>
+            <field name="email" readonly="1" optional="show"/>
+            <field name="telefon" readonly="1" optional="hide"/>
+            <field name="lead_id" readonly="1" optional="show"/>
+            <field name="delka" string="Hodin" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="hh_termin_view_form" model="ir.ui.view">
+    <field name="name">hh.termin.form</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <form string="Termín">
+            <header>
+                <button name="hh_preskrtnout" type="object" string="Přeškrtnout"
+                        invisible="stav != 'volny'"
+                        help="Termín zmizí ze stránky s rezervacemi, ale zůstane ti tady."/>
+                <button name="hh_uvolnit" type="object" string="Vrátit do nabídky"
+                        class="btn-primary"
+                        invisible="stav != 'zablokovany'"/>
+                <field name="stav" widget="statusbar"
+                       statusbar_visible="volny,rezervovany"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1><field name="name" readonly="1"/></h1>
+                </div>
+                <group>
+                    <!-- Datum a hodina zvlast: termin se nejcasteji zaklada
+                         kliknutim na den v kalendari, takze datum uz je dane
+                         a staci vybrat hodinu ze seznamu. -->
+                    <group string="Kdy">
+                        <field name="hh_datum"/>
+                        <field name="hh_hodina"/>
+                        <field name="delka"/>
+                        <field name="zacatek" invisible="1"/>
+                    </group>
+                    <group string="Kdo" invisible="stav != 'rezervovany'">
+                        <field name="jmeno"/>
+                        <field name="email" widget="email"/>
+                        <field name="telefon" widget="phone"/>
+                        <field name="lead_id"/>
+                        <field name="partner_id"/>
+                    </group>
+                </group>
+                <group string="Poznámka od zákazníka" invisible="not poznamka">
+                    <field name="poznamka" nolabel="1"/>
+                </group>
+            </sheet>
+            <chatter/>
+        </form>
+    </field>
+</record>
+
+<record id="hh_termin_view_search" model="ir.ui.view">
+    <field name="name">hh.termin.search</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <search string="Termíny">
+            <field name="jmeno"/>
+            <field name="email"/>
+            <field name="lead_id"/>
+            <filter name="volne" string="Volné"
+                    domain="[('stav', '=', 'volny')]"/>
+            <filter name="rezervovane" string="Rezervované"
+                    domain="[('stav', '=', 'rezervovany')]"/>
+            <filter name="preskrtnute" string="Přeškrtnuté"
+                    domain="[('stav', '=', 'zablokovany')]"/>
+            <separator/>
+            <filter name="budouci" string="Budoucí"
+                    domain="[('zacatek', '&gt;=', 'now')]"/>
+            <group expand="0" string="Seskupit podle">
+                <filter name="podle_stavu" string="Stav" context="{'group_by': 'stav'}"/>
+                <filter name="podle_dne" string="Den" context="{'group_by': 'zacatek:day'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<!--
+    Kalendar je vychozi pohled - je to kalendar terminu a ma se
+    otevrit jako kalendar.
+
+    Kontext je zamerne prazdny, a musi tu stat napsany. Drive tu bylo
+    search_default_budouci a search_default_podle_dne - z toho se
+    v hledani nasazoval filtr "Budouci", ktery schovaval vsechno
+    minule, takze to vypadalo, ze se zmeny neprojevily. Samotne
+    vymazani radku nestaci: pri upgradu Odoo zapisuje jen pole, ktera
+    v XML jsou, takze vynechany kontext by v databazi zustal ten stary.
+    Filtry si clovek zapne sam, kdyz je chce.
+-->
+<record id="hh_termin_action" model="ir.actions.act_window">
+    <field name="name">Termíny hovorů</field>
+    <field name="res_model">hh.termin</field>
+    <field name="view_mode">calendar,list,form</field>
+    <field name="search_view_id" ref="hh_termin_view_search"/>
+    <field name="context">{}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiley_face">Zatím tu nejsou žádné termíny</p>
+        <p>
+            Termíny se vyrábějí samy podle rozvrhu v Konfiguraci &#8211;
+            CRM &#8211; Termíny na hovor. Nastav si tam, od kolika do kolika
+            a ve které dny chceš hovory brát, a ulož.
+        </p>
+        <p>
+            Tady je pak jen odškrtáváš: klikni na termín a dej
+            <b>Přeškrtnout</b>. Ze stránky s rezervacemi zmizí,
+            ale v kalendáři ti zůstane.
+        </p>
+    </field>
+</record>
+
+<!--
+    Vlastni kalendar. Kalendar od Odoo pri trinacti terminech denne
+    ukazuje jen "+dalsi: 9" a kliknuti na cislo dne nikam nevede -
+    navigacni odkazy ma vypnute. Tady mesic prepne na hodiny a krizky
+    se davaji kliknutim nebo tazenim pres vic hodin najednou.
+-->
+<record id="hh_terminy_kalendar_action" model="ir.actions.client">
+    <field name="name">Termíny hovorů</field>
+    <field name="tag">hh_terminy_kalendar</field>
+</record>
+
+<!--
+    Jedina polozka v menu. Rozvrh i rucni rezervace se delaji primo
+    v kalendari, takze Seznam terminu ani Nastaveni terminu uz
+    nedavaly smysl - byly to dalsi cesty ke stejne veci a nebylo
+    poznat, ktera z nich plati.
+
+    Pohledy list a form zustavaji zaznamem: formular se otevira
+    z odkazu v potvrzovacim e-mailu a seznam se hodi, kdyz je
+    potreba neco hledat pres delsi obdobi.
+-->
+<menuitem id="hh_termin_menu"
+          name="Termíny hovorů"
+          parent="crm.crm_menu_root"
+          action="hh_terminy_kalendar_action"
+          sequence="31"/>
+
+</odoo>

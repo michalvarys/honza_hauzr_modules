@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     SNIPPET S REZERVACI UVODNIHO HOVORU
+
+     To same, co stoji na /rezervace, ale jako blok, ktery se da
+     pretahnout na libovolnou stranku a zase smazat. Honza si ho
+     dava na testovaci stranku.
+
+     Obsah bloku (dny a hodiny) se do stranky NEUKLADA. Vyplnuje ho
+     az skript pri nacteni a pri ukladani se zase vyprazdni - jinak
+     by se do stranky zapsal seznam terminu platny v okamziku
+     ulozeni a dal uz by se nemenil.
+
+     Nadpis a text nad kalendarem jsou obycejny text, takze se daji
+     v editoru prepsat jako cokoliv jineho.
+     ================================================================ -->
+
+<template id="s_hh_rezervace" name="Rezervace úvodního hovoru">
+    <section class="s_hh_rezervace hhr hhr--snippet o_cc o_colored_level">
+        <div class="container">
+            <div class="hhr-snippet__hlava">
+                <h2 class="hhr-h1">Vyber si čas na úvodní hovor</h2>
+                <p class="hhr-lead">
+                    Nezávazný hovor o tom, co ti z výzvy vyšlo a co dává smysl dál.
+                </p>
+            </div>
+
+            <!-- Sem skript vlozi dny a hodiny. data-oe-protected drzi
+                 editor stranou, at se do obsahu nekliknuti nedostane
+                 kurzor a nejde ho omylem prepsat. -->
+            <div class="hhr-blok" data-hhr-blok="1" data-oe-protected="true" contenteditable="false">
+                <div class="hhr-dny hhr-dny--kostra"><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/></div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<!-- ================================================================
+     REGISTRACE DO PANELU BLOKU
+
+     Stejny dvoustupnovy zapis jako u snippetu tematu: v Odoo 18 musi
+     mit kazdy snippet string a group, jinak se v panelu neukaze.
+     Zaroven je v "Vnitrnim obsahu" (snippet_content), protoze jen ten
+     se v postrannim panelu vykresluje - snippet_structure je dostupny
+     pres dialog "Vlozit blok".
+     ================================================================ -->
+
+<template id="snippets_rezervace" name="Rezervace - registrace snippetu"
+          inherit_id="website.snippets">
+
+    <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+        <t t-snippet="honzahauzr_crm.s_hh_rezervace"
+           string="Rezervace úvodního hovoru"
+           group="honzahauzr"
+           t-thumbnail="/honzahauzr_crm/static/src/img/s_hh_rezervace.svg"/>
+    </xpath>
+
+    <xpath expr="//snippets[@id='snippet_content']" position="inside">
+        <t t-snippet="honzahauzr_crm.s_hh_rezervace"
+           string="Rezervace úvodního hovoru"
+           t-thumbnail="/honzahauzr_crm/static/src/img/s_hh_rezervace.svg"/>
+    </xpath>
+
+</template>
+
+</odoo>

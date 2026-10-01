@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Karta prilezitosti v nastence.
+
+    Stitek "odkud prisel" uz zakladni karta ukazuje sama - crm ma na ni
+    tag_ids s barvou podle stitku. Co na ni chybelo, je datum: bez nej
+    se z nastenky nepozna, jestli registrace prisla dnes rano nebo pred
+    tremi tydny, a poradi ve sloupci to neprozradi.
+-->
+<record id="crm_case_kanban_view_leads" model="ir.ui.view">
+    <field name="name">crm.lead.kanban.lead.hh</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='tag_ids']" position="after">
+            <div class="o_hh_prislo text-muted small">
+                <i class="fa fa-clock-o me-1" role="img" aria-label="Přišlo"/>
+                <field name="create_date"/>
+            </div>
+        </xpath>
+    </field>
+</record>
+
+<!--
+    Filtry: aby slo jednim kliknutim vytahnout jen registrace do vyzvy
+    nebo jen odbery novinek a nemuselo se to hledat pres stitky rucne.
+-->
+<record id="crm_case_tree_view_oppor_hh" model="ir.ui.view">
+    <field name="name">crm.lead.search.hh</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//filter[@name='assigned_to_me']" position="after">
+            <separator/>
+            <filter string="3denní výzva" name="hh_zdroj_vyzva"
+                    domain="[('hh_zdroj', '=', 'vyzva')]"/>
+            <filter string="Newsletter" name="hh_zdroj_newsletter"
+                    domain="[('hh_zdroj', '=', 'newsletter')]"/>
+        </xpath>
+        <!-- Group By skupina nema name, string se jako selektor pouzit nesmi -
+             proto se vesim za posledni filtr uvnitr ni. -->
+        <xpath expr="//filter[@name='source']" position="after">
+            <filter string="Odkud přišel" name="hh_zdroj_group"
+                    context="{'group_by': 'hh_zdroj'}"/>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

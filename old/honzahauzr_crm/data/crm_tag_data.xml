@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+<!--
+    Stitky, kterymi se prilezitosti oznacuji podle toho, odkud prisly.
+
+    noupdate="1" je tu zamerne: az si je Honza v CRM prejmenuje nebo
+    prebarvi, upgrade modulu mu to neprepise zpatky.
+
+    Barvy jsou cisla palety Odoo (0 = bez barvy, 1 = cervena, ...).
+-->
+
+<record id="tag_vyzva" model="crm.tag">
+    <field name="name">3denní výzva</field>
+    <field name="color">4</field>
+</record>
+
+<record id="tag_newsletter" model="crm.tag">
+    <field name="name">Newsletter</field>
+    <field name="color">10</field>
+</record>
+
+<record id="tag_hovor" model="crm.tag">
+    <field name="name">Úvodní hovor</field>
+    <field name="color">2</field>
+</record>
+
+<record id="tag_pdf" model="crm.tag">
+    <field name="name">Stažení PDF</field>
+    <field name="color">7</field>
+</record>
+
+<record id="tag_poptavka" model="crm.tag">
+    <field name="name">Poptávka z webu</field>
+    <field name="color">3</field>
+</record>
+
+<record id="tag_rezervace" model="crm.tag">
+    <field name="name">Rezervace hovoru</field>
+    <field name="color">6</field>
+</record>
+
+</data>
+</odoo>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     OBSAH TRIDENNI VYZVY  ->  /zpet-do-zivota/vyzva
+
+     Stranka je bezna website.page s oe_structure, takze se da
+     upravovat a skladat jako vsechny ostatni. Driv to byla jen routa
+     v kodu: neobjevila se v seznamu stranek, snippety u ni byly sede
+     a sekce nesly mazat.
+
+     Snippet je zamerne cely staticky. Odoo vyradi sekci
+     z editovatelneho stromu, jakmile v ni najde dynamicke direktivy
+     (t-if, t-call s t-set nad request). Sekce pak nejde oznacit,
+     presunout ani smazat - presne to se drive delo.
+
+     Co se meni podle toho, kdo se diva - video, zamek s odpoctem,
+     obnoveni pristupu - proto doplnuje az skript pres
+     /zpet-do-zivota/vyzva/stav. Stejnou cestou uz jde obsah
+     rezervacniho snippetu.
+
+     Bezpecnost tim netrpi: adresu videa vraci server jen u dnu,
+     ktere jsou opravdu odemcene. Zamcene video se do prohlizece
+     vubec nedostane.
+
+     Nadpisy a popisy dnu jsou obycejny text primo v sekci, takze
+     se daji v editoru prepsat jako cokoliv jineho.
+     ================================================================ -->
+
+<template id="s_hh_vyzva_dny" name="Tři dny výzvy">
+    <section class="s_hh_vyzva_dny hhd o_cc o_colored_level" data-name="Tři dny výzvy">
+        <div class="container">
+            <!-- Sem skript vlozi bud hlasku "nevim, kdo jsi" s polickem
+                 na e-mail, nebo nic. data-oe-protected drzi editor
+                 stranou, at se do vykresleneho obsahu nedostane kurzor
+                 a neulozi se do stranky. -->
+            <div class="hhd-dyn" data-hhd-obnova="1"
+                 data-oe-protected="true" contenteditable="false"/>
+
+            <div class="hhd-den">
+                <div class="hhd-den__hlava">
+                    <span class="hhd-den__cislo">Den 1</span>
+                    <h2 class="hhd-den__nazev">Zrcadlo a pravda</h2>
+                    <p class="hhd-den__popis">
+                        Uvidíš, kde dnes stojíš, a vybereš oblast, kterou už
+                        nechceš ignorovat.
+                    </p>
+                </div>
+                <div class="hhd-video hhn-video" data-hhd-video="1" data-hhv-popis="Video dne 1">
+                    <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                        <div class="css_editable_mode_display"/>
+                        <div class="media_iframe_video_size"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hhd-den">
+                <div class="hhd-den__hlava">
+                    <span class="hhd-den__cislo">Den 2</span>
+                    <h2 class="hhd-den__nazev">Důkaz</h2>
+                    <p class="hhd-den__popis">
+                        Definuješ malý konkrétní závazek, kterým začneš
+                        obnovovat respekt k sobě.
+                    </p>
+                </div>
+                <div class="hhd-video hhn-video" data-hhd-video="2" data-hhv-popis="Video dne 2">
+                    <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                        <div class="css_editable_mode_display"/>
+                        <div class="media_iframe_video_size"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hhd-den">
+                <div class="hhd-den__hlava">
+                    <span class="hhd-den__cislo">Den 3</span>
+                    <h2 class="hhd-den__nazev">Tvůj tah</h2>
+                    <p class="hhd-den__popis">
+                        Pojmenuješ autopilota, který tě drží na místě,
+                        a uvidíš svůj další krok.
+                    </p>
+                </div>
+                <div class="hhd-video hhn-video" data-hhd-video="3" data-hhv-popis="Video dne 3">
+                    <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                        <div class="css_editable_mode_display"/>
+                        <div class="media_iframe_video_size"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<!-- ===== STRANKA =====
+
+     Sekce jsou tu napsane primo, ne pres t-call na snippety. Je to
+     zamerne, i kdyz se tim markup opakuje.
+
+     QWeb totiz kazdemu kousku vykresleneho obsahu pripise, ze ktere
+     sablony pochazi. Kdyz stranka nektere sekce jen zavolala pres
+     t-call, patrila kazda jine sablone a Odoo uz #wrap nemohlo brat
+     jako jedno souvisle platno. Dusledek: sekce neslo oznacit,
+     presunout ani smazat a vetsina bloku v panelu byla seda -
+     nemely kam spadnout.
+
+     Takhle patri cela stranka jednomu pohledu a chova se jako
+     kterakoli jina: bloky jdou pridavat, tahat i maza.
+
+     Snippety zustavaji zaregistrovane v panelu, aby si Honza mohl
+     stejnou sekci kdykoliv pritahnout znovu. Pri zmene obsahu je
+     proto potreba upravit obe mista - sablonu snippetu i tuhle
+     stranku. Stejne to ma i tema u svych sekci.
+     ================================================================ -->
+<template id="stranka_vyzva_obsah" name="Z autopilota zpět do života - obsah">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Z autopilota zpět do života</t>
+
+        <!-- oe_structure dela ze stranky bezne platno editoru: sekce
+             se daji mazat, presouvat a doplnovat dalsimi snippety.
+
+             Trida hhn je tu kvuli blokum z tematu. Cely jeho styl je
+             zanoreny pod .hhn, takze bez ni by kazdy pretazeny blok
+             - karta, bod, fotka, box na video - zustal uplne bez
+             stylu a roztahl se pres celou stranku. Sama o sobe hhn
+             jen zavadi promenne, vzhled teto stranky nemeni. -->
+        <div id="wrap" class="oe_structure oe_empty hhd hhn">
+            <section class="hhd-hlava o_cc o_colored_level" data-name="Výzva — hlavička">
+                <div class="container">
+                    <span class="hhd-znacka">Vlastní režie</span>
+                    <h1 class="hhd-h1">Z autopilota zpět do života</h1>
+                    <p class="hhd-lead">Tři dny, tři videa, tři konkrétní kroky.</p>
+                </div>
+            </section>
+
+            <section class="s_hh_vyzva_dny hhd o_cc o_colored_level" data-name="Tři dny výzvy">
+                <div class="container">
+                    <!-- Sem skript vlozi bud hlasku "nevim, kdo jsi" s polickem
+                         na e-mail, nebo nic. data-oe-protected drzi editor
+                         stranou, at se do vykresleneho obsahu nedostane kurzor
+                         a neulozi se do stranky. -->
+                    <div class="hhd-dyn" data-hhd-obnova="1"
+                         data-oe-protected="true" contenteditable="false"/>
+
+                    <div class="hhd-den">
+                        <div class="hhd-den__hlava">
+                            <span class="hhd-den__cislo">Den 1</span>
+                            <h2 class="hhd-den__nazev">Zrcadlo a pravda</h2>
+                            <p class="hhd-den__popis">
+                                Uvidíš, kde dnes stojíš, a vybereš oblast, kterou už
+                                nechceš ignorovat.
+                            </p>
+                        </div>
+                        <div class="hhd-video hhn-video" data-hhd-video="1" data-hhv-popis="Video dne 1">
+                            <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                                <div class="css_editable_mode_display"/>
+                                <div class="media_iframe_video_size"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hhd-den">
+                        <div class="hhd-den__hlava">
+                            <span class="hhd-den__cislo">Den 2</span>
+                            <h2 class="hhd-den__nazev">Důkaz</h2>
+                            <p class="hhd-den__popis">
+                                Definuješ malý konkrétní závazek, kterým začneš
+                                obnovovat respekt k sobě.
+                            </p>
+                        </div>
+                        <div class="hhd-video hhn-video" data-hhd-video="2" data-hhv-popis="Video dne 2">
+                            <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                                <div class="css_editable_mode_display"/>
+                                <div class="media_iframe_video_size"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hhd-den">
+                        <div class="hhd-den__hlava">
+                            <span class="hhd-den__cislo">Den 3</span>
+                            <h2 class="hhd-den__nazev">Tvůj tah</h2>
+                            <p class="hhd-den__popis">
+                                Pojmenuješ autopilota, který tě drží na místě,
+                                a uvidíš svůj další krok.
+                            </p>
+                        </div>
+                        <div class="hhd-video hhn-video" data-hhd-video="3" data-hhv-popis="Video dne 3">
+                            <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                                <div class="css_editable_mode_display"/>
+                                <div class="media_iframe_video_size"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kalendar je tu videt od zacatku, ale vybrat cas jde az
+                 spolu s tretim dnem vyzvy - rika to data-hhr-odemkne-den.
+                 Samotna znacka nic nezamyka, jen urcuje, na ktery den se
+                 server zepta; rozhoduje az on. -->
+            <section class="s_hh_rezervace hhr hhr--snippet o_cc o_colored_level" data-name="Rezervace hovoru" data-hhr-odemkne-den="3">
+                <div class="container">
+                    <div class="hhr-snippet__hlava">
+                        <h2 class="hhr-h1">Vyber si čas na úvodní hovor</h2>
+                        <p class="hhr-lead">
+                            Nezávazný hovor o tom, co ti z výzvy vyšlo a co dává smysl dál.
+                        </p>
+                    </div>
+
+                    <!-- Sem skript vlozi dny a hodiny. data-oe-protected drzi
+                         editor stranou, at se do obsahu nedostane kurzor
+                         a nejde ho omylem prepsat. -->
+                    <div class="hhr-blok" data-hhr-blok="1" data-oe-protected="true" contenteditable="false">
+                        <div class="hhr-dny hhr-dny--kostra"><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+<!--
+    Zaznam stranky. Bez nej se stranka neobjevi ve Webove stranky ->
+    Stranky a neda se u ni nastavit publikovani ani SEO.
+-->
+<record id="stranka_vyzva_page" model="website.page">
+    <field name="name">Zpět do života — výzva</field>
+    <field name="url">/zpet-do-zivota/vyzva</field>
+    <field name="view_id" ref="stranka_vyzva_obsah"/>
+    <field name="website_indexed" eval="False"/>
+    <field name="is_published" eval="True"/>
+</record>
+
+<!-- ===== REGISTRACE SNIPPETU DO PANELU ===== -->
+<template id="snippets_vyzva" name="Výzva - registrace snippetu"
+          inherit_id="website.snippets">
+
+    <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+        <t t-snippet="honzahauzr_crm.s_hh_vyzva_dny"
+           string="Tři dny výzvy"
+           group="honzahauzr"
+           t-thumbnail="/honzahauzr_crm/static/src/img/s_hh_rezervace.svg"/>
+    </xpath>
+
+    <xpath expr="//snippets[@id='snippet_content']" position="inside">
+        <t t-snippet="honzahauzr_crm.s_hh_vyzva_dny"
+           string="Tři dny výzvy"
+           t-thumbnail="/honzahauzr_crm/static/src/img/s_hh_rezervace.svg"/>
+    </xpath>
+
+</template>
+
+</odoo>

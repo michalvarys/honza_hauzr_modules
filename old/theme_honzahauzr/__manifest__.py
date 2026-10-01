@@ -43,9 +43,14 @@ Obsahuje:
         'views/snippets/s_hh_sticky_cta.xml',
         'views/snippets/s_hh_wip.xml',
         'views/snippets/s_hh_google_fonts.xml',
+        'views/snippets/s_hhn_polozky.xml',
+        'views/snippets/s_hhn_sekce.xml',
         'views/snippets/snippets_registry.xml',
 
+        'views/paticka.xml',
         'views/pages.xml',
+        'views/novy.xml',
+        'views/vyzva.xml',
         'views/blue.xml',
     ],
     'images': [

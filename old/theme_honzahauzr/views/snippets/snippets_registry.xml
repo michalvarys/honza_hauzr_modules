@@ -30,7 +30,25 @@
     <!-- Snippety samotne -->
     <xpath expr="//snippets[@id='snippet_structure']" position="inside">
 
-        <!-- Sekce z landing stranky -->
+        <!-- Sekce uvodni stranky (novy design) -->
+        <t t-snippet="theme_honzahauzr.s_hhn_hero" string="Úvodní obrazovka" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_hero.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_poznani" string="V čem se poznáš" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_poznani.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_pribeh" string="Můj příběh (Dřív / Dnes)" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_pribeh.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_galerie" string="Galerie fotek" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_galerie.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_jak" string="Jak pracuji" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_jak.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_vyzva" string="Bezplatná třídenní výzva" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_vyzva.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_news" string="Newsletter" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_news.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_paticka" string="Patička" group="honzahauzr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_paticka.png"/>
+
+        <!-- Sekce ze starsiho designu (/stary) -->
         <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka" group="honzahauzr"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
         <t t-snippet="theme_honzahauzr.s_hh_pain" string="Problémy" group="honzahauzr"
@@ -75,7 +93,43 @@
         viditelnost, ne chovani pri pretazeni.
     -->
     <xpath expr="//snippets[@id='snippet_content']" position="inside">
-        <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka"
+
+        <!-- Sekce noveho designu -->
+        <t t-snippet="theme_honzahauzr.s_hhn_hero" string="Úvodní obrazovka"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_hero.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_poznani" string="V čem se poznáš"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_poznani.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_pribeh" string="Můj příběh (Dřív / Dnes)"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_pribeh.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_galerie" string="Galerie fotek"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_galerie.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_jak" string="Jak pracuji"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_jak.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_vyzva" string="Bezplatná třídenní výzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_vyzva.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_news" string="Newsletter"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_news.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_paticka" string="Patička"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_paticka.png"/>
+
+        <!-- Jednotlive polozky, ktere se davaji dovnitr sekci -->
+        <t t-snippet="theme_honzahauzr.s_hhn_cta" string="Tlačítko Začni zde zdarma"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_cta.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_bod" string="Bod s ikonou"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_bod.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_pilir" string="Karta Jak pracuji"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_pilir.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_krok" string="Krok výzvy"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_krok.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_karta" string="Karta Dřív / Dnes"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_karta.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_foto" string="Fotka do galerie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_foto.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_video" string="Box na video 9:16"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_video.png"/>
+
+        <!-- Sekce starsiho designu -->
+        <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka (starý)"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
         <t t-snippet="theme_honzahauzr.s_hh_pain" string="Problémy"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pain.png"/>
@@ -93,4 +147,58 @@
 
 </template>
 
+<!--
+    Pravidlo pro jednotlive polozky.
+
+    Sekce jsou <section>, na ty staci vestavene pravidlo Odoo
+    (so_snippet_addition) a vlastni se pridavat nesmi - kolidovalo by
+    s nim a editor by snippet odmitl pustit kamkoliv.
+
+    Polozky ale zadny <section> nejsou, takze potrebuji vlastni zaznam.
+    Rika, ze se daji chytit a pustit vedle sveho druhu - dalsi bod mezi
+    body, dalsi fotka mezi fotky.
+
+    POZOR: pravidla drop zon nejsou v website.snippets, ale ve zvlastni
+    sablone website.snippet_options. Pri pokusu vlozit to do snippets
+    spadl cely panel s bloky - vcetne vlastnich snippetu Odoo - na
+    hlasku "Prvek <xpath ...> nelze najit v nadrazenem pohledu".
+-->
+<!-- .hhd-den jsou dny na strance tridenni vyzvy. Patri sem, aby
+     se do nich dal pretahnout box na video - jinak by byl v panelu
+     sedy, protoze na te strance nic jineho z tohohle seznamu neni.
+
+     drop-near dava misto mezi dny, drop-in primo dovnitr dne pod
+     nadpis. Bez toho druheho by video slo polozit jen mezi bloky. -->
+<template id="honzahauzr_snippet_options" name="Honza Hauzr - volby snippetů"
+          inherit_id="website.snippet_options">
+    <xpath expr="//div[@id='so_content_addition']" position="after">
+        <div id="hhn_polozky"
+             data-selector=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"
+             data-drop-near=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"
+             data-drop-in=".hhd-den"/>
+    </xpath>
+</template>
+
+
+<!-- Policko na adresu videa pro mobil.
+
+     Blok je na strance jen jeden. Na sirokem okne hraje video z
+     bezneho video bloku Odoo (dvojklik, dialog Vyberte media), na
+     uzkem to, co je tady. Bez toho by na strance musely byt dva
+     bloky a na ten schovany by v editoru neslo kliknout.
+
+     Odoo pise hodnotu do data-hhn-video-mobil, odkud si ji bere
+     hh-video.js. Zadny vlastni skript k tomu netreba. -->
+<template id="honzahauzr_volba_videa" name="Honza Hauzr - video pro mobil"
+          inherit_id="website.snippet_options">
+    <xpath expr="//div[@id='so_content_addition']" position="after">
+        <div data-selector=".hhn-video, .hhd-video">
+            <we-input string="Video pro mobil"
+                      data-select-data-attribute=""
+                      data-attribute-name="hhnVideoMobil"
+                      data-no-preview="true"
+                      placeholder="odkaz na video na výšku"/>
+        </div>
+    </xpath>
+</template>
 </odoo>

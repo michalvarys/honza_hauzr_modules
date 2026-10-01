@@ -17,6 +17,7 @@
                       data-model_name="crm.lead"
                       data-success-mode="message">
                     <input type="hidden" name="name" value="Stažení PDF z webu honzahauzr.cz"/>
+                    <input type="hidden" name="hh_zdroj" value="pdf"/>
                     <div class="s_website_form_field s_website_form_required">
                         <label class="col-form-label s_website_form_label hh-sr-only" for="hh_pdf_email">Tvůj e-mail</label>
                         <input type="email" id="hh_pdf_email" class="form-control s_website_form_input"

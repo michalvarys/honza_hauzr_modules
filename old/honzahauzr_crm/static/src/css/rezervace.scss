@@ -1,0 +1,626 @@
+/* ============================================================
+   STRANKA S REZERVACI UVODNIHO HOVORU (prefix hhr-)
+
+   Vsechno je zanorene pod .hhr. Modul se nacita pres klic assets
+   v manifestu, tedy pro celou instanci - a na stejnem serveru bezi
+   i cizi weby. Nic tu proto nesmi mirit na obecne selektory jako
+   body, header nebo .container bez naseho obalu.
+
+   Paleta je stejna jako na strance vyzvy (cream, sand, graphite,
+   bronz), aby na sebe obe stranky navazovaly.
+   ============================================================ */
+
+.hhr {
+    --hhr-cream: #f4efe6;
+    --hhr-sand: #e9e0d2;
+    --hhr-graphite: #23211d;
+    --hhr-bronze: #a06a37;
+    --hhr-bronze-light: #c08a52;
+    --hhr-ink: #23211d;
+    --hhr-ink-soft: #5d554b;
+    --hhr-ink-muted: #857b6e;
+    --hhr-line: rgba(35, 33, 29, 0.14);
+
+    box-sizing: border-box;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--hhr-cream);
+    color: var(--hhr-ink);
+    line-height: 1.65;
+    overflow-x: clip;
+}
+
+.hhr *,
+.hhr *::before,
+.hhr *::after {
+    box-sizing: border-box;
+}
+
+.hhr h1,
+.hhr h2,
+.hhr p {
+    margin: 0;
+    padding: 0;
+}
+
+.hhr .container {
+    max-width: 900px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100% !important;
+}
+
+.hhr .hhr-znacka {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.hhr .hhr-h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+}
+
+.hhr .hhr-lead {
+    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+    line-height: 1.7;
+    color: var(--hhr-ink-soft);
+}
+
+.hhr .hhr-micro {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--hhr-ink-muted);
+}
+
+.hhr .hhr-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ===== HLAVA ===== */
+
+.hhr .hhr-hlava {
+    padding: clamp(56px, 7vw, 86px) 0 clamp(38px, 5vw, 58px);
+    background: var(--hhr-graphite);
+    color: #fff;
+}
+
+.hhr .hhr-hlava .hhr-h1 {
+    margin-top: 16px;
+    color: #fff;
+}
+
+.hhr .hhr-hlava .hhr-lead {
+    margin-top: 16px;
+    max-width: 34em;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+/* ===== OBSAH ===== */
+
+.hhr .hhr-obsah {
+    padding: clamp(40px, 5vw, 66px) 0 clamp(56px, 7vw, 90px);
+}
+
+.hhr--stred .hhr-obsah {
+    /* Potvrzovaci a rusici stranka nemaji hlavu ani patu, takze si
+       musi vyplnit celou obrazovku samy - jinak pod nimi zustane
+       bily pruh az do konce okna. */
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.hhr .hhr-hlaska {
+    margin-bottom: 26px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--hhr-bronze);
+    background: var(--hhr-sand);
+    font-size: 0.92rem;
+    color: var(--hhr-ink-soft);
+}
+
+.hhr .hhr-prazdno {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.hhr .hhr-prazdno .hhr-micro {
+    margin-top: 10px;
+}
+
+.hhr .hhr-prazdno a,
+.hhr .hhr-hotovo a {
+    color: var(--hhr-bronze);
+}
+
+/* ===== 1. KROK: DLAZDICE DNU ===== */
+
+.hhr .hhr-dny {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+/* Kalendar smi ven z 900px kontejneru, ve kterem se cte text. Mesic
+   se do nej vesel jen po peti sloupcich a po stranach zustavalo hodne
+   prazdna; sirsi mrizka pobere cely tyden na radek.
+
+   Rozsireni je omezene clampem podle sirky okna, takze na uzsim
+   displeji zustane presne v kontejneru a nic nepretece. */
+@media (min-width: 992px) {
+    .hhr .hhr-dny {
+        margin-left: calc(-1 * clamp(0px, (100vw - 900px) / 2, 190px));
+        margin-right: calc(-1 * clamp(0px, (100vw - 900px) / 2, 190px));
+    }
+}
+
+.hhr .hhr-denkarta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 18px 12px 16px;
+    border: 1px solid var(--hhr-line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--hhr-ink);
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.hhr .hhr-denkarta:hover,
+.hhr .hhr-denkarta:focus-visible {
+    border-color: var(--hhr-bronze);
+    color: var(--hhr-ink);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.hhr .hhr-denkarta__den {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--hhr-taupe);
+}
+
+.hhr .hhr-denkarta__cislo {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hhr .hhr-denkarta__mesic {
+    font-size: 12px;
+    color: var(--hhr-ink-soft);
+}
+
+.hhr .hhr-denkarta__pocet {
+    margin-top: 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--hhr-bronze);
+}
+
+.hhr .hhr-denkarta__rozsah {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--hhr-ink-muted);
+}
+
+.hhr .hhr-pod-dny {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* ===== SNIPPET ===== */
+
+/* Jako blok na cizi strance nesmi zabirat celou obrazovku ani nasazovat
+   vlastni pozadi pres celou sirku - to uz resi sekce, do ktere ho
+   clovek pustil. */
+.hhr--snippet {
+    padding: clamp(40px, 5vw, 70px) 0;
+    background: var(--hhr-cream);
+}
+
+.hhr--snippet .hhr-snippet__hlava {
+    margin-bottom: clamp(24px, 3vw, 36px);
+    text-align: center;
+}
+
+.hhr--snippet .hhr-snippet__hlava .hhr-lead {
+    margin-top: 10px;
+}
+
+.hhr--snippet .hhr-h1 {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.hhr .hhr-blok__cekej {
+    padding: 24px 0;
+    text-align: center;
+}
+
+.hhr .hhr-denNadpis {
+    margin: 0 0 16px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.hhr .hhr-denNadpis::first-letter {
+    text-transform: uppercase;
+}
+
+/* Dlazdice dne je ve snippetu tlacitko, ne odkaz - vsechno se deje
+   na miste, bez prechodu na jinou stranku. */
+.hhr button.hhr-denkarta {
+    width: 100%;
+    font-family: inherit;
+    text-align: center;
+}
+
+.hhr button.hhr-zpet {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ===== 2. KROK: ZPATECNI ODKAZ ===== */
+
+.hhr .hhr-zpet {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 22px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--hhr-ink-soft);
+    text-decoration: none;
+}
+
+.hhr .hhr-zpet:hover {
+    color: var(--hhr-bronze);
+}
+
+.hhr .hhr-casy {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.hhr .hhr-cas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 92px;
+    padding: 11px 14px;
+    border: 1px solid var(--hhr-line);
+    border-radius: 3px;
+    background: #fff;
+    font-family: inherit;
+    color: var(--hhr-ink);
+    cursor: pointer;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.hhr .hhr-cas__hodina {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.hhr .hhr-cas__delka {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--hhr-ink-muted);
+}
+
+.hhr .hhr-cas:hover {
+    border-color: var(--hhr-bronze);
+}
+
+.hhr .hhr-cas.hhr-cas--vybrany {
+    border-color: var(--hhr-bronze);
+    background: var(--hhr-bronze);
+    color: #fff;
+}
+
+.hhr .hhr-cas.hhr-cas--vybrany .hhr-cas__delka {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Zabrany cas: videt je, ale nejde na nej kliknout */
+.hhr .hhr-cas--pryc,
+.hhr .hhr-cas--pryc:hover {
+    border-color: var(--hhr-line);
+    border-style: dashed;
+    background: transparent;
+    color: var(--hhr-ink-muted);
+    cursor: not-allowed;
+}
+
+.hhr .hhr-cas--pryc .hhr-cas__hodina {
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+/* ===== UDAJE ===== */
+
+/* Do vybrani casu je blok schovany - skript mu sundá tenhle atribut.
+   Kdyz JavaScript nebezi, zustava videt a formular se da odeslat
+   tak, ze clovek klikne na cas (posle se pres obycejne tlacitko). */
+.hhr .hhr-udaje[hidden] {
+    display: none;
+}
+
+.hhr .hhr-udaje {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: clamp(30px, 4vw, 46px);
+    padding: clamp(22px, 3vw, 30px);
+    background: var(--hhr-sand);
+    border-radius: 3px;
+}
+
+.hhr .hhr-udaje__nadpis {
+    grid-column: 1 / -1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--hhr-ink-soft);
+}
+
+.hhr .hhr-vybrano {
+    color: var(--hhr-bronze);
+}
+
+.hhr .hhr-pole--siroke,
+.hhr .hhr-udaje .hhr-cta,
+.hhr .hhr-udaje .hhr-micro {
+    grid-column: 1 / -1;
+}
+
+.hhr .hhr-udaje input,
+.hhr .hhr-udaje textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--hhr-line);
+    border-radius: 3px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 0.94rem;
+    color: var(--hhr-ink);
+}
+
+.hhr .hhr-udaje input:focus,
+.hhr .hhr-udaje textarea:focus {
+    border-color: var(--hhr-bronze);
+    outline: none;
+}
+
+.hhr .hhr-udaje textarea {
+    resize: vertical;
+}
+
+.hhr .hhr-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--hhr-bronze);
+    color: #fff;
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-indent: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.hhr .hhr-cta:hover:not([disabled]) {
+    background: var(--hhr-bronze-light);
+}
+
+.hhr .hhr-cta[disabled] {
+    background: var(--hhr-ink-muted);
+    cursor: not-allowed;
+}
+
+.hhr a:focus-visible,
+.hhr button:focus-visible,
+.hhr input:focus-visible,
+.hhr textarea:focus-visible {
+    outline: 2px solid var(--hhr-bronze);
+    outline-offset: 3px;
+}
+
+/* ===== HOTOVO ===== */
+
+.hhr .hhr-hotovo {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.hhr .hhr-hotovo__ikona {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 20px;
+    border: 1px solid var(--hhr-bronze);
+    border-radius: 999px;
+    color: var(--hhr-bronze);
+}
+
+.hhr .hhr-hotovo .hhr-lead {
+    margin-top: 14px;
+}
+
+.hhr .hhr-hotovo .hhr-micro {
+    margin-top: 18px;
+}
+
+/* ===== PATA ===== */
+
+.hhr .hhr-pata {
+    padding: 30px 0;
+    background: var(--hhr-graphite);
+}
+
+/* ===== MOBIL ===== */
+
+@media (max-width: 767px) {
+    /* ===== KALENDAR NA MOBILU =====
+
+       Stejna mrizka jako na PC, jen o petinu mensi karty - drive se
+       lamala do dvou sloupcu a mesic se protahl pres pul obrazovky.
+       Misto toho se posouva prstem doleva, takze je videt cely
+       najednou stejne jako na sirsim displeji.
+
+       Zaporne okraje vytahnou posuvnik az k hranam okna, aby karty
+       nekoncily v polovine a bylo videt, ze se da posouvat dal. */
+    .hhr .hhr-dny {
+        grid-template-columns: none;
+        grid-template-rows: repeat(3, auto);
+        grid-auto-flow: column;
+        grid-auto-columns: 120px;
+        gap: 10px;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding: 0 20px 8px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+    }
+
+    .hhr .hhr-dny > * {
+        scroll-snap-align: start;
+    }
+
+    .hhr .hhr-denkarta {
+        padding: 14px 8px 12px;
+    }
+
+    .hhr .hhr-denkarta__cislo {
+        font-size: 1.6rem;
+    }
+
+    .hhr .hhr-denkarta__pocet,
+    .hhr .hhr-denkarta__rozsah {
+        font-size: 10px;
+    }
+
+    .hhr .hhr-udaje {
+        grid-template-columns: 1fr;
+    }
+
+    .hhr .hhr-cas {
+        min-width: 84px;
+        flex: 1 1 auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hhr .hhr-cas,
+    .hhr .hhr-cta {
+        transition: none;
+    }
+}
+
+/* ===== DEN BEZ VOLNEHO CASU =====
+
+   Vypisuji se vsechny dny, ne jen volne - clovek ma videt, ve ktere
+   dny se hovory vubec neberou. Nedostupny den je zretelne tlumeny,
+   aby se nedal splest s tim, na ktery jde kliknout. */
+
+.hhr .hhr-denkarta--pryc {
+    background: transparent;
+    border-style: dashed;
+    color: var(--hhr-ink-muted);
+    cursor: default;
+}
+
+.hhr .hhr-denkarta--pryc .hhr-denkarta__cislo {
+    color: var(--hhr-ink-muted);
+    font-weight: 400;
+}
+
+.hhr .hhr-denkarta--pryc .hhr-denkarta__pocet {
+    color: var(--hhr-ink-muted);
+    font-weight: 400;
+}
+
+.hhr .hhr-denkarta--dnes {
+    border-color: var(--hhr-bronze);
+}
+
+/* ===== KOSTRA MISTO HLASKY O NACITANI =====
+
+   Seznam dnu dotahuje skript. Drive tam do te doby stal holy radek
+   "Nacitam volne terminy..." - vypadalo to rozbite a po doplneni
+   obsahu poskocilo rozlozeni. Kostra ma rozmery karet, ktere na
+   jejim miste vzniknou. */
+
+.hhr .hhr-kostra {
+    min-height: 118px;
+    border-radius: 3px;
+    background: var(--hhr-sand);
+    animation: hhr-dychani 1.6s ease-in-out infinite;
+}
+
+@keyframes hhr-dychani {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hhr .hhr-kostra { animation: none; }
+}
+
+/* ===== ZAMCENY KALENDAR =====
+
+   Na strance vyzvy je kalendar videt od zacatku, ale kliknout po nem
+   jde az spolu s tretim dnem. Terminy zustavaji citelne zamerne -
+   ma byt znat, ze volno existuje. Proto se netlumi cely blok, jen
+   karty dnu, a text pod nimi zustava plne citelny.
+
+   pointer-events se tu daji vypnout s klidem: seznam se po odemceni
+   nacita znovu ze serveru, takze tohle neni jedina prekazka. */
+.hhr .hhr-blok--zamceno .hhr-dny {
+    opacity: 0.45;
+    filter: grayscale(0.4);
+    pointer-events: none;
+    user-select: none;
+}
+
+.hhr .hhr-blok--zamceno .hhr-denkarta {
+    cursor: default;
+}

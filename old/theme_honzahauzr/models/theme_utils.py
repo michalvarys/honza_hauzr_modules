@@ -20,5 +20,10 @@ class ThemeUtils(models.AbstractModel):
             "website.header_call_to_action",      # tlacitko Kontaktujte nas
             "website.header_search_box",          # lupa
             "portal.user_sign_in",                # Prihlasit se
+            # Vychozi demo paticka Odoo - Uzitecne odkazy, O nas,
+            # telefon +1 555-555-5556 a info@yourcompany.example.com.
+            # Nasi paticku vklada theme_honzahauzr.hh_layout_paticka,
+            # takze tahle by se pod ni jen zdvojila.
+            "website.footer_custom",
         ):
             self.disable_view(pohled)

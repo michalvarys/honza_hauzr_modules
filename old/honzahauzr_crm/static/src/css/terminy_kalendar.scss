@@ -1,0 +1,558 @@
+/* ============================================================
+   KALENDAR TERMINU V ADMINU (prefix hht-)
+
+   Vsechno je zanorene pod .hht. Nacita se pres assets_backend,
+   tedy pro celou instanci - a na stejnem serveru bezi i cizi
+   projekty. Nic tu proto nesmi mirit na obecne selektory.
+
+   Paleta je stejna jako na rezervacni strance na webu (cream,
+   sand, graphite, bronz) a cisla dnu jsou patkova, aby Honza
+   videl v adminu to same, co uvidi zakaznik.
+   ============================================================ */
+
+.hht {
+    --hht-cream: #f4efe6;
+    --hht-sand: #e9e0d2;
+    --hht-graphite: #23211d;
+    --hht-bronze: #a06a37;
+    --hht-bronze-light: #c08a52;
+    --hht-ink: #23211d;
+    --hht-ink-soft: #5d554b;
+    --hht-ink-muted: #857b6e;
+    --hht-line: rgba(35, 33, 29, 0.14);
+
+    box-sizing: border-box;
+    min-height: 100%;
+    padding: 20px 24px 40px;
+    background: var(--hht-cream);
+    color: var(--hht-ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+}
+
+.hht *,
+.hht *::before,
+.hht *::after {
+    box-sizing: border-box;
+}
+
+.hht p {
+    margin: 0;
+}
+
+/* ===== LISTA ===== */
+
+.hht .hht-lista {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.hht .hht-lista__navigace,
+.hht .hht-lista__akce {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.hht .hht-lista__nadpis {
+    margin-left: 8px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.hht .hht-tlacitko {
+    padding: 6px 14px;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--hht-ink);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.hht .hht-tlacitko:hover:not(:disabled) {
+    border-color: var(--hht-bronze);
+    color: var(--hht-bronze);
+}
+
+.hht .hht-tlacitko:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.hht .hht-tlacitko--hlavni {
+    border-color: var(--hht-bronze);
+    background: var(--hht-bronze);
+    color: #fff;
+    font-weight: 600;
+}
+
+.hht .hht-tlacitko--hlavni:hover:not(:disabled) {
+    background: var(--hht-bronze-light);
+    border-color: var(--hht-bronze-light);
+    color: #fff;
+}
+
+.hht .hht-souhrn {
+    font-size: 12px;
+    color: var(--hht-ink-muted);
+}
+
+.hht .hht-legenda {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--hht-ink-muted);
+}
+
+.hht .hht-legenda__kus {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hht .hht-tecka {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+}
+
+.hht .hht-tecka--rez {
+    background: var(--hht-bronze);
+}
+
+.hht .hht-tecka--pryc {
+    background: rgba(35, 33, 29, 0.3);
+}
+
+/* ===== MESIC ===== */
+
+.hht .hht-mesic {
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.hht .hht-mesic__zahlavi,
+.hht .hht-mesic__tyden {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.hht .hht-mesic__zahlavi {
+    background: var(--hht-sand);
+}
+
+.hht .hht-mesic__den-nazev {
+    padding: 9px 12px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--hht-ink-soft);
+}
+
+.hht .hht-den {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 92px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid var(--hht-line);
+    border-left: 1px solid var(--hht-line);
+    transition: background 0.18s ease;
+}
+
+.hht .hht-mesic__tyden .hht-den:first-child {
+    border-left: 0;
+}
+
+/* Patkove cislo dne - stejne jako karty dnu na webu. */
+.hht .hht-den__cislo {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hht .hht-den__volne {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--hht-bronze);
+}
+
+.hht .hht-den__vypnuto {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--hht-ink-muted);
+}
+
+.hht .hht-den__znacky {
+    display: flex;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.hht .hht-den--ma {
+    cursor: pointer;
+}
+
+.hht .hht-den--ma:hover {
+    background: var(--hht-cream);
+}
+
+.hht .hht-den--cizi {
+    background: rgba(233, 224, 210, 0.3);
+}
+
+.hht .hht-den--cizi .hht-den__cislo {
+    color: var(--hht-ink-muted);
+}
+
+/* Den, ktery rozvrh nema zapnuty. Sikme sedovani rekne, ze tam
+   nic nevznikne, aniz by se to muselo cist. */
+.hht .hht-den--vypnuty {
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(35, 33, 29, 0.032),
+        rgba(35, 33, 29, 0.032) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+}
+
+/* Dny, ktere uz probehly. Terminy se do minulosti nevyrabeji, takze
+   jsou prazdne vzdycky - ztlumeni rekne proc, aniz by to vypadalo
+   jako chyba rozvrhu. */
+.hht .hht-den--minulost {
+    opacity: 0.45;
+}
+
+.hht .hht-den--dnes .hht-den__cislo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: var(--hht-bronze);
+    color: #fff;
+    font-size: 1.05rem;
+}
+
+/* ===== DEN: MRIZKA HODIN ===== */
+
+.hht .hht-sloty {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+    gap: 10px;
+    user-select: none;
+}
+
+.hht .hht-slot {
+    position: relative;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    transition: border-color 0.18s ease;
+}
+
+.hht .hht-slot__telo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 62px;
+    padding: 10px 8px;
+    cursor: pointer;
+}
+
+.hht .hht-slot__cas {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.hht .hht-slot__znak {
+    font-size: 11.5px;
+    line-height: 1.3;
+    text-align: center;
+    word-break: break-word;
+}
+
+.hht .hht-slot:hover {
+    border-color: var(--hht-bronze);
+}
+
+.hht .hht-slot--zablokovany {
+    background: var(--hht-sand);
+    color: var(--hht-ink-muted);
+}
+
+.hht .hht-slot--zablokovany .hht-slot__cas {
+    text-decoration: line-through;
+}
+
+.hht .hht-slot--rezervovany {
+    border-color: var(--hht-bronze);
+    background: var(--hht-bronze);
+    color: #fff;
+}
+
+.hht .hht-slot--rezervovany .hht-slot__znak {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+/* Panacek se ukazuje az pri najeti - v klidu by mrizku zaplevelil. */
+.hht .hht-slot__rezervovat {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--hht-ink-muted);
+    font-size: 12px;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.hht .hht-slot:hover .hht-slot__rezervovat,
+.hht .hht-slot__rezervovat:focus-visible {
+    opacity: 1;
+}
+
+.hht .hht-slot__rezervovat:hover {
+    background: var(--hht-bronze);
+    color: #fff;
+}
+
+.hht .hht-prazdno {
+    padding: 36px 20px;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    text-align: center;
+}
+
+.hht .hht-micro {
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: var(--hht-ink-muted);
+}
+
+.hht .hht-pod {
+    margin-top: 12px;
+}
+
+/* ===== ROZVRH POD KALENDAREM ===== */
+
+.hht .hht-rozvrh {
+    margin-top: 24px;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.hht .hht-rozvrh__prepinac {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 13px 16px;
+    border: 0;
+    background: var(--hht-sand);
+    color: var(--hht-ink);
+    text-align: left;
+    cursor: pointer;
+}
+
+.hht .hht-rozvrh__titulek {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.hht .hht-rozvrh__souhrn {
+    font-size: 12px;
+    color: var(--hht-ink-soft);
+}
+
+.hht .hht-rozvrh__telo {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px 16px 20px;
+}
+
+.hht .hht-rozvrh__radek {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+}
+
+.hht .hht-rozvrh__pata {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hht-line);
+}
+
+.hht .hht-pole {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hht .hht-pole__popisek {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hht-ink-soft);
+}
+
+.hht .hht-pole input,
+.hht .hht-pole textarea {
+    width: 100%;
+    padding: 8px 11px;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--hht-ink);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.hht .hht-pole input:focus,
+.hht .hht-pole textarea:focus {
+    border-color: var(--hht-bronze);
+    outline: none;
+}
+
+.hht .hht-dny {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.hht .hht-denbtn {
+    width: 44px;
+    padding: 7px 0;
+    border: 1px solid var(--hht-line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--hht-ink-muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.hht .hht-denbtn--zap {
+    border-color: var(--hht-bronze);
+    background: var(--hht-bronze);
+    color: #fff;
+}
+
+.hht .hht-chyba {
+    font-size: 12.5px;
+    color: #a3352b;
+}
+
+/* ===== OKNO RUCNI REZERVACE ===== */
+
+.hht-dialog .hht-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hht-dialog .hht-pole {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hht-dialog .hht-pole__popisek {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5d554b;
+}
+
+.hht-dialog .hht-pole input,
+.hht-dialog .hht-pole textarea {
+    width: 100%;
+    padding: 8px 11px;
+    border: 1px solid rgba(35, 33, 29, 0.18);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.hht-dialog .hht-pole input:focus,
+.hht-dialog .hht-pole textarea:focus {
+    border-color: #a06a37;
+    outline: none;
+}
+
+.hht-dialog .hht-micro {
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #857b6e;
+}
+
+.hht-dialog .hht-chyba {
+    font-size: 12.5px;
+    color: #a3352b;
+}
+
+/* ===== UZKA OBRAZOVKA ===== */
+
+@media (max-width: 767px) {
+    .hht {
+        padding: 14px 12px 32px;
+    }
+
+    .hht .hht-den {
+        min-height: 72px;
+        padding: 7px 8px 9px;
+    }
+
+    .hht .hht-den__volne,
+    .hht .hht-den__vypnuto {
+        font-size: 10px;
+    }
+
+    .hht .hht-sloty {
+        grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    }
+}

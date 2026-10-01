@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="honzahauzr_crm.TerminyKalendar">
+    <div class="hht">
+
+        <!-- ===== LISTA ===== -->
+        <div class="hht-lista">
+            <t t-if="stav.rezim === 'mesic'">
+                <div class="hht-lista__navigace">
+                    <button class="hht-tlacitko" t-on-click="() => this.posunMesic(-1)" title="Předchozí měsíc">
+                        <i class="fa fa-chevron-left"/>
+                    </button>
+                    <button class="hht-tlacitko" t-on-click="() => this.posunMesic(1)" title="Další měsíc">
+                        <i class="fa fa-chevron-right"/>
+                    </button>
+                    <button class="hht-tlacitko" t-on-click="() => this.dnes()">Dnes</button>
+                    <span class="hht-lista__nadpis" t-esc="nazevMesice"/>
+                </div>
+                <div class="hht-legenda">
+                    <span class="hht-legenda__kus"><span class="hht-tecka hht-tecka--rez"/> rezervovaný</span>
+                    <span class="hht-legenda__kus"><span class="hht-tecka hht-tecka--pryc"/> přeškrtnutý</span>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="hht-lista__navigace">
+                    <button class="hht-tlacitko" t-on-click="() => this.zpetNaMesic()">
+                        <i class="fa fa-chevron-left me-1"/> Zpátky na měsíc
+                    </button>
+                    <button class="hht-tlacitko" t-on-click="() => this.posunDen(-1)" title="Předchozí den">
+                        <i class="fa fa-angle-left"/>
+                    </button>
+                    <button class="hht-tlacitko" t-on-click="() => this.posunDen(1)" title="Další den">
+                        <i class="fa fa-angle-right"/>
+                    </button>
+                    <span class="hht-lista__nadpis" t-esc="popisVybranehoDne"/>
+                </div>
+                <t t-if="denniTerminy.length">
+                    <div class="hht-lista__akce">
+                        <span class="hht-souhrn">
+                            <t t-esc="souhrnDne.volnych"/> volných
+                            &#183; <t t-esc="souhrnDne.preskrtnutych"/> přeškrtnutých
+                            &#183; <t t-esc="souhrnDne.rezervovanych"/> rezervovaných
+                        </span>
+                        <button class="hht-tlacitko" t-on-click="() => this.preskrtnoutVse()">
+                            Přeškrtnout celý den
+                        </button>
+                        <button class="hht-tlacitko" t-on-click="() => this.vratitVse()">
+                            Vrátit vše
+                        </button>
+                    </div>
+                </t>
+            </t>
+        </div>
+
+        <!-- ===== MESIC ===== -->
+        <t t-if="stav.rezim === 'mesic'">
+            <div class="hht-mesic">
+                <div class="hht-mesic__zahlavi">
+                    <t t-foreach="zahlaviDnu" t-as="d" t-key="d">
+                        <div class="hht-mesic__den-nazev" t-esc="d"/>
+                    </t>
+                </div>
+                <t t-foreach="tydny" t-as="tyden" t-key="tyden[0].klic">
+                    <div class="hht-mesic__tyden">
+                        <t t-foreach="tyden" t-as="den" t-key="den.klic">
+                            <div t-attf-class="hht-den {{ den.cizi ? 'hht-den--cizi' : '' }} {{ den.dnes ? 'hht-den--dnes' : '' }} {{ den.minulost ? 'hht-den--minulost' : '' }} {{ den.vypnuty ? 'hht-den--vypnuty' : '' }} {{ den.celkem ? 'hht-den--ma' : 'hht-den--prazdny' }}"
+                                 t-on-click="() => this.otevriDen(den)">
+                                <span class="hht-den__cislo" t-esc="den.cislo"/>
+                                <t t-if="den.celkem">
+                                    <span class="hht-den__volne">
+                                        <t t-if="den.volnych"><t t-esc="den.volnych"/> volných</t>
+                                        <t t-else="">nic volného</t>
+                                    </span>
+                                    <span class="hht-den__znacky">
+                                        <t t-if="den.obsazenych">
+                                            <span class="hht-tecka hht-tecka--rez"
+                                                  t-attf-title="{{ den.obsazenych }} rezervovaných"/>
+                                        </t>
+                                        <t t-if="den.preskrtnutych">
+                                            <span class="hht-tecka hht-tecka--pryc"
+                                                  t-attf-title="{{ den.preskrtnutych }} přeškrtnutých"/>
+                                        </t>
+                                    </span>
+                                </t>
+                                <t t-elif="den.minulost and !den.cizi">
+                                    <span class="hht-den__vypnuto">proběhlo</span>
+                                </t>
+                                <t t-elif="den.vypnuty and !den.cizi">
+                                    <span class="hht-den__vypnuto">nepracovní</span>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+            <p class="hht-micro hht-pod">Klikni na den a otevřou se jeho hodiny.</p>
+        </t>
+
+        <!-- ===== DEN ===== -->
+        <t t-else="">
+            <t t-if="!denniTerminy.length">
+                <div class="hht-prazdno">
+                    <p>V tenhle den nejsou žádné termíny.</p>
+                    <p class="hht-micro">
+                        Termíny vznikají podle rozvrhu dole pod kalendářem.
+                        Ve vypnutých dnech žádné nevznikají.
+                    </p>
+                </div>
+            </t>
+            <t t-else="">
+                <!-- Tazeni pres vic hodin: pri stisku se urci smer podle
+                     prvni hodiny a dal uz se jen prejizdi. Pusteni hlida
+                     posluchac na okne, takze staci pustit kdekoliv. -->
+                <div class="hht-sloty" t-on-dragstart.prevent="() => {}">
+                    <t t-foreach="denniTerminy" t-as="t" t-key="t.id">
+                        <div t-attf-class="hht-slot hht-slot--{{ t.stav }}">
+                            <div class="hht-slot__telo"
+                                 t-on-pointerdown.prevent="() => this.zacniTah(t)"
+                                 t-on-pointerenter="() => this.pokracujTah(t)"
+                                 t-att-title="t.stav === 'rezervovany' ? 'Otevřít domluvený hovor' : (t.stav === 'volny' ? 'Klikni nebo přetáhni = křížek' : 'Klikni nebo přetáhni = zpátky volný')">
+                                <span class="hht-slot__cas" t-esc="t.cas"/>
+                                <span class="hht-slot__znak">
+                                    <t t-if="t.stav === 'zablokovany'">&#10005;</t>
+                                    <t t-elif="t.stav === 'rezervovany'"><t t-esc="t.jmeno or 'rezervováno'"/></t>
+                                </span>
+                            </div>
+                            <!-- Zapsat, ze si cas nekdo domluvil mimo web.
+                                 Vlastni tlacitko, protoze kliknuti do tela
+                                 uz obsluhuje krizkovani tahem. -->
+                            <t t-if="t.stav !== 'rezervovany'">
+                                <button class="hht-slot__rezervovat"
+                                        t-on-click.stop="() => this.otevriRezervaci(t)"
+                                        title="Zapsat, že si tenhle čas někdo domluvil">
+                                    <i class="fa fa-user-plus"/>
+                                </button>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+                <p class="hht-micro hht-pod">
+                    Prázdné pole = volný čas. Křížek = zákazníkovi se nenabídne.
+                    Můžeš klikat jednotlivě nebo táhnout myší přes víc hodin najednou.
+                    Panáčkem zapíšeš, že si čas někdo domluvil napřímo.
+                </p>
+            </t>
+        </t>
+
+        <!-- ===== ROZVRH ===== -->
+        <div class="hht-rozvrh">
+            <button class="hht-rozvrh__prepinac" t-on-click="() => this.prepniRozvrh()">
+                <i t-attf-class="fa fa-{{ stav.rozvrhOtevren ? 'chevron-down' : 'chevron-right' }} me-2"/>
+                <span class="hht-rozvrh__titulek">Kdy beru hovory</span>
+                <span class="hht-rozvrh__souhrn" t-esc="rozsahPopis"/>
+            </button>
+
+            <t t-if="stav.rozvrhOtevren">
+                <div class="hht-rozvrh__telo">
+                    <div class="hht-pole">
+                        <span class="hht-pole__popisek">Dny v týdnu</span>
+                        <div class="hht-dny">
+                            <t t-foreach="dnyNaVyber" t-as="d" t-key="d.index">
+                                <button t-attf-class="hht-denbtn {{ d.zapnuty ? 'hht-denbtn--zap' : '' }}"
+                                        t-on-click="() => this.prepniDen(d.index)"
+                                        t-att-title="d.nazev">
+                                    <t t-esc="d.zkratka"/>
+                                </button>
+                            </t>
+                        </div>
+                    </div>
+
+                    <div class="hht-rozvrh__radek">
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Od hodiny</span>
+                            <input type="number" min="0" max="23" step="0.25"
+                                   t-model.number="rozvrh.od"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Do hodiny</span>
+                            <input type="number" min="1" max="24" step="0.25"
+                                   t-model.number="rozvrh.do"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Délka hovoru (min)</span>
+                            <input type="number" min="5" max="480" step="5"
+                                   t-model.number="rozvrh.delka"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Nabízet dopředu (dnů)</span>
+                            <input type="number" min="1" max="365" step="1"
+                                   t-model.number="rozvrh.dopredu"/>
+                        </label>
+                    </div>
+
+                    <div class="hht-rozvrh__pata">
+                        <button class="hht-tlacitko hht-tlacitko--hlavni"
+                                t-att-disabled="stav.uklada"
+                                t-on-click="() => this.ulozRozvrh()">
+                            <t t-if="stav.uklada">Ukládám&#8230;</t>
+                            <t t-else="">Uložit a promítnout</t>
+                        </button>
+                        <span class="hht-micro">
+                            Uloží se a hned se to propíše do kalendáře i na web.
+                            Volné a přeškrtnuté termíny mimo nový rozvrh zmizí,
+                            domluvené hovory zůstanou.
+                        </span>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </div>
+</t>
+
+<t t-name="honzahauzr_crm.RezervaceDialog">
+    <Dialog title="nadpis" size="'md'" contentClass="'hht-dialog'">
+        <div class="hht-form">
+            <label class="hht-pole">
+                <span class="hht-pole__popisek">Jméno</span>
+                <input type="text" t-model="udaje.jmeno" placeholder="Jan Novák"/>
+            </label>
+            <label class="hht-pole">
+                <span class="hht-pole__popisek">E-mail</span>
+                <input type="email" t-model="udaje.email" placeholder="jan@example.com"/>
+            </label>
+            <label class="hht-pole">
+                <span class="hht-pole__popisek">Telefon</span>
+                <input type="tel" t-model="udaje.telefon" placeholder="+420 777 123 456"/>
+            </label>
+            <label class="hht-pole">
+                <span class="hht-pole__popisek">Poznámka</span>
+                <textarea rows="3" t-model="udaje.poznamka"/>
+            </label>
+            <t t-if="udaje.chyba">
+                <p class="hht-chyba" t-esc="udaje.chyba"/>
+            </t>
+            <p class="hht-micro">
+                Zapsáním se zároveň založí nebo dohledá příležitost v CRM.
+                Potvrzovací e-mail se neposílá &#8211; hovor je domluvený napřímo.
+            </p>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-att-disabled="udaje.uklada"
+                    t-on-click="() => this.uloz()">
+                <t t-if="jeUprava">Uložit změny</t>
+                <t t-else="">Zapsat rezervaci</t>
+            </button>
+            <button class="btn btn-secondary" t-on-click="() => this.props.close()">
+                Zavřít
+            </button>
+            <t t-if="jeUprava">
+                <button class="btn btn-link text-danger ms-auto"
+                        t-att-disabled="udaje.uklada"
+                        t-on-click="() => this.zrus()">
+                    Zrušit rezervaci
+                </button>
+            </t>
+        </t>
+    </Dialog>
+</t>
+
+</templates>

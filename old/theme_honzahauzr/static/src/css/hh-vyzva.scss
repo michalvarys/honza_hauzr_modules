@@ -1,0 +1,1184 @@
+/* ============================================================
+   LANDING PAGE BEZPLATNE TRIDENNI VYZVY (prefix hhv-)
+
+   Stoji na /vyzva a je to samostatny svet: vlastni paleta
+   (cream, sand, taupe, graphite + jeden tlumeny bronz), zadna
+   navigace, zadne odchozi odkazy. Zamerne tedy NEDEDI tridu
+   .hh-landing z honzahauzr.scss - ta nasazuje tmave pozadi
+   a modry akcent, ktere zadani pro tuhle stranku vylucuje.
+
+   Vsechno, co stranka potrebuje - reset, sirku obsahu, pismo -
+   ma proto tady u sebe.
+   ============================================================ */
+
+.hhv {
+    /* paleta */
+    --hhv-cream: #f4efe6;
+    /* Svetlejsi a teplejsi piskova nez puvodni #e9e0d2 - ta mela
+       do seda a proti kremovemu pozadi pusobila spis spinave nez
+       piskove. Nese ji blok "Je to pro tebe" a "Prihlasis se". */
+    --hhv-sand: #efe7d8;
+    --hhv-taupe: #a89681;
+    --hhv-graphite: #23211d;
+    --hhv-graphite-deep: #1a1815;
+    --hhv-bronze: #a06a37;
+    --hhv-bronze-light: #c08a52;
+    --hhv-ink: #23211d;
+    --hhv-ink-soft: #5d554b;
+    --hhv-ink-muted: #857b6e;
+    --hhv-line: rgba(35, 33, 29, 0.12);
+
+    box-sizing: border-box;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--hhv-cream);
+    color: var(--hhv-ink);
+    line-height: 1.65;
+    /* Svisly posuv ano, vodorovny nikdy - zadny prvek nesmi
+       vystrcit stranku do prazdna vedle okna. */
+    overflow-x: clip;
+}
+
+.hhv *,
+.hhv *::before,
+.hhv *::after {
+    box-sizing: border-box;
+}
+
+.hhv h1,
+.hhv h2,
+.hhv h3,
+.hhv h4,
+.hhv p,
+.hhv ul,
+.hhv ol,
+.hhv figure {
+    margin: 0;
+    padding: 0;
+}
+
+.hhv ul {
+    list-style: none;
+}
+
+/* Obsah drzi jednu sirku po cele strance, at sekce na sebe navazuji */
+.hhv .container,
+.hhv section .container,
+.hhv section.o_cc .container,
+.hhv .o_colored_level .container {
+    max-width: 1080px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100% !important;
+}
+
+.hhv section {
+    position: relative;
+    padding: clamp(66px, 8vw, 118px) 0;
+}
+
+/* ===== SPOLECNA TYPOGRAFIE ===== */
+
+.hhv .hhv-eyebrow {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--hhv-taupe);
+}
+
+.hhv .hhv-h1,
+.hhv .hhv-h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    /* Vzdusny proklad - zadani chce klid, ne nahustene radky */
+    line-height: 1.16;
+}
+
+.hhv .hhv-h1 {
+    font-size: clamp(2.1rem, 5vw, 3.5rem);
+}
+
+.hhv .hhv-h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+}
+
+.hhv .hhv-lead {
+    font-size: clamp(1rem, 1.4vw, 1.12rem);
+    line-height: 1.7;
+    color: var(--hhv-ink-soft);
+}
+
+.hhv .hhv-body {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--hhv-ink-soft);
+}
+
+.hhv .hhv-micro {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--hhv-ink-muted);
+}
+
+/* ===== TLACITKO - jediny akcent na cele strance ===== */
+
+.hhv .hhv-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--hhv-bronze);
+    color: #fff;
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    /* prostrkani tlaci text doprava, odsazeni ho vraci do stredu */
+    text-indent: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.22s ease, transform 0.16s ease;
+}
+
+.hhv .hhv-cta:hover,
+.hhv .hhv-cta:focus-visible {
+    background: var(--hhv-bronze-light);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.hhv .hhv-cta:active {
+    transform: translateY(1px);
+}
+
+.hhv .hhv-cta svg {
+    flex: 0 0 auto;
+}
+
+/* Popisek jen pro ctecky obrazovky - pole maji viditelny placeholder,
+   ale bez popisku by je odecitac nepojmenoval. */
+.hhv .hhv-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Viditelne zamereni klavesnici - formular i tlacitka musi jit projit tabem */
+.hhv a:focus-visible,
+.hhv button:focus-visible,
+.hhv input:focus-visible,
+.hhv summary:focus-visible {
+    outline: 2px solid var(--hhv-bronze);
+    outline-offset: 3px;
+}
+
+/* ===== 4.1 HERO ===== */
+
+.hhv .hhv-hero {
+    padding: 0;
+    background: var(--hhv-graphite);
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Text dostava o kousek vic mista nez fotka - 54 % proti 46 %. Fotka
+   zustava velka a vyrazna, jen uz nesouperi s nadpisem o pozornost.
+   Nizsi vyska drzi nadpis, CTA i radek pod nim na jedne obrazovce. */
+.hhv .hhv-hero__grid {
+    display: grid;
+    grid-template-columns: 54fr 46fr;
+    align-items: stretch;
+    min-height: 80vh;
+}
+
+.hhv .hhv-hero__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 96px 56px 84px 0;
+}
+
+.hhv .hhv-hero .hhv-eyebrow {
+    color: var(--hhv-bronze-light);
+}
+
+.hhv .hhv-hero .hhv-h1 {
+    margin-top: 18px;
+    color: #fff;
+}
+
+.hhv .hhv-hero .hhv-lead {
+    margin-top: 20px;
+    max-width: 30em;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.hhv .hhv-hero .hhv-body {
+    margin-top: 16px;
+    max-width: 32em;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.hhv .hhv-hero__action {
+    margin-top: 30px;
+}
+
+/* Shrnuti toho, co ucastnika ceka. Drive to byl setrely sedy radek,
+   ktery se ztracel - pritom je to jedna z mala informaci, podle ktere
+   se clovek rozhoduje. Ma proto vlastni ramecek s bronzovou linkou. */
+/* Holy text, zadny ramecek ani podklad. Je to doplnujici informace
+   pod tlacitkem - jakmile dostala vlastni plochu, prebijela hlavni
+   akci a oko slo driv na ni nez na "Chci vstoupit do vyzvy zdarma". */
+.hhv .hhv-hero .hhv-micro {
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.58);
+}
+
+/* Prvni radek je jen o nemnoho vyraznejsi nez druhy - dost na to,
+   aby se dal precist jako shrnuti, ale porad tlumeneji nez tlacitko. */
+.hhv .hhv-hero .hhv-micro strong {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+/* Fotka drzi celou vysku sloupce a je orezana na stred, aby na ni
+   byl Honza videt cely a ostre. */
+.hhv .hhv-hero__photo {
+    position: relative;
+    /* vystrceni az k prave hrane okna - sloupec konci u kontejneru,
+       ale fotka ma jit do kraje */
+    margin-right: calc((100% - 100vw) / 2);
+    min-height: 360px;
+    overflow: hidden;
+}
+
+/* Obrazek vyplni sloupec. Vyssi cislo v object-position posouva Honzu
+   v ramu nahoru a odkryva vic toho pod nim - pri 26 % mu spodek bundy
+   koncil hned nad hranou sekce. */
+.hhv .hhv-hero__photo img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+}
+
+/* Prechod z fotky do textoveho sloupce, at hrana neni tvrda */
+.hhv .hhv-hero__photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Nad obrazkem - ten je v DOM driv, takze by prechod jinak lezel
+       pod nim a nebyl videt. */
+    z-index: 1;
+    background:
+        /* Dolu do ztracena. Fotka drive koncila tvrdou hranou - na
+           poslednim pixelu skocila z rgb(66,57,48) na grafit pruhu
+           pod herem a byla tam videt cara.
+
+           Zavirat se zacina az pod bradou, aby zustala videt cela
+           hlava i motorka. Cely prechod proto lezi v poslednich
+           14 % vysky, kde uz je na fotce jen bunda a cesta. */
+        linear-gradient(
+            180deg,
+            rgba(35, 33, 29, 0) 86%,
+            rgba(35, 33, 29, 0.30) 92%,
+            rgba(35, 33, 29, 0.68) 96%,
+            var(--hhv-graphite) 100%
+        ),
+        /* Prechod z fotky do textoveho sloupce vlevo. */
+        linear-gradient(90deg, var(--hhv-graphite) 0%, rgba(35, 33, 29, 0) 34%);
+}
+
+/* ===== 4.2 PROBLEM A ZASTAVENI ===== */
+
+.hhv .hhv-stop {
+    text-align: center;
+}
+
+.hhv .hhv-stop__inner {
+    max-width: 660px;
+    margin: 0 auto;
+}
+
+.hhv .hhv-stop__intro {
+    font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+    line-height: 1.75;
+    color: var(--hhv-ink-soft);
+}
+
+/* Cela sekce je jeden grafitovy pruh pres celou sirku. Odsazeni
+   resi pruh, ne sekce - jinak by kolem nej zustal krémový lem.
+   Sekce uz taky nema krémové pozadi, pruh ji prekryva celou. */
+.hhv .hhv-stop {
+    padding: 0;
+}
+
+.hhv .hhv-stop__pas {
+    padding: clamp(52px, 6.5vw, 92px) 0;
+    background: var(--hhv-graphite);
+    color: var(--hhv-cream);
+}
+
+/* Uvodni veta uz lezi na grafitu, ne na krému - tmava barva textu
+   by na ni zmizela. */
+.hhv .hhv-stop__pas .hhv-stop__intro {
+    color: rgba(244, 239, 230, 0.68);
+}
+
+/* Bronzova linka nad tvrzenim - drobne zastaveni, nez zacne cist. */
+.hhv .hhv-stop__pas .hhv-stop__claim::before {
+    content: "";
+    display: block;
+    width: 54px;
+    height: 2px;
+    margin: 0 auto clamp(22px, 2.6vw, 32px);
+    background: var(--hhv-bronze-light);
+}
+
+/* Horni okraj drzi odstup od uvodni vety. Bez nej sedela bronzova
+   linka tesne pod ni a opticky ji preskrtavala. */
+.hhv .hhv-stop__claim {
+    margin: clamp(24px, 3vw, 38px) 0 0;
+    color: var(--hhv-cream);
+}
+
+.hhv .hhv-stop__note {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--hhv-ink-muted);
+}
+
+/* ===== 4.3a VIDEO ===== */
+
+/* Pas navazuje na zastaveni nad nim, takze zustava grafitovy - prechod
+   do kremove se tim jen posouva o sekci niz, na "Nejen se podivas".
+   Velkorysa vypln drzi kolem videa volny prostor, jak zadani zada. */
+.hhv .hhv-video {
+    padding: clamp(56px, 7vw, 104px) 0;
+    background: var(--hhv-graphite);
+}
+
+/* Vnitrek je prevzaty blok z hlavni stranky (obal .hhn). Meni se jen
+   sirka: tady je video hlavni ukazka, ne doplnek pribehu, takze dostava
+   vic mista - v pasmu 900-1050 px ze zadani. */
+.hhv .hhv-video .hhn-video--sirokouhle {
+    max-width: 960px;
+}
+
+/* ===== 4.3 ODLISENI VYZVY ===== */
+
+.hhv .hhv-distinct {
+    background: var(--hhv-graphite);
+    color: #fff;
+    text-align: center;
+}
+
+.hhv .hhv-distinct .hhv-eyebrow {
+    color: var(--hhv-bronze-light);
+}
+
+.hhv .hhv-distinct__lines {
+    max-width: 780px;
+    margin: 26px auto 0;
+}
+
+.hhv .hhv-distinct__line {
+    padding: 22px 0;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.1rem, 2.1vw, 1.5rem);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hhv .hhv-distinct__line + .hhv-distinct__line {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Misto na text, ktery jeste nemame. Zamerne je videt, aby se
+   nezapomnelo doplnit - neni to hotovy obsah. */
+.hhv .hhv-todo {
+    display: block;
+    padding: 26px 22px;
+    border: 1px dashed rgba(255, 255, 255, 0.28);
+    border-radius: 3px;
+    font-family: "Inter", sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== 4.4 TRI DNY VYZVY ===== */
+
+.hhv .hhv-days {
+    background: var(--hhv-cream);
+}
+
+.hhv .hhv-days__header {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hhv .hhv-days__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: clamp(38px, 4.6vw, 58px);
+}
+
+.hhv .hhv-day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Jemna linka mezi dny naznacuje, ze na sebe navazuji */
+.hhv .hhv-day + .hhv-day::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -14px;
+    width: 1px;
+    height: 40px;
+    background: var(--hhv-line);
+}
+
+.hhv .hhv-day__num {
+    display: block;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--hhv-bronze);
+}
+
+.hhv .hhv-day__photo {
+    margin-top: 18px;
+    aspect-ratio: 4 / 3;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+}
+
+.hhv .hhv-day__name {
+    margin-top: 18px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.22rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.hhv .hhv-day__text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--hhv-ink-soft);
+}
+
+.hhv .hhv-days__action {
+    margin-top: clamp(38px, 4.6vw, 56px);
+    text-align: center;
+}
+
+/* ===== 4.5 KVALIFIKACE NAVSTEVNIKA ===== */
+
+.hhv .hhv-fit {
+    background: var(--hhv-sand);
+}
+
+/* Dva sloupce oddelene svislou linkou uprostred. Vodorovne linky
+   mezi polozkami jsou pryc - delaly z jednoducheho seznamu tabulku
+   a blok pusobil tezce. */
+.hhv .hhv-fit__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(34px, 5vw, 70px);
+}
+
+.hhv .hhv-fit__grid > div + div {
+    padding-left: clamp(34px, 5vw, 70px);
+    border-left: 1px solid var(--hhv-line);
+}
+
+.hhv .hhv-fit__title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.hhv .hhv-list {
+    margin-top: 18px;
+}
+
+.hhv .hhv-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: var(--hhv-ink-soft);
+}
+
+/* Znacka v plnem koleckem, jak je v navrhu. Ano bronzove a plne,
+   ne jen obrys - rozdil mezi obema sloupci je tim videt na prvni
+   pohled, jeste nez clovek zacne cist. */
+.hhv .hhv-list__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 19px;
+    height: 19px;
+    margin-top: 2px;
+    border-radius: 999px;
+    background: var(--hhv-bronze);
+    color: var(--hhv-cream);
+}
+
+/* Druhy sloupec je jen naznaceny - obrys misto plne vypln, at
+   nekonkuruje tomu prvnimu. */
+.hhv .hhv-list--no .hhv-list__mark {
+    border: 1.5px solid var(--hhv-taupe);
+    background: none;
+    color: var(--hhv-taupe);
+}
+
+.hhv .hhv-list__mark svg {
+    width: 11px;
+    height: 11px;
+}
+
+/* ===== 4.6 OSOBNI SEKCE HONZY ===== */
+
+.hhv .hhv-about {
+    background: var(--hhv-cream);
+}
+
+.hhv .hhv-about__grid {
+    display: grid;
+    /* Fotka dostava vic mista nez text - na sirsim displeji zbyvalo
+       kolem ni zbytecne hodne prazdna a pusobila drobne. */
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(30px, 4.5vw, 62px);
+    /* Fotka se natahne na vysku textu vedle - obe hrany tak lezi
+       na stejne urovni. Pri center jich byla nizsi a kolem ni
+       zustavalo prazdno nahore i dole. */
+    align-items: stretch;
+}
+
+/* Vysku urcuje text vedle, ne pevny pomer stran - viz align-items
+   vyse. Vyrez se bere ze stredu, takze z panoramatu zustane cela
+   postava i kus okolni krajiny. */
+.hhv .hhv-about__photo {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+}
+
+.hhv .hhv-about__text .hhv-h2 {
+    margin-bottom: 22px;
+}
+
+.hhv .hhv-about__text .hhv-body + .hhv-body {
+    margin-top: 16px;
+}
+
+.hhv .hhv-sign {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hhv-line);
+}
+
+.hhv .hhv-sign__name {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.hhv .hhv-sign__role {
+    margin-top: 3px;
+    font-size: 0.88rem;
+    color: var(--hhv-ink-muted);
+}
+
+.hhv .hhv-sign__brand {
+    margin-top: 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--hhv-taupe);
+}
+
+.hhv .hhv-sign__edu {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--hhv-ink-muted);
+}
+
+/* ===== 4.7 PRUBEH PO REGISTRACI ===== */
+
+.hhv .hhv-flow {
+    background: var(--hhv-sand);
+}
+
+.hhv .hhv-flow__header {
+    text-align: center;
+}
+
+.hhv .hhv-flow__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(20px, 3vw, 44px);
+    margin-top: clamp(34px, 4.4vw, 52px);
+}
+
+/* Kroky jdou na stred a cislo nad text, jak je v navrhu. Vodorovna
+   linka nad kazdym krokem je pryc - delala ze ctyr kroku tabulku
+   misto cesty. */
+.hhv .hhv-step {
+    position: relative;
+    padding-top: 0;
+    border-top: 0;
+    text-align: center;
+}
+
+/* Spojnice mezi kroky. Kresli se do mezery vlevo od cisla, takze
+   ctyri kroky ctou jako navazujici cesta, ne jako ctyri samostatne
+   sloupce. */
+.hhv .hhv-step + .hhv-step::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: calc(100% + 10px);
+    width: clamp(14px, 2.4vw, 34px);
+    height: 1px;
+    background: rgba(35, 33, 29, 0.24);
+}
+
+/* Cislo v plnem bronzovem kolecku, ne jen v obrysu. */
+.hhv .hhv-step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hhv-bronze);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--hhv-cream);
+}
+
+.hhv .hhv-step__text {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 600;
+    color: var(--hhv-ink);
+}
+
+.hhv .hhv-flow__note {
+    max-width: 560px;
+    margin: clamp(30px, 3.6vw, 44px) auto 0;
+    text-align: center;
+}
+
+/* ===== 4.8 FAQ ===== */
+
+.hhv .hhv-faq {
+    background: var(--hhv-cream);
+}
+
+.hhv .hhv-faq__header {
+    text-align: center;
+}
+
+.hhv .hhv-faq__list {
+    max-width: 760px;
+    margin: clamp(30px, 3.8vw, 46px) auto 0;
+}
+
+.hhv .hhv-faq__item {
+    border-bottom: 1px solid var(--hhv-line);
+}
+
+.hhv .hhv-faq__item:first-child {
+    border-top: 1px solid var(--hhv-line);
+}
+
+.hhv .hhv-faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px 2px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+    list-style: none;
+}
+
+/* Sipka, kterou si prohlizec kresli sam, pryc - mame vlastni */
+.hhv .hhv-faq__q::-webkit-details-marker {
+    display: none;
+}
+
+.hhv .hhv-faq__chev {
+    flex: 0 0 auto;
+    color: var(--hhv-taupe);
+    transition: transform 0.25s ease;
+}
+
+.hhv .hhv-faq__item[open] .hhv-faq__chev {
+    transform: rotate(180deg);
+}
+
+.hhv .hhv-faq__a {
+    padding: 0 2px 22px;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--hhv-ink-soft);
+}
+
+/* ===== 4.9 FINALNI REGISTRACE ===== */
+
+.hhv .hhv-reg {
+    background: var(--hhv-graphite);
+    color: #fff;
+    text-align: center;
+}
+
+.hhv .hhv-reg__inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.hhv .hhv-reg .hhv-h2 {
+    color: #fff;
+}
+
+.hhv .hhv-reg__sub {
+    margin-top: 16px;
+    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.hhv .hhv-form {
+    margin-top: clamp(30px, 3.6vw, 42px);
+}
+
+/* Uz jen dve policka - tlacitko se presunulo pod souhlas, aby
+   clovek souhlas neprehledl a odeslani mu nespadlo na nezaskrtnutem
+   policku. */
+.hhv .hhv-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+}
+
+.hhv .hhv-form__send {
+    margin-top: 16px;
+}
+
+.hhv .hhv-form__field {
+    margin: 0;
+    text-align: left;
+}
+
+.hhv .hhv-form input[type="text"],
+.hhv .hhv-form input[type="email"] {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.94rem;
+}
+
+.hhv .hhv-form input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hhv .hhv-form input:focus {
+    border-color: var(--hhv-bronze-light);
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.hhv .hhv-form .hhv-cta {
+    height: 48px;
+    white-space: nowrap;
+}
+
+/* Souhlas se zpracovanim udaju - povinny, bez nej formular neodejde */
+.hhv .hhv-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 18px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.hhv .hhv-consent input {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--hhv-bronze);
+}
+
+.hhv .hhv-reg .hhv-micro {
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* Hlaska u nevyplneneho pole - ukaze se az po neuspesnem odeslani */
+.hhv .hhv-err {
+    display: none;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: var(--hhv-bronze-light);
+}
+
+.hhv .hhv-form--chyba .hhv-err {
+    display: block;
+}
+
+/* Potvrzeni po odeslani nahradi formular */
+.hhv .hhv-done {
+    max-width: 520px;
+    margin: clamp(30px, 3.6vw, 42px) auto 0;
+    padding: 30px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 3px;
+}
+
+.hhv .hhv-done__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--hhv-bronze-light);
+    border-radius: 999px;
+    color: var(--hhv-bronze-light);
+}
+
+.hhv .hhv-done p {
+    margin-top: 14px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+/* ===== PATICKA ===== */
+
+.hhv .hhv-foot {
+    padding: 34px 0;
+    background: var(--hhv-graphite-deep);
+}
+
+.hhv .hhv-foot__mark {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ===== LEPKAVE TLACITKO NA MOBILU ===== */
+
+/* Ukaze se az po prvnim odrolovani a schova se, jakmile je videt
+   samotny formular. Skript ho navic drzi schovane, dokud na strance
+   visi cookie lista - zadani zakazuje, aby ji prekryvalo. */
+.hhv-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1035;
+    display: none;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(26, 24, 21, 0.94);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+}
+
+.hhv-sticky .hhv-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
+    padding: 14px 20px;
+    border-radius: 3px;
+    background: #a06a37;
+    color: #fff;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-indent: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.hhv-sticky.hhv-sticky--on {
+    transform: translateY(0);
+}
+
+/* ===== NABEH PRI SCROLLU ===== */
+
+/* Tridu nasazuje skript, a jen kdyz umi prvky zase odkryt. Bez ni
+   je stranka normalne videt - v editoru Odoo i bez JavaScriptu. */
+/* Kratce a nizko: dlouhy nabeh z velke dalky pusobi, jako by obsah
+   na strance chybel. */
+.hhv-anim-on [data-hhv-anim] {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition: opacity 0.38s ease, transform 0.38s ease;
+}
+
+.hhv-anim-on [data-hhv-anim].hhv-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hhv-anim-on [data-hhv-anim] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .hhv .hhv-cta,
+    .hhv .hhv-faq__chev,
+    .hhv-sticky {
+        transition: none;
+    }
+}
+
+/* ===== TABLET ===== */
+
+@media (max-width: 991px) {
+
+    /* Svisle video jde na mobilu skoro pres celou sirku - jen s beznymi
+       bocnimi okraji stranky. Na hlavni strance je zamerne uzsi, tam je
+       to doplnek pribehu, ne hlavni ukazka. */
+    .hhv .hhv-video .hhn-video--svisle {
+        max-width: 100%;
+    }
+    .hhv .hhv-hero__grid {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    /* Na telefonu jde fotka az za text: logo, text, tlacitko, radek
+       s informacemi, teprve pak fotka. Driv stala uplne nahore. */
+    .hhv .hhv-hero__photo {
+        order: 1;
+        margin-right: -20px;
+        margin-left: -20px;
+        /* Pevny pomer stran - bez nej by obrazek v mrizce nemel
+           z ceho vzit vysku a sloupec by se srazil na nulu. */
+        aspect-ratio: 4 / 5;
+        min-height: 0;
+    }
+
+    /* Nahore prechod z grafitu, na kterem lezi text nad fotkou, dole
+       zase do grafitu, aby fotka nekoncila tvrdou hranou. Jeden
+       gradient, zadne vrstveni - editor Odoo ho snese. */
+    .hhv .hhv-hero__photo::before {
+        background: linear-gradient(180deg,
+            var(--hhv-graphite) 0%,
+            rgba(35, 33, 29, 0.55) 8%,
+            rgba(35, 33, 29, 0) 30%,
+            rgba(35, 33, 29, 0) 62%,
+            rgba(35, 33, 29, 0.84) 92%,
+            var(--hhv-graphite) 100%);
+    }
+
+    .hhv .hhv-hero__text {
+        order: 0;
+        padding: 18px 0 30px;
+    }
+
+    .hhv .hhv-days__grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .hhv .hhv-day + .hhv-day::before {
+        display: none;
+    }
+
+    .hhv .hhv-fit__grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Svisla delici linka mezi sloupci patri jen vedle sebe. Pod sebou
+       druhy blok jen odsazovala doprava a oba seznamy pak zacinaly
+       jinde - musi byt zarovnane na stejnou hranu. */
+    .hhv .hhv-fit__grid > div + div {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .hhv .hhv-about__grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Pod sebou uz fotka nema k cemu se natahovat - dostava zpet
+       vlastni pomer stran a nesmi se roztahnout pres celou sirku. */
+    .hhv .hhv-about__photo {
+        max-width: 380px;
+        aspect-ratio: 4 / 3;
+        justify-self: center;
+    }
+
+    .hhv .hhv-flow__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== MOBIL ===== */
+
+@media (max-width: 767px) {
+    .hhv .hhv-hero__text {
+        padding: 26px 0 38px;
+    }
+
+    .hhv .hhv-form__row {
+        grid-template-columns: 1fr;
+    }
+
+    .hhv .hhv-flow__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hhv .hhv-day__photo {
+        aspect-ratio: 16 / 10;
+    }
+
+    /* Lepkave tlacitko zabira spodni pruh - posledni sekce pod nim
+       nesmi zustat schovana. */
+    .hhv-sticky {
+        display: block;
+    }
+
+    /* Misto pro lepkave tlacitko. Paticka uz neni uvnitr .hhv, ale
+       v layoutu za nim - odsazeni proto dostava konec stranky, aby
+       tlacitko nezakrylo posledni radky ani paticku. */
+    .hhv-has-sticky {
+        padding-bottom: 86px;
+    }
+}
+
+/* ===== SPODEK STRANKY NA MOBILU =====
+
+   Dve veci, ktere se projevily az na telefonu.
+
+   1. Pod obsahem prosvitalo bile pozadi dokumentu - pri doscrollovani
+      na konec a pri gumovem odskoku se dole ukazal bily prouzek.
+      Pozadi stranky proto drzi barvu paticky.
+
+   2. Posledni obrazovka nebyla cela tmava: registrace a paticka
+      merily dohromady min nez vysku okna, takze nad nimi vykoukl
+      kousek kremove sekce s otazkami. Paticka proto dostava spodni
+      hranici vysky - dohromady uz na obrazovku nevejde nic jineho. */
+
+body:has(#wrap.hhv) {
+    background: var(--hhv-graphite-deep, #1a1815);
+}
+
+@media (max-width: 767px) {
+    .hhv .hhv-foot {
+        min-height: 32vh;
+    }
+}
+
+/* Vyzva k akci za osobnim pribehem. Sekce s pribehem konci podpisem,
+   takze tlacitko potrebuje vlastni odstup a linku nad sebou, jinak by
+   se opticky lepilo na text. */
+.hhv .hhv-about__action {
+    margin-top: clamp(34px, 4vw, 52px);
+    padding-top: clamp(30px, 3.5vw, 44px);
+    border-top: 1px solid var(--hhv-line);
+    text-align: center;
+}
+
+/* Kotva na formular. Bez odsazeni skonci nadpis sekce presne u horni
+   hrany okna a na uzkem displeji se zaradi az pod nej - clovek po
+   kliknuti vidi jen policka, ne to, kam se dostal. Stranka uz nema
+   horni listu, takze staci maly odstup. */
+.hhv #registrace {
+    scroll-margin-top: 24px;
+}
+
+/* ===== HORNI LISTA NA LANDING PAGE =====
+
+   Lista zustava, ale nese jen logo. Je to stranka s jedinou akci -
+   prihlasit se do vyzvy - a kazdy odkaz v liste je cesta pryc.
+
+   Cili se pres :has na obal stranky, protoze lista lezi v layoutu
+   mimo #wrap a jinou znacku, podle ktere by sla poznat prave tahle
+   stranka, k dispozici nemá. Ostatnich stranek se to nedotkne.
+
+   Vyhledavani uz v liste neni - vypina ho _theme_honzahauzr_post_copy.
+   Prava cast obsahuje jen nabidku prihlaseneho spravce, ktera je pro
+   navstevnika neviditelna, takze se neskryva. */
+
+body:has(#wrap.hhv) #wrapwrap > header#top #top_menu,
+body:has(#wrap.hhv) #wrapwrap > header#top .o_header_mobile_buttons_wrap {
+    display: none !important;
+}
+
+/* Bez odkazu uz logo nema co odstrkavat doprava. */
+body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo {
+    margin-right: 0 !important;
+}

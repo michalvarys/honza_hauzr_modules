@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     JEDNOTLIVE POLOZKY NOVEHO DESIGNU
+
+     Drobne stavebni kameny, ktere se daji v editoru pretahnout dovnitr
+     sekci - pridat dalsi bod, dalsi pilir, dalsi krok, dalsi fotku.
+
+     Sekce v s_hhn_sekce.xml je vola pres t-call, takze markup existuje
+     jen jednou. Kdyz se tady neco zmeni, projevi se to i na strance.
+
+     Odkaz tlacitka je zamerne jen na jednom miste (s_hhn_cta_odkaz).
+     Az bude hotova landing page vyzvy, prepise se tam a zmeni se tim
+     vsechna tlacitka na strance najednou.
+     ================================================================ -->
+
+<!-- ===== Samotny odkaz tlacitka - jedine misto s cilovou adresou ===== -->
+<template id="s_hhn_cta_odkaz" name="Honza Hauzr - odkaz tlačítka">
+    <a href="/zpet-do-zivota" class="hhn-cta">
+        Začni zde zdarma
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+</template>
+
+<!-- ===== Tlacitko i s vetou pod nim ===== -->
+<template id="s_hhn_cta" name="Tlačítko Začni zde zdarma">
+    <div class="hhn-center-action o_snippet_drop_in_only">
+        <t t-call="theme_honzahauzr.s_hhn_cta_odkaz"/>
+        <p class="hhn-note hhn-cta-note">Bezplatná třídenní výzva Z autopilota zpět do života.</p>
+    </div>
+</template>
+
+<!-- ===== Jeden bod ze sekce "V cem se poznas" ===== -->
+<template id="s_hhn_bod" name="Bod s ikonou">
+    <div class="hhn-point o_snippet_drop_in_only" data-anim="fade-up">
+        <div class="hhn-point__icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <p>Sem napiš, v čem se návštěvník pozná.</p>
+    </div>
+</template>
+
+<!-- ===== Jedna karta ze sekce "Jak pracuji" ===== -->
+<template id="s_hhn_pilir" name="Karta Jak pracuji">
+    <div class="hhn-pillar o_snippet_drop_in_only" data-anim="fade-up">
+        <div class="hhn-pillar__icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Krátký bod bez vysvětlování.</h3>
+    </div>
+</template>
+
+<!-- ===== Jeden ocislovany krok vyzvy ===== -->
+<template id="s_hhn_krok" name="Krok výzvy">
+    <div class="hhn-step o_snippet_drop_in_only" data-anim="fade-up">
+        <span class="hhn-step__num">1</span>
+        <div>
+            <h3>Název kroku</h3>
+            <p>Jednou větou, co se v tomhle kroku stane.</p>
+        </div>
+    </div>
+</template>
+
+<!-- ===== Jedna karta DRIV / DNES ===== -->
+<template id="s_hhn_karta" name="Karta Dřív / Dnes">
+    <div class="hhn-card o_snippet_drop_in_only" data-anim="fade-up">
+        <div class="hhn-card__photo">
+            <span class="hhn-tag hhn-tag--now">Dnes</span>
+            <img src="/theme_honzahauzr/static/src/img/pribeh-dnes.webp" alt="Fotka"/>
+        </div>
+        <h3>Nadpis karty</h3>
+        <p>Dvě věty k tomu, co je na fotce vidět.</p>
+    </div>
+</template>
+
+<!-- ===== Jedna fotka do galerie =====
+     Vlastni trida hhn-foto je tu proto, ze se blok da pustit i mimo
+     galerii - treba do dne na strance vyzvy. Tam na nej zadne
+     pravidlo galerie nesedi a obrazek by se roztahl pres celou
+     stranku. Uvnitr galerie hhn-foto prebiji pravidla
+     .hhn-gallery figure, ktera jsou specifictejsi. -->
+<template id="s_hhn_foto" name="Fotka do galerie">
+    <figure class="hhn-foto o_snippet_drop_in_only" data-anim="zoom-in">
+        <img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="Fotka"/>
+    </figure>
+</template>
+
+<!-- ===== Box 9:16 na video z YouTube ===== -->
+<!-- Uvnitr je bezny video blok Odoo, takze po kliknuti v editoru
+     nabidne dialog na adresu z YouTube nebo Vimea. Nas obal .hhn-video
+     mu jen vnuti svisly pomer 9:16 misto sirokeho 16:9.
+
+     Blok je zamerne prazdny. Ramecek do nej dosadi widget
+     mediaVideo z Odoo a adresu si bere z data-oe-expression.
+     Skript hh-video.js ten widget upravuje tak, aby ve dvojici
+     sirokouhle + svisle verze nechal schovanou variantu byt -
+     jinak by se stahly obe. -->
+<template id="s_hhn_video" name="Box na video 9:16">
+    <div class="hhn-video" data-hhv-popis="Video">
+        <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+            <div class="css_editable_mode_display"/>
+            <div class="media_iframe_video_size"/>
+        </div>
+    </div>
+</template>
+
+</odoo>

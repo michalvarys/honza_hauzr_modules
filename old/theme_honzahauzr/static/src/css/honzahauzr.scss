@@ -49,7 +49,7 @@
     overflow-x: clip;
 }
 
-/* Force container centering — must beat Odoo Bootstrap + o_cc specificity */
+/* Force container centering â must beat Odoo Bootstrap + o_cc specificity */
 .hh-landing .container,
 .hh-landing section .container,
 .hh-landing section.o_cc .container,
@@ -217,7 +217,7 @@
    zase odkryt - tridu .hh-anim nasazuje honzahauzr.js na <html>, a to az
    kdyz existuje IntersectionObserver a nejsme v Odoo editoru.
 
-   Drive tu bylo holé [data-anim] { opacity: 0 }. V nahledu snippetu
+   Drive tu bylo holÃ© [data-anim] { opacity: 0 }. V nahledu snippetu
    v panelu "Vlozit blok" se animace nespusti, takze se sekce ukazovaly
    jako prazdne bile obdelniky, a stejne tak hrozilo, ze vlozeny snippet
    zustane v editoru neviditelny. Bez JS by byla stranka prazdna uplne. */
@@ -230,6 +230,8 @@
 .hh-anim [data-anim="fade-down"] { transform: translate3d(0, -40px, 0); }
 .hh-anim [data-anim="fade-left"] { transform: translate3d(80px, 0, 0); }
 .hh-anim [data-anim="fade-right"] { transform: translate3d(-80px, 0, 0); }
+/* Ciste prolnuti - prvek se jen rozsviti a nikam se nehne. */
+.hh-anim [data-anim="fade-in"] { transform: none; }
 .hh-anim [data-anim="zoom-in"] { transform: scale(0.85); }
 .hh-anim [data-anim="zoom-out"] { transform: scale(1.1); }
 .hh-anim [data-anim="reveal-up"] { clip-path: inset(100% 0 0 0); transform: translate3d(0, 0, 0); }
@@ -1294,6 +1296,20 @@ html:has(.hh-landing) {
     align-items: center;
     gap: 12px;
 }
+/* Bila je tu potreba prebit silneji, nez by clovek cekal. Odoo ma
+   na odkazy v paticce pravidlo .o_footer a:not(.btn), ktere jim dava
+   vyblednou fialovou #b18aa7 - a to je specifictejsi nez
+   .hh-landing .hh-social__btn. Glyfy ikon berou barvu pres
+   currentColor, takze se tim zabarvily taky a ve 44 px pusobily
+   spinave a rozmazane. Proto tu navic sedi selektor s a.
+
+   Je to stejny pripad jako fialove odkazy v paticce. */
+.hh-landing a.hh-social__btn:not(.btn),
+.hh-landing a.hh-social__btn:not(.btn):hover,
+.hh-landing a.hh-social__btn:not(.btn):focus {
+    color: #fff;
+}
+
 .hh-landing .hh-social__btn {
     width: 44px;
     height: 44px;
@@ -1303,14 +1319,23 @@ html:has(.hh-landing) {
     place-items: center;
     color: #fff;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
 }
 .hh-landing .hh-social__btn:hover {
     transform: translateY(-3px);
-    filter: brightness(1.08);
 }
 .hh-landing .hh-social__btn:active { transform: translateY(-1px) scale(0.96); }
-.hh-landing .hh-social__btn svg { display: block; }
+/* Ikony se kreslily mekce. Prechod na filter drzel tlacitko trvale
+   ve vlastni vykreslovaci vrstve, a protoze paticka je na stred,
+   lezi kazde tlacitko na pulce fyzickeho pixelu - vrstva se pak
+   rozmaze cela. Filter uz v prechodu neni a hover ho nepouziva.
+
+   geometricPrecision rika prohlizeci, at u kresby uprednostnuje
+   presnost pred rychlosti. */
+.hh-landing .hh-social__btn svg {
+    display: block;
+    shape-rendering: geometricPrecision;
+}
 
 /* Instagram - firemni prechod */
 .hh-landing .hh-social__btn--ig {
@@ -1921,6 +1946,52 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     transform: scaleX(1);
 }
 
+/* Polozka vedouci na vyzvu je modre tlacitko, ne dalsi odkaz v rade.
+   Ciluje se podle cile odkazu, ne podle nazvu - Honza si polozku
+   v Odoo muze prejmenovat a tlacitko se tim nerozbije.
+
+   Plati na obou sirkach. Driv bylo tlacitko jen na siroke liste a
+   v hamburgeru zustaval obycejny bily odkaz - hlavni akce tam pak
+   nebyla k rozeznani od ostatnich polozek. */
+#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+    padding: 9px 20px !important;
+    border-radius: 999px;
+    background: var(--hh-gradient-warm, linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%));
+    color: #fff !important;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: transform 0.18s ease, filter 0.25s ease;
+}
+
+#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"]:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+}
+
+/* Podtrzeni je u tlacitka zbytecne - vyjizdelo by pres jeho spodni
+   hranu. */
+#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"]::after {
+    display: none;
+}
+
+/* Na siroke liste stoji tlacitko v rade za odkazy a potrebuje od nich
+   odstup. V hamburgeru jsou polozky pod sebou, tam by odsazeni zleva
+   tlacitko jen posunulo mimo osu ostatnich. */
+@media (min-width: 992px) {
+    #wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+        margin-left: 18px;
+    }
+}
+
+/* V hamburgeru tlacitko nema roztahovat radek pres celou sirku -
+   drzi se sve velikosti a zarovna se k ostatnim polozkam. */
+@media (max-width: 991.98px) {
+    #wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+        display: inline-block;
+        margin-top: 6px;
+    }
+}
+
 /* Tlacitka a ikony v lite */
 #wrapwrap > header#top .btn-primary {
     background: var(--hh-gradient-warm, linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%));
@@ -1953,6 +2024,20 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     font-size: 1.05rem;
     padding: 12px 0 !important;
     margin: 0;
+}
+
+/* Krizek pro zavreni mobilniho menu kresli Bootstrap tmavym obrazkem
+   na pozadi, takze na nasem tmavem podkladu uplne zanikne. Prevracenim
+   barev zbeli a je videt stejne jako polozky menu vedle nej.
+   Zamerne jedina funkce ve filtru - vicedilny filtr shazuje editor. */
+#wrapwrap > header#top .offcanvas .btn-close {
+    filter: invert(1);
+    opacity: 0.82;
+}
+
+#wrapwrap > header#top .offcanvas .btn-close:hover,
+#wrapwrap > header#top .offcanvas .btn-close:focus {
+    opacity: 1;
 }
 
 @media (max-width: 991px) {
@@ -2133,15 +2218,17 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.42);
 }
+/* Jmena primo v brandove modre, ne bila s modrym podtrzenim - v
+   tlumene paticce se na prvni pohled nepoznalo, ze jsou to odkazy. */
 .hh-landing .hh-footer-credit a {
-    color: rgba(255, 255, 255, 0.62);
+    color: var(--hh-warm-light);
     text-decoration: none;
-    border-bottom: 1px solid rgba(74, 144, 217, 0.4);
+    border-bottom: 1px solid rgba(107, 181, 255, 0.45);
     padding-bottom: 1px;
     transition: all 0.25s ease;
 }
 .hh-landing .hh-footer-credit a:hover {
-    color: var(--hh-warm-light);
-    border-bottom-color: var(--hh-warm-light);
+    color: #8ccaff;
+    border-bottom-color: #8ccaff;
 }
 

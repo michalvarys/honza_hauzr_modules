@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Nastaveni e-mailu primo u sloupce, stejne jako to ma Jarda Kotlar
+    na boardu objednavek: prepinac, jestli se ma poslat, a k nemu
+    predmet a text, ktery si Honza prepise podle sebe.
+
+    Kotva miri na oddelovac v sheetu podle pozice, ne podle jeho nazvu -
+    nazev se preklada a v ceske databazi by 'Requirements' nesedelo.
+    Vlozit se musi PRED nej: pri kotve na pole requirements skoncil
+    blok pod nadpisem POZADAVKY a opticky k nemu patril.
+-->
+<record id="crm_stage_form_hh" model="ir.ui.view">
+    <field name="name">crm.stage.form.honzahauzr</field>
+    <field name="model">crm.stage</field>
+    <field name="inherit_id" ref="crm.crm_stage_form"/>
+    <field name="arch" type="xml">
+        <!--
+            Vsechno tu je zamerne co nejnizsi. Formular se z nastenky
+            otevira v dialogu a ten se vejde na obrazovku jen tak tak -
+            kazdy radek navic odsune tlacitka Ulozit a Zrusit pod spodni
+            okraj. Proto: prepinac a predmet na jednom radku ve dvou
+            sloupcich, napoveda jen v bublinach u otazniku a editor textu
+            s vlastnim posuvnikem, aby dialog nerostl s delkou e-mailu.
+        -->
+        <xpath expr="//sheet/separator[1]" position="before">
+            <separator string="E-mail zájemci"/>
+            <group col="4">
+                <field name="hh_mail_enabled"/>
+                <field name="hh_mail_subject"
+                       placeholder="Např. Mám tvůj e-mail"
+                       invisible="not hh_mail_enabled"
+                       required="hh_mail_enabled"/>
+            </group>
+            <field name="hh_mail_body" nolabel="1" class="hh-telo-mailu"
+                   invisible="not hh_mail_enabled"
+                   placeholder="Text, který zájemci odejde, jakmile ho sem přetáhneš…"/>
+            <div class="text-muted small" invisible="hh_mail_enabled">
+                Bez zapnutého přepínače je sloupec jen tvůj interní krok
+                a zájemci se z něj nic neposílá.
+            </div>
+            <div class="text-muted small" invisible="not hh_mail_enabled">
+                Odkaz na osobní stránku s videi se píše jako
+                <code>{{ object.hh_vyzva_odkaz }}</code> &#8211; každý dostane
+                svůj vlastní a otevřou se mu na ní jen dny, které už má odemčené.
+            </div>
+
+            <!--
+                Druha a treti zprava. Tridenni vyzva je rada tri e-mailu
+                za sebou: prvni den odkaz na video, dalsi dva dny
+                pripomenuti. Jedna zprava na sloupec by znamenala delat
+                tri sloupce a kazdy den karty rucne pretahovat.
+
+                Odpocet bezi od okamziku, kdy karta do sloupce vstoupila,
+                zvlast za kazdeho cloveka.
+            -->
+            <separator string="Druhý e-mail" invisible="not hh_mail_enabled"/>
+            <group col="4" invisible="not hh_mail_enabled">
+                <field name="hh_mail2_enabled"/>
+                <field name="hh_mail2_po" invisible="not hh_mail2_enabled"/>
+                <field name="hh_mail2_subject" colspan="4"
+                       placeholder="Např. Den 2 je odemčený"
+                       invisible="not hh_mail2_enabled"
+                       required="hh_mail2_enabled"/>
+            </group>
+            <field name="hh_mail2_body" nolabel="1" class="hh-telo-mailu"
+                   invisible="not hh_mail2_enabled"
+                   placeholder="Text druhé zprávy…"/>
+
+            <separator string="Třetí e-mail" invisible="not hh_mail2_enabled"/>
+            <group col="4" invisible="not hh_mail2_enabled">
+                <field name="hh_mail3_enabled"/>
+                <field name="hh_mail3_po" invisible="not hh_mail3_enabled"/>
+                <field name="hh_mail3_subject" colspan="4"
+                       placeholder="Např. Den 3 je odemčený"
+                       invisible="not hh_mail3_enabled"
+                       required="hh_mail3_enabled"/>
+            </group>
+            <field name="hh_mail3_body" nolabel="1" class="hh-telo-mailu"
+                   invisible="not hh_mail3_enabled"
+                   placeholder="Text třetí zprávy…"/>
+        </xpath>
+    </field>
+</record>
+
+<!--
+    Vlastni polozka v menu. Odoo 18 stupne v nabidce nema vubec - jdou
+    upravit jen pres ozubene kolecko, ktere se objevi az pri najeti
+    mysi na zahlavi sloupce. To se neda najit.
+-->
+<!--
+    Vlastni seznam sloupcu. Vychozi seznam stupnu ukazuje obchodni tym
+    a vyhranou fazi, coz tady nikomu nic nerekne. Misto toho je videt
+    rovnou prepinac odesilani a predmet - da se tak preklopit primo
+    v seznamu, bez otevirani zaznamu.
+-->
+<record id="view_stupne_crm_list" model="ir.ui.view">
+    <field name="name">crm.stage.list.honzahauzr</field>
+    <field name="model">crm.stage</field>
+    <field name="arch" type="xml">
+        <list string="Sloupce nástěnky">
+            <field name="sequence" widget="handle"/>
+            <field name="name" string="Název sloupce"/>
+            <field name="hh_mail_enabled" widget="boolean_toggle" string="Posílat e-mail"/>
+            <field name="hh_mail_subject" string="Předmět" optional="show"/>
+            <field name="hh_mail2_enabled" widget="boolean_toggle" string="2. e-mail" optional="show"/>
+            <field name="hh_mail2_po" string="2. po dnech" optional="hide"/>
+            <field name="hh_mail3_enabled" widget="boolean_toggle" string="3. e-mail" optional="show"/>
+            <field name="hh_mail3_po" string="3. po dnech" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="action_stupne_crm" model="ir.actions.act_window">
+    <field name="name">Nastavení sloupců</field>
+    <field name="res_model">crm.stage</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="view_stupne_crm_list"/>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Zatím tu není žádný sloupec
+        </p>
+        <p>
+            Sloupce obchodní nástěnky. U každého se dá nastavit e-mail,
+            který zájemci odejde, jakmile do něj kartu přetáhnete.
+        </p>
+    </field>
+</record>
+
+<!-- Primo do horni listy vedle Prodej / Vykazy / Konfigurace, stejne
+     jako to ma Kotlar na boardu objednavek. V Konfiguraci to bylo
+     zbytecne zahrabane. -->
+<menuitem id="menu_stupne_crm"
+          name="Nastavení sloupců"
+          parent="crm.crm_menu_root"
+          action="action_stupne_crm"
+          sequence="30"/>
+
+</odoo>

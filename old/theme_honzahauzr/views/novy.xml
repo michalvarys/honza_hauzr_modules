@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     UVODNI STRANKA
+
+     Obsah je tu zamerne vepsany naprimo, ne pres t-call na snippety.
+     Odoo editor umi menit jen to, co lezi primo v #wrap - obsah
+     schovany za t-call by sel videt, ale nesel by smazat, presunout
+     ani prepsat, protoze nepatri strance, ale sablone.
+
+     Stejne sekce jsou zaroven jako snippety v snippets/s_hhn_sekce.xml
+     a drobne stavebni kameny v snippets/s_hhn_polozky.xml. Ty slouzi
+     jako knihovna pro vkladani z panelu editoru. Kdyz se tedy meni
+     podoba sekce natrvalo, je potreba ji zmenit na obou mistech -
+     jinak by se stranka a snippet rozesly.
+
+     Poradi bloku i texty jsou podle psaneho zadani od klienta.
+     Vizualni podoba (fotogalerie, video v pribehu, tri kroky ve vyzve)
+     je podle obrazku, ktere poslal jako predlohu.
+
+     Puvodni design zustava na /stary kvuli porovnani.
+     ================================================================ -->
+
+<template id="hh_page_novy" name="Honza Hauzr - úvodní stránka">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Honza Hauzr | Vezmi svůj život zpět do vlastní režie</t>
+        <t t-set="meta_description">Pomáhám mužům, kteří navenek fungují, ale uvnitř vědí, že takhle už nechtějí pokračovat. Bezplatná třídenní výzva Z autopilota zpět do života.</t>
+
+        <div id="wrap" class="oe_structure oe_empty hh-landing hhn">
+
+            <!-- ===== 1. UVODNI OBRAZOVKA ===== -->
+            <section data-name="Hlavička" class="hhn-hero o_cc o_colored_level" id="uvod">
+                <div class="hhn-hero__photo"
+                     style="background-image: url('/theme_honzahauzr/static/src/img/hero-balon.webp');"/>
+                <div class="hhn-hero__veil"/>
+                <div class="container">
+                    <div class="hhn-hero__content">
+                        <span class="hhn-eyebrow" data-anim="fade-up">
+                            Osobní rozvoj &#8226; Koučink &#8226; Mentoring
+                        </span>
+                        <h1 data-anim="fade-up" data-delay="120">
+                            Přestaň jen fungovat.<br/>Vezmi svůj život
+                            <em>zpět do vlastní režie.</em>
+                        </h1>
+                        <p class="hhn-hero__sub" data-anim="fade-up" data-delay="240">
+                            Pomáhám mužům, kteří navenek fungují, ale uvnitř vědí, že takhle
+                            už nechtějí pokračovat, pochopit, co je drží na místě, nastavit
+                            vlastní pravidla a udělat konkrétní další krok.
+                        </p>
+                        <div class="hhn-hero__action" data-anim="fade-up" data-delay="360">
+                            <a href="/zpet-do-zivota" class="hhn-cta">
+                                Začni zde zdarma
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                            </a>
+                        </div>
+                        <p class="hhn-note hhn-hero__note" data-anim="fade" data-delay="440">
+                            Bezplatná třídenní výzva Z autopilota zpět do života.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 2. V CEM SE MUZE NAVSTEVNIK POZNAT ===== -->
+            <section data-name="Poznání" class="hhn-autopilot o_cc o_colored_level" id="poznani">
+                <div class="container">
+                    <!-- Nadpis je vytazeny z praveho sloupce ven, aby se na mobilu
+                         dal poslat nad fotku. Rozlozeni na obou sirkach ridi
+                         mrizka v hh-novy.scss (oblasti nadpis / foto / obsah). -->
+                    <div class="hhn-split">
+                        <h2 class="hhn-h2 hhn-split__nadpis" data-anim="fade-up">
+                            Možná nepotřebuješ začít znovu.<br/>
+                            Potřebuješ přestat jet
+                            <span class="hhn-accent">na autopilota.</span>
+                        </h2>
+                        <div class="hhn-split__photo" data-anim="fade-right">
+                            <img src="/theme_honzahauzr/static/src/img/cesta-vychod.webp"
+                                 alt="Východ slunce nad horami"/>
+                        </div>
+                        <div class="hhn-split__content">
+                            <!-- Karty podle puvodniho grafickeho navrhu: vlastni modra
+                                 ikona, kratky vyrazny nazev problemu a vysvetlujici
+                                 text pod nim. -->
+                            <div class="hhn-points">
+                                <div class="hhn-point o_snippet_drop_in_only" data-anim="fade-up" data-delay="120">
+                                    <div class="hhn-point__icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 3 10.5l7 3 3 7z"/><path d="M10 13.5 21 3"/></svg>
+                                    </div>
+                                    <h3>Autopilot</h3>
+                                    <p>Všechno nějak funguje, ale na nic se pořádně netěšíš.</p>
+                                </div>
+                                <div class="hhn-point o_snippet_drop_in_only" data-anim="fade-up" data-delay="190">
+                                    <div class="hhn-point__icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>
+                                    </div>
+                                    <h3>Odkládání</h3>
+                                    <p>Víš, co bys měl udělat, ale svoje rozhodnutí opakovaně odkládáš.</p>
+                                </div>
+                                <div class="hhn-point o_snippet_drop_in_only" data-anim="fade-up" data-delay="260">
+                                    <div class="hhn-point__icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17.5" cy="9.5" r="2.3"/><path d="M15.4 15.2a4.6 4.6 0 0 1 5.6 3.3"/></svg>
+                                    </div>
+                                    <h3>Hranice</h3>
+                                    <p>Ve vztazích ustupuješ, ztrácíš sebe nebo nedokážeš nastavit hranici.</p>
+                                </div>
+                                <div class="hhn-point o_snippet_drop_in_only" data-anim="fade-up" data-delay="330">
+                                    <div class="hhn-point__icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+                                    </div>
+                                    <h3>Směr</h3>
+                                    <p>Navenek máš výsledky, ale chybí ti smysl a nevíš, co vlastně buduješ.</p>
+                                </div>
+                            </div>
+                            <div class="hhn-split__action" data-anim="fade-up" data-delay="400">
+                                <a href="/zpet-do-zivota" class="hhn-cta">
+                                    Začni zde zdarma
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                                </a>
+                                <p class="hhn-note hhn-cta-note">Bezplatná třídenní výzva Z autopilota zpět do života.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 3. MUJ PRIBEH - DRIV A DNES ===== -->
+            <section data-name="Můj příběh" class="hhn-pribeh o_cc o_colored_level" id="o-mne">
+                <div class="container">
+                    <div class="hhn-story">
+                        <div class="hhn-story__text">
+                            <span class="hhn-eyebrow hhn-eyebrow--accent" data-anim="fade-up">Můj příběh</span>
+                            <h2 class="hhn-h2" style="margin-top: 16px" data-anim="fade-up" data-delay="100">
+                                Znám život na autopilota<br/>
+                                i cenu <span class="hhn-accent">změny.</span>
+                            </h2>
+                            <p data-anim="fade-up" data-delay="180">
+                                Nemluvím z teorie z učebnice. Taky jsem dlouho fungoval
+                                na autopilota. Unikal jsem do piva, cigaret a neustálého
+                                rozptylování. Před sebou, před tím, co jsem cítil, i před
+                                tím, co jsem měl udělat.
+                            </p>
+                            <p data-anim="fade-up" data-delay="240">
+                                Až když jsem si začal říkat pravdu, začal jsem si držet
+                                slovo, nastavovat hranice a dělat konkrétní změny. Nebylo
+                                to snadné, ale stálo to za to.
+                            </p>
+                            <p class="hhn-zaver" data-anim="fade-up" data-delay="300">
+                                Nemám všechno vyřešené. Jen už nečekám, až se můj život
+                                změní sám.
+                            </p>
+                        </div>
+
+                        <!-- Dve verze videa, ne jedna.
+
+                             Klient dodava sirokouhle 16:9 na desktop a svisle
+                             9:16 na mobil. Jeden prvek by to neuhral - pomer
+                             se da prepnout pres CSS, ale zdroj videa ne. Jsou
+                             tu proto oba a media dotaz vzdycky jeden schova.
+                             Diky tomu se da kazdemu v editoru nastavit vlastni
+                             adresa, aniz by to toho druheho ovlivnilo.
+
+                             Bloky jsou zamerne prazdne. Ramecek do nich dosadi widget
+                             mediaVideo z Odoo a adresu si bere z data-oe-expression.
+                             Skript hh-video.js ten widget upravuje tak, aby schovanou
+                             variantu nechal byt - jinak by se stahly obe.
+
+                             Uvnitr je bezny video blok Odoo (media_iframe_video),
+                             takze po kliknuti v editoru nabidne dialog, kam se
+                             adresa z YouTube nebo Vimea vlozi. Adresy jsou zatim
+                             ukazkove. -->
+                        <div class="hhn-video" data-anim="fade-left" data-delay="200" data-hhn-video-mobil="" data-hhv-popis="Video">
+                            <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                                <div class="css_editable_mode_display"/>
+                                <div class="media_iframe_video_size"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oznaceni DRIV / DNES musi byt citelne samo o sobe, bez
+                         dalsiho vysvetlovani - proto vyrazny stitek primo ve fotce. -->
+                    <div class="hhn-then-now">
+                        <div class="hhn-card o_snippet_drop_in_only" data-anim="fade-right">
+                            <div class="hhn-card__photo">
+                                <span class="hhn-tag hhn-tag--then">Dřív</span>
+                                <img src="/theme_honzahauzr/static/src/img/pribeh-driv.webp" alt="Honza Hauzr dřív"/>
+                            </div>
+                            <h3>Utíkal jsem před sebou</h3>
+                            <p>
+                                Pivo, cigarety a výmluvy, proč to jinak nejde. Zvenku
+                                pohoda, uvnitř útěk před sebou samým.
+                            </p>
+                        </div>
+                        <!-- Tlacitko lezi pres obe fotky, presne na jejich
+                             rozhrani. Na mobilu se prehodi pod ne - tam se
+                             fotky prekryvaji a tlacitko pres ne by je
+                             zakrylo. -->
+                        <!-- Nabeh visi na samotnem tlacitku, ne na obalu.
+                             Obal drzi vycentrovani pres translate(-50%, -50%)
+                             a animace transformaci prepisuje - tlacitko by
+                             behem nabehu odskocilo stranou. -->
+                        <div class="hhn-mezi-fotky o_snippet_drop_in_only">
+                            <a href="/zpet-do-zivota" class="hhn-cta" data-anim="fade-in" data-delay="200">
+                                Začni zde zdarma
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                            </a>
+                        </div>
+                        <div class="hhn-card o_snippet_drop_in_only" data-anim="fade-left" data-delay="120">
+                            <div class="hhn-card__photo">
+                                <span class="hhn-tag hhn-tag--now">Dnes</span>
+                                <img src="/theme_honzahauzr/static/src/img/pribeh-dnes.webp" alt="Honza Hauzr dnes"/>
+                            </div>
+                            <h3>Vím, kam jdu</h3>
+                            <p>
+                                Žádné berličky. Vlastní pravidla, která jsem si
+                                nastavil sám &#8211; a držím je.
+                            </p>
+                        </div>
+                    </div>
+                    <p class="hhn-then-now__footnote" data-anim="fade" data-delay="200">
+                        Tohle je moje cesta, ne návod. Ta tvoje bude vypadat jinak &#8211; a je to tak v pořádku.
+                    </p>
+
+
+                </div>
+            </section>
+
+            <!-- ===== 4. GALERIE ===== -->
+            <!-- Na mobilu z mrizky udela hh-galerie.js dva jedouci pasy. Kdyz
+                 skript nebezi, zustane mrizka a galerie funguje dal. -->
+            <section data-name="Galerie" class="hhn-galerie o_cc o_colored_level">
+                <div class="container">
+                    <div class="hhn-gallery">
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in"><img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="V horách"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="60"><img src="/theme_honzahauzr/static/src/img/cesta-ferrata.webp" alt="Ferrata"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="120"><img src="/theme_honzahauzr/static/src/img/cesta-paragliding.webp" alt="Paragliding"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="180"><img src="/theme_honzahauzr/static/src/img/cesta-seskok.webp" alt="Seskok"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="240"><img src="/theme_honzahauzr/static/src/img/cesta-canyoning.webp" alt="Canyoning"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="300"><img src="/theme_honzahauzr/static/src/img/content/vision-friends.jpg" alt="S přáteli"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="360"><img src="/theme_honzahauzr/static/src/img/content/vision-freefall.jpg" alt="Volný pád"/></figure>
+                        <figure class="o_snippet_drop_in_only" data-anim="zoom-in" data-delay="420"><img src="/theme_honzahauzr/static/src/img/cesta-vychod.webp" alt="Východ slunce"/></figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 5. JAK PRACUJI ===== -->
+            <!-- Zadani vyslovne chce ctyri kratke body bez vysvetlovani metod,
+                 proto jsou karty jen s ikonou a jednou vetou. -->
+            <section data-name="Jak pracuji" class="hhn-jak o_cc o_colored_level" id="jak-pracuji">
+                <div class="container">
+                    <div class="hhn-head-center">
+                        <span class="hhn-eyebrow hhn-eyebrow--accent" data-anim="fade-up">Jak pracuji</span>
+                        <h2 class="hhn-h2" data-anim="fade-up" data-delay="100">
+                            Tvoje cesta začíná u toho,<br/>
+                            <span class="hhn-accent">co můžeš ovlivnit.</span>
+                        </h2>
+                    </div>
+                    <!-- Stejny vzhled jako karty problemu vyse: vetsi ikona,
+                         nazev a pod nim vysvetlujici text. -->
+                    <div class="hhn-pillars">
+                        <div class="hhn-pillar o_snippet_drop_in_only" data-anim="fade-up" data-delay="140">
+                            <div class="hhn-pillar__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 4.5H3.5v11h4v4l4.5-4h8.5z"/></svg>
+                            </div>
+                            <h3>Pravda místo výmluv</h3>
+                            <p>Pojmenujeme věci tak, jak jsou. Bez obalu, ale s respektem.</p>
+                        </div>
+                        <div class="hhn-pillar o_snippet_drop_in_only" data-anim="fade-up" data-delay="210">
+                            <div class="hhn-pillar__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/></svg>
+                            </div>
+                            <h3>Odpovědnost místo čekání</h3>
+                            <p>Přestaneš čekat, že se něco změní samo, a vezmeš život do svých rukou.</p>
+                        </div>
+                        <div class="hhn-pillar o_snippet_drop_in_only" data-anim="fade-up" data-delay="280">
+                            <div class="hhn-pillar__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5v-5"/><path d="M9.5 19.5v-9"/><path d="M14.5 19.5V6"/><path d="M19.5 19.5v-12"/></svg>
+                            </div>
+                            <h3>Konkrétní kroky místo další teorie</h3>
+                            <p>Žádná omáčka. Konkrétní kroky, které můžeš začít dělat hned.</p>
+                        </div>
+                        <div class="hhn-pillar o_snippet_drop_in_only" data-anim="fade-up" data-delay="350">
+                            <div class="hhn-pillar__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.2 8.8 13.6 13.6 8.8 15.2l1.6-4.8z"/></svg>
+                            </div>
+                            <h3>Vlastní pravidla místo života podle očekávání okolí</h3>
+                            <p>Přestaneš se snažit splňovat očekávání ostatních a začneš žít podle toho, co je důležité pro tebe.</p>
+                        </div>
+                    </div>
+                    <div class="hhn-center-action" data-anim="fade-up" data-delay="420">
+                        <a href="/zpet-do-zivota" class="hhn-cta">
+                            Začni zde zdarma
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                        </a>
+                        <p class="hhn-note hhn-cta-note">Bezplatná třídenní výzva Z autopilota zpět do života.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 6. BEZPLATNA TRIDENNI VYZVA ===== -->
+            <!-- Jediny blok, ktery se barevne odchyluje: podle zadani uz jemne
+                 prechazi k piskove estetice Vlastni rezie, ve ktere bude cela
+                 landing page vyzvy. Odtud ta tepla vrstva a piskove akcenty. -->
+            <section data-name="3denní výzva" class="hhn-challenge o_cc o_colored_level" id="vyzva">
+                <div class="hhn-challenge__photo"
+                     style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-blok.webp');"/>
+                <div class="hhn-challenge__veil"/>
+                <div class="container">
+                    <div class="hhn-challenge__head">
+                        <span class="hhn-eyebrow hhn-eyebrow--sand" data-anim="fade-up">Bezplatná třídenní výzva</span>
+                        <h2 class="hhn-h2" data-anim="fade-up" data-delay="100">
+                            Začni tím, že zjistíš, kde dnes řídíš svůj život ty
+                            &#8211; a kde za tebe rozhoduje autopilot.
+                        </h2>
+                        <p class="hhn-lead" data-anim="fade-up" data-delay="180">
+                            V bezplatné třídenní výzvě Z autopilota zpět do života si pojmenuješ,
+                            kde dnes jen automaticky funguješ, co tě drží na místě a jaký první
+                            krok potřebuješ udělat.
+                        </p>
+                    </div>
+                    <div class="hhn-steps">
+                        <div class="hhn-step o_snippet_drop_in_only" data-anim="fade-up" data-delay="240">
+                            <span class="hhn-step__num">1</span>
+                            <div>
+                                <h3>Zastavíš se</h3>
+                                <p>Uděláš si upřímnou inventuru, kde se právě nacházíš.</p>
+                            </div>
+                        </div>
+                        <div class="hhn-step o_snippet_drop_in_only" data-anim="fade-up" data-delay="300">
+                            <span class="hhn-step__num">2</span>
+                            <div>
+                                <h3>Pojmenuješ svůj autopilot</h3>
+                                <p>Uvidíš vzorce, které tě drží na místě.</p>
+                            </div>
+                        </div>
+                        <div class="hhn-step o_snippet_drop_in_only" data-anim="fade-up" data-delay="360">
+                            <span class="hhn-step__num">3</span>
+                            <div>
+                                <h3>Uděláš první vlastní krok</h3>
+                                <p>Získáš konkrétní krok, který si odneseš dál.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hhn-challenge__action" data-anim="fade-up" data-delay="420">
+                        <a href="/zpet-do-zivota" class="hhn-cta">
+                            Začni zde zdarma
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                        </a>
+                        <p class="hhn-note hhn-cta-note">Bezplatná třídenní výzva Z autopilota zpět do života.</p>
+                    </div>
+                    <p class="hhn-note hhn-challenge__note" data-anim="fade" data-delay="480">
+                        3 dny &#8226; 3 videa &#8226; 3 konkrétní úkoly &#8226; žádné motivační kecy.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ===== 7. NEWSLETTER ===== -->
+            <!-- Zamerne mensi a klidnejsi nez vyzva - vedlejsi moznost, ne druha
+                 hlavni nabidka. Zadne PDF, zadne vyskakovaci okno.
+                 Obal s_website_form_field je povinny - Odoo validuje jen vstupy
+                 uvnitr nej, bez nej projde i prazdny formular. -->
+            <section data-name="Newsletter" class="hh-news o_cc o_colored_level" id="newsletter">
+                <div class="container">
+                    <div class="hh-news__box" data-anim="fade-up">
+                        <div class="hh-news__text">
+                            <h3>Chceš zůstat v kontaktu?</h3>
+                            <p>
+                                Jednou za čas ti pošlu konkrétní myšlenku, otázku nebo tip, který ti
+                                pomůže vystoupit z autopilota a žít víc podle sebe.
+                            </p>
+                        </div>
+                        <form class="hh-news__form s_website_form"
+                              action="/website/form/" method="post" enctype="multipart/form-data"
+                              data-model_name="crm.lead"
+                              data-success-mode="message">
+                            <input type="hidden" name="name" value="Newsletter z webu honzahauzr.cz"/>
+                            <input type="hidden" name="hh_zdroj" value="newsletter"/>
+                            <div class="s_website_form_field s_website_form_required">
+                                <label class="col-form-label s_website_form_label hh-sr-only" for="hhn_news_email">E-mail</label>
+                                <input type="email" id="hhn_news_email" class="form-control s_website_form_input hh-news__input"
+                                       name="email_from" placeholder="E-mail" required="required"/>
+                                <span class="hh-err">Bez e-mailu ti nemám co poslat.</span>
+                            </div>
+                            <button type="submit" class="hh-btn s_website_form_send">Chci odebírat</button>
+                        </form>
+                        <div class="s_website_form_end_message d-none hh-done hh-done--inline">
+                            <div class="hh-done__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                            </div>
+                            <p>Mám to. Ozvu se, až budu mít co říct.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 8. PATICKA ===== -->
+            <!-- Podle zadani jen kontaktni e-mail, socialni site a pravni odkazy.
+                 Zadne dalsi nabidky, zadna rezervace hovoru. -->
+
+        </div>
+    </t>
+</template>
+
+<record id="hh_page_novy_page" model="theme.website.page">
+    <field name="url">/</field>
+    <field name="view_id" ref="hh_page_novy"/>
+    <field name="is_published" eval="True"/>
+</record>
+
+</odoo>

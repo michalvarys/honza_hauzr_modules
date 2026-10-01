@@ -15,8 +15,28 @@
         ".o_editable, #oe_snippets, .o_we_website_top_actions"
     ) || document.body.classList.contains("editor_enable");
 
-    if ("IntersectionObserver" in window && !vEditoru) {
+    /* Kdo si v systemu vypnul animace, dostane stranku rovnou celou.
+       Drive se mu schovavala a nabihala stejne jako ostatnim. */
+    var bezPohybu = window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var animuje = "IntersectionObserver" in window && !vEditoru && !bezPohybu;
+
+    if (animuje) {
         document.documentElement.classList.add("hh-anim");
+    }
+
+    /* Zachranna brzda: kdyz cokoliv v motoru spadne, obsah nesmi zustat
+       schovany. Sundani tridy vrati stranku do stavu, ve kterem je bez
+       JavaScriptu - tedy celou videt. */
+    function vzdatSeAnimaci() {
+        document.documentElement.classList.remove("hh-anim");
+        document.querySelectorAll("[data-anim]").forEach(function (el) {
+            el.classList.add("anim-visible");
+            el.style.opacity = "";
+            el.style.transform = "";
+            el.style.clipPath = "";
+        });
     }
 
     // ===== SCROLL ANIMATION ENGINE =====
@@ -34,12 +54,27 @@
     }
 
     // Animate element with JS for smoother GSAP-like feel
-    function animateElement(el) {
+    function animateElement(el, hned) {
         if (el.classList.contains("anim-visible")) return;
 
-        var delay = parseInt(el.getAttribute("data-delay") || "0", 10);
+        /* Prvek, ktery uz pri startu lezi v okne, se odkryje rovnou.
+           Skript se totiz nacita az se zbytkem stranky - do te doby je
+           obsah videt, pak by ho trida .hh-anim schovala a teprve pak
+           by nabehl. Navstevnik tak videl, jak mu text zmizi a zase se
+           objevi. */
+        if (hned) {
+            el.classList.add("anim-visible");
+            return;
+        }
+
         var type = el.getAttribute("data-anim");
-        var duration = 900;
+
+        /* Zpozdeni v sablonach jsou pomerne velka (az 450 ms) a delala
+           z kaskady cekani. Pomer mezi prvky zustava, jen se cela
+           kaskada zkrati. */
+        var delay = Math.min(
+            180, Math.round(parseInt(el.getAttribute("data-delay") || "0", 10) / 3));
+        var duration = 420;
 
         setTimeout(function () {
             var start = null;
@@ -78,16 +113,24 @@
         }, delay);
     }
 
+    /* Kratsi drahy nez driv (bylo 60 a 80 px). Dlouhy posun znamena, ze
+       prvek startuje hluboko pod svym mistem, takze se do okna dostane
+       pozdeji a nabeh pusobi opozdene. */
     function getFromProps(type) {
         switch (type) {
-            case "fade-up": return { x: 0, y: 60, scale: 1, clipY: 0 };
-            case "fade-down": return { x: 0, y: -40, scale: 1, clipY: 0 };
-            case "fade-left": return { x: 80, y: 0, scale: 1, clipY: 0 };
-            case "fade-right": return { x: -80, y: 0, scale: 1, clipY: 0 };
-            case "zoom-in": return { x: 0, y: 0, scale: 0.85, clipY: 0 };
-            case "zoom-out": return { x: 0, y: 0, scale: 1.1, clipY: 0 };
+            case "fade-up": return { x: 0, y: 24, scale: 1, clipY: 0 };
+            case "fade-down": return { x: 0, y: -18, scale: 1, clipY: 0 };
+            case "fade-left": return { x: 28, y: 0, scale: 1, clipY: 0 };
+            case "fade-right": return { x: -28, y: 0, scale: 1, clipY: 0 };
+            case "zoom-in": return { x: 0, y: 0, scale: 0.94, clipY: 0 };
+            case "zoom-out": return { x: 0, y: 0, scale: 1.05, clipY: 0 };
             case "reveal-up": return { x: 0, y: 0, scale: 1, clipY: 100 };
-            default: return { x: 0, y: 40, scale: 1, clipY: 0 };
+            /* Ciste prolnuti, bez jakehokoliv posunu. Pro prvky, ktere
+               uz maji vlastni transform (napriklad vycentrovani pres
+               translate(-50%, -50%)) - jakykoliv posun by jim ho
+               prepsal a prvek by behem nabehu odskocil stranou. */
+            case "fade-in": return { x: 0, y: 0, scale: 1, clipY: 0 };
+            default: return { x: 0, y: 18, scale: 1, clipY: 0 };
         }
     }
 
@@ -113,6 +156,9 @@
     // Navesi pozorovatele, kteri sekce odkryvaji, jakmile se doscrolluji.
     function spustitPozorovatele() {
         if ("IntersectionObserver" in window) {
+            /* threshold 0 misto 0.08: u vysokych sekci znamenalo osm
+               procent vysky pekny kus scrollovani navic, nez se vubec
+               zacaly odkryvat. Staci, aby prvek zavadil do okna. */
             var animObserver = new IntersectionObserver(
                 function (entries) {
                     entries.forEach(function (entry) {
@@ -122,13 +168,21 @@
                         }
                     });
                 },
-                { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+                { threshold: 0, rootMargin: "0px 0px -10px 0px" }
             );
 
+            var vyskaOkna = window.innerHeight || 0;
+
             animEls.forEach(function (el) {
-                if (el.getAttribute("data-anim") !== "counter") {
-                    animObserver.observe(el);
+                if (el.getAttribute("data-anim") === "counter") {
+                    return;
                 }
+                // Co uz je pri startu videt, se odkryje bez animace.
+                if (el.getBoundingClientRect().top < vyskaOkna) {
+                    animateElement(el, true);
+                    return;
+                }
+                animObserver.observe(el);
             });
 
             // Counter observer
@@ -164,7 +218,35 @@
         }
     }
 
-    spustitPozorovatele();
+    if (!animuje) {
+        // Bez animaci se nic neschovava ani nepozoruje - stranka je
+        // rovnou cela videt.
+        animEls.forEach(function (el) {
+            el.classList.add("anim-visible");
+        });
+    } else {
+        try {
+            spustitPozorovatele();
+        } catch (chyba) {
+            vzdatSeAnimaci();
+        }
+
+        /* Hlidac. Kdyby se na nejaky prvek v okne pozorovatel nechytil
+           (stava se, kdyz se rozvrzeni po nacteni obrazku posune),
+           po chvili se odkryje sam. Lepsi zadna animace nez diry
+           ve strance. */
+        setTimeout(function () {
+            var vyskaOkna = window.innerHeight || 0;
+            animEls.forEach(function (el) {
+                if (el.classList.contains("anim-visible")) {
+                    return;
+                }
+                if (el.getBoundingClientRect().top < vyskaOkna) {
+                    el.classList.add("anim-visible");
+                }
+            });
+        }, 1200);
+    }
 
     // ===== PARALLAX =====
     var ticking = false;
@@ -336,4 +418,51 @@
             history.replaceState(null, "", href);
         }
     }, true);
+})();
+
+/**
+ * Zavirani rozbaleneho menu na mobilu.
+ *
+ * U odkazu na jinou stranku se menu zavre samo pri nacteni. U kotvy
+ * na teze strance (treba /#jak-pracuji) ale zadne nacteni neprobehne -
+ * prohlizec jen odscrolluje a rozbalene menu zustalo viset pres obsah,
+ * na ktery clovek prave skocil.
+ */
+(function () {
+    "use strict";
+
+    document.addEventListener("click", function (udalost) {
+        if (!(udalost.target instanceof Element)) {
+            return;
+        }
+
+        var odkaz = udalost.target.closest(
+            ".offcanvas a[href], .navbar-collapse a[href]"
+        );
+        if (!odkaz) {
+            return;
+        }
+
+        var panel = odkaz.closest(".offcanvas, .navbar-collapse");
+        if (!panel) {
+            return;
+        }
+
+        // Bootstrap je na frontendu Odoo k dispozici. Kdyby nebyl,
+        // sahne se na zaviraci tlacitko uvnitr panelu - dela totez.
+        var bs = window.bootstrap;
+        if (bs && bs.Offcanvas && panel.classList.contains("offcanvas")) {
+            (bs.Offcanvas.getInstance(panel) || new bs.Offcanvas(panel)).hide();
+            return;
+        }
+        if (bs && bs.Collapse && panel.classList.contains("navbar-collapse")) {
+            (bs.Collapse.getInstance(panel) || new bs.Collapse(panel)).hide();
+            return;
+        }
+
+        var zavrit = panel.querySelector("[data-bs-dismiss]");
+        if (zavrit) {
+            zavrit.click();
+        }
+    });
 })();

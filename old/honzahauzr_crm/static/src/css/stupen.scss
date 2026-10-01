@@ -1,0 +1,20 @@
+/* ============================================================
+   NASTAVENI SLOUPCE NASTENKY - editor textu e-mailu
+
+   Formular sloupce se z nastenky otevira v dialogu. Editor textu
+   roste s tim, co se do nej napise, takze po nekolika odstavcich
+   vytlaci tlacitka Ulozit a Zrusit pod spodni okraj obrazovky.
+
+   Strop s vlastnim posuvnikem to zastavi: dlouhy e-mail se roluje
+   uvnitr editoru a dialog zustane pokazde stejne vysoky.
+
+   Selektor je navazany na tridu .hh-telo-mailu, kterou nasazuje
+   jen nase pole. Prestoze se styl nacita do cele instance, na nic
+   jineho v Odoo nedosahne.
+   ============================================================ */
+
+.o_field_html.hh-telo-mailu .odoo-editor-editable,
+.o_field_html.hh-telo-mailu .note-editable {
+    max-height: 150px;
+    overflow-y: auto;
+}

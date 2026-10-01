@@ -26,6 +26,7 @@
                           data-model_name="crm.lead"
                           data-success-mode="message">
                         <input type="hidden" name="name" value="Úvodní hovor z webu honzahauzr.cz"/>
+                        <input type="hidden" name="hh_zdroj" value="hovor"/>
                         <!-- Obal s_website_form_field je povinny - Odoo validuje jen
                              vstupy uvnitr nej. Bez obalu projde i prazdny formular. -->
                         <div class="s_website_form_field s_website_form_required">

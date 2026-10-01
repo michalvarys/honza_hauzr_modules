@@ -10,7 +10,6 @@
              nastavene v Odoo (Website > Konfigurace), takze si je Honza
              spravuje sam bez sahani do kodu. Drive tu bylo no_header,
              coz tu nastavenou hlavicku i s logem zahodilo. -->
-        <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Začni žít naplno</t>
         <t t-set="meta_description">Pomáhám lidem, kteří fungují na autopilotu, vrátit si směr, hranice a respekt k sobě. Domluv si nezávazný úvodní hovor.</t>
 
@@ -216,71 +215,7 @@
                 </div>
             </section>
 
-            <!-- 5. UVODNI HOVOR -->
-            <!-- Fotka na pozadi sekce, vymenitelna v Odoo editoru pres volbu Pozadi. -->
-            <section class="hh-final-cta o_cc o_colored_level oe_img_bg o_bg_img_center" id="kontakt"
-                     style="background-image: url('/theme_honzahauzr/static/src/img/cesta-hory.webp'); background-size: cover; background-position: center;">
-                <div class="hh-final-cta__gradient"/>
-                <div class="hh-final-cta__content">
-                    <div class="container">
-                        <div class="hh-final-cta__inner">
-                            <h2 data-anim="fade-up">
-                                Pojďme si nezávazně<br/><span class="hh-text-gradient-warm">promluvit</span>
-                            </h2>
-                            <p class="hh-final-cta__sub" data-anim="fade-up" data-delay="150">
-                                Úvodní hovor je zdarma a k ničemu tě nezavazuje. Řekneš mi, co řešíš,
-                                a společně zjistíme, jestli ti umím pomoct. Ozvu se do 24 hodin.
-                            </p>
-                            <div data-anim="fade-up" data-delay="250">
-                                <div class="hh-final-cta__urgency">Spolupráce začíná programem Tvůj tah &#8212; co obnáší, si vysvětlíme na hovoru.</div>
-                            </div>
-                            <form class="hh-form s_website_form" data-anim="fade-up" data-delay="350"
-                                  action="/website/form/" method="post" enctype="multipart/form-data"
-                                  data-model_name="crm.lead"
-                                  data-success-mode="message">
-                                <input type="hidden" name="name" value="Úvodní hovor z webu honzahauzr.cz"/>
-                                <!-- Obal s_website_form_field je povinny - Odoo validuje jen
-                                     vstupy uvnitr nej. Bez obalu projde i prazdny formular. -->
-                                <div class="s_website_form_field s_website_form_required">
-                                    <label class="col-form-label s_website_form_label hh-sr-only" for="hh_jmeno">Tvé jméno</label>
-                                    <input type="text" id="hh_jmeno" class="form-control s_website_form_input"
-                                           name="contact_name" placeholder="Tvé jméno *" required="required" minlength="2"/>
-                                     <span class="hh-err">Napiš prosím své jméno.</span>
-                                </div>
-                                <div class="s_website_form_field s_website_form_required">
-                                    <label class="col-form-label s_website_form_label hh-sr-only" for="hh_email">Tvůj e-mail</label>
-                                    <input type="email" id="hh_email" class="form-control s_website_form_input"
-                                           name="email_from" placeholder="Tvůj e-mail *" required="required"/>
-                                     <span class="hh-err">Bez e-mailu se ti nemám jak ozvat.</span>
-                                </div>
-                                <div class="s_website_form_field">
-                                    <label class="col-form-label s_website_form_label hh-sr-only" for="hh_tel">Telefon</label>
-                                    <input type="tel" id="hh_tel" class="form-control s_website_form_input"
-                                           name="phone" placeholder="Telefon"/>
-                                </div>
-                                <div class="s_website_form_field">
-                                    <label class="col-form-label s_website_form_label hh-sr-only" for="hh_zprava">Zpráva</label>
-                                    <textarea id="hh_zprava" class="form-control s_website_form_input"
-                                              name="description" placeholder="Co bys chtěl/a změnit? Napiš klidně jen pár vět." rows="3"/>
-                                </div>
-                                <button type="submit" class="hh-btn hh-btn--primary hh-btn--large s_website_form_send">
-                                    Domluvit úvodní hovor
-                                </button>
-                            </form>
-                            <!-- Odoo po odeslani sundá d-none. Musi byt sourozenec formulare. -->
-                            <div class="s_website_form_end_message d-none hh-done">
-                                <div class="hh-done__icon">
-                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                                </div>
-                                <h3>Díky, mám to.</h3>
-                                <p>Ozvu se ti do 24 hodin na e-mail, který jsi zadal.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 6. NEWSLETTER -->
+            <!-- 5. NEWSLETTER -->
             <!-- Zamerne mensi a klidnejsi nez vyzva - je to vedlejsi moznost,
                  ne druha hlavni nabidka. Zadne PDF, zadne vyskakovaci okno.
                  Napojeni se doresi pozdeji, zatim jde o vizualni podobu. -->
@@ -306,6 +241,7 @@
                               data-model_name="crm.lead"
                               data-success-mode="message">
                             <input type="hidden" name="name" value="Newsletter z webu honzahauzr.cz"/>
+                            <input type="hidden" name="hh_zdroj" value="newsletter"/>
                             <div class="s_website_form_field s_website_form_required">
                                 <label class="col-form-label s_website_form_label hh-sr-only" for="hh_news_email">Tvůj e-mail</label>
                                 <input type="email" id="hh_news_email" class="form-control s_website_form_input hh-news__input"
@@ -316,7 +252,7 @@
                         </form>
                         <div class="s_website_form_end_message d-none hh-done hh-done--inline">
                             <div class="hh-done__icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
                             </div>
                             <p>Mám to. Ozvu se, až budu mít co říct.</p>
                         </div>
@@ -324,7 +260,7 @@
                 </div>
             </section>
 
-            <!-- 7. PATICKA -->
+            <!-- 6. PATICKA -->
             <section class="hh-footer o_cc o_colored_level">
                 <div class="container">
                     <div class="hh-footer__grid">
@@ -336,23 +272,22 @@
                             <h4>Kontakt</h4>
                             <ul>
                                 <li><a href="mailto:honzahauzr@gmail.com">honzahauzr@gmail.com</a></li>
-                                <li><a href="#kontakt">Domluvit úvodní hovor</a></li>
                             </ul>
                         </div>
                         <div class="hh-footer__col">
                             <h4>Sledovat</h4>
                             <div class="hh-social">
                                 <a href="https://www.instagram.com/honzahauzr.cz/" target="_blank" rel="noopener" class="hh-social__btn hh-social__btn--ig" aria-label="Instagram" title="Instagram">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.26 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.07.36-2.24.41-1.27.06-1.65.07-4.86.07s-3.59-.01-4.86-.07c-1.17-.06-1.82-.26-2.24-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.07-.42-2.24-.04-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42C8.42 2.17 8.8 2.16 12 2.16zm0-2.16C8.74 0 8.33.02 7.05.07 5.78.13 4.91.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.91.13 5.78.07 7.05.02 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.77.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.02 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.41a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
                                 </a>
                                 <a href="https://www.facebook.com/honzahauzr.cz" target="_blank" rel="noopener" class="hh-social__btn hh-social__btn--fb" aria-label="Facebook" title="Facebook">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 8.5V6.9c0-.8.2-1.2 1.4-1.2h1.6V2.8C17.1 2.7 16.2 2.6 15.2 2.6c-2.4 0-4.1 1.5-4.1 4.2v1.7H8.4v3.1h2.7v8.8h3.4v-8.8h2.6l.4-3.1z"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2C11.54 2 9.68 3.66 9.68 6.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.05.28-1.73 1.76-1.73z"/></svg>
                                 </a>
                                 <a href="https://www.youtube.com/@HonzaHauzr_cz" target="_blank" rel="noopener" class="hh-social__btn hh-social__btn--yt" aria-label="YouTube" title="YouTube">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.6.5A2.7 2.7 0 0 0 1.5 7.2C1 8.9 1 12 1 12s0 3.1.5 4.8a2.7 2.7 0 0 0 1.9 1.9c1.7.5 8.6.5 8.6.5s6.9 0 8.6-.5a2.7 2.7 0 0 0 1.9-1.9c.5-1.7.5-4.8.5-4.8s0-3.1-.5-4.8M9.8 15.3V8.7l5.7 3.3z"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
                                 </a>
                                 <a href="https://www.tiktok.com/@honzahauzr.cz" target="_blank" rel="noopener" class="hh-social__btn hh-social__btn--tt" aria-label="TikTok" title="TikTok">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.1v13.1a2.3 2.3 0 1 1-2.3-2.3c.2 0 .4 0 .6.1V9.7a5.6 5.6 0 0 0-.6 0 5.5 5.5 0 1 0 5.5 5.5V8.6a6.5 6.5 0 0 0 4 1.3V6.8a3.6 3.6 0 0 1-2.8-1.4A3.6 3.6 0 0 1 16.6 2"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.13V9.4a6.33 6.33 0 0 0-5.39 10.67 6.33 6.33 0 0 0 10.82-4.47V8.69a8.16 8.16 0 0 0 4.77 1.52V6.79a4.85 4.85 0 0 1-.95-.1z"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -370,8 +305,10 @@
     </t>
 </template>
 
+<!-- Puvodni design uz neni na uvodni strance - tu prevzal novy
+     (views/novy.xml). Zustava dostupny na /stary kvuli porovnani. -->
 <record id="hh_page_landing_page" model="theme.website.page">
-    <field name="url">/</field>
+    <field name="url">/stary</field>
     <field name="view_id" ref="hh_page_landing"/>
     <field name="is_published" eval="True"/>
 </record>
@@ -382,7 +319,6 @@
 <template id="hh_page_wip" name="Honza Hauzr WIP">
     <t t-call="website.layout">
         <t t-set="no_header" t-value="True"/>
-        <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Připravujeme něco skvělého</t>
         <t t-set="meta_description">Honza Hauzr - osobní rozvoj, koučink a mentoring. Stránka se připravuje.</t>
 

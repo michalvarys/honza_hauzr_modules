@@ -8,7 +8,6 @@
 <template id="hh_page_landing_blue" name="Honza Hauzr Landing (Blue)">
     <t t-call="website.layout">
         <t t-set="no_header" t-value="True"/>
-        <t t-set="no_footer" t-value="True"/>
         <t t-set="additional_title">Honza Hauzr | Začni žít naplno</t>
         <t t-set="meta_description">Honza Hauzr pomáhá lidem žít plnohodnotnější život. Osobní rozvoj, koučink a mentoring.</t>
 
@@ -436,6 +435,7 @@
                                 <div class="s_website_form_rows">
                                     <div class="s_website_form_field s_website_form_dnone">
                                         <input type="hidden" class="s_website_form_input" name="name" value="Poptávka z honzahauzr.cz"/>
+                                        <input type="hidden" name="hh_zdroj" value="poptavka"/>
                                     </div>
                                     <div class="s_website_form_field mb-3 s_website_form_required" data-type="char">
                                         <input class="hh-form__input s_website_form_input" type="text" name="contact_name" required="1" placeholder="Tvé jméno *"/>

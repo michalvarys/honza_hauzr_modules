@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     REZERVACE UVODNIHO HOVORU
+
+     Odkaz dostane clovek v e-mailu po tretim dni vyzvy. Zamerne tu
+     neni menu ani nic, co odvadi - stejne jako na strance vyzvy je
+     jediny ukol vybrat si cas.
+
+     Vybira se ve dvou krocich: /rezervace ukaze dny, kliknuti na den
+     vede na /rezervace/den/<datum> s hodinami. Jeden dlouhy seznam
+     vsech hodin pres cely mesic byl neprehledny.
+
+     Terminy se vyrabeji samy podle rozvrhu v nastaveni CRM. Co Honza
+     preskrtne, se sem uz nedostane.
+     ================================================================ -->
+
+<!-- Spolecna hlava obou kroku -->
+<template id="rezervace_hlava" name="Rezervace - hlava">
+    <section class="hhr-hlava">
+        <div class="container">
+            <span class="hhr-znacka">Vlastní režie</span>
+            <h1 class="hhr-h1"><t t-esc="nadpis"/></h1>
+            <p class="hhr-lead"><t t-esc="podnadpis"/></p>
+        </div>
+    </section>
+</template>
+
+<!-- Hlaska po neuspesnem odeslani -->
+<template id="rezervace_hlaska" name="Rezervace - hláška">
+    <t t-if="chyba">
+        <div class="hhr-hlaska">
+            <t t-if="chyba == 'obsazeno'">
+                Tenhle termín mezitím někdo zabral. Vyber si prosím jiný.
+            </t>
+            <t t-elif="chyba == 'neuplne'">
+                Potřebuju jméno i e-mail, jinak ti nemám kam napsat.
+            </t>
+            <t t-else="">
+                Něco se pokazilo. Zkus to prosím znovu.
+            </t>
+        </div>
+    </t>
+</template>
+
+<!-- ===== 1. KROK: PREHLED DNU ===== -->
+<template id="stranka_rezervace_dny" name="Rezervace - dny">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Rezervace úvodního hovoru</t>
+
+        <div id="wrap" class="hhr">
+            <t t-call="honzahauzr_crm.rezervace_hlava">
+                <t t-set="nadpis">Vyber si den na úvodní hovor</t>
+                <t t-set="podnadpis">Prošel jsi tři dny výzvy. Tohle je nezávazný hovor o tom, co ti z nich vyšlo a co dává smysl dál.</t>
+            </t>
+
+            <section class="hhr-obsah">
+                <div class="container">
+                    <t t-call="honzahauzr_crm.rezervace_hlaska"/>
+
+                    <t t-if="nic_volneho">
+                        <div class="hhr-prazdno">
+                            <p>Zrovna teď nemám vypsaný žádný volný termín.</p>
+                            <p class="hhr-micro">
+                                Napiš mi na
+                                <a href="mailto:honzahauzr@gmail.com">honzahauzr@gmail.com</a>
+                                a domluvíme se napřímo.
+                            </p>
+                        </div>
+                    </t>
+
+                    <!--
+                        Vypisuji se vsechny dny, ne jen ty s volnym casem.
+                        Z rady karet je tak videt, ve ktere dny se hovory
+                        vubec neberou - driv mezi datumy zustavaly diry
+                        a pusobilo to, ze se neco nenacetlo.
+
+                        Den bez volneho casu neni odkaz, jen staticka
+                        karta: nema kam vest.
+                    -->
+                    <div class="hhr-dny">
+                        <t t-foreach="dny" t-as="den">
+                            <t t-if="den['stav'] == 'volno'">
+                                <a t-attf-class="hhr-denkarta {{ 'hhr-denkarta--dnes' if den['dnes'] else '' }}"
+                                   t-att-href="'/rezervace/den/%s' % den['datum']"
+                                   t-att-aria-label="den['popis']">
+                                    <span class="hhr-denkarta__den"><t t-esc="den['den']"/></span>
+                                    <span class="hhr-denkarta__cislo"><t t-esc="den['cislo']"/></span>
+                                    <span class="hhr-denkarta__mesic"><t t-esc="den['mesic']"/></span>
+                                    <span class="hhr-denkarta__pocet">
+                                        <t t-if="den['pocet'] == 1">1 volný čas</t>
+                                        <t t-elif="den['pocet'] &lt; 5"><t t-esc="den['pocet']"/> volné časy</t>
+                                        <t t-else=""><t t-esc="den['pocet']"/> volných časů</t>
+                                    </span>
+                                    <span class="hhr-denkarta__rozsah">
+                                        <t t-esc="den['prvni']"/>&#8211;<t t-esc="den['posledni']"/>
+                                    </span>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <div t-attf-class="hhr-denkarta hhr-denkarta--pryc {{ 'hhr-denkarta--dnes' if den['dnes'] else '' }}"
+                                     t-att-aria-label="den['popis']">
+                                    <span class="hhr-denkarta__den"><t t-esc="den['den']"/></span>
+                                    <span class="hhr-denkarta__cislo"><t t-esc="den['cislo']"/></span>
+                                    <span class="hhr-denkarta__mesic"><t t-esc="den['mesic']"/></span>
+                                    <span class="hhr-denkarta__pocet">
+                                        <t t-if="den['stav'] == 'nepracovni'">nepracovní</t>
+                                        <t t-else="">nic volného</t>
+                                    </span>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                    <p class="hhr-micro hhr-pod-dny">
+                        Klikni na den, ve kterém mám volno, a vyber si hodinu.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+<!-- ===== 2. KROK: HODINY VE VYBRANEM DNI ===== -->
+<template id="stranka_rezervace_den" name="Rezervace - hodiny">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Rezervace úvodního hovoru</t>
+
+        <div id="wrap" class="hhr">
+            <t t-call="honzahauzr_crm.rezervace_hlava">
+                <t t-set="nadpis">Vyber si čas</t>
+                <t t-set="podnadpis" t-value="popis"/>
+            </t>
+
+            <section class="hhr-obsah">
+                <div class="container">
+                    <a href="/rezervace" class="hhr-zpet">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        Zpátky na výběr dne
+                    </a>
+
+                    <t t-call="honzahauzr_crm.rezervace_hlaska"/>
+
+                    <form class="hhr-form" action="/rezervace/potvrdit" method="post">
+                        <input type="hidden" name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="termin_id" id="hhr_termin_id" value=""/>
+                        <input type="hidden" name="datum" t-att-value="datum"/>
+
+                        <div class="hhr-casy">
+                            <t t-foreach="casy" t-as="c">
+                                <!-- Zabrany cas je tlacitko, ktere nejde zmacknout -
+                                     disabled ho vyradi i z prochazeni klavesnici. -->
+                                <button type="button"
+                                        t-att-class="'hhr-cas' if c['volny'] else 'hhr-cas hhr-cas--pryc'"
+                                        t-att-data-termin="c['id']"
+                                        t-att-disabled="None if c['volny'] else 'disabled'"
+                                        t-att-title="'Volný termín' if c['volny'] else 'Už je zabraný'">
+                                    <span class="hhr-cas__hodina"><t t-esc="c['cas']"/></span>
+                                    <span class="hhr-cas__delka">
+                                        <t t-if="c['volny']"><t t-esc="c['minut']"/> min</t>
+                                        <t t-else="">obsazeno</t>
+                                    </span>
+                                </button>
+                            </t>
+                        </div>
+
+                        <!-- Udaje se odkryji az po vybrani casu, at clovek
+                             nezacina vyplnovanim formulare. -->
+                        <div class="hhr-udaje" id="hhr_udaje">
+                            <h2 class="hhr-udaje__nadpis">
+                                Vybraný čas:
+                                <span class="hhr-vybrano" id="hhr_vybrano">zatím žádný</span>
+                            </h2>
+                            <div class="hhr-pole">
+                                <label class="hhr-sr" for="hhr_jmeno">Jméno</label>
+                                <input type="text" id="hhr_jmeno" name="jmeno"
+                                       placeholder="Jméno" required="required"
+                                       autocomplete="given-name"/>
+                            </div>
+                            <div class="hhr-pole">
+                                <label class="hhr-sr" for="hhr_email">E-mail</label>
+                                <input type="email" id="hhr_email" name="email"
+                                       placeholder="E-mail" required="required"
+                                       autocomplete="email"/>
+                            </div>
+                            <div class="hhr-pole">
+                                <label class="hhr-sr" for="hhr_telefon">Telefon</label>
+                                <input type="tel" id="hhr_telefon" name="telefon"
+                                       placeholder="Telefon (nepovinné)"
+                                       autocomplete="tel"/>
+                            </div>
+                            <div class="hhr-pole hhr-pole--siroke">
+                                <label class="hhr-sr" for="hhr_poznamka">Poznámka</label>
+                                <textarea id="hhr_poznamka" name="poznamka" rows="3"
+                                          placeholder="Chceš mi něco napsat dopředu? (nepovinné)"/>
+                            </div>
+                            <!-- Bez disabled zamerne: kdyz JavaScript nebezi,
+                                 musi jit formular odeslat i tak. Tlacitko
+                                 zablokuje az skript, dokud neni vybrany cas. -->
+                            <button type="submit" class="hhr-cta" id="hhr_odeslat">
+                                Rezervovat termín
+                            </button>
+                            <p class="hhr-micro">
+                                Potvrzení ti přijde do e-mailu. Termín můžeš kdykoli zrušit
+                                odkazem, který v něm najdeš.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+<!-- ===== Potvrzeni po rezervaci ===== -->
+<template id="stranka_rezervace_hotovo" name="Rezervace hotová">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Termín je domluvený</t>
+
+        <div id="wrap" class="hhr hhr--stred">
+            <section class="hhr-obsah">
+                <div class="container">
+                    <div class="hhr-hotovo">
+                        <div class="hhr-hotovo__ikona">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                        </div>
+                        <h1 class="hhr-h1">Termín je domluvený</h1>
+                        <p class="hhr-lead"><t t-esc="kdy"/></p>
+                        <p class="hhr-micro">
+                            Potvrzení ti právě posílám do e-mailu. Najdeš v něm
+                            i odkaz, kterým termín zrušíš, kdyby ti to nevyšlo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+<!-- ===== Zruseni z odkazu v e-mailu ===== -->
+<template id="stranka_rezervace_zruseno" name="Rezervace zrušena">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Zrušení termínu</t>
+
+        <div id="wrap" class="hhr hhr--stred">
+            <section class="hhr-obsah">
+                <div class="container">
+                    <div class="hhr-hotovo">
+                        <t t-if="povedlo_se">
+                            <h1 class="hhr-h1">Termín je zrušený</h1>
+                            <p class="hhr-lead">Čas je zase volný pro někoho dalšího.</p>
+                            <p class="hhr-micro">
+                                Kdyby ses chtěl přihlásit znovu,
+                                <a href="/rezervace">vyber si jiný termín</a>.
+                            </p>
+                        </t>
+                        <t t-else="">
+                            <h1 class="hhr-h1">Tenhle odkaz už neplatí</h1>
+                            <p class="hhr-lead">
+                                Termín je nejspíš zrušený už teď, nebo odkaz není úplný.
+                            </p>
+                            <p class="hhr-micro">
+                                Napiš mi na
+                                <a href="mailto:honzahauzr@gmail.com">honzahauzr@gmail.com</a>
+                                a srovnáme to.
+                            </p>
+                        </t>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+</odoo>

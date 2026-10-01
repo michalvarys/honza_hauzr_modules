@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Adresa pro upozorneni do nastaveni CRM, aby se dala kdykoliv prepsat
+    bez zasahu do kodu.
+
+    Kotva miri na <app name="crm">, ne na konkretni blok. Bloky v tom
+    pohledu vetsinou zadne id nemaji a jejich title se preklada - prvni
+    pokus na //block[@id='crm_setting_container'] shodil cely upgrade
+    hlaskou, ze prvek nelze najit v nadrazenem pohledu.
+-->
+<record id="res_config_settings_form_hh" model="ir.ui.view">
+    <field name="name">res.config.settings.form.honzahauzr</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//app[@name='crm']" position="inside">
+            <block title="Zprávy z webu" name="hh_web_messages">
+                <setting string="Upozornění posílat na"
+                         help="Na zadanou adresu přijde e-mail pokaždé, když někdo odešle formulář na webu. Zpráva se zároveň uloží mezi příležitosti. Prázdné pole = neposílá se nic.">
+                    <field name="hh_notify_email" placeholder="honzahauzr@gmail.com"/>
+                </setting>
+            </block>
+
+            <!--
+                Rozvrh, podle ktereho se terminy vyrabeji samy. Drive se
+                kazda hodina musela naklikat rucne - pri deseti hodinach
+                denne to bylo neunosne.
+            -->
+            <block title="Termíny na hovor" name="hh_rezervace">
+                <setting string="Kdy bereš hovory"
+                         help="Den se podle těchhle hodin rozseká na jednotlivé termíny. Ty se pak samy objeví na stránce s rezervacemi.">
+                    <div class="row">
+                        <label for="hh_rez_od" class="col-4 o_light_label"/>
+                        <field name="hh_rez_od" widget="float_time" class="col-2"/>
+                    </div>
+                    <div class="row">
+                        <label for="hh_rez_do" class="col-4 o_light_label"/>
+                        <field name="hh_rez_do" widget="float_time" class="col-2"/>
+                    </div>
+                    <div class="row">
+                        <label for="hh_rez_delka" class="col-4 o_light_label"/>
+                        <field name="hh_rez_delka" class="col-2"/>
+                    </div>
+                    <div class="row">
+                        <label for="hh_rez_dopredu" class="col-4 o_light_label"/>
+                        <field name="hh_rez_dopredu" class="col-2"/>
+                    </div>
+                </setting>
+                <setting string="Ve které dny"
+                         help="Ve vypnutých dnech se žádné termíny nevyrábějí.">
+                    <div>
+                        <field name="hh_rez_po"/>
+                        <label for="hh_rez_po" class="me-3"/>
+                        <field name="hh_rez_ut"/>
+                        <label for="hh_rez_ut" class="me-3"/>
+                        <field name="hh_rez_st"/>
+                        <label for="hh_rez_st" class="me-3"/>
+                        <field name="hh_rez_ct"/>
+                        <label for="hh_rez_ct" class="me-3"/>
+                    </div>
+                    <div>
+                        <field name="hh_rez_pa"/>
+                        <label for="hh_rez_pa" class="me-3"/>
+                        <field name="hh_rez_so"/>
+                        <label for="hh_rez_so" class="me-3"/>
+                        <field name="hh_rez_ne"/>
+                        <label for="hh_rez_ne" class="me-3"/>
+                    </div>
+                </setting>
+                <setting string="Vyrobit termíny hned" name="hh_generovat"
+                         help="Jinak se doplní samy v noci. Tohle se hodí hned po změně rozvrhu, ať se výsledek dá zkontrolovat.">
+                    <button name="hh_vygenerovat_terminy" type="object"
+                            string="Vyrobit termíny podle rozvrhu"
+                            class="btn-secondary"/>
+                </setting>
+            </block>
+
+        </xpath>
+    </field>
+</record>
+
+</odoo>
