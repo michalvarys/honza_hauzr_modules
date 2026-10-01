@@ -173,20 +173,6 @@
                         pohoda, uvnitř útěk před sebou samým.
                     </p>
                 </div>
-                <!-- Tlacitko lezi pres obe fotky, presne na jejich
-                     rozhrani. Na mobilu se prehodi pod ne - tam se
-                     fotky prekryvaji a tlacitko pres ne by je zakrylo.
-
-                     Nabeh visi na samotnem tlacitku, ne na obalu. Obal
-                     drzi vycentrovani pres translate(-50%, -50%) a
-                     animace transformaci prepisuje - tlacitko by behem
-                     nabehu odskocilo stranou. -->
-                <div class="hhn-mezi-fotky o_snippet_drop_in_only">
-                    <a href="/zpet-do-zivota" class="hhn-cta" data-anim="fade-in" data-delay="200">
-                        Začni zde zdarma
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-                    </a>
-                </div>
                 <div class="hhn-card o_snippet_drop_in_only" data-anim="fade-left" data-delay="120">
                     <div class="hhn-card__photo">
                         <span class="hhn-tag hhn-tag--now">Dnes</span>
@@ -202,6 +188,15 @@
             <p class="hhn-then-now__footnote" data-anim="fade" data-delay="200">
                 Tohle je moje cesta, ne návod. Ta tvoje bude vypadat jinak &#8211; a je to tak v pořádku.
             </p>
+
+            <!-- Tlacitko pod odstavcem, ne mezi fotkami. Mezi nimi
+                 prekryvalo obe fotky a pusobilo jako chyba. -->
+            <div class="hhn-center-action o_snippet_drop_in_only">
+                <a href="/zpet-do-zivota" class="hhn-cta" data-anim="fade-in" data-delay="200">
+                    Začni zde zdarma
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
         </div>
     </section>
 </template>

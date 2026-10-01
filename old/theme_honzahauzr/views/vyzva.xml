@@ -91,6 +91,18 @@
                                 A pokud nic nezměníš, dalších pět let nemusí vypadat hůř.<br/>
                                 Můžou vypadat úplně stejně.
                             </h2>
+                            <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="200">
+                                Možná máš rodinu, práci, závazky a spoustu důvodů nic
+                                neměnit. Jenže i život, který není katastrofa, může být
+                                životem, ve kterém se sám sobě postupně vzdaluješ.
+                            </p>
+                            <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="260">
+                                Nejsi v tom sám. A tahle výzva po tobě nechce, abys
+                                všechno zahodil nebo během tří dnů převrátil život
+                                naruby. Jde o to zastavit se, pojmenovat, co už nechceš
+                                dál přehlížet, a udělat první krok k tomu, abys znovu
+                                převzal vlastní režii.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -122,18 +134,28 @@
             <section data-name="Výzva — video" class="hhv-video o_cc o_colored_level">
                 <div class="container">
                     <div class="hhn">
-                        <div class="hhn-video hhn-video--sirokouhle" data-hhv-popis="Video na šířku" data-hhv-anim="up">
+                        <div class="hhn-video" data-hhn-video-mobil="" data-hhv-popis="Video" data-hhv-anim="up">
                             <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
                                 <div class="css_editable_mode_display"/>
                                 <div class="media_iframe_video_size"/>
                             </div>
                         </div>
-                        <div class="hhn-video hhn-video--svisle" data-hhv-popis="Video na výšku" data-hhv-anim="up">
-                            <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
-                                <div class="css_editable_mode_display"/>
-                                <div class="media_iframe_video_size"/>
-                            </div>
-                        </div>
+                    </div>
+
+                    <!-- Tri body a dve vety pod videem. Body rikaji, co vyzva
+                         neni - to je rychlejsi na precteni nez vysvetlovat,
+                         co je. Vety pod nimi pak reknou, co teda. -->
+                    <div class="hhv-nejsme" data-hhv-anim="up" data-hhv-delay="120">
+                        <ul class="hhv-nejsme__body">
+                            <li>Žádný „alfa samec“.</li>
+                            <li>Žádné vstávání ve čtyři ráno.</li>
+                            <li>Žádný vyřešený život za tři dny.</li>
+                        </ul>
+                        <p class="hhv-nejsme__text">
+                            Tohle není další dávka motivace. Je to krátký proces,
+                            ve kterém se na sebe podíváš upřímně a uděláš první
+                            konkrétní krok.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -280,18 +302,27 @@
                         <div class="hhv-about__text" data-hhv-anim="up" data-hhv-delay="120">
                             <h2 class="hhv-h2">Proč tě tím provádím právě já</h2>
                             <p class="hhv-body">
-                                Dlouho jsem navenek fungoval. Měl jsem práci, výsledky i cestu,
-                                která dávala smysl. Jen jsem si postupně začal uvědomovat, že
-                                velká část směru, kterým jdu, vlastně není úplně moje.
+                                Jmenuji se Honza Hauzr a vím, jak snadné je ztratit
+                                vlastní směr, i když zvenku všechno funguje.
                             </p>
                             <p class="hhv-body">
-                                Změna nezačala ve chvíli, kdy jsem našel dokonalý plán. Začala
-                                ve chvíli, kdy jsem přestal ignorovat to, co už dál nechci,
+                                Dlouho jsem měl práci, výsledky i cestu, která dávala
+                                smysl. Přesto jsem si postupně začal uvědomovat, že velká
+                                část směru, kterým jdu, vlastně není úplně moje. Fungoval
+                                jsem na autopilotu &#8212; v práci, ve vztazích i ve
+                                vlastních očekáváních.
+                            </p>
+                            <p class="hhv-body">
+                                Změna nezačala ve chvíli, kdy jsem našel dokonalý plán.
+                                Začala ve chvíli, kdy jsem se zastavil, přestal ignorovat
+                                to, co už dál nechci, začal si klást nepříjemné otázky,
                                 převzal svůj podíl a začal dělat konkrétní rozhodnutí.
                             </p>
                             <p class="hhv-body">
-                                Neřeknu ti, jak máš žít. Pomůžu ti ale podívat se na vlastní
-                                vzorce tak, aby z uvědomění vznikl skutečný krok.
+                                Dnes pomáhám mužům, kteří chtějí žít vědoměji, klidněji
+                                a víc podle sebe. Neřeknu ti, jak máš žít. Pomůžu ti ale
+                                podívat se na vlastní vzorce tak, aby z uvědomění vznikl
+                                skutečný krok &#8212; krok, který bude opravdu tvůj.
                             </p>
                             <div class="hhv-sign">
                                 <p class="hhv-sign__name">Honza Hauzr</p>
@@ -351,7 +382,7 @@
             <section data-name="Výzva — časté otázky" class="hhv-faq o_cc o_colored_level">
                 <div class="container">
                     <div class="hhv-faq__header">
-                        <h2 class="hhv-h2" data-hhv-anim="up">Časté otázky</h2>
+                        <h2 class="hhv-h2" data-hhv-anim="up">Často kladené otázky</h2>
                     </div>
                     <div class="hhv-faq__list" data-hhv-anim="up" data-hhv-delay="100">
                         <details class="hhv-faq__item" open="open">
@@ -361,19 +392,102 @@
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                                 </span>
                             </summary>
-                            <p class="hhv-faq__a">Ano. Registrace i všechny tři dny jsou zdarma.</p>
+                            <p class="hhv-faq__a">
+                                Ano. Registrace, všechna tři videa i navazující úkoly
+                                jsou zdarma.
+                            </p>
                         </details>
                         <details class="hhv-faq__item">
                             <summary class="hhv-faq__q">
-                                <span>Musím být každý den online v konkrétní čas?</span>
+                                <span>Jak a kdy se mi zpřístupní jednotlivá videa?</span>
                                 <span class="hhv-faq__chev">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                                 </span>
                             </summary>
                             <p class="hhv-faq__a">
-                                Ne. Každý den ti přijde e-mail s odkazem na další video a úkol.
-                                Doporučuji ale projít výzvu ve třech navazujících dnech, protože
-                                každý krok staví na předchozím.
+                                Všechna tři videa najdeš na jedné stránce. První se ti
+                                zpřístupní po registraci, druhé po 24 hodinách a třetí
+                                po 48 hodinách. Každý den ti zároveň přijde e-mail
+                                s připomenutím, že je připravený další krok.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Musím být online v konkrétní čas?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Ne. Videa i úkoly si projdeš ve chvíli, kdy ti to
+                                vyhovuje. Doporučuji ale projít výzvu během tří
+                                navazujících dnů, protože každý krok staví na tom
+                                předchozím.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Jak dlouho mi výzva zabere?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Počítej přibližně s 20&#8211;30 minutami denně. Nejde jen
+                                o sledování videa &#8212; důležitá je také chvíle, kdy se
+                                zastavíš a uděláš konkrétní úkol.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Potřebuji něco speciálního?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Ne. Stačí ti papír, propiska, chvíle klidu a ochota být
+                                k sobě upřímný.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Co když jeden den nestihnu?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Nic se neděje. Pokračuj ve chvíli, kdy budeš mít prostor.
+                                Největší smysl ale výzva získá, když mezi jednotlivými
+                                kroky nevznikne příliš dlouhá pauza.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Budu muset něco veřejně sdílet?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Ne. Úkoly si děláš sám pro sebe a nic nemusíš
+                                zveřejňovat ani nikomu posílat. Záleží jen na tobě, co si
+                                necháš pro sebe a o čem případně budeš chtít mluvit.
+                            </p>
+                        </details>
+                        <details class="hhv-faq__item">
+                            <summary class="hhv-faq__q">
+                                <span>Musím mít velký problém nebo být v krizi?</span>
+                                <span class="hhv-faq__chev">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                </span>
+                            </summary>
+                            <p class="hhv-faq__a">
+                                Ne. Právě naopak. Nemusíš čekat, až se něco rozpadne.
+                                Výzva je pro muže, kteří navenek fungují, ale cítí, že
+                                v některé důležité oblasti už příliš dlouho stojí na
+                                místě nebo jedou na autopilota.
                             </p>
                         </details>
                         <details class="hhv-faq__item">
@@ -384,9 +498,10 @@
                                 </span>
                             </summary>
                             <p class="hhv-faq__a">
-                                Ne. Výzva nenahrazuje terapii, psychologickou ani zdravotní péči.
-                                Je určená pro člověka, který chce lépe pochopit své vzorce a začít
-                                dělat vědomější rozhodnutí v běžném životě.
+                                Ne. Výzva nenahrazuje terapii, psychologickou ani
+                                zdravotní péči. Je určená pro člověka, který chce lépe
+                                pochopit svoje vzorce a začít dělat vědomější rozhodnutí
+                                v běžném životě.
                             </p>
                         </details>
                         <details class="hhv-faq__item">
@@ -397,8 +512,10 @@
                                 </span>
                             </summary>
                             <p class="hhv-faq__a">
-                                Na konci ukážu možnost pokračovat hlouběji ve vedeném 40denním
-                                procesu Tvůj tah. Nebude to pro každého ani povinný další krok.
+                                Na konci ti ukážu možnost pokračovat hlouběji ve vedeném
+                                programu Tvůj tah. Pokračování je zcela dobrovolné. Můžeš
+                                si odnést pouze to, co získáš během tří dnů, a dál už
+                                nikam pokračovat nemusíš.
                             </p>
                         </details>
                     </div>

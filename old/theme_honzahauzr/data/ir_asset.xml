@@ -97,5 +97,33 @@
     <field name="path">theme_honzahauzr/static/src/js/hh-logo.js</field>
 </record>
 
+
+<!-- Video nahrane primo na web. Skript ceka na kliknuti a teprve
+     potom vymeni nahled za prehravac. -->
+<record id="asset_hh_video_soubor_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - video ze souboru (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-video-soubor.js</field>
+</record>
+
+<!-- Tlacitko "Nahrát video" v pravem panelu editoru.
+
+     POZOR: tady zamerne NENI theme.ir.asset jako u vseho ostatniho.
+
+     Pri aplikaci tematu dostane kazdy zkopirovany asset website_id
+     konkretniho webu. Editor stranek ale bezi na backendovem svazku
+     website.backend_assets_all_wysiwyg, ktery se sestavuje bez
+     kontextu webu - a Odoo z nej kazdy asset s website_id vyhodi
+     (ir.asset.filter_duplicate). Skript by se nenacetl a tlacitko
+     by nereagovalo.
+
+     Obycejny ir.asset zadne website_id nema, takze se do svazku
+     dostane. Cizim webum to nevadi: soubor jen zaregistruje volby
+     pro blok .hhv-soubor, ktery nikde jinde neexistuje. -->
+<record id="asset_hh_video_soubor_volby_js" model="ir.asset">
+    <field name="name">Honza Hauzr - video ze souboru (volby editoru)</field>
+    <field name="bundle">website.assets_wysiwyg</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-video-soubor-volby.js</field>
+</record>
 </data>
 </odoo>

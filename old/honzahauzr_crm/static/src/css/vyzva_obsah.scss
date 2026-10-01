@@ -341,3 +341,14 @@ section.s_hh_vyzva_dny {
     max-height: none;
     margin: 0;
 }
+
+/* Na mobilu se ramecek prepne na vysku, ale jen kdyz je svisle video
+   opravdu vyplnene v policku "Video pro mobil". Jinak by se do
+   vysokeho boxu cpalo siroke video z desktopu a zbyl by z nej tenky
+   prouzek. Stejne se chova video na hlavni strance i na landing page. */
+@media (max-width: 991px) {
+    .hhd .hhd-video[data-hhn-video-mobil]:not([data-hhn-video-mobil=""]) {
+        aspect-ratio: 9 / 16;
+        max-width: 300px;
+    }
+}

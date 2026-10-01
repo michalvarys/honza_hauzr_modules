@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     VIDEO NAHRANE PRIMO NA WEB
+
+     Pro videa, ktera nemaji byt na YouTube. Soubor se nahraje do
+     Odoo a lezi na webu.
+
+     Na strance se nejdriv ukaze jen nahledovy obrazek s tlacitkem
+     play. Samotne video se stahne az po kliknuti. Duvod je prosty:
+     video ma desitky MB a kdyby se nacitalo rovnou, navstevnik by
+     chvili koukal na prazdne misto a na mobilnich datech by to
+     stahoval zbytecne. Takhle se nacte obrazek za par kB a video
+     jen tomu, kdo ho chce videt.
+
+     Nahled je obycejny <img>, takze se v editoru vymeni dvojklikem
+     jako kterykoliv jiny obrazek. Soubor s videem se vybira v pravem
+     panelu tlacitkem "Nahrát video" - viz snippets_registry.xml
+     a static/src/js/hh-video-soubor-volby.js.
+     ================================================================ -->
+
+<template id="s_hh_video_soubor" name="Video ze souboru">
+    <div class="hhv-soubor" data-hhv-soubor="" data-hhv-soubor-mobil="">
+        <img class="hhv-soubor__nahled"
+             src="/theme_honzahauzr/static/src/img/pribeh-dnes.webp"
+             alt="Náhled videa"/>
+        <button type="button" class="hhv-soubor__play"
+                aria-label="Přehrát video">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+    </div>
+</template>
+
+</odoo>

@@ -349,6 +349,20 @@
     color: rgba(244, 239, 230, 0.68);
 }
 
+/* Text pod hlavni vetou. Sedi na grafitu, takze svetly - a o kus
+   tlumenejsi nez samotne tvrzeni, aby mu nekonkuroval. Sirsi nez
+   zbytek bloku by se spatne cetl, proto zustava v jeho sirce. */
+.hhv .hhv-stop__pas .hhv-stop__text {
+    margin-top: 22px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(244, 239, 230, 0.78);
+}
+
+.hhv .hhv-stop__pas .hhv-stop__text + .hhv-stop__text {
+    margin-top: 16px;
+}
+
 /* Bronzova linka nad tvrzenim - drobne zastaveni, nez zacne cist. */
 .hhv .hhv-stop__pas .hhv-stop__claim::before {
     content: "";
@@ -385,8 +399,60 @@
 /* Vnitrek je prevzaty blok z hlavni stranky (obal .hhn). Meni se jen
    sirka: tady je video hlavni ukazka, ne doplnek pribehu, takze dostava
    vic mista - v pasmu 900-1050 px ze zadani. */
-.hhv .hhv-video .hhn-video--sirokouhle {
+.hhv .hhv-video .hhn-video {
     max-width: 960px;
+}
+
+/* Tri body a dve vety pod videem.
+
+   Sekce je grafitova, takze text je svetly. Body maji bronzovy
+   krizek misto odrazky - rikaji, co vyzva NENI, a krizek to rekne
+   drive nez samotny text. */
+.hhv .hhv-nejsme {
+    max-width: 660px;
+    margin: 36px auto 0;
+    text-align: center;
+}
+
+.hhv .hhv-nejsme__body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.hhv .hhv-nejsme__body li {
+    position: relative;
+    padding-left: 26px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(244, 239, 230, 0.88);
+}
+
+.hhv .hhv-nejsme__body li::before {
+    content: "×";
+    position: absolute;
+    left: 4px;
+    top: -1px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--hhv-bronze-light);
+}
+
+.hhv .hhv-nejsme__text {
+    margin: 24px 0 0;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(244, 239, 230, 0.7);
+}
+
+@media (max-width: 767px) {
+    .hhv .hhv-nejsme {
+        margin-top: 28px;
+    }
 }
 
 /* ===== 4.3 ODLISENI VYZVY ===== */
@@ -1007,9 +1073,10 @@
 @media (max-width: 991px) {
 
     /* Svisle video jde na mobilu skoro pres celou sirku - jen s beznymi
-       bocnimi okraji stranky. Na hlavni strance je zamerne uzsi, tam je
-       to doplnek pribehu, ne hlavni ukazka. */
-    .hhv .hhv-video .hhn-video--svisle {
+       bocnimi okraji stranky. Plati jen kdyz je svisle video opravdu
+       vyplnene - jinak by se do vysokeho boxu cpalo siroke video
+       z desktopu. */
+    .hhv .hhv-video .hhn-video[data-hhn-video-mobil]:not([data-hhn-video-mobil=""]) {
         max-width: 100%;
     }
     .hhv .hhv-hero__grid {

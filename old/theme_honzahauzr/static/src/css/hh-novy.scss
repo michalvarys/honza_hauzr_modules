@@ -1595,3 +1595,96 @@ footer .o_footer_copyright {
     max-height: none;
     margin: 0;
 }
+
+/* ===== VIDEO NAHRANE PRIMO NA WEB =====
+
+   Na strance je nejdriv jen nahledovy obrazek s tlacitkem play.
+   Video se stahne az po kliknuti - viz hh-video-soubor.js.
+
+   Pravidla zamerne nejsou zanorena pod .hhn / .hhv / .hhd jako zbytek
+   souboru. Tenhle blok je snippet, ktery si Honza muze pretahnout i na
+   stranku, kterou si teprve zalozi - a ta zadnou z tech trid mit
+   nebude. Trida .hhv-soubor nikde jinde neexistuje a cely tenhle soubor
+   se nacita jen na tomhle webu, takze nic jineho to neovlivni. */
+.hhv-soubor {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+}
+
+.hhv-soubor__nahled {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tlacitko play uprostred. Je to jen znacka pro oko - kliknout jde
+   kamkoliv do bloku, aby se na mobilu nemusel nikdo trefovat. */
+.hhv-soubor__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 74px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.56);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hhv-soubor:hover .hhv-soubor__play {
+    background: rgba(0, 0, 0, 0.74);
+    transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Jakmile video bezi, nahled ani tlacitko uz nejsou potreba. */
+.hhv-soubor--hraje .hhv-soubor__nahled,
+.hhv-soubor--hraje .hhv-soubor__play {
+    display: none;
+}
+
+.hhv-soubor__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+/* Na celou obrazovku jde samotne <video>. Nase pravidla vys jsou
+   specifictejsi nez to, co si na fullscreen nastavi prohlizec, takze
+   by se video vykreslilo v rozmerech bloku a roztahlo. */
+.hhv-soubor__video:fullscreen,
+.hhv-soubor__video:-webkit-full-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+}
+
+/* Na mobilu se blok prepne na vysku, ale jen kdyz je svisle video
+   opravdu vyplnene. Jinak by se do vysokeho boxu cpalo siroke video
+   z pocitace a zbyl by z nej tenky prouzek. Stejne se chovaji i videa
+   z YouTube. */
+@media (max-width: 991px) {
+    .hhv-soubor[data-hhv-soubor-mobil]:not([data-hhv-soubor-mobil=""]) {
+        aspect-ratio: 9 / 16;
+        max-width: 300px;
+    }
+}
