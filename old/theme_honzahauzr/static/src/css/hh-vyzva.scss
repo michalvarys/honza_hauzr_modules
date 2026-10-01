@@ -28,6 +28,17 @@
     --hhv-ink-muted: #857b6e;
     --hhv-line: rgba(35, 33, 29, 0.12);
 
+    /* Ano a ne u seznamu. Zelena a cervena jsou tlumene, aby na
+       piskovem podkladu nekricely vedle bronzove - prilis syte by
+       z nich udelaly semafor. Svetlejsi cervena je pro grafitovou
+       sekci, kde by ta tmava zanikla. */
+    /* Zelena je tmavsi, nez by se cekalo. Svetlejsi odstin mel na
+       piskovem podkladu mensi kontrast nez cervena vedle a fajfky
+       proti krizkum opticky mizely. */
+    --hhv-ano: #35694a;
+    --hhv-ne: #b23a2e;
+    --hhv-ne-svetla: #d9674f;
+
     box-sizing: border-box;
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--hhv-cream);
@@ -432,14 +443,20 @@
     color: rgba(244, 239, 230, 0.88);
 }
 
+/* Krizek byl znak "×" ze zakladniho pisma. Kazdy font ho kresli
+   jinak, byva tenky a sedi mimo osu radku - proto pusobil jako
+   nedodelek. Tady je kresleny tvar v masce, takze ma presnou
+   tloustku i zakonceni tahu a barvu si bere z pozadi. */
 .hhv .hhv-nejsme__body li::before {
-    content: "×";
+    content: "";
     position: absolute;
-    left: 4px;
-    top: -1px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--hhv-bronze-light);
+    left: 0;
+    top: 0.42em;
+    width: 15px;
+    height: 15px;
+    background-color: var(--hhv-ne-svetla);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .hhv .hhv-nejsme__text {
@@ -534,12 +551,18 @@
     background: var(--hhv-line);
 }
 
+/* Patkova cislice se starodavnymi cifram (nula vysoka, jednicka
+   s patkou) pusobila jako ozdoba, ne jako poradi dne. Bezpatkova
+   s pevnou sirkou cislic drzi 01 02 03 pod sebou presne na osu. */
 .hhv .hhv-day__num {
     display: block;
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 2rem;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.85rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
     line-height: 1;
+    letter-spacing: -0.02em;
     color: var(--hhv-bronze);
 }
 
@@ -616,30 +639,37 @@
 /* Znacka v plnem koleckem, jak je v navrhu. Ano bronzove a plne,
    ne jen obrys - rozdil mezi obema sloupci je tim videt na prvni
    pohled, jeste nez clovek zacne cist. */
+/* Znacka uz nestoji v koleccku. Vyplneny i obrysovy puntik byly
+   dve ruzne ozdoby kolem tehoz tvaru a vzniklo z toho pet kolecek
+   pod sebou. Ted je videt jen samotny tah - vetsi, silnejsi
+   a barevny, takze "ano" a "ne" jde rozeznat driv nez se text
+   stihne precist. */
 .hhv .hhv-list__mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    width: 19px;
-    height: 19px;
-    margin-top: 2px;
-    border-radius: 999px;
-    background: var(--hhv-bronze);
-    color: var(--hhv-cream);
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--hhv-ano);
 }
 
-/* Druhy sloupec je jen naznaceny - obrys misto plne vypln, at
-   nekonkuruje tomu prvnimu. */
 .hhv .hhv-list--no .hhv-list__mark {
-    border: 1.5px solid var(--hhv-taupe);
+    border: 0;
     background: none;
-    color: var(--hhv-taupe);
+    color: var(--hhv-ne);
 }
 
 .hhv .hhv-list__mark svg {
-    width: 11px;
-    height: 11px;
+    width: 19px;
+    height: 19px;
+    /* Tloustka je v sablone atributem; tady ji prebijeme, aby tah
+       unesl vetsi velikost a nepusobil drátově. */
+    stroke-width: 2.6;
 }
 
 /* ===== 4.6 OSOBNI SEKCE HONZY ===== */
