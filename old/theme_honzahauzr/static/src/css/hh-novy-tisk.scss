@@ -216,23 +216,16 @@ html:has(#wrap.hh-landing.hhn) {
    Pruh je kresleny pozadim, ne pres text-decoration - to u
    diakritiky (ě, ř, ů) skace nahoru a dolu podle toho, jak
    hluboko sahaji dolni dotahy. */
+/* Nazvy u cislic zadne podtrzeni nemaji. Modra cara zustava
+   vyhrazena tlacitku "Začni zde zdarma" v hlavicce - kdyz ji nesly
+   i nadpisy policek, prestala byt znackou hlavni akce a stala se
+   z ni jen dalsi ozdoba. */
 #wrap.hh-landing.hhn .hhn-point h3,
 #wrap.hh-landing.hhn .hhn-pillar h3 {
-    /* Pruh kresleny pozadim koncil tam, kde koncil ramecek nadpisu,
-       ne text. U dvouradkoveho nazvu byl ramecek siroky jako delsi
-       radek, takze pod tim kratsim cara pretrvavala do prazdna.
-       Skutecne podtrzeni se ridi textem na kazdem radku zvlast.
-
-       skip-ink: none drzi caru nepretrzitou i pod dolnimi dotahy
-       (y, j, p) - jinak by se u nich prerusovala. */
     width: auto;
     background-image: none;
     padding-bottom: 0;
-    text-decoration: underline;
-    text-decoration-color: #2aa6ee;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 5px;
-    text-decoration-skip-ink: none;
+    text-decoration: none;
 }
 
 #wrap.hh-landing.hhn .hhn-point p {
@@ -546,9 +539,16 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu {
     margin-top: 10px;
     min-width: 230px;
     padding: 6px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 0;
-    background: rgba(42, 166, 238, 0.05);
+    /* Tmave sklo, ne jen nadech modre.
+
+       Samotna petiprocentni vrstva nemela co ztmavit - pod
+       nabidkou lezi hero s oblohou a rozostreni z ni udela
+       svetlou plochu, na ktere se bile pismo ztratilo. Tmavy
+       podklad drzi text citelny a modra zustava jako nadech. */
+    background-color: rgba(11, 10, 15, 0.84);
+    background-image: linear-gradient(rgba(42, 166, 238, 0.07), rgba(42, 166, 238, 0.07));
     -webkit-backdrop-filter: blur(22px) saturate(140%);
     backdrop-filter: blur(22px) saturate(140%);
     box-shadow: none;
@@ -636,7 +636,8 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
    je desetina, kterou clovek ceka, nez se stranka hne. */
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile {
     transition-duration: 0.18s;
-    background: rgba(42, 166, 238, 0.05);
+    background-color: rgba(11, 10, 15, 0.9);
+    background-image: linear-gradient(rgba(42, 166, 238, 0.07), rgba(42, 166, 238, 0.07));
     -webkit-backdrop-filter: blur(22px) saturate(140%);
     backdrop-filter: blur(22px) saturate(140%);
 }
