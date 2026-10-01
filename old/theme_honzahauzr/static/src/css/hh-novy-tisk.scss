@@ -540,6 +540,105 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
     }
 }
 
+/* ===== HAMBURGER NA MOBILU =====
+
+   Vysunovaci nabidka je uplne jina stavba nez lista na pocitaci
+   a hlavne: Odoo jí dava "top_menu" jen jako tridu, id nastavuje
+   vyhradne na siroke verzi. Pravidla vys, ktera miri na #top_menu,
+   sem proto nedosahnou a nabidka zustavala v puvodnim kabate -
+   s pilulkovitym tlacitkem a mrtvym napisem "Menu".
+
+   Vsechno se tedy opakuje jeste jednou pres tridu. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile {
+    background: #0b0a0f;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu > li > .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 0;
+    padding: 15px 2px !important;
+    margin: 0;
+    background: none;
+    background-image: none;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* Vyzva stoji az pod sekcemi a odlisi ji modre podtrzeni, stejne
+   jako na pocitaci. V poradi uz posledni je - v sablone stoji za
+   polozkou "Menu", pod kterou se sekce rozbaluji. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu > li:not(.dropdown) > .nav-link {
+    display: inline-flex;
+    width: auto;
+    margin-top: 22px;
+    padding: 4px 2px 9px !important;
+    /* Pilulku kresli puvodni styl selektorem se dvema id, takze
+       zaobleni i vypln je potreba zhasnout duraznе. */
+    border: 0;
+    border-bottom: 2px solid #2aa6ee;
+    border-radius: 0 !important;
+    background: none !important;
+    background-image: none !important;
+    color: #fff;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .nav-link::after {
+    display: none;
+}
+
+/* V hamburgeru uz se nic neschovava. Na male obrazovce je
+   rozklikavani krok navic a ta nabidka je kratka - sekce proto
+   stoji rovnou pod sebou a samotny prepinac "Menu" je zbytecny. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu > li.dropdown > .nav-link {
+    display: none !important;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu {
+    display: block;
+    position: static;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0 !important;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+/* Sekce vypadaji jako polozky prvni urovne - zadne odsazeni,
+   protoze uz nad nimi nestoji zadny nadrazeny nazev. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item.active,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .nav-link {
+    padding: 15px 2px;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0 !important;
+    background: none;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item:hover,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item:focus {
+    background: none;
+    color: #6bb5ff;
+}
+
 /* ===== UZKE OKNO ===== */
 @media (max-width: 991px) {
     #wrap.hh-landing.hhn .hhn-points {
@@ -637,7 +736,7 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
         margin: 0;
         padding: 0;
         border: 0;
-        border-radius: 0;
+        border-radius: 0 !important;
         grid-column: 1;
         font-size: 0.98rem;
         line-height: 1.35;
