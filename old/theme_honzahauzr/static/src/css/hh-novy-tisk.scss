@@ -249,6 +249,17 @@
 }
 
 /* ===== 3. PRIBEH ===== */
+
+/* Text pribehu je vycentrovany pres celou sirku sekce. Pri 68
+   znacich na radek zbyvalo po stranach pres 500 px prazdna
+   a odstavce se lamaly na zbytecne mnoho radku. Na celou sirku
+   je ale pustit nejde - u radku pres 1100 px oko na konci
+   ztraci ten nasledujici. 900 px je rozumny kompromis. */
+@media (min-width: 992px) {
+    #wrap.hh-landing.hhn .hhn-story__text p {
+        max-width: 900px;
+    }
+}
 /* Stitek Driv / Dnes byl pilulka uprostred. V predloze je to
    razitko v rohu fotky. */
 #wrap.hh-landing.hhn .hhn-tag {
@@ -321,9 +332,26 @@
 /* ===== 7. NEWSLETTER ===== */
 /* Zadny barevny pruh u horni hrany - jen tatáž vlasova linka,
    jakou jsou oddelena policka vys na strance. */
+/* Text stoji nad formularem, ne vedle nej.
+
+   Ve dvou sloupcich zbyl na popis uzky prouzek, do ktereho se
+   veta lamala po trech slovech - nadpis "Chceš zůstat v
+   kontaktu?" se rozpadl na dva radky a odstavec na sedm. Pres
+   celou sirku se precte na dva radky a box muze byt nizsi. */
 #wrap.hh-landing.hhn .hh-news__box {
+    display: block;
+    max-width: 760px;
+    margin-left: 0;
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: none;
+}
+
+#wrap.hh-landing.hhn .hh-news__text {
+    margin-bottom: 22px;
+}
+
+#wrap.hh-landing.hhn .hh-news__text p {
+    max-width: 58ch;
 }
 
 /* ============================================================
@@ -363,16 +391,19 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu > li > .btn {
     line-height: 1;
 }
 
-/* Tlacitko "Menu" je jen obrys, aby nekonkurovalo vyzve vedle. */
+/* Zadne ramecky ani vyplne - v hlavicce zustane jen pismo.
+   Dve ohranicena tlacitka vedle sebe pusobila jako lista
+   v administraci, ne jako hlavicka webu. */
 body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link {
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    border: 0;
+    background: none;
     color: #fff;
 }
 
 body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link:hover,
 body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link[aria-expanded="true"] {
-    border-color: #2aa6ee;
-    background: rgba(42, 166, 238, 0.12);
+    background: none;
+    color: #6bb5ff;
 }
 
 /* Sipka u rozbaleni. Bootstrap kresli trojuhelnicek pres border,
@@ -404,35 +435,68 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link[ar
     transform: rotate(-135deg);
 }
 
-/* Vyzva zustava plna - je to jediny cil stranky. */
+/* Vyzvu odlisi modre podtrzeni, ne vyplnena plocha. Plny
+   obdelnik v hlavicce pretahoval pozornost tlacitku primo
+   v obsahu stranky, ktere na stejne misto vede. */
 body:has(#wrap.hh-landing.hhn) header#top #top_menu > li:not(.dropdown) > .nav-link {
-    border: 1px solid #2aa6ee;
-    background: #2aa6ee;
+    border: 0;
+    border-bottom: 2px solid #2aa6ee;
+    background: none;
     background-image: none;
     color: #fff;
+    /* Spodni hrana sedi na uctare pisma, ne pod celou vyskou
+       tlacitka - jinak by podtrzeni plavalo kus pod napisem. */
+    padding-bottom: 8px !important;
 }
 
 body:has(#wrap.hh-landing.hhn) header#top #top_menu > li:not(.dropdown) > .nav-link:hover {
-    border-color: #4a90d9;
-    background: #4a90d9;
+    border-bottom-color: #6bb5ff;
+    background: none;
+    color: #6bb5ff;
+    transform: none;
 }
 
 /* Rozbalena nabidka: sekce pod sebou, hranata, bez stinu. */
+/* Rozbalena nabidka jen jemne prisvetli to, co je pod ni.
+
+   Petiprocentni vrstva sama o sobe nestaci - text by lezel primo
+   na fotce v hero a nedal by se precist. Rozostreni podkladu to
+   resi: barvy pod nabidkou se rozpiji do plochy, takze pismo ma
+   do ceho sednout a nabidka pritom zustane prusvitna. */
 body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu {
-    margin-top: 6px;
+    margin-top: 10px;
     min-width: 230px;
     padding: 6px 0;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0;
-    background: #0e0c13;
+    background: rgba(42, 166, 238, 0.05);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
     box-shadow: none;
 }
 
+/* Kde prohlizec rozostreni podkladu neumi, nabidka by zustala
+   skoro pruhledna. Tam radeji tmavy podklad - citelnost ma
+   prednost pred efektem. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu {
+        background: rgba(14, 12, 19, 0.96);
+    }
+}
+
+/* Vsechny polozky nesou tridu "active" - miri kotvou na tutez
+   stranku, na ktere stojime, takze je Odoo povazuje za aktivni.
+   Bootstrap jim proto kreslil plnou fialovou vypln a z nabidky
+   byl barevny blok. Pozadi tu musi byt vypnute vcetne .active,
+   jinak se prebarvi zpatky. */
 body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .nav-link,
-body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item {
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item.active,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:active {
     padding: 11px 20px;
     border-radius: 0;
-    color: rgba(255, 255, 255, 0.82);
+    background: none;
+    color: rgba(255, 255, 255, 0.86);
     font-size: 13.5px;
     font-weight: 500;
     letter-spacing: 0;
@@ -440,8 +504,10 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
 }
 
 body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .nav-link:hover,
-body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:hover {
-    background: rgba(42, 166, 238, 0.14);
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:hover,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item.active:hover,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:focus {
+    background: rgba(42, 166, 238, 0.16);
     color: #fff;
 }
 
@@ -537,10 +603,26 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
     #wrap.hh-landing.hhn .hhn-point,
     #wrap.hh-landing.hhn .hhn-pillar,
     #wrap.hh-landing.hhn .hhn-step {
-        border: 0;
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 0;
         background: rgba(42, 166, 238, 0.15);
-        padding: 16px 18px;
+        padding: 18px 20px;
+    }
+
+    /* Cislo v koleccku vedle nazvu - stejne jako kroky vyzvy na
+       sirokem displeji. Holá cislice v boxu pusobila jako odrazka
+       v seznamu, kolecko z ni udela znacku. */
+    #wrap.hh-landing.hhn .hhn-point::before,
+    #wrap.hh-landing.hhn .hhn-pillar::before {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border: 1px solid rgba(107, 181, 255, 0.55);
+        border-radius: 999px;
+        font-size: 0.82rem;
+        line-height: 1;
     }
 
     /* Prepsat vsechna pravidla pro prvni/posledni/lichy sloupec
@@ -555,21 +637,32 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
     #wrap.hh-landing.hhn .hhn-pillar:nth-child(odd),
     #wrap.hh-landing.hhn .hhn-pillar:first-child,
     #wrap.hh-landing.hhn .hhn-pillar:last-child {
-        border: 0;
-        padding: 16px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 18px 20px;
     }
 
-    /* Mensi nez na siroke obrazovce - v uzkem boxu by puvodni
-       stupen zabral radek navic a text by se rozsypal. */
-    #wrap.hh-landing.hhn .hhn-point::before,
-    #wrap.hh-landing.hhn .hhn-pillar::before {
-        font-size: 1.55rem;
-        margin-bottom: 8px;
+    /* Nazev vedle koleccka, popis pres celou sirku pod nimi. */
+    #wrap.hh-landing.hhn .hhn-point,
+    #wrap.hh-landing.hhn .hhn-pillar {
+        display: grid;
+        grid-template-columns: 26px minmax(0, 1fr);
+        align-items: center;
+        column-gap: 12px;
+        row-gap: 10px;
     }
 
     #wrap.hh-landing.hhn .hhn-point h3,
     #wrap.hh-landing.hhn .hhn-pillar h3 {
-        font-size: 0.9rem;
+        grid-column: 2;
+        font-size: 0.95rem;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point p,
+    #wrap.hh-landing.hhn .hhn-pillar p {
+        grid-column: 1 / -1;
+        grid-row: auto;
     }
 
     #wrap.hh-landing.hhn .hhn-point p,
