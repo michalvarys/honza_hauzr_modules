@@ -341,7 +341,8 @@
 #wrap.hh-landing.hhn .hh-news__box {
     display: block;
     max-width: 760px;
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: none;
 }
@@ -584,113 +585,108 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
     }
 }
 
-/* ===== MOBIL: POLICKA JAKO BOXY =====
-   Na uzkem displeji se z policek stane sloupec pod sebou. Linky,
-   ktere je na siroke obrazovce oddeluji, tam prestanou fungovat -
-   oko je cte jako cary pres celou sirku, ne jako hranici mezi
-   dvema vecmi. Proto kazde policko dostane vlastni modrou plochu.
+/* ===== MOBIL: STEJNE JAKO NA POCITACI, JEN POD SEBOU =====
 
-   Modra je pruhledna, takze pod ni prosvita podklad sekce a
-   policka nepusobi jako nalepene cedule. */
+   Boxy tu byly a nefungovaly. Kazde policko dostalo vlastni
+   plochu, ramecek a kolecko u cislice, takze ctyri kratke vety
+   zabraly pul obrazovky a stranka se rozpadla na sadu cedulí.
+
+   Ted je to stejne jako na sirokem displeji - cislo u nazvu,
+   popis pod nim, policka oddelena vlasovou linkou. Jen tesneji,
+   aby to na mobilu nezabralo vic mista, nez musi. */
 @media (max-width: 767px) {
     #wrap.hh-landing.hhn .hhn-points,
-    #wrap.hh-landing.hhn .hhn-pillars {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
+    #wrap.hh-landing.hhn .hhn-pillars,
+    #wrap.hh-landing.hhn .hhn-steps {
+        display: block;
+        gap: 0;
     }
 
     #wrap.hh-landing.hhn .hhn-point,
     #wrap.hh-landing.hhn .hhn-pillar,
-    #wrap.hh-landing.hhn .hhn-step {
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 0;
-        background: rgba(42, 166, 238, 0.15);
-        padding: 18px 20px;
-    }
-
-    /* Cislo v koleccku vedle nazvu - stejne jako kroky vyzvy na
-       sirokem displeji. Holá cislice v boxu pusobila jako odrazka
-       v seznamu, kolecko z ni udela znacku. */
-    #wrap.hh-landing.hhn .hhn-point::before,
-    #wrap.hh-landing.hhn .hhn-pillar::before {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        border: 1px solid rgba(107, 181, 255, 0.55);
-        border-radius: 999px;
-        font-size: 0.82rem;
-        line-height: 1;
-    }
-
-    /* Prepsat vsechna pravidla pro prvni/posledni/lichy sloupec
-       ze sirokych obrazovek. Tam odebirala odsazeni u vnejsich
-       hran mrizky, aby text lícoval s okrajem sekce - v boxu pod
-       sebou by ale text vytekl z modre plochy ven. */
     #wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2),
     #wrap.hh-landing.hhn .hhn-point:nth-child(odd),
     #wrap.hh-landing.hhn .hhn-point:nth-child(even),
-    #wrap.hh-landing.hhn .hhn-point:first-child,
-    #wrap.hh-landing.hhn .hhn-point:last-child,
     #wrap.hh-landing.hhn .hhn-pillar:nth-child(odd),
     #wrap.hh-landing.hhn .hhn-pillar:first-child,
     #wrap.hh-landing.hhn .hhn-pillar:last-child {
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 18px 20px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: baseline;
+        column-gap: 9px;
+        row-gap: 3px;
+        background: none;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.13);
+        padding: 13px 0;
     }
 
-    /* Nazev vedle koleccka, popis pres celou sirku pod nimi. */
-    #wrap.hh-landing.hhn .hhn-point,
-    #wrap.hh-landing.hhn .hhn-pillar {
-        display: grid;
-        grid-template-columns: 26px minmax(0, 1fr);
-        align-items: center;
-        column-gap: 12px;
-        row-gap: 10px;
+    /* Prvni policko nema nad sebou co oddelovat. */
+    #wrap.hh-landing.hhn .hhn-points > :first-child,
+    #wrap.hh-landing.hhn .hhn-pillars > :first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    /* Cislo beze vseho kolem - stejne jako na pocitaci. */
+    #wrap.hh-landing.hhn .hhn-point::before,
+    #wrap.hh-landing.hhn .hhn-pillar::before {
+        display: inline;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        grid-column: 1;
+        font-size: 0.98rem;
+        line-height: 1.35;
     }
 
     #wrap.hh-landing.hhn .hhn-point h3,
     #wrap.hh-landing.hhn .hhn-pillar h3 {
         grid-column: 2;
+        margin: 0;
         font-size: 0.95rem;
+        line-height: 1.35;
         letter-spacing: 0;
         text-transform: none;
     }
 
     #wrap.hh-landing.hhn .hhn-point p,
     #wrap.hh-landing.hhn .hhn-pillar p {
-        grid-column: 1 / -1;
+        grid-column: 2;
         grid-row: auto;
-    }
-
-    #wrap.hh-landing.hhn .hhn-point p,
-    #wrap.hh-landing.hhn .hhn-pillar p,
-    #wrap.hh-landing.hhn .hhn-step p {
+        margin: 0;
         font-size: 0.88rem;
         line-height: 1.5;
     }
 
-    /* Kroky vyzvy maji stejnou plochu, ale bez ramu. */
-    #wrap.hh-landing.hhn .hhn-steps {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
+    /* Kroky vyzvy stejnym zpusobem - cislo si nechava kolecko,
+       to k nim patri uz na sirokem displeji. */
+    #wrap.hh-landing.hhn .hhn-step {
+        background: none;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        padding: 13px 0;
     }
 
-    #wrap.hh-landing.hhn .hhn-step {
-        border: 0;
+    #wrap.hh-landing.hhn .hhn-steps > :first-child {
+        border-top: 0;
+        padding-top: 0;
     }
 
     #wrap.hh-landing.hhn .hhn-step h3 {
         font-size: 0.95rem;
     }
 
-    /* Na uzkem displeji tlacitka vyplni sirku obsahu. Aby vysla
-       stejne siroka i to v newsletteru, ztrati jeho ramecek
-       vodorovne odsazeni - jinak by bylo o jeho dvojnasobek uzsi
-       nez vsechna ostatni. */
+    #wrap.hh-landing.hhn .hhn-step p {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    /* Tlacitka vyplni sirku obsahu. Aby vyslo stejne siroke i to
+       v newsletteru, ztrati jeho ramecek vodorovne odsazeni. */
     #wrap.hh-landing.hhn .hhn-cta,
     #wrap.hh-landing.hhn .hh-btn {
         width: 100%;
