@@ -281,9 +281,10 @@
 }
 
 /* ===== 7. NEWSLETTER ===== */
+/* Zadny barevny pruh u horni hrany - jen tatáž vlasova linka,
+   jakou jsou oddelena policka vys na strance. */
 #wrap.hh-landing.hhn .hh-news__box {
-    border: 0;
-    border-top: 3px solid var(--hh-warm-light);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: none;
 }
 
