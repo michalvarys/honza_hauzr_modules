@@ -218,16 +218,21 @@ html:has(#wrap.hh-landing.hhn) {
    hluboko sahaji dolni dotahy. */
 #wrap.hh-landing.hhn .hhn-point h3,
 #wrap.hh-landing.hhn .hhn-pillar h3 {
-    /* Nadpis je v mrizce blok pres celou sirku sloupce, takze pruh
-       pod nim pokracoval i tam, kde uz zadny text neni. fit-content
-       ho zkrati presne na napis. */
-    width: fit-content;
-    max-width: 100%;
-    background-image: linear-gradient(#2aa6ee, #2aa6ee);
-    background-repeat: no-repeat;
-    background-size: 100% 2px;
-    background-position: 0 100%;
-    padding-bottom: 4px;
+    /* Pruh kresleny pozadim koncil tam, kde koncil ramecek nadpisu,
+       ne text. U dvouradkoveho nazvu byl ramecek siroky jako delsi
+       radek, takze pod tim kratsim cara pretrvavala do prazdna.
+       Skutecne podtrzeni se ridi textem na kazdem radku zvlast.
+
+       skip-ink: none drzi caru nepretrzitou i pod dolnimi dotahy
+       (y, j, p) - jinak by se u nich prerusovala. */
+    width: auto;
+    background-image: none;
+    padding-bottom: 0;
+    text-decoration: underline;
+    text-decoration-color: #2aa6ee;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    text-decoration-skip-ink: none;
 }
 
 #wrap.hh-landing.hhn .hhn-point p {
