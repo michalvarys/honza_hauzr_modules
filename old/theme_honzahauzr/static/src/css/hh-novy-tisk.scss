@@ -320,7 +320,10 @@ html:has(#wrap.hh-landing.hhn) {
    - u hero se tak uriznul nadpisek "Osobní rozvoj - Koučink -
    Mentoring". Odpovida vysce listy plus trochu vzduchu. */
 #wrap.hh-landing.hhn > section[id] {
-    scroll-margin-top: 74px;
+    /* Hodnotu meri honzahauzr.js podle skutecne vysky listy -
+       ta se lisi mezi mobilem a pocitacem. Zaloha je pro pripad,
+       ze by skript nedobehl. */
+    scroll-margin-top: var(--hh-kotva-odsazeni, 78px);
 }
 
 /* ===== 3. PRIBEH ===== */
@@ -625,8 +628,14 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
 
    Vsechno se tedy opakuje jeste jednou pres tridu. */
 /* Stejny podklad jako rozbalena nabidka na pocitaci - modra na
-   peti procentech a rozostreny podklad pod ni. */
+   peti procentech a rozostreny podklad pod ni.
+
+   Zasouvani je rychlejsi nez vychozich 0,3 s. Po kliknuti na sekci
+   se musi hamburger nejdriv zavrit (dokud je otevreny, ma telo
+   "overflow: hidden" a rolovat nejde), takze kazda desetina navic
+   je desetina, kterou clovek ceka, nez se stranka hne. */
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile {
+    transition-duration: 0.18s;
     background: rgba(42, 166, 238, 0.05);
     -webkit-backdrop-filter: blur(22px) saturate(140%);
     backdrop-filter: blur(22px) saturate(140%);

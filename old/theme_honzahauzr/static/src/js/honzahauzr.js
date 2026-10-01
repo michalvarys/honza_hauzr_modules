@@ -327,68 +327,84 @@
     var landing = document.querySelector(".hh-landing");
     if (!landing) return;
 
-    // Hlavicku vykresluje Odoo (website.layout), ne nase sablona. Kdyz je
-    // prilepena nahore, musi se o jeji vysku odsadit cil rolovani - jinak
-    // zacatek sekce skonci pod ni.
-    function navOffset() {
+    /**
+     * Rekne strance, jak daleko pod horni hranou ma sekce dosednout.
+     *
+     * Rolovani uz obstarava prohlizec a odsazeni si bere ze
+     * scroll-margin-top. Ta hodnota ale musi odpovidat skutecne
+     * vysce listy, kterou vykresluje Odoo (website.layout), ne nase
+     * sablona - a ktera se lisi mezi mobilem a pocitacem. Proto se
+     * meri az v prohlizeci a predava se do CSS promennou.
+     *
+     * Kdyz lista nahore prilepena neni, staci maly odstup.
+     */
+    function srovnejOdsazeniKotev() {
         var hlavicka = document.querySelector("#wrapwrap > header, header#top, .o_header_standard");
-        if (!hlavicka) return 16;
-        var poz = window.getComputedStyle(hlavicka).position;
-        if (poz !== "fixed" && poz !== "sticky") return 16;
-        return hlavicka.getBoundingClientRect().height + 16;
-    }
-
-    function targetTop(el) {
-        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        var top = el.getBoundingClientRect().top + window.pageYOffset - navOffset();
-        return Math.max(0, Math.min(Math.round(top), Math.round(maxScroll)));
-    }
-
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    var animId = null;
-
-    function stopAnim() {
-        if (animId !== null) {
-            cancelAnimationFrame(animId);
-            animId = null;
-        }
-    }
-
-    // kdyz uzivatel sam zaroluje, animaci pustime
-    ["wheel", "touchstart"].forEach(function (evt) {
-        window.addEventListener(evt, stopAnim, { passive: true });
-    });
-
-    function slideTo(el) {
-        stopAnim();
-
-        var startY = window.pageYOffset;
-        if (Math.abs(targetTop(el) - startY) < 2) return;
-
-        // delsi cesta = delsi animace, ale drzime to v rozumnych mezich
-        var duration = Math.min(1200, Math.max(500, Math.abs(targetTop(el) - startY) * 0.4));
-        var startTime = null;
-
-        function step(now) {
-            if (startTime === null) startTime = now;
-            var p = Math.min((now - startTime) / duration, 1);
-            var goal = targetTop(el);
-            var y = startY + (goal - startY) * easeInOutCubic(p);
-
-            window.scrollTo({ top: Math.round(y), behavior: "auto" });
-
-            if (p < 1) {
-                animId = requestAnimationFrame(step);
-            } else {
-                animId = null;
-                window.scrollTo({ top: targetTop(el), behavior: "auto" });
+        var odsazeni = 16;
+        if (hlavicka) {
+            var poz = window.getComputedStyle(hlavicka).position;
+            if (poz === "fixed" || poz === "sticky") {
+                odsazeni = Math.round(hlavicka.getBoundingClientRect().height) + 16;
             }
         }
+        document.documentElement.style.setProperty("--hh-kotva-odsazeni", odsazeni + "px");
+    }
 
-        animId = requestAnimationFrame(step);
+    srovnejOdsazeniKotev();
+    window.addEventListener("resize", srovnejOdsazeniKotev, { passive: true });
+
+    /**
+     * Sjede na sekci.
+     *
+     * Rolovani obstarava prohlizec (scroll-behavior: smooth v CSS).
+     * Driv si tu stranka pocitala vlastni animaci snimek po snimku
+     * a pralo se to s tou prohlizecovou: zmereno, ze prvnich 1,2 s
+     * se stranka posunula o 158 px ze 4134 a pak zbytek prolitla
+     * naraz. Pusobilo to, jako by se nejdriv rozmyslela, kam jit.
+     *
+     * Jedna animace misto dvou se rozjede hned po kliknuti a jede
+     * rovnomerne. Navic se sama prizpusobi, kdyz se behem cesty
+     * zmeni vyska stranky - treba kdyz se doloží obrazky.
+     *
+     * @param {Element} el
+     */
+    /**
+     * Srovna sekci presne pod listu, kdyz uz se stranka ustalila.
+     *
+     * Nad cilem se cestou dolozi obrazky a stranka se o jejich
+     * vysku protahne nebo smrskne. Animace uz v tu chvili dobehla,
+     * takze sekce skonci o kus vedle - namereno az o tisic pixelu.
+     * Tohle to jednim tichym posunem dorovna.
+     *
+     * @param {Element} el
+     */
+    function dorovnej(el) {
+        var odsazeni = parseInt(
+            getComputedStyle(document.documentElement)
+                .getPropertyValue("--hh-kotva-odsazeni"), 10) || 78;
+        var odchylka = el.getBoundingClientRect().top - odsazeni;
+        if (Math.abs(odchylka) > 2) {
+            window.scrollBy({ top: odchylka, behavior: "auto" });
+        }
+    }
+
+    function slideTo(el) {
+        /* Mirit na predem spocitany pixel nestaci: nad cilem se
+           cestou dolozi obrazky, stranka se protahne a ten pixel uz
+           patri nekam jinam. scrollIntoView sleduje primo prvek.
+           Odsazeni pod listu resi scroll-margin-top v CSS. */
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        // Dorovnat az potom, co rolovani dobehne. "scrollend" umi
+        // novejsi prohlizece; jinde to vezme odpocet.
+        if ("onscrollend" in window) {
+            window.addEventListener("scrollend", function srovnat() {
+                window.removeEventListener("scrollend", srovnat);
+                dorovnej(el);
+            });
+        } else {
+            setTimeout(function () { dorovnej(el); }, 900);
+        }
     }
 
     /**
@@ -441,7 +457,7 @@
 
         function odrolovat() {
             if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                window.scrollTo({ top: targetTop(el), behavior: "auto" });
+                el.scrollIntoView({ behavior: "auto", block: "start" });
             } else {
                 slideTo(el);
             }
@@ -451,20 +467,21 @@
         }
 
         /* Na mobilu se klika v rozbalenem hamburgeru. Dokud je
-           otevreny, ma telo "overflow: hidden" a rolovat nejde -
-           odrolovat se proto smi az potom, co se zavre. */
+           otevreny, ma telo "overflow: hidden" a rolovat nejde.
+
+           Cekat na udalost o zavreni se neosvedcilo - rolovani pak
+           zacalo pozde a obcas skoncilo uplne jinde. Panel se proto
+           zavre a hned v dalsim snimku se telu vrati rolovani
+           a stranka se rozjede. Bootstrap si svuj uklid dodela sam. */
         var panel = a.closest(".offcanvas");
         if (panel && panel.classList.contains("show")) {
-            panel.addEventListener("hidden.bs.offcanvas", odrolovat, { once: true });
-            var zavrit = panel.querySelector(".btn-close, [data-bs-dismiss='offcanvas']");
-            if (zavrit) {
-                zavrit.click();
-            } else {
-                // Kdyby tlacitko chybelo, radeji odrolovat hned nez
-                // necekat na udalost, ktera uz neprijde.
-                panel.removeEventListener("hidden.bs.offcanvas", odrolovat);
+            var zavrit = panel.querySelector("[data-bs-dismiss='offcanvas'], .btn-close");
+            if (zavrit) zavrit.click();
+
+            requestAnimationFrame(function () {
+                document.body.style.overflow = "";
                 odrolovat();
-            }
+            });
             return;
         }
 
