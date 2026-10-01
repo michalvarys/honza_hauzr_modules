@@ -62,7 +62,7 @@
             </section>
 
             <!-- ===== 2. V CEM SE MUZE NAVSTEVNIK POZNAT ===== -->
-            <section data-name="Poznání" class="hhn-autopilot o_cc o_colored_level" id="poznani">
+            <section data-name="Poznání" class="hhn-autopilot o_cc o_colored_level pb104" id="poznani">
                 <div class="container">
                     <!-- Nadpis je vytazeny z praveho sloupce ven, aby se na mobilu
                          dal poslat nad fotku. Rozlozeni na obou sirkach ridi
@@ -124,7 +124,7 @@
             </section>
 
             <!-- ===== 3. MUJ PRIBEH - DRIV A DNES ===== -->
-            <section data-name="Můj příběh" class="hhn-pribeh o_cc o_colored_level" id="o-mne">
+            <section data-name="Můj příběh" class="hhn-pribeh o_cc o_colored_level pt80 pb112" id="o-mne">
                 <div class="container">
                     <div class="hhn-story">
                         <div class="hhn-story__text">
@@ -222,7 +222,7 @@
             <!-- ===== 4. GALERIE ===== -->
             <!-- Na mobilu z mrizky udela hh-galerie.js dva jedouci pasy. Kdyz
                  skript nebezi, zustane mrizka a galerie funguje dal. -->
-            <section data-name="Galerie" class="hhn-galerie o_cc o_colored_level" id="galerie">
+            <section data-name="Galerie" class="hhn-galerie o_cc o_colored_level pt80" id="galerie">
                 <div class="container">
                     <div class="hhn-gallery">
                         <figure class="o_snippet_drop_in_only" data-anim="zoom-in"><img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="V horách"/></figure>
@@ -240,7 +240,7 @@
             <!-- ===== 5. JAK PRACUJI ===== -->
             <!-- Zadani vyslovne chce ctyri kratke body bez vysvetlovani metod,
                  proto jsou karty jen s ikonou a jednou vetou. -->
-            <section data-name="Jak pracuji" class="hhn-jak o_cc o_colored_level" id="jak-pracuji">
+            <section data-name="Jak pracuji" class="hhn-jak o_cc o_colored_level pt112" id="jak-pracuji">
                 <div class="container">
                     <div class="hhn-head-center">
                         <span class="hhn-eyebrow hhn-eyebrow--accent" data-anim="fade-up">Jak pracuji</span>

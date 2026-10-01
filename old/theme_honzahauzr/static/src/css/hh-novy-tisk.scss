@@ -662,18 +662,24 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
         line-height: 1.5;
     }
 
-    /* Kroky vyzvy stejnym zpusobem - cislo si nechava kolecko,
-       to k nim patri uz na sirokem displeji. */
+    /* Kroky vyzvy zustavaji v boxech jako na pocitaci - lezi na
+       fotce, takze bez vlastni plochy by se text ztracel v pozadi.
+       Policka vys na strance ji nepotrebuji, ta stoji na jednolitem
+       podkladu. Box je jen tesnejsi a bez mezer navic. */
+    #wrap.hh-landing.hhn .hhn-steps {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
     #wrap.hh-landing.hhn .hhn-step {
-        background: none;
-        border: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.16);
-        padding: 13px 0;
+        background: rgba(10, 10, 15, 0.42);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 14px 16px;
     }
 
     #wrap.hh-landing.hhn .hhn-steps > :first-child {
-        border-top: 0;
-        padding-top: 0;
+        padding-top: 14px;
     }
 
     #wrap.hh-landing.hhn .hhn-step h3 {
