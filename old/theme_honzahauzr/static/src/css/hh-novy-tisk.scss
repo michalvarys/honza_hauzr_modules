@@ -21,6 +21,20 @@
    pouze ona - vyzva ma hhd, landing page hhv.
    ============================================================ */
 
+/* ===== MISTO PRO POSUVNIK =====
+
+   Pri otevreni hamburgeru dava Bootstrap telu "overflow: hidden",
+   cimz zmizi posuvnik. Obsah se o jeho sirku roztahne, vety se
+   jinak zalomi a cela stranka poskoci - zmereno: dokument se
+   zkratil o 78 px a text v hero vyjel nahoru. Po zavreni to samo
+   zpatky.
+
+   Tohle drzi misto po posuvniku zabrane porad, takze jeho zmizeni
+   uz nema co prerovnat. */
+html:has(#wrap.hh-landing.hhn) {
+    scrollbar-gutter: stable;
+}
+
 /* ===== ZAOBLENI PRYC =====
    Jedno pravidlo misto desitek. Na teto strance zaobleni nikde
    nenese informaci, vsude je to jen ozdoba. */
@@ -185,6 +199,27 @@
     text-transform: uppercase;
 }
 
+/* Modre podtrzeni u nazvu, ktery ma vedle sebe cislo. Spoji ho
+   opticky s cislici a odlisi od popisu pod nim, aniz by bylo
+   potreba dalsi barvy nebo tucnejsiho rezu.
+
+   Pruh je kresleny pozadim, ne pres text-decoration - to u
+   diakritiky (ě, ř, ů) skace nahoru a dolu podle toho, jak
+   hluboko sahaji dolni dotahy. */
+#wrap.hh-landing.hhn .hhn-point h3,
+#wrap.hh-landing.hhn .hhn-pillar h3 {
+    /* Nadpis je v mrizce blok pres celou sirku sloupce, takze pruh
+       pod nim pokracoval i tam, kde uz zadny text neni. fit-content
+       ho zkrati presne na napis. */
+    width: fit-content;
+    max-width: 100%;
+    background-image: linear-gradient(#2aa6ee, #2aa6ee);
+    background-repeat: no-repeat;
+    background-size: 100% 2px;
+    background-position: 0 100%;
+    padding-bottom: 4px;
+}
+
 #wrap.hh-landing.hhn .hhn-point p {
     grid-column: 1 / -1;
     margin: 0;
@@ -246,6 +281,31 @@
     margin: 0;
     font-size: 0.93rem;
     line-height: 1.6;
+}
+
+/* Nadpisy maji v sablone zalomeni natvrdo, aby na uzkem displeji
+   padla veta na spravne misto. Na pocitaci je ale sloupec dost
+   siroky na cely nadpis a to zalomeni ho zbytecne tristi na dva
+   kratke radky.
+
+   Hlavicka sekce mela k tomu strop 720 px, do kterych se delsi
+   nadpis stejne nevesel - proto i ten jde nahoru. */
+@media (min-width: 992px) {
+    #wrap.hh-landing.hhn .hhn-h2 br {
+        display: none;
+    }
+
+    #wrap.hh-landing.hhn .hhn-head-center {
+        max-width: 1100px;
+    }
+}
+
+/* Kotvy v menu miri na sekce, ktere zacinaji hned pod pripnutou
+   listou. Bez tohohle odsazeni se horni okraj sekce schova za ni
+   - u hero se tak uriznul nadpisek "Osobní rozvoj - Koučink -
+   Mentoring". Odpovida vysce listy plus trochu vzduchu. */
+#wrap.hh-landing.hhn > section[id] {
+    scroll-margin-top: 74px;
 }
 
 /* ===== 3. PRIBEH ===== */
@@ -549,8 +609,18 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
    s pilulkovitym tlacitkem a mrtvym napisem "Menu".
 
    Vsechno se tedy opakuje jeste jednou pres tridu. */
+/* Stejny podklad jako rozbalena nabidka na pocitaci - modra na
+   peti procentech a rozostreny podklad pod ni. */
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile {
-    background: #0b0a0f;
+    background: rgba(42, 166, 238, 0.05);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile {
+        background: rgba(14, 12, 19, 0.96);
+    }
 }
 
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu > li > .nav-link {
