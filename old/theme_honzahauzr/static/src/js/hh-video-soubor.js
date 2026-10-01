@@ -27,11 +27,17 @@
     function spust(obal) {
         // Na uzkem okne se pouzije svisle video, kdyz je vyplnene.
         // Hranice 991 px je ta sama jako u videi z YouTube.
-        var adresa = obal.getAttribute("data-hhv-soubor");
-        var proMobil = obal.getAttribute("data-hhv-soubor-mobil");
-        if (proMobil && window.innerWidth <= 991) {
-            adresa = proMobil;
+        var naSirku = obal.getAttribute("data-hhv-soubor");
+        var naVysku = obal.getAttribute("data-hhv-soubor-mobil");
+        var adresa = (naVysku && window.innerWidth <= 991) ? naVysku : naSirku;
+
+        // Kdyz je vyplnene jen jedno z poli, pustime ho vzdycky.
+        // Jinak by blok na druhe sirce okna zustal mrtvy - clovek
+        // klikne a nic se nestane, aniz by tusil proc.
+        if (!adresa) {
+            adresa = naSirku || naVysku;
         }
+
         if (!adresa || obal.querySelector("video")) {
             return;
         }
