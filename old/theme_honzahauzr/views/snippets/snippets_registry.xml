@@ -228,8 +228,9 @@
                 <!-- Bootstrapovske text-muted je na tmavem panelu
                      editoru skoro necitelne, proto barva natvrdo. -->
                 <div style="color: #b4b8bf; font-size: 11px; line-height: 1.35; padding: 2px 0;">
-                    Nejvýš 512 MB. Delší video dej na YouTube a vlož
-                    blokem „Video“ — streamuje se po kouscích.
+                    Nejvýš 512 MB, formáty mp4, webm, mov. U delšího
+                    videa zvaž YouTube — streamuje se po kouscích,
+                    kdežto nahrané se musí stáhnout celé.
                 </div>
             </we-row>
             <we-button data-vybrat-soubor="1" data-no-preview="true">
