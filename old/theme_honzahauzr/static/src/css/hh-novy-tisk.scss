@@ -44,6 +44,19 @@
     border-radius: 0;
 }
 
+/* Zaobleni mely i obaly fotek, ne jen samotne obrazky - u obalu
+   s overflow: hidden orezava roh obal, takze nastavit to jen na
+   <img> nestaci. Tohle bere vsechno, co na strance zobrazuje
+   obraz, vcetne pozadi sekci. */
+#wrap.hh-landing.hhn img,
+#wrap.hh-landing.hhn figure,
+#wrap.hh-landing.hhn [class*="__photo"],
+#wrap.hh-landing.hhn [class*="-photo"],
+#wrap.hh-landing.hhn .media_iframe_video,
+#wrap.hh-landing.hhn .media_iframe_video iframe {
+    border-radius: 0;
+}
+
 /* ===== TLACITKO =====
    V predlohach je plny hranaty obdelnik bez lesku. Modra je
    z puvodni palety - stredni odstin toho prechodu, ktery tam
@@ -59,6 +72,12 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    /* Spolecna minimalni sirka. Napisy jsou ruzne dlouhe, takze
+       bez ni by kazde tlacitko vyslo jinak siroke a vedle sebe
+       by pusobila jako ruzne dulezita. */
+    min-width: 230px;
+    text-align: center;
+    justify-content: center;
 }
 
 #wrap.hh-landing.hhn .hhn-cta svg {
@@ -93,16 +112,20 @@
     gap: 0;
 }
 
+/* Cislo stoji vedle nazvu a je jen o neco vyraznejsi nez on.
+   Velka cislice nad nazvem prebirala pozornost textu, ktery ma
+   nest informaci - cislo tu jen rika poradi. Proto take 1 2 3
+   a ne 01 02 03; vedouci nula je potreba jen tam, kde se radi
+   deset a vic polozek. */
 #wrap.hh-landing.hhn .hhn-point::before,
 #wrap.hh-landing.hhn .hhn-pillar::before {
     counter-increment: policko;
-    /* decimal-leading-zero dela 01, 02, ... presne jako v predloze */
-    content: counter(policko, decimal-leading-zero);
+    content: counter(policko);
     color: var(--hh-warm-light);
-    font-size: 2.1rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0;
 }
 
 #wrap.hh-landing.hhn .hhn-point,
@@ -191,10 +214,25 @@
     padding-right: 0;
 }
 
+/* Sloupce "Jak pracuji" maji cislo u nazvu stejne jako policka
+   vys na strance, ne nad nim. */
+#wrap.hh-landing.hhn .hhn-pillar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 10px;
+}
+
 #wrap.hh-landing.hhn .hhn-pillar::before {
-    display: block;
-    margin-bottom: 16px;
-    font-size: 2.4rem;
+    grid-column: 1;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar h3 {
+    grid-column: 2;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar p {
+    grid-column: 1 / -1;
 }
 
 #wrap.hh-landing.hhn .hhn-pillar h3 {
@@ -288,6 +326,125 @@
     box-shadow: none;
 }
 
+/* ============================================================
+   HLAVICKA
+
+   Sekce uz nestoji vedle sebe v lajne, ale schovaly se pod jedno
+   tlacitko "Menu" a rozbaluji se pod nim. Delaji to zaznamy
+   v Nastaveni webu > Menu: "Menu" je rodic a sekce jsou jeho
+   deti. Odoo z kazde polozky, ktera ma deti, udela rozbalovaci
+   nabidku samo, takze tady zbyva jen vzhled.
+
+   Hlavicka je spolecna pro cely web, proto pres :has() - zmena
+   se tyka jen stranky, ktera uvnitr ma nas #wrap. Kde prohlizec
+   :has() neumi, zustane hlavicka puvodni.
+   ============================================================ */
+
+/* Obe tlacitka stejne vysoka a hranata.
+
+   Odsazeni ma Odoo vlastni a prebijelo to nase, proto ta delsi
+   cesta selektorem pres header#top - specificita, ne !important.
+   Vyska se pocita ze stejneho odsazeni a stejneho stupne pisma,
+   takze zustane srovnana, i kdyz se pismo zmeni. */
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li > .nav-link,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li > .btn {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0;
+    /* !important tu neni z lenosti - puvodni styl v honzahauzr.scss
+       ma u techto odkazu "padding ... !important" a jinak by se
+       obe tlacitka nedala srovnat na stejnou vysku. */
+    padding: 13px 22px !important;
+    margin: 0 0 0 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* Tlacitko "Menu" je jen obrys, aby nekonkurovalo vyzve vedle. */
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #fff;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link:hover,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link[aria-expanded="true"] {
+    border-color: #2aa6ee;
+    background: rgba(42, 166, 238, 0.12);
+}
+
+/* Sipka u rozbaleni. Bootstrap kresli trojuhelnicek pres border,
+   ktery na male velikosti pusobi jako smitko - radsi dva tahy. */
+/* Pseudoprvek ::after uz tema pouziva na podtrzeni, ktere pri
+   najeti vyjizdi zleva. U tlacitka s ramem nema co delat, takze
+   ho tu zhasneme - a sipku nakreslime pres ::before, ktere je
+   volne. Ve flexu ji "order" posune za napis. */
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link::after {
+    display: none;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link::before {
+    content: "";
+    order: 2;
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    margin: -3px 0 0 11px;
+    border: 0;
+    border-right: 1.6px solid currentColor;
+    border-bottom: 1.6px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.18s ease;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li.dropdown > .nav-link[aria-expanded="true"]::before {
+    margin-top: 3px;
+    transform: rotate(-135deg);
+}
+
+/* Vyzva zustava plna - je to jediny cil stranky. */
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li:not(.dropdown) > .nav-link {
+    border: 1px solid #2aa6ee;
+    background: #2aa6ee;
+    background-image: none;
+    color: #fff;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu > li:not(.dropdown) > .nav-link:hover {
+    border-color: #4a90d9;
+    background: #4a90d9;
+}
+
+/* Rozbalena nabidka: sekce pod sebou, hranata, bez stinu. */
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu {
+    margin-top: 6px;
+    min-width: 230px;
+    padding: 6px 0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0;
+    background: #0e0c13;
+    box-shadow: none;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .nav-link,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item {
+    padding: 11px 20px;
+    border-radius: 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .nav-link:hover,
+body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:hover {
+    background: rgba(42, 166, 238, 0.14);
+    color: #fff;
+}
+
 /* ===== POHYB =====
    Prolnuti zdola na kazdem prvku kazde sekce pusobi jako
    sablona. Zustava jen v hero.
@@ -358,5 +515,99 @@
     #wrap.hh-landing.hhn .hhn-pillar {
         border-left: 0;
         padding: 0;
+    }
+}
+
+/* ===== MOBIL: POLICKA JAKO BOXY =====
+   Na uzkem displeji se z policek stane sloupec pod sebou. Linky,
+   ktere je na siroke obrazovce oddeluji, tam prestanou fungovat -
+   oko je cte jako cary pres celou sirku, ne jako hranici mezi
+   dvema vecmi. Proto kazde policko dostane vlastni modrou plochu.
+
+   Modra je pruhledna, takze pod ni prosvita podklad sekce a
+   policka nepusobi jako nalepene cedule. */
+@media (max-width: 767px) {
+    #wrap.hh-landing.hhn .hhn-points,
+    #wrap.hh-landing.hhn .hhn-pillars {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point,
+    #wrap.hh-landing.hhn .hhn-pillar,
+    #wrap.hh-landing.hhn .hhn-step {
+        border: 0;
+        border-radius: 0;
+        background: rgba(42, 166, 238, 0.15);
+        padding: 16px 18px;
+    }
+
+    /* Prepsat vsechna pravidla pro prvni/posledni/lichy sloupec
+       ze sirokych obrazovek. Tam odebirala odsazeni u vnejsich
+       hran mrizky, aby text lícoval s okrajem sekce - v boxu pod
+       sebou by ale text vytekl z modre plochy ven. */
+    #wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2),
+    #wrap.hh-landing.hhn .hhn-point:nth-child(odd),
+    #wrap.hh-landing.hhn .hhn-point:nth-child(even),
+    #wrap.hh-landing.hhn .hhn-point:first-child,
+    #wrap.hh-landing.hhn .hhn-point:last-child,
+    #wrap.hh-landing.hhn .hhn-pillar:nth-child(odd),
+    #wrap.hh-landing.hhn .hhn-pillar:first-child,
+    #wrap.hh-landing.hhn .hhn-pillar:last-child {
+        border: 0;
+        padding: 16px 18px;
+    }
+
+    /* Mensi nez na siroke obrazovce - v uzkem boxu by puvodni
+       stupen zabral radek navic a text by se rozsypal. */
+    #wrap.hh-landing.hhn .hhn-point::before,
+    #wrap.hh-landing.hhn .hhn-pillar::before {
+        font-size: 1.55rem;
+        margin-bottom: 8px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point h3,
+    #wrap.hh-landing.hhn .hhn-pillar h3 {
+        font-size: 0.9rem;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point p,
+    #wrap.hh-landing.hhn .hhn-pillar p,
+    #wrap.hh-landing.hhn .hhn-step p {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    /* Kroky vyzvy maji stejnou plochu, ale bez ramu. */
+    #wrap.hh-landing.hhn .hhn-steps {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-step {
+        border: 0;
+    }
+
+    #wrap.hh-landing.hhn .hhn-step h3 {
+        font-size: 0.95rem;
+    }
+
+    /* Na uzkem displeji tlacitka vyplni sirku obsahu. Aby vysla
+       stejne siroka i to v newsletteru, ztrati jeho ramecek
+       vodorovne odsazeni - jinak by bylo o jeho dvojnasobek uzsi
+       nez vsechna ostatni. */
+    #wrap.hh-landing.hhn .hhn-cta,
+    #wrap.hh-landing.hhn .hh-btn {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #wrap.hh-landing.hhn .hh-news__box {
+        padding-left: 0;
+        padding-right: 0;
+        border-left: 0;
+        border-right: 0;
     }
 }

@@ -437,7 +437,8 @@
 
 .hhv .hhv-nejsme__body li {
     position: relative;
-    padding-left: 26px;
+    /* Vetsi krizek potrebuje vic mista, jinak se lepi na text. */
+    padding-left: 31px;
     font-size: 1rem;
     line-height: 1.6;
     color: rgba(244, 239, 230, 0.88);
@@ -451,12 +452,18 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 0.42em;
-    width: 15px;
-    height: 15px;
+    /* Krizek sedi na stred prvniho radku. Pocita se z vysky radku
+       a rozmeru krizku, takze to drzi i kdyz se zmeni stupen
+       pisma - pevna hodnota by se pokazde rozesla. */
+    top: calc((1.6em - 19px) / 2);
+    /* Rozmer i tloustka tahu sedi s krizky v "Neni to pro tebe"
+       (.hhv-list__mark), aby ten samy znak nebyl na strance
+       dvakrat v jine vaze. */
+    width: 19px;
+    height: 19px;
     background-color: var(--hhv-ne-svetla);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12'/%3E%3Cpath d='M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .hhv .hhv-nejsme__text {
@@ -551,18 +558,34 @@
     background: var(--hhv-line);
 }
 
-/* Patkova cislice se starodavnymi cifram (nula vysoka, jednicka
-   s patkou) pusobila jako ozdoba, ne jako poradi dne. Bezpatkova
-   s pevnou sirkou cislic drzi 01 02 03 pod sebou presne na osu. */
+/* Cislo dne stoji vedle nazvu, ne nad fotkou jako velka cislice.
+   Samostatna cislice nad blokem prebirala pozornost nazvu, ktery
+   ma nest informaci - cislo tu jen rika poradi.
+
+   V sablone je cislo prvni, jeste pred fotkou. Mrizka ho posune
+   do radku s nazvem, aniz by se muselo sahat na poradi v HTML. */
+.hhv .hhv-day {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+        "foto foto"
+        "cislo nazev"
+        "text text";
+    align-items: baseline;
+    column-gap: 10px;
+}
+
+.hhv .hhv-day__photo { grid-area: foto; }
+.hhv .hhv-day__num { grid-area: cislo; }
+.hhv .hhv-day__name { grid-area: nazev; }
+.hhv .hhv-day__text { grid-area: text; }
+
 .hhv .hhv-day__num {
-    display: block;
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1.85rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    font-variant-numeric: tabular-nums lining-nums;
-    font-feature-settings: "tnum" 1, "lnum" 1;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 1.3;
+    letter-spacing: 0;
     color: var(--hhv-bronze);
 }
 

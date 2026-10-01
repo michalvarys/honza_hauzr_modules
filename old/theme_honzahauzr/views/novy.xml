@@ -222,7 +222,7 @@
             <!-- ===== 4. GALERIE ===== -->
             <!-- Na mobilu z mrizky udela hh-galerie.js dva jedouci pasy. Kdyz
                  skript nebezi, zustane mrizka a galerie funguje dal. -->
-            <section data-name="Galerie" class="hhn-galerie o_cc o_colored_level">
+            <section data-name="Galerie" class="hhn-galerie o_cc o_colored_level" id="galerie">
                 <div class="container">
                     <div class="hhn-gallery">
                         <figure class="o_snippet_drop_in_only" data-anim="zoom-in"><img src="/theme_honzahauzr/static/src/img/cesta-hory.webp" alt="V horách"/></figure>

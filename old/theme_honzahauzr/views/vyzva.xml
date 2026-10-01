@@ -182,7 +182,7 @@
                     </div>
                     <div class="hhv-days__grid">
                         <div class="hhv-day" data-hhv-anim="up">
-                            <span class="hhv-day__num">01</span>
+                            <span class="hhv-day__num">1</span>
                             <div class="hhv-day__photo"
                                  style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den1.webp');"/>
                             <h3 class="hhv-day__name">Zrcadlo a pravda</h3>
@@ -193,7 +193,7 @@
                             </p>
                         </div>
                         <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="110">
-                            <span class="hhv-day__num">02</span>
+                            <span class="hhv-day__num">2</span>
                             <!-- Dvojice DŘÍV / DNES je jeden obrázek, ne dva vedle sebe:
                                  na mobilu by se dva rozpadly pod sebe a souvislost
                                  mezi nimi by se ztratila. -->
@@ -207,7 +207,7 @@
                             </p>
                         </div>
                         <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="220">
-                            <span class="hhv-day__num">03</span>
+                            <span class="hhv-day__num">3</span>
                             <div class="hhv-day__photo"
                                  style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den3.webp');"/>
                             <h3 class="hhv-day__name">Tvůj tah</h3>
