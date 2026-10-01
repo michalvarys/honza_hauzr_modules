@@ -575,7 +575,13 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
     padding: 11px 20px;
     border-radius: 0;
     background: none;
-    color: rgba(255, 255, 255, 0.86);
+    /* !important tu musi byt. Odoo barvi .dropdown-item.active
+       pres barevne kombinace (.o_cc4, .o_cc5) a dela to
+       s !important, takze sebevetsi specificita na to nestaci.
+       Bez toho zustal text tmavy na tmavem skle - a protoze
+       lista na mistnim stroji tu barevnou tridu nenese, bylo to
+       videt az na ostrem webu. */
+    color: rgba(255, 255, 255, 0.86) !important;
     font-size: 13.5px;
     font-weight: 500;
     letter-spacing: 0;
@@ -587,7 +593,7 @@ body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-ite
 body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item.active:hover,
 body:has(#wrap.hh-landing.hhn) header#top #top_menu .dropdown-menu .dropdown-item:focus {
     background: rgba(42, 166, 238, 0.16);
-    color: #fff;
+    color: #fff !important;
 }
 
 /* ===== POHYB =====
@@ -721,7 +727,7 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 0 !important;
     background: none;
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.88) !important;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -731,7 +737,7 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item:hover,
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .o_navbar_mobile .top_menu .dropdown-menu .dropdown-item:focus {
     background: none;
-    color: #6bb5ff;
+    color: #6bb5ff !important;
 }
 
 /* ===== UZKE OKNO ===== */
