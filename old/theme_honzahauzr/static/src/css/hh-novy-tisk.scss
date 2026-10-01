@@ -33,6 +33,16 @@
    uz nema co prerovnat. */
 html:has(#wrap.hh-landing.hhn) {
     scrollbar-gutter: stable;
+    /* Kotva z menu sjede plynule, ne skokem. Spolu se
+       scroll-margin-top nize to dojede presne pod listu. */
+    scroll-behavior: smooth;
+}
+
+/* Komu vadi pohyb na obrazovce, tomu stranka skoci rovnou. */
+@media (prefers-reduced-motion: reduce) {
+    html:has(#wrap.hh-landing.hhn) {
+        scroll-behavior: auto;
+    }
 }
 
 /* ===== ZAOBLENI PRYC =====
