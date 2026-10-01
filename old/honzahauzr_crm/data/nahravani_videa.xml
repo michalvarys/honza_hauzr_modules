@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Zapise se jen pri prvni instalaci. Pozdejsi rucni zmena
+     v Nastaveni > Technicke > Systemove parametry uz zustane. -->
+<data noupdate="1">
+
+<!--
+    Strop pro nahrani souboru pres editor stranek.
+
+    Odoo ma vychozich 128 MB. Honza nahrava videa a ta se tam
+    snadno nevejdou - a hlavne: kdyz je soubor pres limit, Odoo
+    neudela vubec nic. Zadna hlaska, dialog zustane otevreny,
+    clovek jen kouka. Proto radeji vyssi strop, aby na nej bezne
+    video vubec nenarazilo.
+
+    Vys uz to nema smysl hnat. Prohlizec si cely soubor nacte do
+    pameti jako base64, cili zabere zhruba 1,4x svoji velikost,
+    a server ho tak zase dekoduje. Delsi videa patri na YouTube,
+    odkud se streamuji po kouscich - na to je v panelu bloku
+    "Video" vedle tohoto.
+-->
+<record id="hh_strop_nahravani" model="ir.config_parameter">
+    <field name="key">web.max_file_upload_size</field>
+    <!-- 512 MB -->
+    <field name="value">536870912</field>
+</record>
+
+</data>
+</odoo>
