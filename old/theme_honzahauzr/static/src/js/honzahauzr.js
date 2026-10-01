@@ -391,32 +391,84 @@
         animId = requestAnimationFrame(step);
     }
 
+    /**
+     * Vytahne z odkazu nazev kotvy, pokud miri na tuhle stranku.
+     *
+     * Odkazy v obsahu jsou psane jako "#sekce", ale polozky menu
+     * spravuje Odoo a ty maji tvar "/#sekce" - s lomitkem, aby
+     * fungovaly i z jine stranky webu. Obe varianty vedou na totez,
+     * takze se obe berou stejne.
+     *
+     * @param {HTMLAnchorElement} a
+     * @returns {string|null} nazev kotvy bez mrizky
+     */
+    function kotvaOdkazu(a) {
+        var href = a.getAttribute("href") || "";
+        if (href === "#" || href.indexOf("#") === -1) return null;
+
+        var mrizka = href.slice(href.indexOf("#") + 1);
+        if (!mrizka) return null;
+
+        var cesta = href.slice(0, href.indexOf("#"));
+        // Prazdna cesta je odkaz v ramci stranky, "/" a shodna cesta
+        // taky. Cokoliv jineho vede jinam a resit se nema.
+        if (cesta && cesta !== "/" && cesta !== window.location.pathname) {
+            return null;
+        }
+        return mrizka;
+    }
+
     document.addEventListener("click", function (ev) {
         if (!(ev.target instanceof Element)) return;
 
-        var a = ev.target.closest('a[href^="#"]');
-        if (!a || !landing.contains(a)) return;
+        var a = ev.target.closest("a[href]");
+        if (!a) return;
 
-        var href = a.getAttribute("href");
-        if (!href || href === "#") return;
+        var mrizka = kotvaOdkazu(a);
+        if (!mrizka) return;
 
-        var el = document.getElementById(href.slice(1));
-        if (!el) return;
+        // Cil musi lezet na teto strance. Driv se misto toho overovalo,
+        // jestli je na ni samotny ODKAZ - jenze hlavicku vykresluje
+        // Odoo mimo #wrap, takze polozky menu tim propadly a odrolovat
+        // je nechal Odoo, s vlastnim a jinym odsazenim.
+        var el = document.getElementById(mrizka);
+        if (!el || !landing.contains(el)) return;
 
         // Odoo handler uz se k tomu nedostane
         ev.preventDefault();
         ev.stopPropagation();
         ev.stopImmediatePropagation();
 
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            window.scrollTo({ top: targetTop(el), behavior: "auto" });
-        } else {
-            slideTo(el);
+        function odrolovat() {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                window.scrollTo({ top: targetTop(el), behavior: "auto" });
+            } else {
+                slideTo(el);
+            }
+            if (window.history && history.replaceState) {
+                history.replaceState(null, "", "#" + mrizka);
+            }
         }
 
-        if (window.history && history.replaceState) {
-            history.replaceState(null, "", href);
+        /* Na mobilu se klika v rozbalenem hamburgeru. Dokud je
+           otevreny, ma telo "overflow: hidden" a rolovat nejde -
+           odrolovat se proto smi az potom, co se zavre. */
+        var panel = a.closest(".offcanvas");
+        if (panel && panel.classList.contains("show")) {
+            panel.addEventListener("hidden.bs.offcanvas", odrolovat, { once: true });
+            var zavrit = panel.querySelector(".btn-close, [data-bs-dismiss='offcanvas']");
+            if (zavrit) {
+                zavrit.click();
+            } else {
+                // Kdyby tlacitko chybelo, radeji odrolovat hned nez
+                // necekat na udalost, ktera uz neprijde.
+                panel.removeEventListener("hidden.bs.offcanvas", odrolovat);
+                odrolovat();
+            }
+            return;
         }
+
+        odrolovat();
     }, true);
 })();
 
