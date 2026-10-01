@@ -1,104 +1,28 @@
 /* ============================================================
-   UVODNI STRANKA - jiny tvar, stejne barvy i texty
+   UVODNI STRANKA - podoba podle predloh od klienta
 
-   Klientovi vadilo, ze stranka "vypada jako od AI". Slo o
-   konkretni veci, ne o dojem - a vsechny jsou v TVARU, ne
-   v obsahu:
+   Klient poslal peti obrazku s tim, jak to ma vypadat. Rozdil
+   proti puvodni strance je v tvaru, ne v obsahu:
 
-     - vsechno naskladane do stejnych zaoblenych boxu
-     - pilulkovita tlacitka
-     - ikony v zaoblenych ctvercich nad kazdym nadpisem karty
-     - vsechno na stred
-     - prolnuti zdola na kazdem prvku kazde sekce
+     - misto ikon v zaoblenych ctvercich velke cislice 01-04
+     - misto plnych zaoblenych boxu tenke linky mezi polickami
+     - hranata plna tlacitka bez lesku a bez pilulky
+     - hranate fotky a stitky
 
    CO SE NEMENI: texty, barvy, fotky, poradi sekci, pismo.
-   Paleta --hh-* zustava do posledni hodnoty, vcetne tmaveho
+   Paleta --hh-* zustava do posledni hodnoty vcetne tmaveho
    podkladu a tyrkysove. Sablona views/novy.xml se nedotyka.
 
-   CO SE MENI: zaobleni jde na nulu, karty se rozpadnou na radky
-   oddelene vlasovou linkou, obsah se srovna na prapor vlevo
-   a pohyb zustane jen v hero. Boxova mrizka byla hlavni duvod,
-   proc stranka pusobila slozena ze stavebnice.
+   Cislice 01-04 nejsou v HTML - delaji je citace v CSS
+   (counter-increment). Diky tomu se cislovani samo srovna,
+   kdyz Honza v editoru nejake policko smaze nebo prida.
 
    ROZSAH: jen uvodni stranka. Obal #wrap.hh-landing.hhn ma
-   pouze ona - vyzva ma hhd, landing page hhv. Hlavicka ani
-   paticka se nemeni vubec.
+   pouze ona - vyzva ma hhd, landing page hhv.
    ============================================================ */
 
-/* ===== VZHLED TEXTU =====
-   Nadpisy dostanou vlastni rez (Archivo, promenna sirka), telo
-   zustava v Interu. Dve zretelne odlisne role misto Inter +
-   Playfair, coz je nejcastejsi dvojice generovanych stranek.
-   Barvy se nemeni - jen kresba pisma, velikost a prostrkani. */
-#wrap.hh-landing.hhn h1,
-#wrap.hh-landing.hhn .hhn-h2,
-#wrap.hh-landing.hhn h3,
-#wrap.hh-landing.hhn .hh-news__box h3 {
-    font-family: "Archivo", "Inter", sans-serif;
-}
-
-#wrap.hh-landing.hhn h1 {
-    font-size: clamp(2.4rem, 6vw, 4.6rem);
-    font-weight: 800;
-    font-variation-settings: "wdth" 112, "wght" 800;
-    line-height: 0.98;
-    letter-spacing: -0.028em;
-}
-
-/* Kurziva v nadpisu pusobila jako ozdoba navic. Stejny rez jako
-   zbytek, odlisi ho uz jen barva, kterou si nechava. */
-#wrap.hh-landing.hhn h1 em {
-    font-style: normal;
-}
-
-#wrap.hh-landing.hhn .hhn-h2 {
-    font-size: clamp(1.85rem, 3.7vw, 2.9rem);
-    font-weight: 700;
-    font-variation-settings: "wdth" 110, "wght" 700;
-    line-height: 1.06;
-    letter-spacing: -0.022em;
-}
-
-#wrap.hh-landing.hhn h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-variation-settings: "wdth" 104, "wght" 600;
-    line-height: 1.26;
-    letter-spacing: -0.008em;
-}
-
-/* Verzalkovy prostrkany stitek nad kazdym nadpisem je dalsi
-   z tech znaku - oko ho cte jako sablonovou ozdobu, ne jako
-   informaci. Text i barva zustavaji, mizi jen verzalky
-   a prostrkani. */
-#wrap.hh-landing.hhn .hhn-eyebrow {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-/* Telo textu dostane kratsi radek. Pres celou sirku sloupce se
-   spatne cetlo a delalo to z odstavcu sedou plochu. */
-#wrap.hh-landing.hhn p,
-#wrap.hh-landing.hhn .hhn-lead {
-    max-width: 64ch;
-    line-height: 1.62;
-}
-
-/* Napis na tlacitku byl verzalkami rozprostreny do sirky.
-   Vetsi a normalne psany se cte jako pokyn, ne jako stitek. */
-#wrap.hh-landing.hhn .hhn-cta,
-#wrap.hh-landing.hhn .hh-btn {
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0;
-    text-indent: 0;
-    text-transform: none;
-}
-
 /* ===== ZAOBLENI PRYC =====
-   Jedno pravidlo misto desitek - zaoblení na teto strance nikde
+   Jedno pravidlo misto desitek. Na teto strance zaobleni nikde
    nenese informaci, vsude je to jen ozdoba. */
 #wrap.hh-landing.hhn :where(
     .hhn-point,
@@ -113,9 +37,6 @@
     .hhn-split__photo img,
     .hhn-gallery figure,
     .hhn-gallery img,
-    .hhn-point__icon,
-    .hhn-pillar__icon,
-    .hhn-step__num,
     .hh-news__box,
     .hh-news__input,
     .hh-btn
@@ -124,41 +45,73 @@
 }
 
 /* ===== TLACITKO =====
-   Obdelnik misto pilulky. Barva, prechod i napis zustavaji
-   presne jak byly. */
-#wrap.hh-landing.hhn .hhn-cta {
-    padding: 15px 28px;
+   V predlohach je plny hranaty obdelnik bez lesku. Modra je
+   z puvodni palety - stredni odstin toho prechodu, ktery tam
+   byl predtim. */
+#wrap.hh-landing.hhn .hhn-cta,
+#wrap.hh-landing.hhn .hh-btn {
+    border: 0;
+    background: #2aa6ee;
+    background-image: none;
+    box-shadow: none;
+    padding: 15px 30px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
 }
 
-/* ===== KARTY SE ROZPADNOU NA RADKY =====
-   Tohle je ta nejvetsi zmena. Ctyri stejne zaoblene boxy ve
-   mrizce - a o kus niz zase ctyri - delaly ze stranky katalog
-   dlazdic. Radek s vlasovou linkou nese tutez informaci a
-   nechava dychat text. */
+#wrap.hh-landing.hhn .hhn-cta svg {
+    display: none;
+}
+
+#wrap.hh-landing.hhn .hhn-cta:hover,
+#wrap.hh-landing.hhn .hhn-cta:focus-visible,
+#wrap.hh-landing.hhn .hh-btn:hover {
+    background: #4a90d9;
+    filter: none;
+    transform: none;
+}
+
+/* Kurziva v nadpisu hero. V predloze je posledni radek stejnym
+   rezem jako zbytek, odlisi ho uz jen barva. */
+#wrap.hh-landing.hhn .hhn-hero h1 em {
+    font-style: normal;
+}
+
+/* ===== CISLOVANA POLICKA =====
+   Jadro predloh. Ikona v zaoblenem ctverci jde pryc a nahradi
+   ji velka cislice - ta nese poradi, ktere ikona nenesla. */
+#wrap.hh-landing.hhn .hhn-point__icon,
+#wrap.hh-landing.hhn .hhn-pillar__icon {
+    display: none;
+}
+
 #wrap.hh-landing.hhn .hhn-points,
 #wrap.hh-landing.hhn .hhn-pillars {
-    display: block;
+    counter-reset: policko;
     gap: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point::before,
+#wrap.hh-landing.hhn .hhn-pillar::before {
+    counter-increment: policko;
+    /* decimal-leading-zero dela 01, 02, ... presne jako v predloze */
+    content: counter(policko, decimal-leading-zero);
+    color: var(--hh-warm-light);
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
 }
 
 #wrap.hh-landing.hhn .hhn-point,
 #wrap.hh-landing.hhn .hhn-pillar {
-    display: grid;
-    grid-template-columns: 28px minmax(0, 15rem) minmax(0, 1fr);
-    align-items: start;
-    column-gap: 20px;
-    row-gap: 4px;
-    padding: 22px 0;
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
     background: none;
     box-shadow: none;
     text-align: left;
-}
-
-#wrap.hh-landing.hhn .hhn-point:last-child,
-#wrap.hh-landing.hhn .hhn-pillar:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 #wrap.hh-landing.hhn .hhn-point:hover,
@@ -167,99 +120,104 @@
     transform: none;
 }
 
-/* Ikona ztrati ramecek a zmensi se na znamenko v margine.
-   Barvu si nechava svoji. */
-#wrap.hh-landing.hhn .hhn-point__icon,
-#wrap.hh-landing.hhn .hhn-pillar__icon {
-    grid-row: 1 / span 2;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 28px;
-    height: 28px;
+/* ----- 2. POZNANI: ctyri policka 2x2, cislo vedle nazvu ----- */
+#wrap.hh-landing.hhn .hhn-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#wrap.hh-landing.hhn .hhn-point {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 14px;
+    row-gap: 10px;
+    padding: 26px 26px 26px 0;
+    /* Tenke linky mezi policky. Vnejsi hrany se na konci
+       odeberou, aby mrizka nebyla oramovana dokola. */
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+#wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2) {
+    border-top: 0;
+    padding-top: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+    padding-left: 26px;
+}
+
+/* Nazev v predloze stoji verzalkami vedle cislice. */
+#wrap.hh-landing.hhn .hhn-point h3 {
     margin: 0;
-    padding: 0;
-    border: 0;
-    background: none;
-    box-shadow: none;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-#wrap.hh-landing.hhn .hhn-point__icon svg,
-#wrap.hh-landing.hhn .hhn-pillar__icon svg {
-    width: 21px;
-    height: 21px;
+#wrap.hh-landing.hhn .hhn-point p {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.95rem;
 }
 
-#wrap.hh-landing.hhn .hhn-point h3,
+/* ----- 5. JAK PRACUJI: ctyri sloupce, cislo nad nazvem ----- */
+#wrap.hh-landing.hhn .hhn-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar {
+    display: block;
+    padding: 0 26px;
+    /* Svisla linka mezi sloupci, jako v predloze */
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+#wrap.hh-landing.hhn .hhn-pillar:first-child {
+    border-left: 0;
+    padding-left: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar:last-child {
+    padding-right: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar::before {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 2.4rem;
+}
+
 #wrap.hh-landing.hhn .hhn-pillar h3 {
-    grid-column: 2;
-    margin: 0;
+    margin: 0 0 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
-#wrap.hh-landing.hhn .hhn-point p,
 #wrap.hh-landing.hhn .hhn-pillar p {
-    grid-column: 3;
-    grid-row: 1 / span 2;
     margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.6;
 }
 
-/* ===== NA PRAPOR VLEVO =====
-   Puvodne bylo na stred temer vse, coz davalo strance tu
-   plakatovou soumernost, ve ktere splyvaly vsechny sekce. */
-#wrap.hh-landing.hhn .hhn-story__text,
-#wrap.hh-landing.hhn .hhn-head-center,
-#wrap.hh-landing.hhn .hhn-center-action,
-#wrap.hh-landing.hhn .hhn-challenge__head,
-#wrap.hh-landing.hhn .hhn-challenge__action,
-#wrap.hh-landing.hhn .hhn-split__action,
-#wrap.hh-landing.hhn .hhn-then-now__footnote,
-#wrap.hh-landing.hhn .hhn-challenge__note,
-#wrap.hh-landing.hhn .hhn-hero__content {
-    text-align: left;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-left: 0;
-    margin-right: auto;
-}
-
-#wrap.hh-landing.hhn .hhn-hero__action,
-#wrap.hh-landing.hhn .hhn-center-action,
-#wrap.hh-landing.hhn .hhn-challenge__action,
-#wrap.hh-landing.hhn .hhn-split__action {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#wrap.hh-landing.hhn .hhn-head-center {
-    max-width: 48rem;
-}
-
-/* Nadpis v hero se pri vetsim stupni lamal na pet radku a rozpadl
-   se tim na nesouvisle utrzky. Sirsi sloupec drzi zalomeni tam,
-   kde ho ma sablona - po vetach. */
-#wrap.hh-landing.hhn .hhn-hero__content {
-    max-width: 920px;
-}
-
-#wrap.hh-landing.hhn .hhn-hero__sub,
-#wrap.hh-landing.hhn .hhn-hero__note {
-    max-width: 52ch;
-}
-
-#wrap.hh-landing.hhn .hh-news__box {
-    max-width: 920px;
-    margin-left: 0;
-}
-
-/* ===== PRIBEH ===== */
-/* Zaverecna veta dostane pruh misto vycentrovaneho tucneho
-   radku - je to pointa odstavce, ne titulek. */
-#wrap.hh-landing.hhn .hhn-zaver {
-    margin-top: 24px;
-    padding-left: 18px;
-    border-left: 4px solid var(--hh-warm-light);
-    text-align: left;
+/* ===== 3. PRIBEH ===== */
+/* Stitek Driv / Dnes byl pilulka uprostred. V predloze je to
+   razitko v rohu fotky. */
+#wrap.hh-landing.hhn .hhn-tag {
+    top: 0;
+    left: 0;
+    padding: 7px 14px;
+    box-shadow: none;
 }
 
 #wrap.hh-landing.hhn .hhn-card {
@@ -267,89 +225,71 @@
     background: none;
     box-shadow: none;
     padding: 0;
-    text-align: left;
 }
 
 #wrap.hh-landing.hhn .hhn-card:hover {
     transform: none;
 }
 
-/* Stitek Driv / Dnes byl pilulka uprostred fotky. Ted razitko
-   v rohu - stejna barva, jiny tvar. */
-#wrap.hh-landing.hhn .hhn-tag {
-    top: 0;
-    left: 0;
-    padding: 8px 14px;
-    box-shadow: none;
+#wrap.hh-landing.hhn .hhn-card h3 {
+    margin-top: 16px;
 }
 
-/* ===== GALERIE ===== */
-/* Mezery mezi zaoblenymi ctverecky delaly z galerie nahledy
-   v administraci. Nasraz to je zed fotek. */
+/* ===== 4. GALERIE ===== */
 #wrap.hh-landing.hhn .hhn-gallery {
     gap: 3px;
 }
 
-/* ===== TRI KROKY VE VYZVE ===== */
-/* Posloupnost to opravdu je, takze cislovani zustava - ale jako
-   cislice v margine, ne jako kolecko v ramecku. */
-/* Kroky mely kolem sebe jeste tmavy ramecek. Kdyz se z nich staly
-   radky, ten box uz jen plaval na fotce bez duvodu. */
+/* ===== 6. VYZVA =====
+   V predloze zustavaji tri policka vedle sebe s koleckem -
+   na rozdil od ostatnich mrizek to posloupnost opravdu je.
+   Meni se jen tvar: hranate a tenkou linkou misto vyplne. */
+#wrap.hh-landing.hhn .hhn-challenge__head {
+    text-align: left;
+    margin-left: 0;
+    margin-right: auto;
+    max-width: 46rem;
+}
+
 #wrap.hh-landing.hhn .hhn-steps {
-    display: block;
-    padding: 0;
-    border: 0;
     background: none;
     backdrop-filter: none;
     box-shadow: none;
+    padding: 0;
+    border: 0;
 }
 
 #wrap.hh-landing.hhn .hhn-step {
-    display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
-    align-items: baseline;
-    column-gap: 16px;
-    padding: 18px 0;
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(10, 10, 15, 0.42);
     box-shadow: none;
+    padding: 22px;
     text-align: left;
 }
 
-#wrap.hh-landing.hhn .hhn-step:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* Cislice drive stala v barevnem kolecku a byla bila. Bez kolecka
-   zdedila tmavou barvu textu a na tmavem podkladu zmizela - proto
-   dostava akcentni barvu, tutez, jakou melo to kolecko. */
 #wrap.hh-landing.hhn .hhn-step__num {
-    display: block;
-    width: auto;
-    height: auto;
-    min-width: 0;
-    border: 0;
-    background: none;
-    color: var(--hh-warm-light);
-    font-family: "Archivo", "Inter", sans-serif;
-    font-size: 2.3rem;
-    font-weight: 800;
-    font-variation-settings: "wdth" 112, "wght" 800;
-    line-height: 1;
+    flex: 0 0 auto;
+    box-shadow: none;
 }
 
-/* ===== NEWSLETTER ===== */
+#wrap.hh-landing.hhn .hhn-challenge__action,
+#wrap.hh-landing.hhn .hhn-challenge__note {
+    text-align: left;
+    align-items: flex-start;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* ===== 7. NEWSLETTER ===== */
 #wrap.hh-landing.hhn .hh-news__box {
     border: 0;
-    border-top: 4px solid var(--hh-warm-light);
+    border-top: 3px solid var(--hh-warm-light);
     box-shadow: none;
 }
 
 /* ===== POHYB =====
-   Prolnuti zdola na kazdem prvku kazde sekce je samo o sobe
-   jeden z tech znaku - oko to cte jako sablonu, ne jako zamer.
-   Zustava jen v hero, kde ma co delat.
+   Prolnuti zdola na kazdem prvku kazde sekce pusobi jako
+   sablona. Zustava jen v hero.
 
    Nestaci [data-anim] schovat: skript jim pridava .anim-visible
    az kdyz sekce naleze do okna, takze bez tohohle by casti
@@ -377,23 +317,45 @@
 
 /* ===== UZKE OKNO ===== */
 @media (max-width: 991px) {
+    #wrap.hh-landing.hhn .hhn-points {
+        grid-template-columns: 1fr;
+    }
+
     #wrap.hh-landing.hhn .hhn-point,
+    #wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+        border-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2) {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        padding-top: 26px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point:first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillars {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 30px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillar:nth-child(odd) {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 575px) {
+    #wrap.hh-landing.hhn .hhn-pillars {
+        grid-template-columns: 1fr;
+    }
+
     #wrap.hh-landing.hhn .hhn-pillar {
-        grid-template-columns: 28px minmax(0, 1fr);
-    }
-
-    #wrap.hh-landing.hhn .hhn-point p,
-    #wrap.hh-landing.hhn .hhn-pillar p {
-        grid-column: 2;
-        grid-row: auto;
-        margin-top: 6px;
-    }
-
-    #wrap.hh-landing.hhn .hhn-step {
-        grid-template-columns: 40px minmax(0, 1fr);
-    }
-
-    #wrap.hh-landing.hhn .hhn-step__num {
-        font-size: 1.8rem;
+        border-left: 0;
+        padding: 0;
     }
 }
