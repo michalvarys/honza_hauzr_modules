@@ -200,6 +200,17 @@
         if (vEditoru() || !(udalost.target instanceof Element)) {
             return;
         }
+
+        /* Kliknuti uvnitr prehravace si resi Plyr sam - pauza,
+           prehravani, hlasitost, casova osa.
+
+           Bez tohohle se video nedalo zastavit: Plyr ho na pauzu
+           zastavil, jenze kliknuti bublalo dal sem a spust() ho
+           okamzite rozjel znovu. */
+        if (udalost.target.closest(".plyr")) {
+            return;
+        }
+
         var obal = udalost.target.closest(".hhv-soubor[data-hhv-soubor]");
         if (obal) {
             spust(obal);
