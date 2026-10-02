@@ -46,6 +46,8 @@ KOUSEK = 300 * 1024
 STROP = 512 * 1024 * 1024
 
 POVOLENE_TYPY = {
+    # Titulky k videu. Jsou male, projdou v jednom kousku.
+    'vtt': 'text/vtt',
     'mp4': 'video/mp4',
     'webm': 'video/webm',
     'mov': 'video/quicktime',

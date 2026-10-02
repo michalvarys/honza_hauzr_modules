@@ -45,6 +45,10 @@ const POKUSU = 3;
 
 const POVOLENE = ["mp4", "webm", "mov", "m4v", "ogv"];
 
+/* Titulky. WebVTT je jediny format, kteremu prohlizece rozumi -
+   soubory .srt je potreba prevest. */
+const POVOLENE_TITULKY = ["vtt"];
+
 /**
  * Prevede kus souboru na base64.
  *
@@ -86,6 +90,13 @@ options.registry.hhVideoSoubor = options.Class.extend({
         await this._hhVybrat(previewMode, "hhvSouborMobil");
     },
 
+    /**
+     * Titulky k videu.
+     */
+    async vybratTitulky(previewMode) {
+        await this._hhVybrat(previewMode, "hhvTitulky", POVOLENE_TITULKY, ".vtt");
+    },
+
     //--------------------------------------------------------------------------
     // Private
     //--------------------------------------------------------------------------
@@ -97,23 +108,24 @@ options.registry.hhVideoSoubor = options.Class.extend({
      * @param {boolean} previewMode
      * @param {string} znacka nazev data atributu v camelCase
      */
-    async _hhVybrat(previewMode, znacka) {
+    async _hhVybrat(previewMode, znacka, povolene, prijima) {
+        povolene = povolene || POVOLENE;
         // Odoo vola metody i pri najeti mysi kvuli nahledu. Vyber
         // souboru se ma otevrit az po skutecnem kliknuti.
         if (previewMode || this._hhBezi) {
             return;
         }
 
-        const soubor = await this._hhVyberSoubor();
+        const soubor = await this._hhVyberSoubor(prijima);
         if (!soubor) {
             return;
         }
 
         const pripona = (soubor.name.split(".").pop() || "").toLowerCase();
-        if (!POVOLENE.includes(pripona)) {
+        if (!povolene.includes(pripona)) {
             this._hhHlaska(
                 _t("Tenhle typ souboru nejde nahrát. Povolené jsou: %s.",
-                   POVOLENE.join(", ")),
+                   povolene.join(", ")),
                 "danger"
             );
             return;
@@ -138,11 +150,11 @@ options.registry.hhVideoSoubor = options.Class.extend({
      * @private
      * @returns {Promise<File|null>}
      */
-    _hhVyberSoubor() {
+    _hhVyberSoubor(prijima) {
         return new Promise((hotovo) => {
             const vstup = document.createElement("input");
             vstup.type = "file";
-            vstup.accept = "video/*";
+            vstup.accept = prijima || "video/*";
             vstup.style.display = "none";
             document.body.appendChild(vstup);
             vstup.addEventListener("change", () => {

@@ -1688,3 +1688,36 @@ footer .o_footer_copyright {
         max-width: 300px;
     }
 }
+
+/* ===== PREHRAVAC PLYR =====
+
+   Plyr se barvi promennymi, nic se nekompiluje. Hlavni barva jde
+   na pruh prehravani a aktivni prvky, zbytek zustava bily, aby byl
+   citelny na libovolnem snimku videa. */
+.hhv-soubor .plyr {
+    --plyr-color-main: #00c6ff;
+    --plyr-video-control-color: #fff;
+    --plyr-video-control-color-hover: #00c6ff;
+    --plyr-video-background: #000;
+    --plyr-range-track-height: 4px;
+    --plyr-control-icon-size: 17px;
+    --plyr-font-family: inherit;
+    /* Titulky maji vlastni podklad, aby se neztratily na svetlem
+       zaberu. */
+    --plyr-captions-background: rgba(0, 0, 0, 0.72);
+    --plyr-captions-text-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+/* Prehravac vyplni cely blok stejne jako predtim samotne video. */
+.hhv-soubor .plyr__video-wrapper,
+.hhv-soubor .plyr video {
+    width: 100%;
+    height: 100%;
+}
+
+.hhv-soubor--hraje .plyr {
+    position: absolute;
+    inset: 0;
+}

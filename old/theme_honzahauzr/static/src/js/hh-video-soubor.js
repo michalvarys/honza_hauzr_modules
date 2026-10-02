@@ -57,8 +57,79 @@
             prehravac.setAttribute("poster", nahled.getAttribute("src") || "");
         }
 
+        // Titulky. Prohlizec si je zapina sam, Plyr je navic nabidne
+        // v nabidce pod ozubenym kolem.
+        var titulky = obal.getAttribute("data-hhv-titulky");
+        if (titulky) {
+            var stopa = document.createElement("track");
+            stopa.setAttribute("kind", "captions");
+            stopa.setAttribute("label", "Čeština");
+            stopa.setAttribute("srclang", "cs");
+            stopa.setAttribute("src", titulky);
+            stopa.setAttribute("default", "default");
+            prehravac.appendChild(stopa);
+        }
+
         obal.classList.add("hhv-soubor--hraje");
         obal.appendChild(prehravac);
+        nasadPrehravac(prehravac, !!titulky);
+    }
+
+    /**
+     * Prebali video do Plyru, kdyz je k dispozici.
+     *
+     * Plyr je hotovy prehravac - dava vsem prohlizecum stejne
+     * ovladani, nabidku titulku a rychlosti prehravani. Barvy se mu
+     * nastavuji promennymi v CSS (--plyr-color-main a spol.), takze
+     * se nic nekompiluje.
+     *
+     * Kdyz se z nejakeho duvodu nenacte, zustane obycejne <video>
+     * s ovladanim od prohlizece. Video se tedy prehraje tak jako tak.
+     */
+    function nasadPrehravac(video, maTitulky) {
+        if (typeof window.Plyr !== "function") {
+            return;
+        }
+        try {
+            var ovladani = [
+                "play-large", "play", "progress", "current-time",
+                "mute", "volume",
+            ];
+            if (maTitulky) {
+                ovladani.push("captions");
+            }
+            ovladani.push("settings", "fullscreen");
+
+            new window.Plyr(video, {
+                controls: ovladani,
+                settings: ["captions", "speed"],
+                // Ikony si Plyr jinak tahá z cdn.plyr.io. Tohle je
+                // tatáž sada ulozena v tematu, takze web nezavisi na
+                // cizim serveru.
+                iconUrl: "/theme_honzahauzr/static/lib/plyr/plyr.svg",
+                captions: { active: maTitulky, update: true },
+                tooltips: { controls: false, seek: true },
+                i18n: {
+                    play: "Přehrát",
+                    pause: "Pozastavit",
+                    mute: "Ztlumit",
+                    unmute: "Zapnout zvuk",
+                    enterFullscreen: "Na celou obrazovku",
+                    exitFullscreen: "Zpět",
+                    captions: "Titulky",
+                    settings: "Nastavení",
+                    speed: "Rychlost",
+                    normal: "Normální",
+                    enabled: "Zapnuté",
+                    disabled: "Vypnuté",
+                },
+            });
+        } catch (potiz) {
+            // Radeji obycejne video nez zadne.
+            if (window.console && console.warn) {
+                console.warn("Plyr se nepodarilo nasadit:", potiz);
+            }
+        }
     }
 
     function pripoj(udalost) {

@@ -244,6 +244,14 @@
             <we-button data-vybrat-soubor-mobil="1" data-no-preview="true">
                 Nahrát video pro mobil
             </we-button>
+            <we-button data-vybrat-titulky="1" data-no-preview="true">
+                Nahrát titulky
+            </we-button>
+            <we-input string="Titulky (.vtt)"
+                      data-select-data-attribute=""
+                      data-attribute-name="hhvTitulky"
+                      data-no-preview="true"
+                      placeholder="/web/content/..."/>
             <we-input string="Soubor pro mobil"
                       data-select-data-attribute=""
                       data-attribute-name="hhvSouborMobil"

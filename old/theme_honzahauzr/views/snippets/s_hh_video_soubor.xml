@@ -21,7 +21,7 @@
      ================================================================ -->
 
 <template id="s_hh_video_soubor" name="Video ze souboru">
-    <div class="hhv-soubor" data-hhv-soubor="" data-hhv-soubor-mobil="">
+    <div class="hhv-soubor" data-hhv-soubor="" data-hhv-soubor-mobil="" data-hhv-titulky="">
         <img class="hhv-soubor__nahled"
              src="/theme_honzahauzr/static/src/img/pribeh-dnes.webp"
              alt="Náhled videa"/>

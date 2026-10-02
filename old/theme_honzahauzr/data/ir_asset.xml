@@ -110,6 +110,28 @@
 
 <!-- Video nahrane primo na web. Skript ceka na kliknuti a teprve
      potom vymeni nahled za prehravac. -->
+<!-- Prehravac Plyr 3.8.4.
+
+     Lezi primo v tematu, ne na cizim serveru - web tak nezavisi na
+     tom, jestli je nekdo jiny zrovna dostupny. Prikladaji se i ikony
+     (plyr.svg), protoze Plyr si je jinak tahá z cdn.plyr.io; na
+     mistni soubor se prepina v hh-video-soubor.js.
+
+     Nacita se pred hh-video-soubor.js, ktery ho pouziva. -->
+<record id="asset_plyr_css" model="theme.ir.asset">
+    <field name="name">Plyr - styly prehravace</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/lib/plyr/plyr.css</field>
+</record>
+
+<record id="asset_plyr_js" model="theme.ir.asset">
+    <field name="name">Plyr - prehravac</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="directive">before</field>
+    <field name="target">theme_honzahauzr/static/src/js/hh-video-soubor.js</field>
+    <field name="path">theme_honzahauzr/static/lib/plyr/plyr.min.js</field>
+</record>
+
 <record id="asset_hh_video_soubor_js" model="theme.ir.asset">
     <field name="name">Honza Hauzr - video ze souboru (skript)</field>
     <field name="bundle">web.assets_frontend</field>
