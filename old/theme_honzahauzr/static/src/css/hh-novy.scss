@@ -1653,8 +1653,22 @@ footer .o_footer_copyright {
 
 /* Jakmile video bezi, nahled ani tlacitko uz nejsou potreba. */
 .hhv-soubor--hraje .hhv-soubor__nahled,
-.hhv-soubor--hraje .hhv-soubor__play {
+.hhv-soubor--hraje .hhv-soubor__play,
+.hhv-soubor--nacita .hhv-soubor__play {
     display: none;
+}
+
+/* Nez se video rozjede, drzi nahled celou plochu bloku - lezi nad
+   prehravacem. Bez toho by na nej bylo videt plakat prehravace,
+   ktery se do bloku nenatahuje: svisle video by se smrsklo
+   doprostred mezi cerne pruhy a fotka by pri kliknuti poskocila. */
+.hhv-soubor--nacita .hhv-soubor__nahled {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hhv-soubor__video {
