@@ -24,10 +24,24 @@ import options from "@web_editor/js/editor/snippets.options";
 import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
 
-/* Musi sedet s KOUSEK v controllers/nahravani.py. Merenim: 300 kB
-   projde, 600 kB uz WAF utne; 200 kB necha rezervu i potom, co
-   base64 objem zvedne o tretinu. */
-const KOUSEK = 200 * 1024;
+/* Musi sedet s KOUSEK v controllers/nahravani.py. Merenim na
+   ostrem webu: 360 kB jeste projde, 420 kB uz WAF utne. */
+const KOUSEK = 300 * 1024;
+
+/* Kolik kousku letí soucasne.
+
+   Rezie jednoho pozadavku je zhruba 0,7 s, zatimco server ho
+   odbavi za 0,07 s - cekani na sit tedy naprosto prevazuje.
+   Posilat kousky jeden po druhem znamenalo u videa na 260 MB
+   sedmnact minut a nahravani se cestou utrhlo. Sest soucasne
+   to srazi pod tri minuty. Vic uz nema smysl, zacala by se
+   ucpavat linka pri odesilani. */
+const SOUCASNE = 6;
+
+/* Kolikrat zkusit kousek znovu, nez to vzdame. Pri stovkach
+   pozadavku je skoro jiste, ze nektery obcas selze; bez
+   opakovani by kvuli jedinemu propadlo cele nahravani. */
+const POKUSU = 3;
 
 const POVOLENE = ["mp4", "webm", "mov", "m4v", "ogv"];
 
@@ -158,40 +172,101 @@ options.registry.hhVideoSoubor = options.Class.extend({
      * @param {File} soubor
      * @returns {Promise<string|null>}
      */
+    /**
+     * Posle jeden kousek a pri selhani ho zkusi znovu.
+     *
+     * @private
+     * @returns {Promise<string|null>} text chyby, nebo null pri uspechu
+     */
+    async _hhPosliKousek(soubor, poradi, pocet) {
+        const kus = soubor.slice(poradi * KOUSEK, (poradi + 1) * KOUSEK);
+        const data = await naBase64(kus);
+
+        for (let pokus = 1; pokus <= POKUSU; pokus++) {
+            try {
+                const odpoved = await rpc("/hh/nahravani/kousek", {
+                    nazev: soubor.name,
+                    poradi,
+                    celkem: pocet,
+                    data,
+                });
+                // Chybu, kterou posila server, opakovat nema smysl -
+                // priste dopadne stejne.
+                if (odpoved && odpoved.chyba) {
+                    return odpoved.chyba;
+                }
+                return null;
+            } catch {
+                // Sem to spadne, kdyz pozadavek nedorazi cely nebo
+                // se misto odpovedi vrati neco jineho nez JSON.
+                // To uz za zkouseni stoji.
+                if (pokus === POKUSU) {
+                    return _t("Spojení se serverem se přerušilo.");
+                }
+                await new Promise((d) => setTimeout(d, 400 * pokus));
+            }
+        }
+        return _t("Spojení se serverem se přerušilo.");
+    },
+
+    /**
+     * Posle video po kouscich a vrati jeho adresu na webu.
+     *
+     * Kousky jedou po nekolika soucasne - viz SOUCASNE. Kazdy nese
+     * svoje poradi, takze na tom, v jakem sledu dojdou, nezalezi;
+     * server je slozi az na konci.
+     *
+     * @private
+     * @param {File} soubor
+     * @returns {Promise<string|null>}
+     */
     async _hhNahraj(soubor) {
         const pocet = Math.max(1, Math.ceil(soubor.size / KOUSEK));
+        let dalsi = 0;
+        let hotovo = 0;
+        let chyba = null;
 
-        for (let i = 0; i < pocet; i++) {
-            const kus = soubor.slice(i * KOUSEK, (i + 1) * KOUSEK);
-            let odpoved;
-            try {
-                odpoved = await rpc("/hh/nahravani/kousek", {
-                    nazev: soubor.name,
-                    poradi: i,
-                    celkem: pocet,
-                    data: await naBase64(kus),
-                });
-            } catch {
-                // Sem to spadne, kdyz pozadavek nedorazi cely nebo se
-                // misto odpovedi vrati neco jineho nez JSON.
-                await this._hhZrus(soubor.name);
-                this._hhHlaska(
-                    _t("Nahrávání se přerušilo. Zkus to prosím znovu."),
-                    "danger"
-                );
-                return null;
+        const delnik = async () => {
+            while (chyba === null) {
+                const poradi = dalsi++;
+                if (poradi >= pocet) {
+                    return;
+                }
+                const potiz = await this._hhPosliKousek(soubor, poradi, pocet);
+                if (potiz) {
+                    chyba = potiz;
+                    return;
+                }
+                hotovo++;
+                this._hhPrubeh(Math.round((hotovo / pocet) * 100));
             }
-            if (odpoved && odpoved.chyba) {
-                await this._hhZrus(soubor.name);
-                this._hhHlaska(odpoved.chyba, "danger");
-                return null;
-            }
-            this._hhPrubeh(Math.round(((i + 1) / pocet) * 100));
+        };
+
+        await Promise.all(
+            Array.from({ length: Math.min(SOUCASNE, pocet) }, delnik)
+        );
+
+        if (chyba) {
+            await this._hhZrus(soubor.name);
+            this._hhHlaska(chyba, "danger");
+            return null;
         }
 
-        const konec = await rpc("/hh/nahravani/dokonci", {
-            nazev: soubor.name,
-        });
+        let konec;
+        try {
+            konec = await rpc("/hh/nahravani/dokonci", {
+                nazev: soubor.name,
+                celkem: pocet,
+            });
+        } catch {
+            this._hhHlaska(
+                _t("Video se nahrálo, ale nepodařilo se ho uložit. "
+                   + "Zkus to prosím znovu."),
+                "danger"
+            );
+            return null;
+        }
+
         if (!konec || konec.chyba) {
             this._hhHlaska(
                 (konec && konec.chyba) || _t("Video se nepodařilo uložit."),

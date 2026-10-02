@@ -2,17 +2,21 @@
 """Nahravani videa po kouscich.
 
 Odoo nahrava soubor jednim pozadavkem: cele video zakodovane do
-base64 v jednom JSON. Na mistnim stroji to funguje, na ostrem webu
-ne - pred Odoo stoji WAF, ktery pozadavek nad zhruba pul megabajtu
-utne a vrati HTML chybovou stranku. Odoo misto odpovedi dostane
-necekany text, upload tise skonci a clovek v editoru jen kouka, proc
-se nic nedeje. Pres Cloudflare navic vede strop 100 MB na pozadavek.
+base64 v jednom JSON. Na ostrem webu to neprojde - pred Odoo stoji
+WAF, ktery pozadavek nad zhruba 400 kB utne a vrati HTML chybovou
+stranku. Odoo misto odpovedi dostane necekany text, upload tise
+skonci a v editoru to vypada, ze tlacitko nereaguje. Pres
+Cloudflare navic vede strop 100 MB na pozadavek.
 
-Tenhle controller to obchazi tim, ze video prijima po kouscich.
-Kazdy kousek je dost maly, aby prosel, takze na zadny z tech stropu
-nenarazi - ani na ten Cloudflare, protoze velky pozadavek uz zadny
-neni. Kousky se skladaji do docasneho souboru a teprve z hotoveho
-celku vznikne priloha.
+Video se proto kraji na kousky, ktere pod ten strop pohodlne
+spadnou. Kazdy kousek se uklada zvlast pod svym poradim a teprve
+na konci se z nich slozi priloha.
+
+Proc zvlast a ne rovnou za sebe: kousky tak mohou chodit soucasne
+a nemusi se cekat, nez dojde ten predchozi. U videa na 260 MB to
+je rozdil mezi sedmnacti minutami a necelymi tremi - rezie
+jednoho pozadavku (zhruba 0,7 s) prevazuje nad prenosem samotnych
+dat, takze se vyplati poslat jich vic najednou.
 
 Nahrava jen clovek, ktery smi upravovat web. Docasne soubory lezi
 pod data_dir a jsou svazane s prihlasenim, takze se do rozdelane
@@ -30,10 +34,9 @@ from odoo.tools import config
 
 _logger = logging.getLogger(__name__)
 
-# Nad timhle uz WAF pozadavek utina. Merenim proslo 300 kB souboru,
-# 600 kB uz ne; 200 kB necha pohodlnou rezervu i po zakodovani do
-# base64, ktere objem zvedne o tretinu.
-KOUSEK = 200 * 1024
+# Merenim na ostrem webu: 360 kB jeste projde, 420 kB uz WAF utne.
+# 300 kB necha rezervu i potom, co base64 objem zvedne o tretinu.
+KOUSEK = 300 * 1024
 
 # Strop pro cele video. Stejny jako web.max_file_upload_size, ktery
 # nastavuje honzahauzr_crm - tady se hlida znovu, protoze tudy
@@ -59,18 +62,20 @@ class HhNahravani(http.Controller):
         return request.env.user.has_group(
             'website.group_website_restricted_editor')
 
-    def _slozka(self):
-        """Docasna slozka davky, jedna na prihlaseni.
+    def _slozka(self, nazev):
+        """Slozka jedne rozdelane davky.
 
         Lezi pod data_dir, aby po sobe neco nezustavalo v /tmp a aby
-        to slo pri uklidu najit.
+        to slo pri uklidu najit. Je svazana s prihlasenim i s nazvem
+        souboru, takze dve soucasna nahravani si do sebe nelezou.
         """
-        zaklad = os.path.join(
-            config.filestore(request.env.cr.dbname), 'hh_nahravani')
-        # Klic sezeni je dost dlouhy a nahodny; bere se z nej jen cast,
-        # aby se cely netocil po disku.
         otisk = re.sub(r'[^A-Za-z0-9]', '', request.session.sid or '')[:24]
-        return os.path.join(zaklad, otisk or 'bez-sezeni')
+        return os.path.join(
+            config.filestore(request.env.cr.dbname),
+            'hh_nahravani',
+            otisk or 'bez-sezeni',
+            self._bezpecny_nazev(nazev) + '.casti',
+        )
 
     def _pripona(self, nazev):
         kus = (nazev or '').rsplit('.', 1)
@@ -93,53 +98,57 @@ class HhNahravani(http.Controller):
     @http.route('/hh/nahravani/kousek', type='json', auth='user',
                 methods=['POST'], website=True)
     def kousek(self, nazev=None, poradi=0, celkem=0, data=None, **kw):
-        """Prijme jeden kousek videa a pripise ho do docasneho souboru.
+        """Ulozi jeden kousek videa pod jeho poradim.
 
-        Kousky chodi popore. Prvni (poradi 0) zalozi soubor, kazdy
-        dalsi se pripise na konec. Hotovo se nehlasi tady - az
-        /hh/nahravani/dokonci.
+        Kousky mohou chodit v libovolnem poradi i soucasne - kazdy
+        ma vlastni soubor a sklada se az v /hh/nahravani/dokonci.
         """
         if not self._smi_nahravat():
             return {'chyba': 'Na tohle nemáš oprávnění.'}
 
-        pripona = self._pripona(nazev)
-        if pripona not in POVOLENE_TYPY:
+        if self._pripona(nazev) not in POVOLENE_TYPY:
             return {'chyba': 'Tenhle typ souboru nejde nahrát. '
                              'Povolené jsou: %s.'
                              % ', '.join(sorted(POVOLENE_TYPY))}
+
+        try:
+            poradi = int(poradi)
+            celkem = int(celkem)
+        except (TypeError, ValueError):
+            return {'chyba': 'Pořadí kousku dorazilo poškozené.'}
+
+        if poradi < 0 or celkem <= 0 or poradi >= celkem:
+            return {'chyba': 'Pořadí kousku je mimo rozsah.'}
+
+        if celkem * KOUSEK > STROP:
+            return {'chyba': 'Video je větší než povolených 512 MB.'}
 
         try:
             syrove = base64.b64decode(data or '', validate=True)
         except Exception:
             return {'chyba': 'Kousek souboru dorazil poškozený.'}
 
-        slozka = self._slozka()
+        slozka = self._slozka(nazev)
         os.makedirs(slozka, exist_ok=True)
-        cesta = os.path.join(slozka, self._bezpecny_nazev(nazev))
 
-        # Prvni kousek zacina od nuly - kdyby se predchozi pokus
-        # nedokoncil, zbytek po nem by se jinak pripsal dopredu.
-        rezim = 'wb' if int(poradi or 0) == 0 else 'ab'
-        if rezim == 'ab' and not os.path.exists(cesta):
-            return {'chyba': 'Rozdělané nahrávání se ztratilo, '
-                             'zkus to prosím znovu.'}
-
-        if os.path.exists(cesta) and rezim == 'ab':
-            if os.path.getsize(cesta) + len(syrove) > STROP:
-                self._zahod(cesta)
-                return {'chyba': 'Video je větší než povolených 512 MB.'}
-
-        with open(cesta, rezim) as soubor:
+        # Zapis pres docasny nazev a prejmenovani: kdyby spojeni
+        # vypadlo uprostred, nezustane po nem napul zapsany kousek,
+        # ktery by se tvaril jako hotovy.
+        cil = os.path.join(slozka, str(poradi))
+        rozdelany = cil + '.pul'
+        with open(rozdelany, 'wb') as soubor:
             soubor.write(syrove)
+        os.replace(rozdelany, cil)
 
-        return {'ok': True, 'prijato': os.path.getsize(cesta)}
+        return {'ok': True}
 
     @http.route('/hh/nahravani/dokonci', type='json', auth='user',
                 methods=['POST'], website=True)
-    def dokonci(self, nazev=None, **kw):
-        """Z hotoveho docasneho souboru udela prilohu a vrati adresu.
+    def dokonci(self, nazev=None, celkem=0, **kw):
+        """Slozi kousky dohromady a udela z nich prilohu.
 
-        Priloha musi byt verejna, jinak by ji navstevnik webu nestahl.
+        Priloha musi byt verejna, jinak by ji navstevnik webu
+        nestahl.
         """
         if not self._smi_nahravat():
             return {'chyba': 'Na tohle nemáš oprávnění.'}
@@ -148,22 +157,39 @@ class HhNahravani(http.Controller):
         if pripona not in POVOLENE_TYPY:
             return {'chyba': 'Tenhle typ souboru nejde nahrát.'}
 
-        cesta = os.path.join(self._slozka(), self._bezpecny_nazev(nazev))
-        if not os.path.exists(cesta):
-            return {'chyba': 'Nahrané video se nenašlo, zkus to znovu.'}
+        try:
+            celkem = int(celkem)
+        except (TypeError, ValueError):
+            celkem = 0
+        if celkem <= 0:
+            return {'chyba': 'Chybí počet kousků.'}
+
+        slozka = self._slozka(nazev)
+        chybejici = [i for i in range(celkem)
+                     if not os.path.exists(os.path.join(slozka, str(i)))]
+        if chybejici:
+            return {'chyba': 'Část videa se neuložila (%d z %d kousků '
+                             'chybí). Zkus to prosím znovu.'
+                             % (len(chybejici), celkem)}
 
         try:
-            with open(cesta, 'rb') as soubor:
-                obsah = soubor.read()
+            obsah = bytearray()
+            for i in range(celkem):
+                with open(os.path.join(slozka, str(i)), 'rb') as kus:
+                    obsah.extend(kus.read())
+
+            if len(obsah) > STROP:
+                return {'chyba': 'Video je větší než povolených 512 MB.'}
+
             priloha = request.env['ir.attachment'].create({
-                'name': os.path.basename(cesta),
-                'raw': obsah,
+                'name': self._bezpecny_nazev(nazev),
+                'raw': bytes(obsah),
                 'mimetype': POVOLENE_TYPY[pripona],
                 'public': True,
                 'res_model': 'ir.ui.view',
             })
         finally:
-            self._zahod(cesta)
+            self._zahod(slozka)
 
         return {
             'ok': True,
@@ -178,20 +204,19 @@ class HhNahravani(http.Controller):
         """Uklidi rozdelanou davku, kdyz nahravani nekdo prerusi."""
         if not self._smi_nahravat():
             return {'chyba': 'Na tohle nemáš oprávnění.'}
-        self._zahod(os.path.join(
-            self._slozka(), self._bezpecny_nazev(nazev)))
+        self._zahod(self._slozka(nazev))
         return {'ok': True}
 
     # ------------------------------------------------------------------
     # uklid
     # ------------------------------------------------------------------
 
-    def _zahod(self, cesta):
+    def _zahod(self, slozka):
         try:
-            if os.path.exists(cesta):
-                os.remove(cesta)
-            slozka = os.path.dirname(cesta)
-            if os.path.isdir(slozka) and not os.listdir(slozka):
-                shutil.rmtree(slozka, ignore_errors=True)
+            shutil.rmtree(slozka, ignore_errors=True)
+            # Kdyz uz v nadrazene slozce sezeni nic neni, pryc i s ni.
+            rodic = os.path.dirname(slozka)
+            if os.path.isdir(rodic) and not os.listdir(rodic):
+                shutil.rmtree(rodic, ignore_errors=True)
         except OSError:
-            _logger.warning('Nepodarilo se uklidit %s', cesta, exc_info=True)
+            _logger.warning('Nepodarilo se uklidit %s', slozka, exc_info=True)
