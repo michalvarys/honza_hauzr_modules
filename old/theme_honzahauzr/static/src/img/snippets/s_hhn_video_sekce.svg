@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nahled bloku "Video" v nabidce snippetu.
+
+     Je to SVG, ne PNG: nabidka snippetu dlazdice zmensuje podle sirky
+     panelu a na jemnejsich displejich by se rastr rozmazal. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" width="200" height="150">
+    <rect width="200" height="150" fill="#0f1116"/>
+
+    <!-- Sirokouhly ramecek 16:9, jak blok vypada na pocitaci -->
+    <rect x="22" y="36" width="156" height="88" rx="6" fill="#171a21" stroke="#2a2f3a" stroke-width="1"/>
+
+    <circle cx="100" cy="80" r="19" fill="#00c6ff"/>
+    <path d="M94 71 L112 80 L94 89 Z" fill="#06131a"/>
+
+    <text x="100" y="140" fill="#7c828e" font-family="Helvetica, Arial, sans-serif"
+          font-size="10" letter-spacing="1.4" text-anchor="middle">VIDEO</text>
+</svg>
