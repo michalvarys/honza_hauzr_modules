@@ -19,6 +19,9 @@ rem   - crf 23: kvalita podle obsahu, ne pevny tok. Ze 25 Mbit/s
 rem     vyjde zhruba 3 Mbit/s, tedy asi osmkrat mensi soubor.
 rem   - yuv420p: bez tohohle nekdy nejde obraz na starsich
 rem     telefonech, i kdyz jinak je soubor v poradku.
+rem   - nostdin: bez nej ffmpeg posloucha klavesnici a jedine
+rem     tuknuti do okna ho prepne do prikazoveho rezimu, kde
+rem     prevod stoji, dokud se nezmackne Enter.
 rem   - faststart: presune index na zacatek souboru, takze
 rem     video jde spustit hned a neceka se na cely download.
 rem ============================================================
@@ -60,7 +63,7 @@ echo ============================================================
 echo  %~nx1
 echo ============================================================
 
-"%FFMPEG%" -hide_banner -loglevel error -stats -y -i "%~1" ^
+"%FFMPEG%" -hide_banner -nostdin -loglevel error -stats -y -i "%~1" ^
   -vf "scale='min(1920,iw)':'min(1920,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2" ^
   -c:v libx264 -preset slow -crf 23 -profile:v high -level:v 4.1 -pix_fmt yuv420p ^
   -c:a aac -b:a 128k -ac 2 ^
