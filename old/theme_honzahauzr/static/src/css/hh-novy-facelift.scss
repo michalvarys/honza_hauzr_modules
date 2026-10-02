@@ -246,10 +246,30 @@
     border-radius: 8px;
 }
 
-/* Kontejner tri kroku ve vyzve zustava, jak byl - klientovi se
-   libi takovy, jaky je. Zaobleni se mu tedy nezmensuje. */
 #wrap.hh-landing.hhn .hh-news__box {
     border-radius: 10px;
+}
+
+/* ===== TRI KROKY VE VYZVE =====
+   Misto jedne velke desky kolem vsech tri ma kazdy krok vlastni
+   box. Spolecny kontejner proto ztraci podklad i ramecek - jinak
+   by byla deska v desce - a zustava z nej jen mrizka. */
+#wrap.hh-landing.hhn .hhn-steps {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+#wrap.hh-landing.hhn .hhn-step {
+    padding: clamp(16px, 1.6vw, 22px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    background: rgba(12, 12, 20, 0.6);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
 }
 
 #wrap.hh-landing.hhn .hh-news__input {
