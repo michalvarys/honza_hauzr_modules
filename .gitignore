@@ -5,3 +5,6 @@ docker-compose.override.yml
 .sheets/
 __pycache__/
 *.pyc
+
+# Videa se do gitu nedavaji - jsou velka a do balicku nepatri.
+videa/
