@@ -32,6 +32,8 @@ from odoo import http
 from odoo.http import request
 from odoo.tools import config
 
+from . import faststart
+
 _logger = logging.getLogger(__name__)
 
 # Merenim na ostrem webu: 360 kB jeste projde, 420 kB uz WAF utne.
@@ -180,21 +182,45 @@ class HhNahravani(http.Controller):
                              % (len(chybejici), celkem)}
 
         try:
-            obsah = bytearray()
-            for i in range(celkem):
-                with open(os.path.join(slozka, str(i)), 'rb') as kus:
-                    obsah.extend(kus.read())
+            # Kousky se spojuji na disk, ne do pameti. U videa na
+            # 300 MB by jinak server drzel ten objem dvakrat -
+            # jednou slozeny soubor a jednou kopii pro prilohu.
+            celek = os.path.join(slozka, '.celek')
+            with open(celek, 'wb') as vystup:
+                for i in range(celkem):
+                    with open(os.path.join(slozka, str(i)), 'rb') as kus:
+                        shutil.copyfileobj(kus, vystup, 4 * 1024 * 1024)
 
-            if len(obsah) > STROP:
+            if os.path.getsize(celek) > STROP:
                 return {'chyba': 'Video je větší než povolených 512 MB.'}
 
-            priloha = request.env['ir.attachment'].create({
-                'name': self._bezpecny_nazev(nazev),
-                'raw': bytes(obsah),
-                'mimetype': POVOLENE_TYPY[pripona],
-                'public': True,
-                'res_model': 'ir.ui.view',
-            })
+            # Strihove programy zapisuji prehravaci hlavicku na konec
+            # souboru. Prohlizec pak musi stahnout cele video, nez
+            # vubec zacne hrat - u velkeho souboru to znamena, ze se
+            # netoci nic a jen bezi kolecko. Tohle ji presune dopredu.
+            if pripona in ('mp4', 'm4v', 'mov'):
+                srovnany = celek + '.srovnany'
+                try:
+                    if faststart.prekopiruj_s_hlavickou_vepredu(celek, srovnany):
+                        os.replace(srovnany, celek)
+                    elif os.path.exists(srovnany):
+                        os.remove(srovnany)
+                except Exception:
+                    # Kdyz se to nepovede, video se nahraje tak, jak
+                    # prislo - radeji pomalejsi start nez zadne video.
+                    _logger.warning('Nepodarilo se srovnat %s', nazev,
+                                    exc_info=True)
+                    if os.path.exists(srovnany):
+                        os.remove(srovnany)
+
+            with open(celek, 'rb') as hotovy:
+                priloha = request.env['ir.attachment'].create({
+                    'name': self._bezpecny_nazev(nazev),
+                    'raw': hotovy.read(),
+                    'mimetype': POVOLENE_TYPY[pripona],
+                    'public': True,
+                    'res_model': 'ir.ui.view',
+                })
         finally:
             self._zahod(slozka)
 
