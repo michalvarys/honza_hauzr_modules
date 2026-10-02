@@ -209,18 +209,40 @@ class CrmLeadVyzva(models.Model):
         predmet, telo = texty[cislo]
 
         try:
-            self.env['mail.mail'].sudo().create({
-                'subject': predmet,
-                'body_html': telo,
-                'email_from': (self.company_id.email_formatted
-                               or self.env.company.email_formatted
-                               or self.env.user.email_formatted),
-                'email_to': prijemce,
-                'model': 'crm.lead',
-                'res_id': self.id,
-                'auto_delete': False,
-            }).send()
-            self[pole] = True
+            # Kdyz uz zprava k tomuhle dni lezi ve fronte po nepovedenem
+            # pokusu, zkusi se znovu ona. Jinak by kazda hodinova uloha
+            # zalozila dalsi kus a ve fronte by se hromadily kopie.
+            zprava = self.env['mail.mail'].sudo().search([
+                ('model', '=', 'crm.lead'),
+                ('res_id', '=', self.id),
+                ('subject', '=', predmet),
+                ('state', '=', 'exception'),
+            ], limit=1)
+            if not zprava:
+                zprava = self.env['mail.mail'].sudo().create({
+                    'subject': predmet,
+                    'body_html': telo,
+                    'email_from': (self.company_id.email_formatted
+                                   or self.env.company.email_formatted
+                                   or self.env.user.email_formatted),
+                    'email_to': prijemce,
+                    'model': 'crm.lead',
+                    'res_id': self.id,
+                    'auto_delete': False,
+                })
+            zprava.send()
+
+            # Priznak az kdyz zprava opravdu odesla. Drive se nastavoval
+            # vzdycky - i kdyz posta prave nejela a zprava skoncila ve
+            # stavu "exception". Takovy den uz se nikdy nerozeslal
+            # a clovek se o nem nedozvedel.
+            if zprava.state != 'exception':
+                self[pole] = True
+            else:
+                _logger.warning(
+                    'Honza Hauzr: e-mail Den %s pro lead %s neodesel '
+                    '(%s), zkusi se znovu pri dalsim behu.',
+                    cislo, self.id, (zprava.failure_reason or '').strip()[:120])
         except Exception as chyba:
             # E-mail nesmi shodit registraci ani nocni ukol.
             _logger.warning(
@@ -237,11 +259,25 @@ class CrmLeadVyzva(models.Model):
         ted = fields.Datetime.now()
         for cislo in (2, 3):
             hranice = ted - timedelta(hours=ODEMCENI[cislo])
+
+            # Stejny okamzik, od ktereho odemyka stranka - viz
+            # hh_vyzva_zacatek(). Tedy vstup do sloupce, a dokud karta
+            # do sloupce nedosla, registrace.
+            #
+            # Drive se tu hledalo jen podle create_date. Kdyz Honza
+            # kartu presunul pozdeji nez v okamziku registrace, obojí
+            # se rozeslo: na strance byl Den 2 jeste zamceny, ale
+            # e-mail uz tvrdil, ze je odemceny - nebo naopak clovek
+            # mel den odemceny a zadnou zpravu nedostal.
             leady = self.sudo().search([
                 ('hh_zdroj', '=', 'vyzva'),
                 ('hh_vyzva_mail%s' % cislo, '=', False),
-                ('create_date', '<=', hranice),
                 ('active', '=', True),
+                '|',
+                    '&', ('hh_stupen_od', '!=', False),
+                         ('hh_stupen_od', '<=', hranice),
+                    '&', ('hh_stupen_od', '=', False),
+                         ('create_date', '<=', hranice),
             ])
             for lead in leady:
                 lead._hh_vyzva_poslat_den(cislo)
