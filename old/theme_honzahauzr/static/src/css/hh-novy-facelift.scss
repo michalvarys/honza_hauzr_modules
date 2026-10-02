@@ -142,6 +142,28 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
     margin-left: auto;
 }
 
+/* Na siroke obrazovce tlacitko neni uplne u prave hrany, ale
+   nad horaky balonu z uvodni fotky - tak si to Honza vyzadal.
+
+   Posouva se pres transform, ne odsazenim. Odsazeni by menu
+   roztahlo a Odoo by usoudilo, ze se tlacitko uz nevejde -
+   schovalo by ho pod znamenko "+". Transform meni jen to, kde
+   se prvek vykresli, rozvrzeni zustane nedotcene.
+
+   Hodnota je ve vw, ne v pixelech: fotka se s sirkou okna
+   roztahuje, takze pevna hodnota by sedela jen na jedne
+   velikosti obrazovky a jinde by tlacitko ujelo. Namereno pri
+   sirce 1905 px, kde stred horaku lezi na 1199 px a stred
+   tlacitka byl na 1470 px - rozdil 271 px je tech 14,2 %.
+
+   Pod 992 px se nic z tohohle neuplatni, tam je misto menu
+   hamburger. */
+@media (min-width: 992px) {
+    body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
+        transform: translateX(-14.2vw);
+    }
+}
+
 /* Tlacitko vyzvy v hlavicce je taky CTA, takze vypada stejne jako
    ta ve strance: plna modra bez prechodu, tmavy text, hranate,
    bez zare. Barvu je potreba prosadit durazne - puvodni styl ji
