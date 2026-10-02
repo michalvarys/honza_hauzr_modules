@@ -178,7 +178,7 @@ options.registry.hhVideoSoubor = options.Class.extend({
      * @private
      * @returns {Promise<string|null>} text chyby, nebo null pri uspechu
      */
-    async _hhPosliKousek(soubor, poradi, pocet) {
+    async _hhPosliKousek(soubor, davka, poradi, pocet) {
         const kus = soubor.slice(poradi * KOUSEK, (poradi + 1) * KOUSEK);
         const data = await naBase64(kus);
 
@@ -186,6 +186,7 @@ options.registry.hhVideoSoubor = options.Class.extend({
             try {
                 const odpoved = await rpc("/hh/nahravani/kousek", {
                     nazev: soubor.name,
+                    davka,
                     poradi,
                     celkem: pocet,
                     data,
@@ -194,6 +195,17 @@ options.registry.hhVideoSoubor = options.Class.extend({
                 // priste dopadne stejne.
                 if (odpoved && odpoved.chyba) {
                     return odpoved.chyba;
+                }
+                // Server hlasi, co opravdu zapsal. Kdyz to nesedi,
+                // kousek se ztratil a stoji za to ho poslat znovu -
+                // driv se to poznalo az na konci a propadlo cele
+                // nahravani.
+                if (!odpoved || odpoved.poradi !== poradi
+                    || odpoved.bajtu !== kus.size) {
+                    if (pokus === POKUSU) {
+                        return _t("Část videa se nepodařilo uložit.");
+                    }
+                    continue;
                 }
                 return null;
             } catch {
@@ -222,6 +234,12 @@ options.registry.hhVideoSoubor = options.Class.extend({
      */
     async _hhNahraj(soubor) {
         const pocet = Math.max(1, Math.ceil(soubor.size / KOUSEK));
+        /* Oznaceni davky si vymysli prohlizec a drzi ho po celou
+           dobu nahravani. Server podle nej pozna, kam kousky patri -
+           drive to delal podle prihlaseni, ktere se ale behem
+           dlouheho nahravani obnovi a kousky se rozsypaly. */
+        const davka = (crypto.randomUUID && crypto.randomUUID())
+            || String(Date.now()) + "-" + Math.random().toString(36).slice(2);
         let dalsi = 0;
         let hotovo = 0;
         let chyba = null;
@@ -232,7 +250,7 @@ options.registry.hhVideoSoubor = options.Class.extend({
                 if (poradi >= pocet) {
                     return;
                 }
-                const potiz = await this._hhPosliKousek(soubor, poradi, pocet);
+                const potiz = await this._hhPosliKousek(soubor, davka, poradi, pocet);
                 if (potiz) {
                     chyba = potiz;
                     return;
@@ -247,7 +265,7 @@ options.registry.hhVideoSoubor = options.Class.extend({
         );
 
         if (chyba) {
-            await this._hhZrus(soubor.name);
+            await this._hhZrus(soubor.name, davka);
             this._hhHlaska(chyba, "danger");
             return null;
         }
@@ -256,6 +274,7 @@ options.registry.hhVideoSoubor = options.Class.extend({
         try {
             konec = await rpc("/hh/nahravani/dokonci", {
                 nazev: soubor.name,
+                davka,
                 celkem: pocet,
             });
         } catch {
@@ -281,9 +300,9 @@ options.registry.hhVideoSoubor = options.Class.extend({
      * @private
      * @param {string} nazev
      */
-    async _hhZrus(nazev) {
+    async _hhZrus(nazev, davka) {
         try {
-            await rpc("/hh/nahravani/zrus", { nazev });
+            await rpc("/hh/nahravani/zrus", { nazev, davka });
         } catch {
             // Uklid je jen laskavost, rozdelany soubor nikomu nevadi.
         }

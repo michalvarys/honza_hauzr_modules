@@ -62,19 +62,24 @@ class HhNahravani(http.Controller):
         return request.env.user.has_group(
             'website.group_website_restricted_editor')
 
-    def _slozka(self, nazev):
+    def _slozka(self, davka):
         """Slozka jedne rozdelane davky.
 
         Lezi pod data_dir, aby po sobe neco nezustavalo v /tmp a aby
-        to slo pri uklidu najit. Je svazana s prihlasenim i s nazvem
-        souboru, takze dve soucasna nahravani si do sebe nelezou.
+        to slo pri uklidu najit.
+
+        Nazev davky si vymysli prohlizec a posila ho s kazdym
+        kouskem. Driv se odvozoval z prihlaseni, jenze to se behem
+        dlouheho nahravani obnovuje ("Session expired" v logu)
+        a kousky pak padaly do jine slozky - z 953 jich doslo 371
+        a zbytek se ztratil. Cislo uzivatele je v ceste proto, aby
+        si dva lide nemohli lezt do stejne davky.
         """
-        otisk = re.sub(r'[^A-Za-z0-9]', '', request.session.sid or '')[:24]
+        otisk = re.sub(r'[^A-Za-z0-9-]', '', str(davka or ''))[:40]
         return os.path.join(
             config.filestore(request.env.cr.dbname),
             'hh_nahravani',
-            otisk or 'bez-sezeni',
-            self._bezpecny_nazev(nazev) + '.casti',
+            '%s-%s' % (request.env.uid, otisk or 'bez-nazvu'),
         )
 
     def _pripona(self, nazev):
@@ -97,7 +102,7 @@ class HhNahravani(http.Controller):
 
     @http.route('/hh/nahravani/kousek', type='json', auth='user',
                 methods=['POST'], website=True)
-    def kousek(self, nazev=None, poradi=0, celkem=0, data=None, **kw):
+    def kousek(self, nazev=None, davka=None, poradi=0, celkem=0, data=None, **kw):
         """Ulozi jeden kousek videa pod jeho poradim.
 
         Kousky mohou chodit v libovolnem poradi i soucasne - kazdy
@@ -128,7 +133,7 @@ class HhNahravani(http.Controller):
         except Exception:
             return {'chyba': 'Kousek souboru dorazil poškozený.'}
 
-        slozka = self._slozka(nazev)
+        slozka = self._slozka(davka)
         os.makedirs(slozka, exist_ok=True)
 
         # Zapis pres docasny nazev a prejmenovani: kdyby spojeni
@@ -140,11 +145,13 @@ class HhNahravani(http.Controller):
             soubor.write(syrove)
         os.replace(rozdelany, cil)
 
-        return {'ok': True}
+        # Vraci se poradi a skutecne zapsana velikost, aby prohlizec
+        # poznal ztraceny kousek hned, ne az na konci pri skladani.
+        return {'ok': True, 'poradi': poradi, 'bajtu': len(syrove)}
 
     @http.route('/hh/nahravani/dokonci', type='json', auth='user',
                 methods=['POST'], website=True)
-    def dokonci(self, nazev=None, celkem=0, **kw):
+    def dokonci(self, nazev=None, davka=None, celkem=0, **kw):
         """Slozi kousky dohromady a udela z nich prilohu.
 
         Priloha musi byt verejna, jinak by ji navstevnik webu
@@ -164,7 +171,7 @@ class HhNahravani(http.Controller):
         if celkem <= 0:
             return {'chyba': 'Chybí počet kousků.'}
 
-        slozka = self._slozka(nazev)
+        slozka = self._slozka(davka)
         chybejici = [i for i in range(celkem)
                      if not os.path.exists(os.path.join(slozka, str(i)))]
         if chybejici:
@@ -200,11 +207,11 @@ class HhNahravani(http.Controller):
 
     @http.route('/hh/nahravani/zrus', type='json', auth='user',
                 methods=['POST'], website=True)
-    def zrus(self, nazev=None, **kw):
+    def zrus(self, nazev=None, davka=None, **kw):
         """Uklidi rozdelanou davku, kdyz nahravani nekdo prerusi."""
         if not self._smi_nahravat():
             return {'chyba': 'Na tohle nemáš oprávnění.'}
-        self._zahod(self._slozka(nazev))
+        self._zahod(self._slozka(davka))
         return {'ok': True}
 
     # ------------------------------------------------------------------
@@ -212,11 +219,12 @@ class HhNahravani(http.Controller):
     # ------------------------------------------------------------------
 
     def _zahod(self, slozka):
+        """Smaze slozku jedne davky.
+
+        Spolecny koren hh_nahravani zustava - muze v nem prave bezet
+        jine nahravani.
+        """
         try:
             shutil.rmtree(slozka, ignore_errors=True)
-            # Kdyz uz v nadrazene slozce sezeni nic neni, pryc i s ni.
-            rodic = os.path.dirname(slozka)
-            if os.path.isdir(rodic) and not os.listdir(rodic):
-                shutil.rmtree(rodic, ignore_errors=True)
         except OSError:
             _logger.warning('Nepodarilo se uklidit %s', slozka, exc_info=True)
