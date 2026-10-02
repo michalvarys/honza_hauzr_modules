@@ -424,4 +424,32 @@
     </section>
 </template>
 
+<!-- ===== VIDEO =====
+
+     Samostatna sekce, aby slo video pustit do stranky jako blok.
+     Drive sel vlozit jen vnitrni "Box na video", ktery potrebuje uz
+     existujici sekci, do ktere se da pustit - na prazdne misto na
+     strance se dat nedal.
+
+     Pomer resi .hhn-video samo: na siroke obrazovce 16:9, na uzke
+     9:16, ale az ve chvili, kdy je vyplnena svisla verze. Dokud neni,
+     zustane i na mobilu sirokouhly ramecek - jinak by se do vysokeho
+     boxu cpalo siroke video a zbyl by z nej prouzek uprostred cerne
+     plochy.
+
+     Adresa hlavniho videa se meni dvojklikem na blok, svisla verze
+     v pravem panelu pod "Video pro mobil". Funguje YouTube i Vimeo. -->
+<template id="s_hhn_video_sekce" name="Video">
+    <section class="hhn-video-sekce o_cc o_colored_level">
+        <div class="container">
+            <div class="hhn-video" data-hhv-popis="Video" data-hhn-video-mobil="">
+                <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                    <div class="css_editable_mode_display"/>
+                    <div class="media_iframe_video_size"/>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
 </odoo>
