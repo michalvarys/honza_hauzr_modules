@@ -47,6 +47,33 @@ body:has(#wrap.hh-landing.hhn) {
     color: var(--f-modra);
 }
 
+/* ===== SIRKA NADPISU A TEXTU NA POCITACI =====
+
+   Nadpisy maji v sablone zalomeni natvrdo, aby na uzkem displeji
+   padla veta na spravne misto. Na siroke obrazovce je ale sloupec
+   dost siroky na cely nadpis a to zalomeni ho zbytecne tristi na
+   dva kratke radky.
+
+   Odstavce k tomu mely strop 68 znaku a hlavicka sekce 720 px,
+   takze kolem nich zbyvalo pres 400 px prazdna. Pres 900 px uz
+   je ale radek dlouhy tak, ze oko na konci ztraci ten nasledujici
+   - proto ne na celou sirku kontejneru.
+
+   Texty se nemeni, jen se jinak zalomi. */
+@media (min-width: 992px) {
+    #wrap.hh-landing.hhn .hhn-h2 br {
+        display: none;
+    }
+
+    #wrap.hh-landing.hhn .hhn-head-center {
+        max-width: 1100px;
+    }
+
+    #wrap.hh-landing.hhn .hhn-story__text p {
+        max-width: 900px;
+    }
+}
+
 /* ===== SJEDNOCENA MODRA =====
    Zvyraznena slova v nadpisech a drobne modre nadpisky. */
 #wrap.hh-landing.hhn .hhn-accent,
