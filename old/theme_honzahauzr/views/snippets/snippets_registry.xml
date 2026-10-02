@@ -39,8 +39,6 @@
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_pribeh.png"/>
         <t t-snippet="theme_honzahauzr.s_hhn_galerie" string="Galerie fotek" group="honzahauzr"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_galerie.png"/>
-        <t t-snippet="theme_honzahauzr.s_hhn_video_sekce" string="Video Honza" group="honzahauzr"
-           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_video_sekce.svg"/>
         <t t-snippet="theme_honzahauzr.s_hhn_jak" string="Jak pracuji" group="honzahauzr"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_jak.png"/>
         <t t-snippet="theme_honzahauzr.s_hhn_vyzva" string="Bezplatná třídenní výzva" group="honzahauzr"
@@ -127,6 +125,8 @@
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_karta.png"/>
         <t t-snippet="theme_honzahauzr.s_hhn_foto" string="Fotka do galerie"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_foto.png"/>
+        <t t-snippet="theme_honzahauzr.s_hhn_video_sekce" string="Video Honza"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_video_sekce.svg"/>
 
         <!-- Sekce starsiho designu -->
         <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka (starý)"
