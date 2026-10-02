@@ -133,10 +133,23 @@ publicWidget.registry.hhVyzvaDny = publicWidget.Widget.extend({
             return;
         }
 
+        /* Obe promenne musi vzniknout drive, nez se prekresli() poprve
+           zavola. Kdyz uz cas odemceni uplynul, skonci prvni volani
+           hned v te vetvi dole - a sahlo by na id, ktere by jeste
+           neexistovalo. Prohlizec na to odpovi vyjimkou
+           "Cannot access 'id' before initialization" a cely skript
+           stranky se zastavi. */
+        let id = null;
+        let hotovo = false;
+
         const prekresli = () => {
             const zbyva = cil - Date.now();
             if (zbyva <= 0) {
-                clearInterval(id);
+                hotovo = true;
+                if (id !== null) {
+                    clearInterval(id);
+                    id = null;
+                }
                 text.textContent = "Odemykám…";
                 // Jedno nacteni navic, ne opakovane - kdyby se server
                 // s prohlizecem rozesel o par vterin, stranka by se
@@ -152,7 +165,12 @@ publicWidget.registry.hhVyzvaDny = publicWidget.Widget.extend({
         };
 
         prekresli();
-        const id = setInterval(prekresli, 1000);
-        this.odpocty.push(id);
+
+        /* Kdyz uz je po case, stranka se za chvili sama nacte znovu -
+           tikat vterinu po vterine do te doby nema smysl. */
+        if (!hotovo) {
+            id = setInterval(prekresli, 1000);
+            this.odpocty.push(id);
+        }
     },
 });
