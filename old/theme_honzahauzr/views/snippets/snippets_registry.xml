@@ -127,8 +127,6 @@
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_foto.png"/>
         <t t-snippet="theme_honzahauzr.s_hhn_video" string="Box na video 9:16"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_video.png"/>
-        <t t-snippet="theme_honzahauzr.s_hh_video_soubor" string="Video ze souboru"
-           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hhn_video.png"/>
 
         <!-- Sekce starsiho designu -->
         <t t-snippet="theme_honzahauzr.s_hh_hero" string="Úvodní obrazovka (starý)"
@@ -175,8 +173,8 @@
           inherit_id="website.snippet_options">
     <xpath expr="//div[@id='so_content_addition']" position="after">
         <div id="hhn_polozky"
-             data-selector=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhv-soubor, .hhn-center-action, .hhd-den"
-             data-drop-near=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhv-soubor, .hhn-center-action, .hhd-den"
+             data-selector=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"
+             data-drop-near=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"
              data-drop-in=".hhd-den"/>
     </xpath>
 </template>
@@ -200,63 +198,6 @@
                       data-attribute-name="hhnVideoMobil"
                       data-no-preview="true"
                       placeholder="odkaz na video na výšku"/>
-        </div>
-    </xpath>
-</template>
-
-<!-- Volby bloku "Video ze souboru".
-
-     Tlacitko otevre bezny dialog "Vyberte média" na zalozce Dokumenty,
-     kde se soubor nahraje. Adresu vybraneho souboru zapise do
-     data-hhv-soubor - obsluha je v static/src/js/hh-video-soubor-volby.js.
-
-     Policko pod nim ukazuje, co je vybrane, a da se do nej adresa
-     vlozit i rucne, kdyby soubor uz na webu byl.
-
-     Nahled se meni dvojklikem primo na obrazek, na to neni potreba
-     zadna volba navic.
-
-     Popisek s limitem tam neni pro ozdobu. Kdyz je soubor nad strop
-     (web.max_file_upload_size, nastavuje honzahauzr_crm na 512 MB),
-     Odoo neudela vubec nic - zadna hlaska, dialog zustane otevreny.
-     Bez tehle vety clovek jen tezko uhodne, proc se nic nedeje. -->
-<template id="honzahauzr_volba_video_soubor" name="Honza Hauzr - video ze souboru"
-          inherit_id="website.snippet_options">
-    <xpath expr="//div[@id='so_content_addition']" position="after">
-        <div data-js="hhVideoSoubor" data-selector=".hhv-soubor">
-            <we-row string="Vlastní video">
-                <!-- Bootstrapovske text-muted je na tmavem panelu
-                     editoru skoro necitelne, proto barva natvrdo. -->
-                <div style="color: #b4b8bf; font-size: 11px; line-height: 1.35; padding: 2px 0;">
-                    Nejvýš 512 MB, formáty mp4, webm, mov. U delšího
-                    videa zvaž YouTube — streamuje se po kouscích,
-                    kdežto nahrané se musí stáhnout celé.
-                </div>
-            </we-row>
-            <we-button data-vybrat-soubor="1" data-no-preview="true">
-                Nahrát video
-            </we-button>
-            <we-input string="Adresa souboru"
-                      data-select-data-attribute=""
-                      data-attribute-name="hhvSoubor"
-                      data-no-preview="true"
-                      placeholder="/web/content/..."/>
-            <we-button data-vybrat-soubor-mobil="1" data-no-preview="true">
-                Nahrát video pro mobil
-            </we-button>
-            <we-button data-vybrat-titulky="1" data-no-preview="true">
-                Nahrát titulky
-            </we-button>
-            <we-input string="Titulky (.vtt)"
-                      data-select-data-attribute=""
-                      data-attribute-name="hhvTitulky"
-                      data-no-preview="true"
-                      placeholder="/web/content/..."/>
-            <we-input string="Soubor pro mobil"
-                      data-select-data-attribute=""
-                      data-attribute-name="hhvSouborMobil"
-                      data-no-preview="true"
-                      placeholder="/web/content/..."/>
         </div>
     </xpath>
 </template>

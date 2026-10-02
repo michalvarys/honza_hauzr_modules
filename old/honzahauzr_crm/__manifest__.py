@@ -24,7 +24,6 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/crm_tag_data.xml',
         'data/website_form_data.xml',
         'data/ir_cron_data.xml',
-        'data/nahravani_videa.xml',
         'views/crm_stage_views.xml',
         'views/crm_lead_views.xml',
         'views/hh_termin_views.xml',

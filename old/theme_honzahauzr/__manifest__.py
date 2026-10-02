@@ -44,7 +44,6 @@ Obsahuje:
         'views/snippets/s_hh_wip.xml',
         'views/snippets/s_hh_google_fonts.xml',
         'views/snippets/s_hhn_polozky.xml',
-        'views/snippets/s_hh_video_soubor.xml',
         'views/snippets/s_hhn_sekce.xml',
         'views/snippets/snippets_registry.xml',
 
