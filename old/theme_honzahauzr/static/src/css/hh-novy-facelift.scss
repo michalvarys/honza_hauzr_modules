@@ -1,0 +1,301 @@
+/* ============================================================
+   UVODNI STRANKA - drobny vizualni facelift
+
+   Zadani od klienta: nedelat novy web, zachovat 80-90 % soucasne
+   podoby. Vsechny fotky, texty, sekce, jejich poradi, rozmery
+   i rozlozeni zustavaji. Meni se pet veci a sjednocuje se modra.
+
+     1. Modra cast nadpisu v hero prestane byt patkova kurziva
+        a dostane stejny tucny bezpatkovy rez jako bila cast.
+     2. Ctyri zaoblene kartlicky Autopilot / Odkladani / Hranice /
+        Smer se meni na otevreny cislovany seznam.
+     3. Totez v sekci "Jak pracuji" - ctyri sloupce oddelene
+        jemnymi svislymi linkami.
+     4. Zaobleni rohu se zmensuje, aby web pusobil pevneji.
+     5. CTA tlacitka: plna modra bez prechodu, tmavy text,
+        radius 7 px, bez zare a bez kulate bubliny se sipkou.
+
+   Jedina modra na cele strance je #00C6FF.
+
+   Sablona views/novy.xml se nedotyka - cislice 01-04 delaji
+   citace v CSS, takze se cislovani samo srovna, kdyz Honza
+   v editoru nejake policko prida nebo smaze.
+
+   ROZSAH: jen uvodni stranka. Obal #wrap.hh-landing.hhn ma
+   pouze ona - vyzva ma hhd, landing page hhv.
+   ============================================================ */
+
+#wrap.hh-landing.hhn {
+    --f-modra: #00c6ff;
+    /* Text na tlacitku. Na svetle tyrkysove je citelny jen tmavy -
+       bила by se na ni ztratila. */
+    --f-na-modre: #06131a;
+    --f-linka: rgba(255, 255, 255, 0.14);
+}
+
+/* ===== 1. NADPIS V HERO =====
+   Modra cast byla patkova kurziva, ktera vedle tucneho
+   bezpatkoveho nadpisu pusobila jako cizi prvek. Text, velikost
+   i umisteni zustavaji - meni se jen rez a barva. */
+#wrap.hh-landing.hhn .hhn-hero h1 em {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: var(--f-modra);
+}
+
+/* ===== SJEDNOCENA MODRA =====
+   Zvyraznena slova v nadpisech a drobne modre nadpisky. */
+#wrap.hh-landing.hhn .hhn-accent,
+#wrap.hh-landing.hhn .hhn-eyebrow--accent,
+#wrap.hh-landing.hhn .hhn-eyebrow--sand {
+    color: var(--f-modra);
+}
+
+/* ===== 5. CTA TLACITKA =====
+   Plna modra bez prechodu, tmavy text, mirne zaobleni, zadna
+   zare. */
+#wrap.hh-landing.hhn .hhn-cta,
+#wrap.hh-landing.hhn .hh-btn {
+    border: 0;
+    /* Hranata, ne jen mene zaoblena - v mockupu maji tlacitka
+       ostre rohy. Zaobleni se zmensuje u fotek a kontejneru,
+       tlacitka jdou na nulu. */
+    border-radius: 0;
+    background: var(--f-modra);
+    background-image: none;
+    color: var(--f-na-modre);
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#wrap.hh-landing.hhn .hhn-cta:hover,
+#wrap.hh-landing.hhn .hhn-cta:focus-visible,
+#wrap.hh-landing.hhn .hh-btn:hover {
+    /* Jen o neco tmavsi odstin tehoz, zadna zmena barvy ani zare. */
+    background: #00b0e4;
+    color: var(--f-na-modre);
+    filter: none;
+    box-shadow: none;
+}
+
+/* Sipka zustava, ale bez kulate bubliny kolem sebe. */
+#wrap.hh-landing.hhn .hhn-cta svg {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    width: 15px;
+    height: 15px;
+}
+
+#wrap.hh-landing.hhn .hhn-cta:hover svg {
+    background: none;
+}
+
+/* ===== 2. a 3. CISLOVANE SEZNAMY =====
+   Kartlicky se otevrou: zadne ramecky, zadna vypln, zadne ikony.
+   Poradi nese velka modra cislice, kterou generuje CSS. */
+#wrap.hh-landing.hhn .hhn-point__icon,
+#wrap.hh-landing.hhn .hhn-pillar__icon {
+    display: none;
+}
+
+#wrap.hh-landing.hhn .hhn-points,
+#wrap.hh-landing.hhn .hhn-pillars {
+    counter-reset: polozka;
+    gap: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point,
+#wrap.hh-landing.hhn .hhn-pillar {
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    text-align: left;
+}
+
+#wrap.hh-landing.hhn .hhn-point:hover,
+#wrap.hh-landing.hhn .hhn-pillar:hover {
+    background: none;
+    transform: none;
+    box-shadow: none;
+}
+
+#wrap.hh-landing.hhn .hhn-point::before,
+#wrap.hh-landing.hhn .hhn-pillar::before {
+    counter-increment: polozka;
+    /* decimal-leading-zero dela 01, 02, 03, 04 */
+    content: counter(polozka, decimal-leading-zero);
+    color: var(--f-modra);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+/* ----- 2. AUTOPILOT / ODKLADANI / HRANICE / SMER -----
+   Mrizka 2x2 jako v mockupu. Cislo a nazev na jednom radku,
+   popis pod nimi; mezi polickami jemne linky misto ramecku. */
+#wrap.hh-landing.hhn .hhn-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#wrap.hh-landing.hhn .hhn-point {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 14px;
+    row-gap: 6px;
+    padding: 20px 24px 20px 0;
+    border-top: 1px solid var(--f-linka);
+    border-left: 1px solid var(--f-linka);
+}
+
+/* Vnejsi hrany mrizky zustavaji bez linek, aby to nebyl ramecek
+   dokola, ale jen deleni mezi policky. */
+#wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2) {
+    border-top: 0;
+    padding-top: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point:nth-child(odd) {
+    border-left: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+    padding-left: 24px;
+    padding-right: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-point::before {
+    font-size: 1.6rem;
+}
+
+#wrap.hh-landing.hhn .hhn-point h3 {
+    grid-column: 2;
+    margin: 0;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+#wrap.hh-landing.hhn .hhn-point p {
+    grid-column: 2;
+    margin: 0;
+    color: var(--hh-text-light);
+    font-size: 0.95rem;
+}
+
+/* ----- 3. JAK PRACUJI -----
+   Ctyri sloupce oddelene jemnymi svislymi linkami, cislo nad
+   nazvem. */
+#wrap.hh-landing.hhn .hhn-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar {
+    display: block;
+    padding: 0 24px;
+    border-left: 1px solid var(--f-linka);
+}
+
+#wrap.hh-landing.hhn .hhn-pillar:first-child {
+    border-left: 0;
+    padding-left: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar:last-child {
+    padding-right: 0;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar::before {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 1.9rem;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar h3 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+#wrap.hh-landing.hhn .hhn-pillar p {
+    margin: 0;
+    color: var(--hh-text-light);
+    font-size: 0.93rem;
+    line-height: 1.6;
+}
+
+/* ===== 4. MENSI ZAOBLENI =====
+   Rozmery ani umisteni se nemeni, jen rohy prestanou byt tak
+   kulate. */
+#wrap.hh-landing.hhn .hhn-split__photo,
+#wrap.hh-landing.hhn .hhn-video,
+#wrap.hh-landing.hhn .hhn-card__photo,
+#wrap.hh-landing.hhn .hhn-foto,
+#wrap.hh-landing.hhn .hhn-gallery figure {
+    border-radius: 8px;
+}
+
+#wrap.hh-landing.hhn .hhn-steps,
+#wrap.hh-landing.hhn .hh-news__box {
+    border-radius: 10px;
+}
+
+#wrap.hh-landing.hhn .hh-news__input {
+    border-radius: 6px;
+}
+
+/* Stitky Driv / Dnes byly pilulky. */
+#wrap.hh-landing.hhn .hhn-tag {
+    border-radius: 6px;
+}
+
+/* ===== UZKE OKNO =====
+   Na mobilu jdou obe skupiny pod sebe pres celou sirku. */
+@media (max-width: 991px) {
+    #wrap.hh-landing.hhn .hhn-points {
+        grid-template-columns: 1fr;
+    }
+
+    #wrap.hh-landing.hhn .hhn-point,
+    #wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+        padding: 20px 0;
+        border-left: 0;
+        border-top: 1px solid var(--f-linka);
+    }
+
+    #wrap.hh-landing.hhn .hhn-point:first-child {
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillars {
+        grid-template-columns: 1fr;
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillar {
+        padding: 20px 0;
+        border-left: 0;
+        border-top: 1px solid var(--f-linka);
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillar:first-child {
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    #wrap.hh-landing.hhn .hhn-pillar::before {
+        margin-bottom: 8px;
+        font-size: 1.6rem;
+    }
+}

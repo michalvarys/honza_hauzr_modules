@@ -28,6 +28,16 @@
     <field name="path">theme_honzahauzr/static/src/css/hh-novy.scss</field>
 </record>
 
+<!-- Facelift uvodni stranky. Nacita se AZ ZA hh-novy.scss, protoze
+     jeho pravidla prepisuje. Vypnuti = smazat tenhle zaznam. -->
+<record id="asset_hh_novy_facelift_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - novy design (facelift)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="directive">after</field>
+    <field name="target">theme_honzahauzr/static/src/css/hh-novy.scss</field>
+    <field name="path">theme_honzahauzr/static/src/css/hh-novy-facelift.scss</field>
+</record>
+
 <record id="asset_hh_vyzva_scss" model="theme.ir.asset">
     <field name="name">Honza Hauzr - landing page vyzvy (styly)</field>
     <field name="bundle">web.assets_frontend</field>
