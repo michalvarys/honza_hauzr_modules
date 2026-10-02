@@ -25,7 +25,9 @@
    pouze ona - vyzva ma hhd, landing page hhv.
    ============================================================ */
 
-#wrap.hh-landing.hhn {
+/* Promenne sedi na <body>, ne na #wrap - hlavicku vykresluje
+   Odoo mimo nej a tlacitko vyzvy v ni je barvu taky potrebuje. */
+body:has(#wrap.hh-landing.hhn) {
     --f-modra: #00c6ff;
     /* Text na tlacitku. Na svetle tyrkysove je citelny jen tmavy -
        bила by se na ni ztratila. */
@@ -91,6 +93,46 @@
 
 #wrap.hh-landing.hhn .hhn-cta:hover svg {
     background: none;
+}
+
+/* ===== HLAVICKA =====
+   Vyzva stoji uplne vpravo, odkazy na sekce zustavaji vlevo
+   vedle loga.
+
+   Polozky jsou vsechny v jednom seznamu, takze je nelze rozdelit
+   jinak nez odsazenim: seznam se roztahne pres celou sirku
+   a posledni polozka dostane automatickou mezeru pred sebou,
+   ktera ji odtlaci az k prave hrane.
+
+   Pres :has(), protoze hlavicka je spolecna pro cely web - zmena
+   se tak tyka jen stranky, ktera uvnitr ma nas #wrap. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
+    margin-left: auto;
+}
+
+/* Tlacitko vyzvy v hlavicce je taky CTA, takze vypada stejne jako
+   ta ve strance: plna modra bez prechodu, tmavy text, hranate,
+   bez zare. Barvu je potreba prosadit durazne - puvodni styl ji
+   ma s !important. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu .nav-link[href="/zpet-do-zivota"] {
+    border-radius: 0;
+    background: var(--f-modra);
+    background-image: none;
+    color: var(--f-na-modre) !important;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu .nav-link[href="/zpet-do-zivota"]:hover {
+    background: #00b0e4;
+    color: var(--f-na-modre) !important;
+    filter: none;
+    transform: none;
 }
 
 /* ===== 2. a 3. CISLOVANE SEZNAMY =====
