@@ -327,165 +327,96 @@
     var landing = document.querySelector(".hh-landing");
     if (!landing) return;
 
-    /**
-     * Rekne strance, jak daleko pod horni hranou ma sekce dosednout.
-     *
-     * Rolovani uz obstarava prohlizec a odsazeni si bere ze
-     * scroll-margin-top. Ta hodnota ale musi odpovidat skutecne
-     * vysce listy, kterou vykresluje Odoo (website.layout), ne nase
-     * sablona - a ktera se lisi mezi mobilem a pocitacem. Proto se
-     * meri az v prohlizeci a predava se do CSS promennou.
-     *
-     * Kdyz lista nahore prilepena neni, staci maly odstup.
-     */
-    function srovnejOdsazeniKotev() {
+    // Hlavicku vykresluje Odoo (website.layout), ne nase sablona. Kdyz je
+    // prilepena nahore, musi se o jeji vysku odsadit cil rolovani - jinak
+    // zacatek sekce skonci pod ni.
+    function navOffset() {
         var hlavicka = document.querySelector("#wrapwrap > header, header#top, .o_header_standard");
-        var odsazeni = 16;
-        if (hlavicka) {
-            var poz = window.getComputedStyle(hlavicka).position;
-            if (poz === "fixed" || poz === "sticky") {
-                odsazeni = Math.round(hlavicka.getBoundingClientRect().height) + 16;
-            }
-        }
-        document.documentElement.style.setProperty("--hh-kotva-odsazeni", odsazeni + "px");
+        if (!hlavicka) return 16;
+        var poz = window.getComputedStyle(hlavicka).position;
+        if (poz !== "fixed" && poz !== "sticky") return 16;
+        return hlavicka.getBoundingClientRect().height + 16;
     }
 
-    srovnejOdsazeniKotev();
-    window.addEventListener("resize", srovnejOdsazeniKotev, { passive: true });
+    function targetTop(el) {
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var top = el.getBoundingClientRect().top + window.pageYOffset - navOffset();
+        return Math.max(0, Math.min(Math.round(top), Math.round(maxScroll)));
+    }
 
-    /**
-     * Sjede na sekci.
-     *
-     * Rolovani obstarava prohlizec (scroll-behavior: smooth v CSS).
-     * Driv si tu stranka pocitala vlastni animaci snimek po snimku
-     * a pralo se to s tou prohlizecovou: zmereno, ze prvnich 1,2 s
-     * se stranka posunula o 158 px ze 4134 a pak zbytek prolitla
-     * naraz. Pusobilo to, jako by se nejdriv rozmyslela, kam jit.
-     *
-     * Jedna animace misto dvou se rozjede hned po kliknuti a jede
-     * rovnomerne. Navic se sama prizpusobi, kdyz se behem cesty
-     * zmeni vyska stranky - treba kdyz se doloží obrazky.
-     *
-     * @param {Element} el
-     */
-    /**
-     * Srovna sekci presne pod listu, kdyz uz se stranka ustalila.
-     *
-     * Nad cilem se cestou dolozi obrazky a stranka se o jejich
-     * vysku protahne nebo smrskne. Animace uz v tu chvili dobehla,
-     * takze sekce skonci o kus vedle - namereno az o tisic pixelu.
-     * Tohle to jednim tichym posunem dorovna.
-     *
-     * @param {Element} el
-     */
-    function dorovnej(el) {
-        var odsazeni = parseInt(
-            getComputedStyle(document.documentElement)
-                .getPropertyValue("--hh-kotva-odsazeni"), 10) || 78;
-        var odchylka = el.getBoundingClientRect().top - odsazeni;
-        if (Math.abs(odchylka) > 2) {
-            window.scrollBy({ top: odchylka, behavior: "auto" });
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    var animId = null;
+
+    function stopAnim() {
+        if (animId !== null) {
+            cancelAnimationFrame(animId);
+            animId = null;
         }
     }
+
+    // kdyz uzivatel sam zaroluje, animaci pustime
+    ["wheel", "touchstart"].forEach(function (evt) {
+        window.addEventListener(evt, stopAnim, { passive: true });
+    });
 
     function slideTo(el) {
-        /* Mirit na predem spocitany pixel nestaci: nad cilem se
-           cestou dolozi obrazky, stranka se protahne a ten pixel uz
-           patri nekam jinam. scrollIntoView sleduje primo prvek.
-           Odsazeni pod listu resi scroll-margin-top v CSS. */
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        stopAnim();
 
-        // Dorovnat az potom, co rolovani dobehne. "scrollend" umi
-        // novejsi prohlizece; jinde to vezme odpocet.
-        if ("onscrollend" in window) {
-            window.addEventListener("scrollend", function srovnat() {
-                window.removeEventListener("scrollend", srovnat);
-                dorovnej(el);
-            });
-        } else {
-            setTimeout(function () { dorovnej(el); }, 900);
+        var startY = window.pageYOffset;
+        if (Math.abs(targetTop(el) - startY) < 2) return;
+
+        // delsi cesta = delsi animace, ale drzime to v rozumnych mezich
+        var duration = Math.min(1200, Math.max(500, Math.abs(targetTop(el) - startY) * 0.4));
+        var startTime = null;
+
+        function step(now) {
+            if (startTime === null) startTime = now;
+            var p = Math.min((now - startTime) / duration, 1);
+            var goal = targetTop(el);
+            var y = startY + (goal - startY) * easeInOutCubic(p);
+
+            window.scrollTo({ top: Math.round(y), behavior: "auto" });
+
+            if (p < 1) {
+                animId = requestAnimationFrame(step);
+            } else {
+                animId = null;
+                window.scrollTo({ top: targetTop(el), behavior: "auto" });
+            }
         }
-    }
 
-    /**
-     * Vytahne z odkazu nazev kotvy, pokud miri na tuhle stranku.
-     *
-     * Odkazy v obsahu jsou psane jako "#sekce", ale polozky menu
-     * spravuje Odoo a ty maji tvar "/#sekce" - s lomitkem, aby
-     * fungovaly i z jine stranky webu. Obe varianty vedou na totez,
-     * takze se obe berou stejne.
-     *
-     * @param {HTMLAnchorElement} a
-     * @returns {string|null} nazev kotvy bez mrizky
-     */
-    function kotvaOdkazu(a) {
-        var href = a.getAttribute("href") || "";
-        if (href === "#" || href.indexOf("#") === -1) return null;
-
-        var mrizka = href.slice(href.indexOf("#") + 1);
-        if (!mrizka) return null;
-
-        var cesta = href.slice(0, href.indexOf("#"));
-        // Prazdna cesta je odkaz v ramci stranky, "/" a shodna cesta
-        // taky. Cokoliv jineho vede jinam a resit se nema.
-        if (cesta && cesta !== "/" && cesta !== window.location.pathname) {
-            return null;
-        }
-        return mrizka;
+        animId = requestAnimationFrame(step);
     }
 
     document.addEventListener("click", function (ev) {
         if (!(ev.target instanceof Element)) return;
 
-        var a = ev.target.closest("a[href]");
-        if (!a) return;
+        var a = ev.target.closest('a[href^="#"]');
+        if (!a || !landing.contains(a)) return;
 
-        var mrizka = kotvaOdkazu(a);
-        if (!mrizka) return;
+        var href = a.getAttribute("href");
+        if (!href || href === "#") return;
 
-        // Cil musi lezet na teto strance. Driv se misto toho overovalo,
-        // jestli je na ni samotny ODKAZ - jenze hlavicku vykresluje
-        // Odoo mimo #wrap, takze polozky menu tim propadly a odrolovat
-        // je nechal Odoo, s vlastnim a jinym odsazenim.
-        var el = document.getElementById(mrizka);
-        if (!el || !landing.contains(el)) return;
+        var el = document.getElementById(href.slice(1));
+        if (!el) return;
 
         // Odoo handler uz se k tomu nedostane
         ev.preventDefault();
         ev.stopPropagation();
         ev.stopImmediatePropagation();
 
-        function odrolovat() {
-            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                el.scrollIntoView({ behavior: "auto", block: "start" });
-            } else {
-                slideTo(el);
-            }
-            if (window.history && history.replaceState) {
-                history.replaceState(null, "", "#" + mrizka);
-            }
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            window.scrollTo({ top: targetTop(el), behavior: "auto" });
+        } else {
+            slideTo(el);
         }
 
-        /* Na mobilu se klika v rozbalenem hamburgeru. Dokud je
-           otevreny, ma telo "overflow: hidden" a rolovat nejde.
-
-           Cekat na udalost o zavreni se neosvedcilo - rolovani pak
-           zacalo pozde a obcas skoncilo uplne jinde. Panel se proto
-           zavre a hned v dalsim snimku se telu vrati rolovani
-           a stranka se rozjede. Bootstrap si svuj uklid dodela sam. */
-        var panel = a.closest(".offcanvas");
-        if (panel && panel.classList.contains("show")) {
-            var zavrit = panel.querySelector("[data-bs-dismiss='offcanvas'], .btn-close");
-            if (zavrit) zavrit.click();
-
-            requestAnimationFrame(function () {
-                document.body.style.overflow = "";
-                odrolovat();
-            });
-            return;
+        if (window.history && history.replaceState) {
+            history.replaceState(null, "", href);
         }
-
-        odrolovat();
     }, true);
 })();
 

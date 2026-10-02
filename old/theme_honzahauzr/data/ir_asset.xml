@@ -28,16 +28,6 @@
     <field name="path">theme_honzahauzr/static/src/css/hh-novy.scss</field>
 </record>
 
-<!-- Prekresleni uvodni stranky. Musi se nacitat AZ ZA hh-novy.scss,
-     protoze ten puvodni vzhled prepisuje. -->
-<record id="asset_hh_novy_tisk_scss" model="theme.ir.asset">
-    <field name="name">Honza Hauzr - novy design (jiny tvar)</field>
-    <field name="bundle">web.assets_frontend</field>
-    <field name="directive">after</field>
-    <field name="target">theme_honzahauzr/static/src/css/hh-novy.scss</field>
-    <field name="path">theme_honzahauzr/static/src/css/hh-novy-tisk.scss</field>
-</record>
-
 <record id="asset_hh_vyzva_scss" model="theme.ir.asset">
     <field name="name">Honza Hauzr - landing page vyzvy (styly)</field>
     <field name="bundle">web.assets_frontend</field>
