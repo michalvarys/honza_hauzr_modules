@@ -104,12 +104,6 @@
             prehravac.appendChild(stopa);
         }
 
-        /* Nahled zustava pres celou plochu, dokud video opravdu
-           nezacne hrat. Driv se schoval uz pri kliknuti a zustal
-           po nem plakat prehravace, ktery se do bloku nenatahne -
-           u svisleho videa se tim fotka smrskla doprostred mezi
-           cerne pruhy. */
-        obal.classList.add("hhv-soubor--nacita");
         obal.appendChild(prehravac);
 
         prehravac.addEventListener("playing", function odkryj() {
@@ -130,6 +124,14 @@
         if (!video) {
             return;
         }
+
+        /* Az tady - ne uz pri chystani. Nahled zustava pres celou
+           plochu i s tlacitkem play, dokud na nej nekdo neklikne;
+           jinak by blok vypadal jako obycejna fotka a nikdo by
+           nepoznal, ze je to video. Po kliknuti tlacitko zmizi
+           a fotka drzi, dokud video opravdu nezacne hrat. */
+        obal.classList.add("hhv-soubor--nacita");
+
         var slib = video.play();
         /* Starsi prohlizece z play() nic nevraci; novejsi slib,
            ktery muze skoncit zamitnutim - treba kdyz uzivatel mezitim

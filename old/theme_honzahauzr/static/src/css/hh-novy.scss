@@ -1662,13 +1662,28 @@ footer .o_footer_copyright {
    prehravacem. Bez toho by na nej bylo videt plakat prehravace,
    ktery se do bloku nenatahuje: svisle video by se smrsklo
    doprostred mezi cerne pruhy a fotka by pri kliknuti poskocila. */
-.hhv-soubor--nacita .hhv-soubor__nahled {
+/* Nahled drzi celou plochu a lezi nad prehravacem, dokud video
+   opravdu nezacne hrat. Prehravac se totiz chysta uz pri priblizeni
+   rolovanim - bez tohohle by blok hned po nachystani vypadal jako
+   prazdne cerne misto a nikdo by nepoznal, ze je to video. */
+.hhv-soubor .hhv-soubor__nahled {
     position: absolute;
     inset: 0;
     z-index: 2;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.hhv-soubor .hhv-soubor__play {
+    z-index: 3;
+}
+
+/* Prehravac lezi pod nahledem, dokud se nerozjede. */
+.hhv-soubor .plyr {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 .hhv-soubor__video {
