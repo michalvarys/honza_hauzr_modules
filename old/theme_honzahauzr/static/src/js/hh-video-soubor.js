@@ -18,9 +18,26 @@
 (function () {
     "use strict";
 
-    /* V editoru se nic neprehrava - Honza tam meni nahled a vybira
-       soubor, ne aby mu pod rukama nabehlo video. */
+    /* V editoru se nic nechysta ani neprehrava - Honza tam meni
+       nahled a vybira soubor, ne aby mu pod rukama nabehlo video.
+
+       Editor Odoo 18 vykresluje stranku v ramu, a panel se snippety
+       i horni lista jsou v dokumentu NAD nim. Hledat je uvnitr ramu
+       proto nestaci - pojistka tam nikdy nezabrala a editor se pak
+       na pozadi dusil stahovanim videa.
+
+       Rozhoduje tedy i to, jestli stranka bezi v ramu. Verejny web
+       se do ramu nevklada, takze se tim nic neztrati. */
     function vEditoru() {
+        try {
+            if (window.top !== window.self) {
+                return true;
+            }
+        } catch (potiz) {
+            // Ram z jine domeny - na dotaz odpovi vyjimkou. I to je
+            // ram, takze se chovame stejne.
+            return true;
+        }
         return (
             !!document.querySelector(
                 ".o_editable, #oe_snippets, .o_we_website_top_actions"
