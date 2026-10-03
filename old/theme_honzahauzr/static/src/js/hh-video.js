@@ -119,7 +119,14 @@
                vyplnenou i adresu pro mobil, pouzije se na uzkem okne
                ona - jeden blok, dve adresy. Hranice 991 px je ta
                sama, na ktere se prepina pomer v hh-novy.scss. */
-            var adresa = prehravac.getAttribute("data-oe-expression");
+            /* Prevod i u hlavni adresy, nejen u te mobilni. Dialog Odoo
+               si bezny odkaz obvykle prevede sam, ale ne vzdycky -
+               u youtube.com/shorts/... ulozil 2. 10. 2026 do stranky
+               adresu tak, jak byla. YouTube ji v ramecku odmitne
+               zobrazit, prohlizec to zkousi dokola a cela stranka
+               blika. naVkladaci necha vkladaci podobu beze zmeny,
+               takze tohle nic nerozbije. */
+            var adresa = naVkladaci(prehravac.getAttribute("data-oe-expression"));
             var proMobil = obal.getAttribute("data-hhn-video-mobil");
             if (proMobil && window.innerWidth <= 991) {
                 adresa = naVkladaci(proMobil);
