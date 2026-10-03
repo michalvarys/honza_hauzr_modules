@@ -56,9 +56,13 @@
             return "//www.youtube.com/embed/" + m[1] + "?rel=0&autoplay=0&controls=1";
         }
 
-        m = a.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+        /* U Vimea je za cislem videa jeste nepovinny klic:
+           vimeo.com/123456789/abc123def. Nesou ho nezverejnena videa
+           a bez nej je prehravac odmitne pustit. Driv se zahazoval
+           a takove video pak jen hlasilo, ze neni dostupne. */
+        m = a.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([\w-]+))?/);
         if (m) {
-            return "//player.vimeo.com/video/" + m[1];
+            return "//player.vimeo.com/video/" + m[1] + (m[2] ? "?h=" + m[2] : "");
         }
 
         return a;
