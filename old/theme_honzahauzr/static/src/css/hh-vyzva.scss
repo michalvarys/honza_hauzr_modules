@@ -1302,3 +1302,58 @@ body:has(#wrap.hhv) #wrapwrap > header#top .o_header_mobile_buttons_wrap {
 body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo {
     margin-right: 0 !important;
 }
+
+/* Cerny pruh nad hero pryc.
+
+   Lista sama pruhledna uz byla - cerne nebyla ona, ale pozadi
+   stranky, ktere pod ni prosvitalo, protoze hero zacinalo az za ni.
+   Absolutni poloha listu vyradi z toku, hero vyjede az nahoru
+   a lista se nad nim jen vznasi.
+
+   Vlastni nastaveni Odoo "prekryvna hlavicka" (header_overlay na
+   strance) tady nezabralo - pocita se sekci, ktera si odsazeni
+   dopocita sama, a hero vyzvy takove neni. Navic by se pri kazdem
+   upgradu tematu vracelo zpatky, kdezto tohle pravidlo je soucasti
+   modulu. */
+body:has(#wrap.hhv) #wrapwrap > header#top {
+    /* Odoo si listu drzi pres position: sticky s vysokou vahou,
+       proto !important. */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: transparent !important;
+}
+
+/* Logo Vlastni rezie misto Honzy Hauzra - vyzva uz patri pod ni.
+
+   Logo webu se nastavuje v Odoo pro cely web najednou, takze ho
+   nejde prohodit jen na jedne strance. Obrazek proto vymenuje CSS.
+   V tematu je logo tmave (kresli se na svetly podklad Vlastni rezie),
+   tady sedi na tmavem - odtud prevod na bilou, stejne jako
+   v paticce hlavni stranky. */
+body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo img {
+    content: url("/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg");
+    width: 150px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
+/* Tmave pozadi listy kresli pseudoprvek ::before na navbaru
+   (honzahauzr.scss), ne hlavicka sama - proto se pruh nedal
+   odstranit jen prebarvenim hlavicky. Na vyzve se vypina cely,
+   vcetne spodni linky. */
+body:has(#wrap.hhv) #wrapwrap > header#top .navbar::before {
+    background: transparent !important;
+    border-bottom: 0 !important;
+}
+
+/* Na siroke obrazovce zacina text hero dost nizko a lista se nad nej
+   jen vznasi. Na uzke uz je text hned nahore a logo by mu leželo
+   pres prvni radek, proto se hero odsadi o vysku listy. */
+@media (max-width: 991px) {
+    body:has(#wrap.hhv) #wrap .hhv-hero {
+        padding-top: 70px;
+    }
+}
