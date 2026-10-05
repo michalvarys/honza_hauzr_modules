@@ -18,7 +18,7 @@
     #vr-home{--cream:#f4efe6;--ivory:#fbf8f2;--sand:#d8c7ae;--taupe:#918277;--graphite:#25282a;--ink:#17191a;--blue:#00c6ff;--line:rgba(37,40,42,.16);--white:#fff;font-family:Manrope,Arial,sans-serif;color:var(--graphite);background:var(--cream);line-height:1.55;overflow:hidden}
     #vr-home *{box-sizing:border-box}
     #vr-home a{color:inherit;text-decoration:none}
-    #vr-home .wrap{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    #vr-home .wrap{width:#{"min(1180px, calc(100% - 48px))"};margin:0 auto}
     #vr-home .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--taupe)}
     #vr-home .display{font-size:clamp(54px,8vw,116px);line-height:.9;letter-spacing:-.065em;font-weight:500;margin:20px 0 28px;max-width:920px}
     #vr-home h2{font-size:clamp(36px,5vw,68px);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:14px 0 24px}
@@ -40,6 +40,14 @@
     #vr-home .navlinks a:not(.btn){padding:12px 0;border-bottom:1px solid transparent}
     #vr-home .navlinks a:not(.btn):hover{border-color:var(--graphite)}
     #vr-home .member{color:#6f665f}
+    /* Hamburger. Na siroke obrazovce se nezobrazuje - menu je tam
+       vypsane v rade. Tri prouzky se po otevreni prelozi do krizku,
+       aby bylo videt, ze dalsi klepnuti menu zavre. */
+    #vr-home .vr-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-10px;padding:0 10px;background:transparent;border:0;cursor:pointer;color:inherit}
+    #vr-home .vr-burger span{display:block;width:24px;height:2px;background:var(--graphite);transition:transform .25s ease,opacity .18s ease}
+    #vr-home header.vr-open .vr-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    #vr-home header.vr-open .vr-burger span:nth-child(2){opacity:0}
+    #vr-home header.vr-open .vr-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
     #vr-home .hero{padding:70px 0 95px;position:relative}
     #vr-home .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
     #vr-home .hero-copy{padding-top:12px}
@@ -138,59 +146,99 @@
     #vr-home footer a{display:block;color:#d9dddd;font-size:14px;margin:9px 0}
     #vr-home .footer-note{color:#aeb4b6;font-size:13px;max-width:330px;margin-top:20px}
     #vr-home .legal{border-top:1px solid rgba(255,255,255,.14);margin-top:42px;padding-top:24px;display:flex;justify-content:space-between;gap:20px;color:#8f989b;font-size:12px}
+    /* Mobil - hlavicka s hamburgerem.
+
+       Navrh klienta pocital s tim, ze se na uzkem okne odkazy proste
+       schovaji a zbude jen modre tlacitko. Jenze pravidlo .btn
+       {width:100%} nize platilo pro vsechna tlacitka vcetne toho
+       v hlavicce, takze se roztahlo pres celou sirku, spadlo pod logo
+       a zabralo cely prvni pohled. Misto toho ma hlavicka hamburger
+       a odkazy se vysouvaji pod ni. */
     @media(max-width:900px){
-      #vr-home .wrap{width:min(100% - 32px,720px)}
+      #vr-home .wrap{width:#{"min(100% - 32px, 720px)"}}
       #vr-home header{height:72px}
+      #vr-home .brand{min-width:0}
       #vr-home .brand img{width:158px}
-      #vr-home .navlinks a:not(.btn){display:none}
-      #vr-home .member{display:none!important}
-      #vr-home .navlinks{gap:0}
-      #vr-home .navlinks .btn{padding:11px 13px;font-size:11px}
-      #vr-home .hero{padding:48px 0 70px}
+      #vr-home .vr-burger{display:flex}
+      /* Panel se odsazuje stejne jako .wrap, aby odkazy zacinaly
+         presne pod logem. */
+      #vr-home .navlinks{position:absolute;left:0;right:0;top:100%;z-index:6;display:none;flex-direction:column;align-items:stretch;gap:0;font-size:15px;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 16px 28px rgba(23,25,26,.1);padding:4px #{"max(16px, (100% - 720px) / 2)"} 18px}
+      #vr-home header.vr-open .navlinks{display:flex}
+      #vr-home .navlinks a:not(.btn){padding:15px 0;border-bottom:1px solid var(--line)}
+      #vr-home .navlinks a:not(.btn):hover{border-color:var(--line)}
+      #vr-home .navlinks .btn{width:100%;margin-top:18px}
+      #vr-home .hero{padding:40px 0 56px}
       #vr-home .hero-grid,#vr-home .problem-head,#vr-home .method-intro,#vr-home .challenge-grid,#vr-home .flag-top,#vr-home .paths-intro,#vr-home .community-grid,#vr-home .founder-grid,#vr-home .principles-grid,#vr-home .newsletter-row{grid-template-columns:1fr;gap:42px}
       #vr-home .display{font-size:clamp(50px,14vw,78px)}
-      #vr-home .hero-visual{min-height:560px}
+      #vr-home .hero-visual{min-height:480px}
       #vr-home .hero-photo{left:24px}
-      #vr-home .section{padding:78px 0}
+      #vr-home .section{padding:66px 0}
+      #vr-home .truth-lines{margin-top:48px}
       #vr-home .truth-row{grid-template-columns:52px 1fr auto}
-      #vr-home .question{margin-left:0}
-      #vr-home .method-track,#vr-home .phases{grid-template-columns:1fr 1fr}
+      #vr-home .question{padding:40px 0 0;margin-left:0}
+      #vr-home .method-track,#vr-home .phases{grid-template-columns:1fr 1fr;margin-top:52px}
       #vr-home .method-step,#vr-home .phase{border-bottom:1px solid var(--line);padding:24px 20px 18px 0}
       #vr-home .method-step:nth-child(even),#vr-home .phase:nth-child(even){border-right:0;padding-left:20px}
       #vr-home .method-step:last-child{grid-column:1/-1;border-right:0}
-      #vr-home .flagship{padding:86px 0}
+      #vr-home .flagship{padding:72px 0}
       #vr-home .delivery{align-items:flex-start;flex-direction:column}
+      #vr-home .program-list{margin-top:46px}
       #vr-home .program{grid-template-columns:115px 1fr 32px}
       #vr-home .program p{grid-column:2/4}
+      #vr-home .community{padding:78px 0}
       #vr-home .community-mark{height:280px;order:2}
-      #vr-home .founder-photo{height:510px}
+      #vr-home .founder-photo{height:460px}
+      #vr-home .newsletter{padding:66px 0}
+      #vr-home .closing{padding:88px 0}
       #vr-home .footer-grid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:560px){
       #vr-home .wrap{width:calc(100% - 26px)}
       #vr-home .brand img{width:138px}
+      #vr-home .navlinks{padding-left:13px;padding-right:13px}
+      #vr-home .hero{padding:32px 0 44px}
       #vr-home .hero .eyebrow{max-width:260px}
-      #vr-home .display{font-size:50px}
-      #vr-home .hero-visual{min-height:465px}
-      #vr-home .hero-photo{left:12px}
-      #vr-home .hero-stamp{width:230px;padding:19px;bottom:28px}
+      #vr-home .display{font-size:46px}
+      #vr-home .hero-visual{min-height:360px}
+      /* Fotka drzi stejny okraj jako zbytek stranky, aby nebyla
+         zaraz s jednim krajem a od druheho odsazena. */
+      #vr-home .hero-photo{left:0}
+      #vr-home .hero-stamp{width:230px;padding:19px;bottom:20px}
       #vr-home .hero-actions{flex-direction:column;align-items:stretch}
-      #vr-home .btn{width:100%}
+      /* Jen tlacitka v sekcich, ne to v hlavicce. */
+      #vr-home .hero-actions .btn{width:100%}
+      #vr-home .section{padding:52px 0}
+      #vr-home .truth-lines{margin-top:34px}
       #vr-home .truth-row{grid-template-columns:42px 1fr}
       #vr-home .truth-row span:last-child{display:none}
-      #vr-home .method-track,#vr-home .phases{grid-template-columns:1fr}
+      #vr-home .question{padding:30px 0 0}
+      #vr-home .method-track,#vr-home .phases{grid-template-columns:1fr;margin-top:36px}
       #vr-home .method-step,#vr-home .method-step:nth-child(even),#vr-home .phase,#vr-home .phase:not(:first-child){border-right:0;padding:22px 0;min-height:0}
       #vr-home .method-step:before{display:none}
+      #vr-home .flagship{padding:56px 0}
+      #vr-home .flag-title small{margin-top:20px}
+      #vr-home .program-list{margin-top:32px}
       #vr-home .program{grid-template-columns:1fr 30px;gap:8px 15px}
       #vr-home .program .state{grid-column:1}
       #vr-home .program strong{grid-column:1}
       #vr-home .program p{grid-column:1/3}
       #vr-home .program .go{grid-column:2;grid-row:2;text-align:right}
-      #vr-home .founder-photo{height:430px}
+      #vr-home .community{padding:56px 0}
+      #vr-home .community-mark{height:230px}
+      /* Krizek kolem znaku se na sirku uz neprodluzuje ven,
+         jinak lezl az pod kraj obrazovky. */
+      #vr-home .community-mark:after{width:100%}
+      #vr-home .founder-photo{height:380px}
       #vr-home .principle{grid-template-columns:42px 1fr}
+      #vr-home .newsletter{padding:52px 0}
       #vr-home .formline{grid-template-columns:1fr}
       #vr-home .formline button{text-align:left;padding-left:0}
-      #vr-home .footer-grid{grid-template-columns:1fr}
+      #vr-home .closing{padding:64px 0}
+      #vr-home footer{padding:46px 0 28px}
+      /* Odkazy ve dvou sloupcich - na jeden sloupec byla paticka
+         sama o sobe skoro cela obrazovka. */
+      #vr-home .footer-grid{grid-template-columns:1fr 1fr;gap:30px 24px}
+      #vr-home .footer-grid > :first-child{grid-column:1/-1}
       #vr-home .legal{flex-direction:column}
     }
   
@@ -227,3 +275,15 @@
 #vr-home .formline button.s_website_form_send {
     cursor: pointer;
 }
+
+/* Poznámka k zápisu #{"min(...)"} výše:
+
+   SCSS má vlastní funkci min() a snaží se ji vyhodnotit už při
+   překladu. Uvnitř je ale calc(), které spočítat neumí, a celý
+   svazek stylů pak spadne s hláškou
+
+     "calc(100% - 48px)" is not a number for `min'
+
+   a web se vykreslí úplně bez stylů. Zápis #{"..."} řekne SCSS,
+   ať to nechá být a pošle to do výsledného CSS tak, jak to je.
+   Prohlížeč si s tím poradí sám. */

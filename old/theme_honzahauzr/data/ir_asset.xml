@@ -67,6 +67,13 @@
     <field name="path">theme_honzahauzr/static/src/css/vr-home.scss</field>
 </record>
 
+
+<record id="asset_vr_home_js" model="theme.ir.asset">
+    <field name="name">Vlastní režie - hlavní stránka (skript)</field>
+    <field name="sequence">10</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/vr-home.js</field>
+</record>
 <record id="asset_hh_vyzva_scss" model="theme.ir.asset">
     <field name="name">Honza Hauzr - landing page vyzvy (styly)</field>
     <field name="bundle">web.assets_frontend</field>

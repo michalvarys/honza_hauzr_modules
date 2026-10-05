@@ -11,8 +11,8 @@
      BEZ hlavičky a patičky webu. Nastavuje se to na samotné stránce
      (header_visible, footer_visible), ne tady v šabloně.
 
-     Styly jsou v static/src/css/vr-home.scss, chování (karusel
-     a záložky) v static/src/js/vr-home.js. Obě se načítají jen
+     Styly jsou v static/src/css/vr-home.scss, hamburger v hlavičce
+     v static/src/js/vr-home.js. Obě se načítají jen
      tam, kde je na stránce #vr-home.
 
      Záznam stránky se tu ZÁMĚRNĚ nevytváří. Téma je společné pro
@@ -31,7 +31,8 @@
               <header>
                 <div class="wrap nav">
                   <a class="brand" href="#top" aria-label="Vlastní režie"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a>
-                  <nav class="navlinks" aria-label="Hlavní navigace">
+                  <button type="button" class="vr-burger" aria-label="Menu" aria-expanded="false" aria-controls="vr-menu"><span></span><span></span><span></span></button>
+                  <nav class="navlinks" id="vr-menu" aria-label="Hlavní navigace">
                     <a href="#jak">Jak to funguje</a>
                     <a href="#cesty">Cesty</a>
                     <a href="#komunita">Komunita</a>
