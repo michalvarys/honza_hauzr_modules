@@ -324,8 +324,11 @@
 (function () {
     "use strict";
 
-    var landing = document.querySelector(".hh-landing");
-    if (!landing) return;
+    /* Bere se i #vr-home, tedy hlavni stranka Vlastni rezie. Ta zadnou
+       tridu .hh-landing nema a plynule rolovani se na ni proto drive
+       nespoustelo vubec. */
+    var stranka = document.querySelector(".hh-landing, #vr-home");
+    if (!stranka) return;
 
     // Hlavicku vykresluje Odoo (website.layout), ne nase sablona. Kdyz je
     // prilepena nahore, musi se o jeji vysku odsadit cil rolovani - jinak
@@ -395,7 +398,13 @@
         if (!(ev.target instanceof Element)) return;
 
         var a = ev.target.closest('a[href^="#"]');
-        if (!a || !landing.contains(a)) return;
+        if (!a) return;
+
+        /* Drive se vyzadovalo, aby odkaz lezel uvnitr stranky. Jenze
+           menu vykresluje Odoo do hlavicky, ktera je mimo ni - kliknuti
+           na "V cem se poznas" tim padem plynule rolovani minulo
+           a odrolovalo se skokem. Staci, ze cil na strance existuje;
+           o par radku niz se stejne overuje. */
 
         var href = a.getAttribute("href");
         if (!href || href === "#") return;
