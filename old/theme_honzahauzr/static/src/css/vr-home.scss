@@ -139,13 +139,6 @@
     #vr-home .closing{padding:120px 0;background:var(--sand);text-align:center}
     #vr-home .closing h2{max-width:920px;margin:12px auto 36px}
     #vr-home .closing .hero-actions{justify-content:center}
-    #vr-home footer{background:var(--ink);color:#fff;padding:62px 0 36px}
-    #vr-home .footer-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:55px}
-    #vr-home footer .brand img{filter:brightness(0) invert(1);opacity:.94}
-    #vr-home footer h4{font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:500;color:#8f989b;margin:0 0 18px}
-    #vr-home footer a{display:block;color:#d9dddd;font-size:14px;margin:9px 0}
-    #vr-home .footer-note{color:#aeb4b6;font-size:13px;max-width:330px;margin-top:20px}
-    #vr-home .legal{border-top:1px solid rgba(255,255,255,.14);margin-top:42px;padding-top:24px;display:flex;justify-content:space-between;gap:20px;color:#8f989b;font-size:12px}
     /* Mobil - hlavicka s hamburgerem.
 
        Navrh klienta pocital s tim, ze se na uzkem okne odkazy proste
@@ -190,7 +183,6 @@
       #vr-home .founder-photo{height:460px}
       #vr-home .newsletter{padding:66px 0}
       #vr-home .closing{padding:88px 0}
-      #vr-home .footer-grid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:560px){
       #vr-home .wrap{width:calc(100% - 26px)}
@@ -234,12 +226,33 @@
       #vr-home .formline{grid-template-columns:1fr}
       #vr-home .formline button{text-align:left;padding-left:0}
       #vr-home .closing{padding:64px 0}
-      #vr-home footer{padding:46px 0 28px}
-      /* Odkazy ve dvou sloupcich - na jeden sloupec byla paticka
-         sama o sobe skoro cela obrazovka. */
-      #vr-home .footer-grid{grid-template-columns:1fr 1fr;gap:30px 24px}
-      #vr-home .footer-grid > :first-child{grid-column:1/-1}
-      #vr-home .legal{flex-direction:column}
+
+      /* Vypisy pod sebou - kroky metody, faze programu, principy,
+         dny vyzvy, cesty i radky "v cem se poznas".
+         Navrh je stavel do sloupcu vedle sebe, kde velke nadpisy
+         a siroke mezery davaly smysl. Na mobilu jsou pod sebou
+         a kazda polozka pak zabirala pres sto pixelu vysky, takze
+         se na obrazovku vesly sotva dve. Nize uvedene hodnoty plati
+         az za puvodnimi pravidly, proto jsou na konci bloku. */
+      #vr-home .method-step,
+      #vr-home .method-step:nth-child(even),
+      #vr-home .phase,
+      #vr-home .phase:not(:first-child){padding:15px 0}
+      #vr-home .principle,#vr-home .day{padding:16px 0}
+      #vr-home .program{padding:18px 0}
+      #vr-home .truth-row{padding:18px 0}
+      #vr-home .method-step b,#vr-home .phase b{margin-bottom:6px}
+      #vr-home .method-step strong,
+      #vr-home .phase strong,
+      #vr-home .principle strong,
+      #vr-home .day strong{font-size:17px;margin-bottom:4px}
+      #vr-home .program strong,#vr-home .truth-row strong{font-size:18px}
+      #vr-home .method-step p,#vr-home .phase p{margin-bottom:0}
+      #vr-home .method-step p,
+      #vr-home .phase p,
+      #vr-home .principle p,
+      #vr-home .day p,
+      #vr-home .program p{line-height:1.45}
     }
   
 

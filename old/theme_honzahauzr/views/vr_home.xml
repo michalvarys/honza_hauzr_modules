@@ -216,18 +216,12 @@
                   </div>
                 </section>
               </main>
-            
-              <footer>
-                <div class="wrap">
-                  <div class="footer-grid">
-                    <div><a class="brand" href="#top"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a><p class="footer-note">Praktická vzdělávací platforma pro lidi, kteří chtějí svůj život vědoměji tvořit — ne ho pouze zvládat.</p></div>
-                    <div><h4>Začni</h4><a href="/zpet-do-zivota">3denní výzva zdarma</a><a href="#tvuj-tah">Tvůj tah</a><a href="#cesty">Všechny cesty</a></div>
-                    <div><h4>Vlastní režie</h4><a href="#jak">Jak pracujeme</a><a href="#komunita">Komunita</a><a href="#o-znacce">O značce</a><a href="mailto:honzahauzr@gmail.com">Kontakt</a></div>
-                    <div><h4>Pro členy</h4><a href="#">Přihlásit se do členského prostředí</a><a href="#">Podpora</a><a href="https://www.instagram.com/honzahauzr.cz/">Instagram Honzy</a><a href="https://www.youtube.com/@HonzaHauzr_cz">YouTube</a></div>
-                  </div>
-                  <div class="legal"><span>© 2026 Vlastní režie</span><span>Ochrana osobních údajů · Obchodní podmínky</span></div>
-                </div>
-              </footer>
+
+              <!-- Paticka tu zamerne neni. Navrh si nesl vlastni,
+                   ale pouziva se spolecna paticka webu (kontakt,
+                   site, autorsky kredit) - stejna jako na ostatnich
+                   strankach. Zapina se na strance samotne polem
+                   footer_visible, ne tady v sablone. -->
             </div>
             
         </div>
