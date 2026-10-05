@@ -43,7 +43,7 @@
               </header>
             
               <main id="top">
-                <section class="hero">
+                <section class="s_vr_hero hero">
                   <div class="wrap hero-grid">
                     <div class="hero-copy">
                       <div class="eyebrow">Praktická vzdělávací platforma pro skutečný život</div>
@@ -62,7 +62,7 @@
                   </div>
                 </section>
             
-                <section class="section" id="o-znacce">
+                <section class="s_vr_znacka section" id="o-znacce">
                   <div class="wrap">
                     <div class="problem-head">
                       <div><div class="eyebrow">Proč Vlastní režie</div></div>
@@ -77,7 +77,7 @@
                   </div>
                 </section>
             
-                <section class="section method" id="jak">
+                <section class="s_vr_jak section method" id="jak">
                   <div class="wrap">
                     <div class="method-intro">
                       <div><div class="eyebrow">Jak pracujeme</div><h2>Z poznání musí vzniknout tah.</h2></div>
@@ -93,7 +93,7 @@
                   </div>
                 </section>
             
-                <section class="section challenge" id="vyzva">
+                <section class="s_vr_vyzva section challenge" id="vyzva">
                   <div class="wrap challenge-grid">
                     <div>
                       <div class="eyebrow">Začni tady · bezplatná 3denní výzva</div>
@@ -110,7 +110,7 @@
                   </div>
                 </section>
             
-                <section class="flagship" id="tvuj-tah">
+                <section class="s_vr_tvuj_tah flagship" id="tvuj-tah">
                   <div class="wrap">
                     <div class="flag-top">
                       <div><div class="eyebrow">První hlavní program Vlastní režie</div><div class="flag-title">TVŮJ TAH<small>40 dní ve vlastní režii</small></div></div>
@@ -129,7 +129,7 @@
                   </div>
                 </section>
             
-                <section class="section paths" id="cesty">
+                <section class="s_vr_cesty section paths" id="cesty">
                   <div class="wrap">
                     <div class="paths-intro">
                       <div><div class="eyebrow">Produktový svět</div><h2>Jedna značka. Více cest.</h2></div>
@@ -144,7 +144,7 @@
                   </div>
                 </section>
             
-                <section class="community" id="komunita">
+                <section class="s_vr_komunita community" id="komunita">
                   <div class="wrap community-grid">
                     <div class="community-mark"><span>Prostor, kde<br/>v tom nezůstaneš<br/>sám.</span></div>
                     <div>
@@ -157,7 +157,7 @@
                   </div>
                 </section>
             
-                <section class="section founder">
+                <section class="s_vr_zakladatel section founder">
                   <div class="wrap founder-grid">
                     <div class="founder-photo" aria-label="Honza Hauzr v horách"></div>
                     <div>
@@ -171,7 +171,7 @@
                   </div>
                 </section>
             
-                <section class="section principles">
+                <section class="s_vr_principy section principles">
                   <div class="wrap principles-grid">
                     <div><div class="eyebrow">Principy</div><h2>Nechceme ti řídit život.</h2><p class="lead muted">Chceme ti pomoct převzít jeho režii.</p></div>
                     <div class="principle-list">
@@ -183,7 +183,7 @@
                   </div>
                 </section>
             
-                <section class="newsletter">
+                <section class="s_vr_newsletter newsletter">
                   <div class="wrap newsletter-row">
                     <div><div class="eyebrow">Poznámky z vlastní režie</div><h3>Jednou za čas konkrétní myšlenka. Žádný motivační spam.</h3></div>
                     <form class="formline s_website_form" action="/website/form/" method="post"
@@ -207,7 +207,7 @@
                   </div>
                 </section>
             
-                <section class="closing">
+                <section class="s_vr_zaver closing">
                   <div class="wrap">
                     <div class="eyebrow">Tvůj další tah</div>
                     <h2>Nemusíš znát celý plán. Potřebuješ vědět, co uděláš dál.</h2>

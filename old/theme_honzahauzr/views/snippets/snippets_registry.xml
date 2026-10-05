@@ -25,10 +25,37 @@
     <xpath expr="//snippets[@id='snippet_groups']//t[@id='installed_snippets_hook']" position="before">
         <t snippet-group="honzahauzr" t-snippet="website.s_snippet_group" string="Honza Hauzr"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_hero.png"/>
+        <!-- Vlastni rezie ma vlastni kategorii. Jeji sekce maji svetly
+             vzhled a vlastni pismo, takze mezi tmave Hauzrovy nepatri. -->
+        <t snippet-group="vlastnirezie" t-snippet="website.s_snippet_group" string="Vlastní režie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_hero.svg"/>
     </xpath>
 
     <!-- Snippety samotne -->
     <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+        <!-- Sekce hlavni stranky Vlastni rezie -->
+        <t t-snippet="theme_honzahauzr.s_vr_hero" string="Vlastní režie — úvod" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_hero.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_znacka" string="O značce" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_znacka.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_jak" string="Jak to funguje" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_jak.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_vyzva" string="3denní výzva" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_vyzva.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_tvuj_tah" string="Tvůj tah" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_tvuj_tah.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_cesty" string="Cesty" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_cesty.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_komunita" string="Komunita" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_komunita.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_zakladatel" string="O zakladateli" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_zakladatel.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_principy" string="Principy" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_principy.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_newsletter" string="Newsletter" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_newsletter.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_zaver" string="Závěr" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_zaver.svg"/>
 
         <!-- Sekce uvodni stranky (novy design) -->
         <t t-snippet="theme_honzahauzr.s_hhn_hero" string="Úvodní obrazovka" group="honzahauzr"
