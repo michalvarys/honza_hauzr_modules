@@ -167,8 +167,14 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
 /* Tlacitko vyzvy v hlavicce je taky CTA, takze vypada stejne jako
    ta ve strance: plna modra bez prechodu, tmavy text, hranate,
    bez zare. Barvu je potreba prosadit durazne - puvodni styl ji
-   ma s !important. */
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link {
+   ma s !important.
+
+   Uvadi se obe podoby, #top_menu i .top_menu. Odoo dava na siroke
+   liste seznamu id, kdezto v hamburgeru je z toho trida - pravidlo
+   psane jen pres id se do hamburgeru vubec nedostane a zustane tam
+   stary vzhled s prechodem a kulatymi rohy. */
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link {
     border-radius: 0;
     background: var(--f-modra);
     background-image: none;
@@ -177,7 +183,8 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
     text-shadow: none;
 }
 
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link:hover {
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link:hover,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link:hover {
     background: #00b0e4;
     color: var(--f-na-modre) !important;
     filter: none;
