@@ -1947,13 +1947,16 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
 }
 
 /* Polozka vedouci na vyzvu je modre tlacitko, ne dalsi odkaz v rade.
-   Ciluje se podle cile odkazu, ne podle nazvu - Honza si polozku
-   v Odoo muze prejmenovat a tlacitko se tim nerozbije.
+   Ciluje se na posledni polozku menu, ne na adresu odkazu ani na
+   nazev. Driv se mirilo na href="/zpet-do-zivota" a kdyz se 5. 10.
+   2026 odkaz prehodil na jinou adresu, tlacitko prislo o modre
+   pozadi a zustal z nej holy text. Posledni polozka je tam vzdycky
+   ta hlavni akce, at se jmenuje a vede kamkoli.
 
    Plati na obou sirkach. Driv bylo tlacitko jen na siroke liste a
    v hamburgeru zustaval obycejny bily odkaz - hlavni akce tam pak
    nebyla k rozeznani od ostatnich polozek. */
-#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+#wrapwrap > header#top .top_menu > li:last-child > .nav-link {
     padding: 9px 20px !important;
     border-radius: 999px;
     background: var(--hh-gradient-warm, linear-gradient(135deg, #4a90d9 0%, #00c6ff 100%));
@@ -1963,14 +1966,14 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     transition: transform 0.18s ease, filter 0.25s ease;
 }
 
-#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"]:hover {
+#wrapwrap > header#top .top_menu > li:last-child > .nav-link:hover {
     transform: translateY(-1px);
     filter: brightness(1.08);
 }
 
 /* Podtrzeni je u tlacitka zbytecne - vyjizdelo by pres jeho spodni
    hranu. */
-#wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"]::after {
+#wrapwrap > header#top .top_menu > li:last-child > .nav-link::after {
     display: none;
 }
 
@@ -1978,7 +1981,7 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
    odstup. V hamburgeru jsou polozky pod sebou, tam by odsazeni zleva
    tlacitko jen posunulo mimo osu ostatnich. */
 @media (min-width: 992px) {
-    #wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+    #wrapwrap > header#top .top_menu > li:last-child > .nav-link {
         margin-left: 18px;
     }
 }
@@ -1986,7 +1989,7 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
 /* V hamburgeru tlacitko nema roztahovat radek pres celou sirku -
    drzi se sve velikosti a zarovna se k ostatnim polozkam. */
 @media (max-width: 991.98px) {
-    #wrapwrap > header#top .top_menu .nav-link[href="/zpet-do-zivota"] {
+    #wrapwrap > header#top .top_menu > li:last-child > .nav-link {
         display: inline-block;
         margin-top: 6px;
     }

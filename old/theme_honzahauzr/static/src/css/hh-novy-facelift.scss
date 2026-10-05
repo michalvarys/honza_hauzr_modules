@@ -168,7 +168,7 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
    ta ve strance: plna modra bez prechodu, tmavy text, hranate,
    bez zare. Barvu je potreba prosadit durazne - puvodni styl ji
    ma s !important. */
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu .nav-link[href="/zpet-do-zivota"] {
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link {
     border-radius: 0;
     background: var(--f-modra);
     background-image: none;
@@ -177,7 +177,7 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu .nav-link[href="
     text-shadow: none;
 }
 
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu .nav-link[href="/zpet-do-zivota"]:hover {
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link:hover {
     background: #00b0e4;
     color: var(--f-na-modre) !important;
     filter: none;
