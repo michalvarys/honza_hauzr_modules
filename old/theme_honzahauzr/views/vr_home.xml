@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ===================================================================
+     VLASTNÍ REŽIE - hlavní stránka
+
+     Postaveno podle návrhu od klienta (vlastni-rezie-homepage-
+     prodejni-standalone.html). Texty, barvy ani rozměry se neměnily.
+
+     Stránka si nese vlastní hlavičku, menu i patičku, takže běží
+     BEZ hlavičky a patičky webu. Nastavuje se to na samotné stránce
+     (header_visible, footer_visible), ne tady v šabloně.
+
+     Styly jsou v static/src/css/vr-home.scss, chování (karusel
+     a záložky) v static/src/js/vr-home.js. Obě se načítají jen
+     tam, kde je na stránce #vr-home.
+
+     Záznam stránky se tu ZÁMĚRNĚ nevytváří. Téma je společné pro
+     víc webů a stránka na adrese "/" by se vytvořila všude a srazila
+     se s úvodní stránkou Honzy Hauzra. Zakládá se proto zvlášť na
+     tom webu, kam patří.
+     =================================================================== -->
+
+<template id="vr_page_home" name="Vlastní režie — hlavní stránka">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Vlastní režie</t>
+        <div id="wrap" class="oe_structure">
+            <div id="vr-home">
+              
+            
+              <header>
+                <div class="wrap nav">
+                  <a class="brand" href="#top" aria-label="Vlastní režie"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a>
+                  <nav class="navlinks" aria-label="Hlavní navigace">
+                    <a href="#jak">Jak to funguje</a>
+                    <a href="#cesty">Cesty</a>
+                    <a href="#komunita">Komunita</a>
+                    <a href="#o-znacce">O značce</a>
+                    <a class="member" href="#komunita">Pro členy</a>
+                    <a class="btn btn-blue" href="#vyzva">Začni zdarma <span class="arrow">→</span></a>
+                  </nav>
+                </div>
+              </header>
+            
+              <main id="top">
+                <section class="hero">
+                  <div class="wrap hero-grid">
+                    <div class="hero-copy">
+                      <div class="eyebrow">Praktická vzdělávací platforma pro skutečný život</div>
+                      <h1 class="display">TVŮJ ŽIVOT.<br/><span>TVOJE PRAVIDLA.</span></h1>
+                      <p class="lead">Tvůj život nemusí být průser, aby nebyl úplně tvůj. Vlastní režie je prostor pro muže, kteří nechtějí jen dál fungovat — chtějí pravdivě vidět, kde právě jsou, a udělat další krok, který je opravdu jejich.</p>
+                      <div class="hero-actions">
+                        <a class="btn btn-dark" href="#vyzva">Začni 3denní výzvou <span class="arrow">→</span></a>
+                        <a class="btn" href="#jak">Poznej Vlastní režii</a>
+                      </div>
+                      <div class="hero-note">Bez návodu na jediný správný život. Bez další dávky motivace. S konkrétní prací v realitě.</div>
+                    </div>
+                    <div class="hero-visual" aria-label="Honza Hauzr na cestě">
+                      <div class="hero-photo"></div>
+                      <div class="hero-stamp"><strong>Výchozí bod</strong>Z autopilota do vlastní režie.</div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="section" id="o-znacce">
+                  <div class="wrap">
+                    <div class="problem-head">
+                      <div><div class="eyebrow">Proč Vlastní režie</div></div>
+                      <div><h2>Nejsi tu proto, abys celý život jen dobře zvládal cizí scénář.</h2><p class="lead muted">Vlastní režie neznamená mít všechno pod kontrolou. Znamená vědoměji rozhodovat o tom, co ovlivnit můžeš: o svých volbách, hranicích, vztazích, těle, práci, čase i směru.</p></div>
+                    </div>
+                    <div class="truth-lines">
+                      <div class="truth-row"><span class="no">01</span><strong>Všechno funguje. Ale něco z toho už není tvoje.</strong><span>↗</span></div>
+                      <div class="truth-row"><span class="no">02</span><strong>Víš, co změnit. Jen to znovu odkládáš.</strong><span>↗</span></div>
+                      <div class="truth-row"><span class="no">03</span><strong>Rozumíš tomu. Ale ještě podle toho nežiješ.</strong><span>↗</span></div>
+                    </div>
+                    <div class="question">Vracíme pozornost k jediné otázce:<br/><strong>Co s tím udělám já?</strong></div>
+                  </div>
+                </section>
+            
+                <section class="section method" id="jak">
+                  <div class="wrap">
+                    <div class="method-intro">
+                      <div><div class="eyebrow">Jak pracujeme</div><h2>Z poznání musí vzniknout tah.</h2></div>
+                      <p class="lead muted">Nechceme ti řídit život. Dáváme ti strukturu, nástroje a otázky, díky kterým se v něm začneš lépe orientovat a rozhodovat sám.</p>
+                    </div>
+                    <div class="method-track">
+                      <div class="method-step"><b>01</b><strong>Realita</strong><p>Zastavíš se a pojmenuješ, kde skutečně jsi.</p></div>
+                      <div class="method-step"><b>02</b><strong>Pochopení</strong><p>Uvidíš vzorce, které řídí tvoje automatické reakce.</p></div>
+                      <div class="method-step"><b>03</b><strong>Rozhodnutí</strong><p>Oddělíš vlastní směr od převzatých očekávání.</p></div>
+                      <div class="method-step"><b>04</b><strong>Akce</strong><p>Převedeš uvědomění do konkrétního chování.</p></div>
+                      <div class="method-step"><b>05</b><strong>Reflexe</strong><p>Ověříš, co funguje v realitě — a upravíš další tah.</p></div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="section challenge" id="vyzva">
+                  <div class="wrap challenge-grid">
+                    <div>
+                      <div class="eyebrow">Začni tady · bezplatná 3denní výzva</div>
+                      <h2>Z autopilota zpět do života</h2>
+                      <p class="lead">Za tři dny si nevyřešíš celý život. Zastavíš se, podíváš se pravdivě na jednu jeho důležitou část a uděláš první vědomý krok místo dalšího automatického pokračování.</p>
+                      <div class="meta"><span class="chip">3 dny</span><span class="chip">3 videa</span><span class="chip">3 konkrétní kroky</span><span class="chip">zdarma</span></div>
+                      <a class="btn btn-dark" href="/zpet-do-zivota">Vstoupit do výzvy zdarma <span class="arrow">→</span></a>
+                    </div>
+                    <div class="days">
+                      <div class="day"><b>DEN 01</b><div><strong>Zrcadlo a pravda</strong><p>Uvidíš, kde dnes stojíš a co už nechceš dál ignorovat.</p></div></div>
+                      <div class="day"><b>DEN 02</b><div><strong>Sebevědomí z důkazů</strong><p>Nastavíš si jeden konkrétní důkaz a minimum pro den, kdy nebude energie, čas ani nálada.</p></div></div>
+                      <div class="day"><b>DEN 03</b><div><strong>Přeruš autopilota</strong><p>Pojmenuješ odkládané rozhodnutí, automatickou náhradu i cenu, kterou za ni dlouhodobě platíš.</p></div></div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="flagship" id="tvuj-tah">
+                  <div class="wrap">
+                    <div class="flag-top">
+                      <div><div class="eyebrow">První hlavní program Vlastní režie</div><div class="flag-title">TVŮJ TAH<small>40 dní ve vlastní režii</small></div></div>
+                      <div><p class="promise">40 dní nestačí na nový život. Stačí ale na to, abys přestal bloudit.</p><p class="muted" style="color:#bfc2c3">Vedený proces s jasným začátkem a koncem. Přestaneš jen přemýšlet nad tím, co bys měl změnit, a začneš to převádět do konkrétních rozhodnutí a kroků.</p></div>
+                    </div>
+                    <div class="phases">
+                      <div class="phase"><b>FÁZE 01</b><strong>Probuzení</strong><p>Poskládáš pravdivější výchozí mapu sebe a svého současného života.</p></div>
+                      <div class="phase"><b>FÁZE 02</b><strong>Respekt k sobě</strong><p>Začneš budovat konkrétní důkazy, že se o svoje vlastní slovo můžeš opřít.</p></div>
+                      <div class="phase"><b>FÁZE 03</b><strong>Vlastní pravidla</strong><p>Pojmenuješ hranice a pravidla, podle kterých chceš svůj život skutečně řídit.</p></div>
+                      <div class="phase"><b>FÁZE 04</b><strong>Tvůj tah</strong><p>Zvolíš 90denní prioritu, uděláš první akci a svůj plán otestuješ v realitě.</p></div>
+                    </div>
+                    <div class="delivery">
+                      <div class="delivery-copy"><span>11 hlavních videí</span><span>fyzický workbook · 125 stran</span><span>soukromé členské prostředí Vlastní režie</span><span>3 živá setkání</span><span>průběžná podpora</span></div>
+                      <a class="btn btn-light" href="#">Poznat program Tvůj tah <span class="arrow">→</span></a>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="section paths" id="cesty">
+                  <div class="wrap">
+                    <div class="paths-intro">
+                      <div><div class="eyebrow">Produktový svět</div><h2>Jedna značka. Více cest.</h2></div>
+                      <p class="lead muted">Ne každý potřebuje stejný program. Proto Vlastní režie postupně staví cesty pro různé životní situace — vždy podle skutečné potřeby, ne proto, aby byl katalog plný.</p>
+                    </div>
+                    <div class="program-list">
+                      <a class="program" href="#tvuj-tah"><span class="state live">První hlavní cesta</span><strong>Tvůj tah</strong><p>40denní vedený proces: pravdivější mapa sebe, respekt k sobě, vlastní pravidla, 90denní priorita a první tah v realitě.</p><span class="go">→</span></a>
+                      <div class="program"><span class="state">Připravujeme</span><strong>Vlastní pravidla</strong><p>Praktická cesta k hranicím, sebehodnotě a standardům, za kterými dokážeš stát.</p><span class="go">↗</span></div>
+                      <div class="program"><span class="state">Postupně</span><strong>Specializované programy</strong><p>Vztahy, intimita, emoce, tělo, identita a další témata podle ověřené poptávky.</p><span class="go">+</span></div>
+                      <div class="program"><span class="state">Výběrově</span><strong>Live, experti a VIP</strong><p>Menší skupiny, workshopy a hlubší práce tam, kde online cesta nestačí.</p><span class="go">↗</span></div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="community" id="komunita">
+                  <div class="wrap community-grid">
+                    <div class="community-mark"><span>Prostor, kde<br/>v tom nezůstaneš<br/>sám.</span></div>
+                    <div>
+                      <div class="eyebrow" style="color:#5f554d">Soukromé členské prostředí Vlastní režie</div>
+                      <h2>Ne další knihovna videí. Prostředí, které tě vede.</h2>
+                      <p class="lead">V programu vždy víš, kde právě jsi, co je důležité a co máš udělat dál. Neztratíš se mezi lekcemi ani nezmizíš potichu mezi stovkami účastníků.</p>
+                      <p>Soukromé členské prostředí Vlastní režie propojuje jednotlivé kroky programu, orientaci den po dni, prostor pro otázky a průběžnou podporu. Citlivá práce zůstává soukromá a sdílení je dobrovolné.</p>
+                      <div class="hero-actions"><a class="btn btn-dark" href="#tvuj-tah">Jak funguje Tvůj tah <span class="arrow">→</span></a></div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="section founder">
+                  <div class="wrap founder-grid">
+                    <div class="founder-photo" aria-label="Honza Hauzr v horách"></div>
+                    <div>
+                      <div class="eyebrow">Zakladatel Vlastní režie</div>
+                      <h2>Honza otevírá dveře. Vlastní režie je svět, do kterého vstoupíš.</h2>
+                      <p class="lead">Dlouho jsem navenek fungoval. Měl jsem práci, výsledky i cestu, která dávala smysl. Jen jsem si postupně uvědomil, že velká část směru, kterým jdu, vlastně není úplně moje.</p>
+                      <p class="muted">Vlastní režie nevznikla z pozice člověka, který má všechno vyřešené. Vznikla z přesvědčení, že pochopení má vést k rozhodnutí a rozhodnutí ke skutečnému kroku. Neřeknu ti, jak máš žít. Pomůžu ti ale podívat se na vlastní vzorce tak, aby další tah byl opravdu tvůj.</p>
+                      <div class="signature">Honza Hauzr · mentor pro muže · zakladatel</div>
+                      <a class="btn" href="#">Poznat Honzu a jeho příběh <span class="arrow">→</span></a>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="section principles">
+                  <div class="wrap principles-grid">
+                    <div><div class="eyebrow">Principy</div><h2>Nechceme ti řídit život.</h2><p class="lead muted">Chceme ti pomoct převzít jeho režii.</p></div>
+                    <div class="principle-list">
+                      <div class="principle"><b>01</b><div><strong>Orientace před optimalizací</strong><p>Nejdřív zjisti, kde jsi a co je tvoje. Až potom stav návyky a plán.</p></div></div>
+                      <div class="principle"><b>02</b><div><strong>Sebedůvěra vzniká z důkazů</strong><p>Důvěru v sebe stavíš historií dodržených rozhodnutí, ne pozitivními větami.</p></div></div>
+                      <div class="principle"><b>03</b><div><strong>Odpovědnost předchází svobodě</strong><p>Svoboda nezačíná tím, že zmizí omezení. Začíná volbou vlastního postoje a kroku.</p></div></div>
+                      <div class="principle"><b>04</b><div><strong>Pochopení není změna</strong><p>Důležitá myšlenka musí vést k experimentu, rozhodnutí nebo chování v realitě.</p></div></div>
+                    </div>
+                  </div>
+                </section>
+            
+                <section class="newsletter">
+                  <div class="wrap newsletter-row">
+                    <div><div class="eyebrow">Poznámky z vlastní režie</div><h3>Jednou za čas konkrétní myšlenka. Žádný motivační spam.</h3></div>
+                    <form class="formline s_website_form" action="/website/form/" method="post"
+                      enctype="multipart/form-data" data-model_name="crm.lead"
+                      data-success-mode="message">
+                    <div class="s_website_form_rows">
+                        <div class="s_website_form_field s_website_form_dnone">
+                            <input type="hidden" class="s_website_form_input" name="name" value="Newsletter — Vlastní režie"/>
+                            <input type="hidden" name="hh_zdroj" value="newsletter"/>
+                        </div>
+                        <div class="s_website_form_field s_website_form_model_required" data-type="email">
+                            <input class="s_website_form_input" type="email" name="email_from"
+                                   required="1" aria-label="E-mail" placeholder="Tvůj e-mail"/>
+                        </div>
+                        <div class="s_website_form_submit">
+                            <button type="button" class="s_website_form_send">Chci odebírat →</button>
+                            <span id="s_website_form_result"/>
+                        </div>
+                    </div>
+                </form>
+                  </div>
+                </section>
+            
+                <section class="closing">
+                  <div class="wrap">
+                    <div class="eyebrow">Tvůj další tah</div>
+                    <h2>Nemusíš znát celý plán. Potřebuješ vědět, co uděláš dál.</h2>
+                    <div class="hero-actions"><a class="btn btn-dark" href="#vyzva">Začni bezplatnou 3denní výzvou <span class="arrow">→</span></a><a class="btn" href="#tvuj-tah">Prozkoumat Tvůj tah</a></div>
+                  </div>
+                </section>
+              </main>
+            
+              <footer>
+                <div class="wrap">
+                  <div class="footer-grid">
+                    <div><a class="brand" href="#top"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a><p class="footer-note">Praktická vzdělávací platforma pro lidi, kteří chtějí svůj život vědoměji tvořit — ne ho pouze zvládat.</p></div>
+                    <div><h4>Začni</h4><a href="#vyzva">3denní výzva zdarma</a><a href="#tvuj-tah">Tvůj tah</a><a href="#cesty">Všechny cesty</a></div>
+                    <div><h4>Vlastní režie</h4><a href="#jak">Jak pracujeme</a><a href="#komunita">Komunita</a><a href="#o-znacce">O značce</a><a href="mailto:honzahauzr@gmail.com">Kontakt</a></div>
+                    <div><h4>Pro členy</h4><a href="#">Přihlásit se do členského prostředí</a><a href="#">Podpora</a><a href="https://www.instagram.com/honzahauzr.cz/">Instagram Honzy</a><a href="https://www.youtube.com/@HonzaHauzr_cz">YouTube</a></div>
+                  </div>
+                  <div class="legal"><span>© 2026 Vlastní režie</span><span>Ochrana osobních údajů · Obchodní podmínky</span></div>
+                </div>
+              </footer>
+            </div>
+            
+        </div>
+    </t>
+</template>
+
+</odoo>

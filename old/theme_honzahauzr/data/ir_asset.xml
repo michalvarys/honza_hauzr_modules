@@ -48,6 +48,25 @@
     <field name="path">theme_honzahauzr/static/src/css/hh-novy-facelift.scss</field>
 </record>
 
+<!-- Hlavni stranka Vlastni rezie.
+
+     Pismo Manrope se nacita jako samostatny zaznam. V puvodnim
+     souboru bylo pres @import primo v CSS, jenze @import musi byt
+     prvni v souboru - ve svazku Odoo nas soubor skonci uprostred
+     a prohlizec by ho zahodil. -->
+<record id="asset_vr_home_font" model="theme.ir.asset">
+    <field name="name">Vlastní režie - písmo Manrope</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&amp;display=swap</field>
+</record>
+
+<record id="asset_vr_home_scss" model="theme.ir.asset">
+    <field name="name">Vlastní režie - hlavní stránka (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="sequence">22</field>
+    <field name="path">theme_honzahauzr/static/src/css/vr-home.scss</field>
+</record>
+
 <record id="asset_hh_vyzva_scss" model="theme.ir.asset">
     <field name="name">Honza Hauzr - landing page vyzvy (styly)</field>
     <field name="bundle">web.assets_frontend</field>

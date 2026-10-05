@@ -52,6 +52,7 @@ Obsahuje:
         'views/novy.xml',
         'views/vyzva.xml',
         'views/blue.xml',
+        'views/vr_home.xml',
     ],
     'images': [
         'static/description/cover.png',
