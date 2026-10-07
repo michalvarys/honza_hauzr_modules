@@ -191,6 +191,12 @@ class CrmLead(models.Model):
         Bez toho spadne vsechno do prvniho sloupce a Honza to musi
         pretahovat rucne, i kdyz je z formulare dopredu jasne, kam to
         ma jit.
+
+        Kdyz uz prilezitost ve spravnem sloupci je, rada e-mailu se
+        presto zahaji. Drive se nezahajila: rada visi na zmene
+        stage_id a ta se u prvniho sloupce nekona, protoze tam karta
+        vznikne rovnou. Na webu Honzy Hauzra, kde je prvnim sloupcem
+        odber novinek, by tim padem uvitaci zprava neodesla vubec.
         """
         self.ensure_one()
 
@@ -199,7 +205,14 @@ class CrmLead(models.Model):
             return
 
         stupen = self.env.ref(xmlid, raise_if_not_found=False)
-        if not stupen or self.stage_id == stupen:
+        if not stupen:
+            return
+
+        if self.stage_id == stupen:
+            # Uz je na miste - presouvat neni co, ale radu e-mailu
+            # je potreba zahajit rucne. Sama se spousti az pri zmene
+            # stage_id, ke ktere tady nedojde.
+            self._hh_ohlasit_stupen()
             return
 
         # Pres write, ne primym zapisem do pole - na presunu stupne visi
