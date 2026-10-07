@@ -193,10 +193,19 @@
     z odkazu v potvrzovacim e-mailu a seznam se hodi, kdyz je
     potreba neco hledat pres delsi obdobi.
 -->
-<menuitem id="hh_termin_menu"
-          name="Termíny hovorů"
-          parent="crm.crm_menu_root"
-          action="hh_terminy_kalendar_action"
-          sequence="31"/>
+<!--
+    noupdate="1": nabidka se zalozi pri instalaci a pak uz se na ni
+    nesaha. Bez toho ji kazdy upgrade modulu obnovil vcetne zapnuti -
+    a na webu, kde se hovory nerezervuji (Honza Hauzr sam o sobe),
+    se po kazde aktualizaci vracela do administrace, i kdyz tam byla
+    vypnuta. Stejna past jako u zaznamu stranky vyzvy.
+-->
+<data noupdate="1">
+    <menuitem id="hh_termin_menu"
+              name="Termíny hovorů"
+              parent="crm.crm_menu_root"
+              action="hh_terminy_kalendar_action"
+              sequence="31"/>
+</data>
 
 </odoo>
