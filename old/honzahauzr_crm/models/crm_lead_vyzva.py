@@ -420,11 +420,18 @@ class CrmLeadVyzva(models.Model):
         if not lead:
             # with_context kvuli tomu, aby zalozeni zkusebni karty
             # neposilalo Honzovi upozorneni na novou registraci.
+            #
+            # active False: karta se do nastenky CRM nedostane. Odpocet
+            # ji potrebuje - bez ni by stranka nemela podle ceho pocitat
+            # - ale mezi skutecnymi lidmi ve sloupci "3denní výzva" by
+            # jen prekazela. Kdo si nahled pusti nekolikrat, nadelal by
+            # jich tam radu.
             lead = Lead.with_context(hh_bez_upozorneni=True).create({
                 'name': 'Náhled výzvy (zkušební)',
                 'contact_name': 'Náhled',
                 'email_from': secrets.token_hex(6) + self.HH_NAHLED_DOMENA,
                 'hh_zdroj': 'vyzva',
+                'active': False,
             })
             request.session[self.HH_NAHLED_KARTA] = lead.id
 
@@ -441,6 +448,7 @@ class CrmLeadVyzva(models.Model):
 
         request.session['hh_vyzva_lead'] = lead.id
         return lead
+
     @api.model
     def _hh_vyzva_zapamatovat(self, lead):
         """Ulozi ucastnika do relace i do susenky."""
