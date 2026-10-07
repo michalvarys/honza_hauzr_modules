@@ -1,14 +1,19 @@
 /**
- * Logo v liste na landing page
+ * Logo v liste na strankach vyzvy
  *
  * Na ostatnich strankach vede logo na hlavni stranku. Na landing page
- * ne: ta ma jedinou ulohu, dostat navstevnika do vyzvy, a kazdy odkaz
- * pryc je cesta ven. Logo proto jen vyjede zpatky nahoru na uvodni
- * obrazovku.
+ * a na strance s obsahem vyzvy ne: obe maji jedinou ulohu - dostat
+ * navstevnika do vyzvy, respektive ji projit - a kazdy odkaz pryc je
+ * cesta ven. Logo proto jen vyjede zpatky nahoru na uvodni obrazovku.
  *
  * Prepisuje se odkaz, ne odchytava kliknuti. Diky tomu cil odpovida
  * tomu, co se stane - stavovy radek prohlizece i otevreni v nove karte
  * ukazou tuhle stranku, ne hlavni.
+ *
+ * Landing page uz kotvu #uvod v obsahu ma. Stranka vyzvy ne a jeji
+ * obsah je ulozeny v databazi, takze pridat ji do sablony by se na uz
+ * existujicich strankach neprojevilo. Skript ji proto v pripade
+ * potreby dosadi prvni sekci sam.
  *
  * Soubor sedi ve svazku "minimal", ktery se nacita jako prvni. V bezne
  * frontend svazku by se dostal ke slovu az za par stovek milisekund po
@@ -20,10 +25,20 @@
     "use strict";
 
     function prepisZnacku() {
-        /* Landing page se pozna podle obalu #wrap, ktery nese tridu
-           hhv. Na ostatnich strankach skript neudela nic. */
-        if (!document.querySelector("#wrap.hhv")) {
+        /* Stranky vyzvy se poznaji podle obalu #wrap - landing page
+           nese tridu hhv, stranka s obsahem vyzvy hhd. Jinde skript
+           neudela nic. */
+        var obal = document.querySelector("#wrap.hhv, #wrap.hhd");
+        if (!obal) {
             return;
+        }
+
+        if (!document.getElementById("uvod")) {
+            var prvni = obal.firstElementChild;
+            if (!prvni) {
+                return;
+            }
+            prvni.id = "uvod";
         }
 
         Array.prototype.forEach.call(

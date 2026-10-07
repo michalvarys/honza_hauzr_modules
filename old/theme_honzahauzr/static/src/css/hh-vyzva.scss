@@ -1280,42 +1280,48 @@ body:has(#wrap.hhv) {
     scroll-margin-top: 24px;
 }
 
-/* ===== HORNI LISTA NA LANDING PAGE =====
+/* ===== HORNI LISTA NA STRANKACH VYZVY =====
 
-   Lista zustava, ale nese jen logo. Je to stranka s jedinou akci -
-   prihlasit se do vyzvy - a kazdy odkaz v liste je cesta pryc.
+   Lista zustava, ale nese jen logo. Jsou to stranky s jedinou akci -
+   prihlasit se do vyzvy, respektive ji projit - a kazdy odkaz
+   v liste je cesta pryc.
+
+   Plati pro landing page (#wrap.hhv) i pro stranku s obsahem vyzvy
+   (#wrap.hhd). Zapis :has(a, b) znamena "telo, ktere obsahuje jedno
+   nebo druhe", takze stejna pravidla pokryjou obe stranky bez
+   zdvojovani selektoru.
 
    Cili se pres :has na obal stranky, protoze lista lezi v layoutu
-   mimo #wrap a jinou znacku, podle ktere by sla poznat prave tahle
-   stranka, k dispozici nemá. Ostatnich stranek se to nedotkne.
+   mimo #wrap a jinou znacku, podle ktere by sly poznat prave tyhle
+   stranky, k dispozici nema. Ostatnich stranek se to nedotkne.
 
    Vyhledavani uz v liste neni - vypina ho _theme_honzahauzr_post_copy.
    Prava cast obsahuje jen nabidku prihlaseneho spravce, ktera je pro
    navstevnika neviditelna, takze se neskryva. */
 
-body:has(#wrap.hhv) #wrapwrap > header#top #top_menu,
-body:has(#wrap.hhv) #wrapwrap > header#top .o_header_mobile_buttons_wrap {
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top #top_menu,
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top .o_header_mobile_buttons_wrap {
     display: none !important;
 }
 
 /* Bez odkazu uz logo nema co odstrkavat doprava. */
-body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo {
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top .navbar-brand.logo {
     margin-right: 0 !important;
 }
 
-/* Cerny pruh nad hero pryc.
+/* Cerny pruh nad uvodni sekci pryc.
 
    Lista sama pruhledna uz byla - cerne nebyla ona, ale pozadi
-   stranky, ktere pod ni prosvitalo, protoze hero zacinalo az za ni.
-   Absolutni poloha listu vyradi z toku, hero vyjede az nahoru
-   a lista se nad nim jen vznasi.
+   stranky, ktere pod ni prosvitalo, protoze uvodni sekce zacinala
+   az za ni. Absolutni poloha listu vyradi z toku, sekce vyjede az
+   nahoru a lista se nad ni jen vznasi.
 
    Vlastni nastaveni Odoo "prekryvna hlavicka" (header_overlay na
    strance) tady nezabralo - pocita se sekci, ktera si odsazeni
    dopocita sama, a hero vyzvy takove neni. Navic by se pri kazdem
    upgradu tematu vracelo zpatky, kdezto tohle pravidlo je soucasti
    modulu. */
-body:has(#wrap.hhv) #wrapwrap > header#top {
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top {
     /* Odoo si listu drzi pres position: sticky s vysokou vahou,
        proto !important. */
     position: absolute !important;
@@ -1329,11 +1335,11 @@ body:has(#wrap.hhv) #wrapwrap > header#top {
 /* Logo Vlastni rezie misto Honzy Hauzra - vyzva uz patri pod ni.
 
    Logo webu se nastavuje v Odoo pro cely web najednou, takze ho
-   nejde prohodit jen na jedne strance. Obrazek proto vymenuje CSS.
-   V tematu je logo tmave (kresli se na svetly podklad Vlastni rezie),
-   tady sedi na tmavem - odtud prevod na bilou, stejne jako
+   nejde prohodit jen na nekterych strankach. Obrazek proto vymenuje
+   CSS. V tematu je logo tmave (kresli se na svetly podklad Vlastni
+   rezie), tady sedi na tmavem - odtud prevod na bilou, stejne jako
    v paticce hlavni stranky. */
-body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo img {
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top .navbar-brand.logo img {
     content: url("/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg");
     width: 150px;
     height: auto;
@@ -1344,16 +1350,18 @@ body:has(#wrap.hhv) #wrapwrap > header#top .navbar-brand.logo img {
    (honzahauzr.scss), ne hlavicka sama - proto se pruh nedal
    odstranit jen prebarvenim hlavicky. Na vyzve se vypina cely,
    vcetne spodni linky. */
-body:has(#wrap.hhv) #wrapwrap > header#top .navbar::before {
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top .navbar::before {
     background: transparent !important;
     border-bottom: 0 !important;
 }
 
-/* Na siroke obrazovce zacina text hero dost nizko a lista se nad nej
-   jen vznasi. Na uzke uz je text hned nahore a logo by mu leželo
-   pres prvni radek, proto se hero odsadi o vysku listy. */
+/* Na siroke obrazovce zacina text uvodni sekce dost nizko a lista se
+   nad nej jen vznasi. Na uzke uz je text hned nahore a logo by mu
+   leželo pres prvni radek, proto sekce dostane odsazeni o vysku
+   listy. */
 @media (max-width: 991px) {
-    body:has(#wrap.hhv) #wrap .hhv-hero {
+    body:has(#wrap.hhv) #wrap .hhv-hero,
+    body:has(#wrap.hhd) #wrap .hhd-hlava {
         padding-top: 70px;
     }
 }
