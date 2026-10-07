@@ -371,7 +371,7 @@ section.s_hh_vyzva_dny {
     display: flex;
     flex-direction: column;
     gap: 7px;
-    max-width: 230px;
+    max-width: 215px;
     padding: 13px 15px 12px;
     background: rgba(18, 17, 15, 0.94);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -391,13 +391,13 @@ section.s_hh_vyzva_dny {
 
 .hhd-nahled__tlacitka {
     display: flex;
-    gap: 7px;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .hhd-nahled__tl {
-    flex: 1;
-    padding: 7px 10px;
-    text-align: center;
+    padding: 7px 11px;
+    text-align: left;
     border: 1px solid rgba(255, 255, 255, 0.28);
     color: rgba(255, 255, 255, 0.86);
     text-decoration: none;

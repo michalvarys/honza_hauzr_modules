@@ -270,6 +270,11 @@ class CrmLead(models.Model):
         """
         self.ensure_one()
 
+        # Zkusebni karta z nahledu vyzvy se zaklada znovu pri kazde
+        # ukazce - upozorneni na ni by Honzovi jen zaplnovalo schranku.
+        if self.env.context.get('hh_bez_upozorneni'):
+            return
+
         adresa = self.env['ir.config_parameter'].sudo().get_param(
             'honzahauzr_crm.notify_email')
         if not adresa:

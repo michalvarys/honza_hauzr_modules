@@ -85,8 +85,13 @@ class HhVyzva(http.Controller):
         """
         Lead = request.env['crm.lead'].sudo()
         if Lead._hh_nahled_povolen():
-            if strana in ('odemceno', 'zamceno'):
+            if strana in ('odemceno', 'zamceno', 'odpocet'):
                 request.session[Lead.HH_NAHLED_RELACE] = strana
+                if strana == 'odpocet':
+                    # Zkusebni ucastnik s cerstvym zacatkem. Spousti se
+                    # pri kazdem prepnuti, takze odpocet zacina znovu
+                    # a ukazku jde opakovat.
+                    Lead._hh_nahled_spustit_odpocet()
             else:
                 request.session.pop(Lead.HH_NAHLED_RELACE, None)
         return request.redirect(CIL)

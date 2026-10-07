@@ -377,14 +377,70 @@ class CrmLeadVyzva(models.Model):
 
     @api.model
     def _hh_nahled(self):
-        """Zvolena strana nahledu: 'odemceno', 'zamceno', nebo None.
+        """Zvolena strana nahledu: 'odemceno', 'zamceno', 'odpocet',
+        nebo None.
 
         None znamena bezne chovani - stranka se ridi tim, koho pozna.
         """
         if not self._hh_nahled_povolen():
             return None
         volba = request.session.get(self.HH_NAHLED_RELACE)
-        return volba if volba in ('odemceno', 'zamceno') else None
+        return volba if volba in ('odemceno', 'zamceno', 'odpocet') else None
+
+    # Poznavaci znamka zkusebnich karet z nahledu. V adrese se za ni
+    # pridava nahodny kousek, takze kazdy prohlizec ma vlastni kartu
+    # a lide si navzajem neprepisuji odpocet.
+    HH_NAHLED_DOMENA = '@nahled.vlastni-rezie.invalid'
+    HH_NAHLED_KARTA = 'hh_nahled_karta'
+
+    @api.model
+    def _hh_nahled_spustit_odpocet(self):
+        """Udela z navstevnika cerstve prihlaseneho ucastnika vyzvy.
+
+        Zalozi zkusebni kartu, nastavi jeji zacatek na ted a prihlasi
+        ji do relace. Stranka se od te chvile chova presne tak, jak ji
+        vidi clovek hned po odeslani formulare - Den 1 otevreny, Den 2
+        a Den 3 s tikajicim odpoctem.
+
+        Kazdy prohlizec dostane vlastni kartu, drzenou v relaci. Kdyby
+        se sdilela jedna, dva lide by si pri soucasne ukazce navzajem
+        posouvali odpocet na nulu. Pri opakovanem spusteni se karta
+        z relace recykluje, takze v CRM nepribyva donekonecna.
+        """
+        if not request:
+            return self.browse()
+
+        Lead = self.sudo()
+
+        lead = Lead.browse()
+        ulozena = request.session.get(self.HH_NAHLED_KARTA)
+        if ulozena:
+            lead = Lead.browse(ulozena).exists()
+
+        if not lead:
+            # with_context kvuli tomu, aby zalozeni zkusebni karty
+            # neposilalo Honzovi upozorneni na novou registraci.
+            lead = Lead.with_context(hh_bez_upozorneni=True).create({
+                'name': 'Náhled výzvy (zkušební)',
+                'contact_name': 'Náhled',
+                'email_from': secrets.token_hex(6) + self.HH_NAHLED_DOMENA,
+                'hh_zdroj': 'vyzva',
+            })
+            request.session[self.HH_NAHLED_KARTA] = lead.id
+
+        lead.write({
+            'hh_stupen_od': fields.Datetime.now(),
+            # Priznaky odeslanych e-mailu se mazou taky, jinak by
+            # opakovana ukazka uz zadny e-mail neposlala.
+            'hh_vyzva_mail1': False,
+            'hh_vyzva_mail2': False,
+            'hh_vyzva_mail3': False,
+        })
+        if not lead.hh_vyzva_klic:
+            lead.hh_vyzva_klic = secrets.token_urlsafe(24)
+
+        request.session['hh_vyzva_lead'] = lead.id
+        return lead
     @api.model
     def _hh_vyzva_zapamatovat(self, lead):
         """Ulozi ucastnika do relace i do susenky."""

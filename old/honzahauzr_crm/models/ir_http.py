@@ -184,14 +184,13 @@ class IrHttp(models.AbstractModel):
         if telo is None:
             return
 
-        # Dokud si clovek nevybere, zvyrazni se "Zamceno" - za
+        # Dokud si clovek nevybere, zvyrazni se "Pred registraci" - za
         # predpokladu, ze stranka nikoho nepozna, coz je presne ten
-        # stav, ktery prave vidi. Kdyz ucastnika pozna, nezvyrazni se
-        # nic: nektere dny uz muze mit odemcene a jine ne, takze ani
-        # jedna strana by nesedela.
+        # stav, ktery prave vidi. Kdyz ucastnika pozna, je to stav
+        # "po registraci".
         volba = Lead._hh_nahled()
-        if not volba and not Lead._hh_vyzva_ucastnik():
-            volba = 'zamceno'
+        if not volba:
+            volba = 'odpocet' if Lead._hh_vyzva_ucastnik() else 'zamceno'
 
         telo.append(html.fragment_fromstring(cls._hh_prepinac_html(volba)))
         response.data = html.tostring(
@@ -201,8 +200,9 @@ class IrHttp(models.AbstractModel):
     def _hh_prepinac_html(cls, volba):
         cil = '/zpet-do-zivota/vyzva/nahled?strana=%s'
         tlacitka = []
-        for strana, popisek in (('zamceno', 'Zamčeno'),
-                                ('odemceno', 'Odemčeno')):
+        for strana, popisek in (('zamceno', 'Před registrací'),
+                                ('odpocet', 'Po registraci'),
+                                ('odemceno', 'Vše odemčené')):
             tridy = 'hhd-nahled__tl'
             if volba == strana:
                 tridy += ' hhd-nahled__tl--aktivni'
