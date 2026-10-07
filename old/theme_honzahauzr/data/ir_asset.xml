@@ -86,6 +86,15 @@
     <field name="path">theme_honzahauzr/static/src/js/honzahauzr.js</field>
 </record>
 
+
+<!-- Zahazuje chyby, ktere do stranky zanese sam prohlizec nebo jeho
+     doplnky - bez toho na ne Odoo vytahne okno "Oops" a navstevnik
+     ma pocit, ze je rozbity web. Viz hlavicka skriptu. -->
+<record id="asset_hh_chyby_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - chyby z prohlizece (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-chyby-prohlizece.js</field>
+</record>
 <record id="asset_hh_vyzva_js" model="theme.ir.asset">
     <field name="name">Honza Hauzr - landing page vyzvy (skript)</field>
     <field name="bundle">web.assets_frontend</field>
