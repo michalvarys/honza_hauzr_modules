@@ -48,4 +48,41 @@
     </field>
 </record>
 
+
+<!--
+    Osobni odkaz do vyzvy primo na karte.
+
+    Odkaz uz jako pole existuje (hh_vyzva_odkaz na crm.lead) a pouziva
+    se v textech e-mailu pres {{ object.hh_vyzva_odkaz }}. Na karte
+    ale videt nebyl, takze se nedalo overit, co konkretnimu cloveku
+    odeslo - a hlavne se nedalo kliknutim podivat, co pod odkazem
+    zrovna vidi.
+
+    Ukazuje se jen u registraci do vyzvy. U odberu novinek nebo
+    rezervace zadny takovy odkaz neexistuje a prazdne policko by jen
+    pletlo. hh_zdroj se proto nacita taky, jinak by nebylo podle ceho
+    se rozhodnout - a zustava skryte, protoze stejnou informaci uz
+    nese barevny stitek.
+-->
+<record id="crm_lead_view_form_hh" model="ir.ui.view">
+    <field name="name">crm.lead.form.hh</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+        <!-- Vesi se za stitky, ne za e-mail. Pole e-mailu a telefonu
+             sedi ve vlastnim bloku bez popisku, takze odkaz vlozeny
+             za nimi se vykreslil jako holy text pripojeny k adrese
+             a nebylo poznat, co to je. -->
+        <xpath expr="//field[@name='tag_ids']" position="after">
+            <field name="hh_zdroj" invisible="1"/>
+            <field name="hh_vyzva_odkaz" widget="url" readonly="1"
+                   string="Odkaz do výzvy"
+                   invisible="hh_zdroj != 'vyzva'"
+                   help="Osobní odkaz, který tomuhle člověku chodí
+                         v e-mailech. Klepnutím se otevře přesně to,
+                         co pod ním právě vidí."/>
+        </xpath>
+    </field>
+</record>
+
 </odoo>
