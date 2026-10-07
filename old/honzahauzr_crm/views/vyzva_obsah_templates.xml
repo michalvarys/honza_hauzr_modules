@@ -222,14 +222,22 @@
 <!--
     Zaznam stranky. Bez nej se stranka neobjevi ve Webove stranky ->
     Stranky a neda se u ni nastavit publikovani ani SEO.
+
+    noupdate="1": zaznam se zalozi pri instalaci a pak uz se na nej
+    nesaha. Bez toho ho kazdy upgrade modulu vytvoril znovu, vcetne
+    publikovani - a na webu, kde vyzva bezet nema (Honza Hauzr sam
+    o sobe), se stranka po kazde aktualizaci vracela. Obsahu stranky
+    se to netyka, sablona nad timto blokem se aktualizuje dal.
 -->
-<record id="stranka_vyzva_page" model="website.page">
-    <field name="name">Zpět do života — výzva</field>
-    <field name="url">/zpet-do-zivota/vyzva</field>
-    <field name="view_id" ref="stranka_vyzva_obsah"/>
-    <field name="website_indexed" eval="False"/>
-    <field name="is_published" eval="True"/>
-</record>
+<data noupdate="1">
+    <record id="stranka_vyzva_page" model="website.page">
+        <field name="name">Zpět do života — výzva</field>
+        <field name="url">/zpet-do-zivota/vyzva</field>
+        <field name="view_id" ref="stranka_vyzva_obsah"/>
+        <field name="website_indexed" eval="False"/>
+        <field name="is_published" eval="True"/>
+    </record>
+</data>
 
 <!-- ===== REGISTRACE SNIPPETU DO PANELU ===== -->
 <template id="snippets_vyzva" name="Výzva - registrace snippetu"
