@@ -41,6 +41,19 @@ class HhVyzva(http.Controller):
         # videa zadava. Navstevnikovi se takova hlaska ukazat nesmi.
         spravce = request.env.user.has_group('base.group_user')
 
+        # Nahled "odemceno" ukazuje stranku tak, jak vypada po trech
+        # dnech - bez odpoctu a bez vyzvy k zadani e-mailu. Protejsek
+        # "zamceno" se tu neresi: ten uz zaridilo rozpoznani ucastnika,
+        # ktere v takovem pripade nikoho nevrati.
+        if request.env['crm.lead']._hh_nahled() == 'odemceno':
+            return {
+                'zname': True,
+                'spravce': spravce,
+                'jmeno': '',
+                'dny': [{'cislo': c, 'odemceno': True, 'zbyva_hodin': 0,
+                         'odemkne_se': '', 'video': ''} for c in (1, 2, 3)],
+            }
+
         if not lead:
             return {
                 'zname': False,
@@ -56,6 +69,27 @@ class HhVyzva(http.Controller):
             'jmeno': (lead.contact_name or '').strip(),
             'dny': lead.hh_vyzva_stav(),
         }
+
+    @http.route(CIL + '/nahled', type='http', auth='public',
+                website=True, sitemap=False)
+    def nahled(self, strana=None, **kw):
+        """Prepne nahled stranky mezi zamcenou a odemcenou podobou.
+
+        Slouzi k ukazovani rozdelane prace - jde si projit obe strany
+        bez cekani na e-maily. Volba se drzi v relaci, ne v adrese:
+        kalendar i stav dnu si o data rikaji zvlast a do techto
+        pozadavku by se parametr z adresy stranky nedostal.
+
+        Kdyz prepinac neni zapnuty systemovym parametrem, routa jen
+        odvede zpatky na stranku a nic nenastavi.
+        """
+        Lead = request.env['crm.lead'].sudo()
+        if Lead._hh_nahled_povolen():
+            if strana in ('odemceno', 'zamceno'):
+                request.session[Lead.HH_NAHLED_RELACE] = strana
+            else:
+                request.session.pop(Lead.HH_NAHLED_RELACE, None)
+        return request.redirect(CIL)
 
     @http.route(CIL + '/obnovit', type='http', auth='public',
                 website=True, methods=['POST'], csrf=True, sitemap=False)

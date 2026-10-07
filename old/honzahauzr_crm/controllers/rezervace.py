@@ -243,6 +243,13 @@ class HhRezervace(http.Controller):
         if request.env.user.has_group('website.group_website_restricted_editor'):
             return False
 
+        # Nahled "odemceno" otevre kalendar i bez ucastnika, at jde
+        # proklikat. Protejsek "zamceno" se tu neresi - ten uz zaridilo
+        # rozpoznani ucastnika, ktere nikoho nevrati, a bez ucastnika
+        # je kalendar zamceny tak jako tak.
+        if request.env['crm.lead']._hh_nahled() == 'odemceno':
+            return False
+
         lead = request.env['crm.lead']._hh_vyzva_ucastnik()
         if not lead:
             return True

@@ -312,6 +312,13 @@ class CrmLeadVyzva(models.Model):
         if not request:
             return self.browse()
 
+        # Nahled "zamceno" znamena divat se na stranku ocima cloveka,
+        # ktery jeste nedostal zadny e-mail. Staci proto zapomenout,
+        # koho zname - zbytek stranky uz se podle toho zaridi sam,
+        # vcetne hlasky "Nevim, kdo jsi" i zamceneho kalendare.
+        if self._hh_nahled() == 'zamceno':
+            return self.browse()
+
         # Snippet se na ucastnika pta u kazdeho ze tri dnu zvlast.
         # Bez teto pameti by to znamenalo tri stejne dotazy do databaze
         # pri kazdem nacteni stranky.
@@ -342,6 +349,42 @@ class CrmLeadVyzva(models.Model):
         request.hh_vyzva_ucastnik = nalezeny
         return nalezeny
 
+
+    # ------------------------------------------------------------------
+    # nahled pro kontrolu stranky
+    # ------------------------------------------------------------------
+
+    # Prepinac, kterym jde stranku vyzvy prohlednout z obou stran -
+    # zamcenou tak, jak ji vidi clovek pred prvnim e-mailem, i celou
+    # odemcenou s videi a kalendarem. Je to nastroj na ukazovani
+    # rozdelane prace, ne soucast webu.
+    #
+    # Zapina se systemovym parametrem honzahauzr_crm.nahled_vyzvy.
+    # Bez nej se prepinac nezobrazi a volba v relaci se ignoruje,
+    # takze na ostrem webu nejde videa odemknout ani tim, ze by nekdo
+    # adresu uhodl. Pred spustenim na ostro staci parametr nezakladat.
+    HH_NAHLED_PARAMETR = 'honzahauzr_crm.nahled_vyzvy'
+    HH_NAHLED_RELACE = 'hh_nahled'
+
+    @api.model
+    def _hh_nahled_povolen(self):
+        """Je prepinac nahledu na tomhle webu vubec zapnuty?"""
+        if not request:
+            return False
+        hodnota = self.env['ir.config_parameter'].sudo().get_param(
+            self.HH_NAHLED_PARAMETR, '')
+        return str(hodnota).strip().lower() not in ('', '0', 'false')
+
+    @api.model
+    def _hh_nahled(self):
+        """Zvolena strana nahledu: 'odemceno', 'zamceno', nebo None.
+
+        None znamena bezne chovani - stranka se ridi tim, koho pozna.
+        """
+        if not self._hh_nahled_povolen():
+            return None
+        volba = request.session.get(self.HH_NAHLED_RELACE)
+        return volba if volba in ('odemceno', 'zamceno') else None
     @api.model
     def _hh_vyzva_zapamatovat(self, lead):
         """Ulozi ucastnika do relace i do susenky."""

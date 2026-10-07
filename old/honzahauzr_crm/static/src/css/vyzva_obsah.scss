@@ -352,3 +352,81 @@ section.s_hh_vyzva_dny {
         max-width: 300px;
     }
 }
+
+/* ===== PREPINAC NAHLEDU =====
+
+   Plovouci panel, kterym jde stranku prohlednout zamcenou i
+   odemcenou. Vklada ho server do hotove stranky a jen pri zapnutem
+   systemovem parametru honzahauzr_crm.nahled_vyzvy - viz
+   models/ir_http.py. Na ostrem webu se neobjevi, takze tenhle blok
+   tam zustane bez ucinku.
+
+   Sedi vpravo dole. Vlevo dole je v paticce autorsky kredit
+   a prekryvat ho nema smysl. */
+.hhd-nahled {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    max-width: 230px;
+    padding: 13px 15px 12px;
+    background: rgba(18, 17, 15, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.hhd-nahled__popis {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.hhd-nahled__tlacitka {
+    display: flex;
+    gap: 7px;
+}
+
+.hhd-nahled__tl {
+    flex: 1;
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.86);
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.hhd-nahled__tl:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #fff;
+    text-decoration: none;
+}
+
+.hhd-nahled__tl--aktivni,
+.hhd-nahled__tl--aktivni:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #17191a;
+}
+
+.hhd-nahled__pozn {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 575px) {
+    .hhd-nahled {
+        right: 12px;
+        left: 12px;
+        bottom: 12px;
+        max-width: none;
+    }
+}

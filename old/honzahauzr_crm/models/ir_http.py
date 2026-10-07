@@ -50,6 +50,11 @@ class IrHttp(models.AbstractModel):
             # zatimco rozbita stranka by mohla projit bez povsimnuti.
             _logger.exception(
                 'Honza Hauzr: zamcena videa se nepodarilo vyriznout.')
+        try:
+            cls._hh_vloz_prepinac_nahledu(response)
+        except Exception:
+            _logger.exception(
+                'Honza Hauzr: prepinac nahledu se nepodarilo vlozit.')
         return super()._post_dispatch(response)
 
     @classmethod
@@ -76,6 +81,13 @@ class IrHttp(models.AbstractModel):
         # navstevniku.
         if request.env.user.has_group(
                 'website.group_website_restricted_editor'):
+            return
+
+        # Nahled "odemceno" necha videa ve strance, at je videt, jak
+        # vypada hotova vyzva. Protejsek "zamceno" se tu neresi - ten
+        # uz zaridilo rozpoznani ucastnika, ktere nikoho nevrati,
+        # a bez ucastnika se vyrizne vsechno.
+        if request.env['crm.lead']._hh_nahled() == 'odemceno':
             return
 
         lead = request.env['crm.lead']._hh_vyzva_ucastnik()
@@ -132,4 +144,77 @@ class IrHttp(models.AbstractModel):
             '<p class="hhd-micro">Dám ti vědět e-mailem, jakmile bude '
             'připravený.</p>'
             '</div>' % (kdy, ZAMEK_IKONA, popis)
+        )
+
+    # ------------------------------------------------------------------
+    # prepinac nahledu
+    # ------------------------------------------------------------------
+
+    @classmethod
+    def _hh_vloz_prepinac_nahledu(cls, response):
+        """Prida na stranku vyzvy prepinac mezi zamcenou a odemcenou
+        podobou.
+
+        Vklada se az sem, do hotove odpovedi, a ne do sablony stranky.
+        Obsah stranky je ulozeny v databazi, takze pridani do sablony
+        by se na uz zalozenych strankach neprojevilo - a hlavne by
+        prepinac zustal v obsahu i potom, co ho nekdo vypne.
+
+        Zobrazuje se jen pri zapnutem systemovem parametru
+        honzahauzr_crm.nahled_vyzvy. Na ostrem webu parametr nebude,
+        takze stranka zustane bez nej.
+        """
+        if not request or not response:
+            return
+        if getattr(response, 'direct_passthrough', False):
+            return
+        if 'html' not in (response.headers.get('Content-Type') or ''):
+            return
+
+        data = getattr(response, 'data', None)
+        if not data or ZNACKA.encode() not in data:
+            return
+
+        Lead = request.env['crm.lead'].sudo()
+        if not Lead._hh_nahled_povolen():
+            return
+
+        strom = html.fromstring(data.decode('utf-8'))
+        telo = strom.find('body')
+        if telo is None:
+            return
+
+        # Dokud si clovek nevybere, zvyrazni se "Zamceno" - za
+        # predpokladu, ze stranka nikoho nepozna, coz je presne ten
+        # stav, ktery prave vidi. Kdyz ucastnika pozna, nezvyrazni se
+        # nic: nektere dny uz muze mit odemcene a jine ne, takze ani
+        # jedna strana by nesedela.
+        volba = Lead._hh_nahled()
+        if not volba and not Lead._hh_vyzva_ucastnik():
+            volba = 'zamceno'
+
+        telo.append(html.fragment_fromstring(cls._hh_prepinac_html(volba)))
+        response.data = html.tostring(
+            strom, encoding='utf-8', doctype='<!DOCTYPE html>')
+
+    @classmethod
+    def _hh_prepinac_html(cls, volba):
+        cil = '/zpet-do-zivota/vyzva/nahled?strana=%s'
+        tlacitka = []
+        for strana, popisek in (('zamceno', 'Zamčeno'),
+                                ('odemceno', 'Odemčeno')):
+            tridy = 'hhd-nahled__tl'
+            if volba == strana:
+                tridy += ' hhd-nahled__tl--aktivni'
+            tlacitka.append(
+                '<a class="%s" href="%s">%s</a>' % (
+                    tridy, cil % strana, popisek))
+
+        return (
+            '<div class="hhd-nahled" role="group" aria-label="Náhled stránky">'
+            '<span class="hhd-nahled__popis">Náhled</span>'
+            '<div class="hhd-nahled__tlacitka">%s</div>'
+            '<span class="hhd-nahled__pozn">Jen pro kontrolu — na ostrém '
+            'webu tenhle přepínač nebude.</span>'
+            '</div>' % ''.join(tlacitka)
         )
