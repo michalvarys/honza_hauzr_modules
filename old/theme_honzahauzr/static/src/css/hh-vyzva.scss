@@ -1332,18 +1332,16 @@ body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top {
     background: transparent !important;
 }
 
-/* Logo Vlastni rezie misto Honzy Hauzra - vyzva uz patri pod ni.
+/* Sirka loga v liste.
 
-   Logo webu se nastavuje v Odoo pro cely web najednou, takze ho
-   nejde prohodit jen na nekterych strankach. Obrazek proto vymenuje
-   CSS. V tematu je logo tmave (kresli se na svetly podklad Vlastni
-   rezie), tady sedi na tmavem - odtud prevod na bilou, stejne jako
-   v paticce hlavni stranky. */
+   Samotny obrazek uz se tady nevymenuje. Logem celeho webu je
+   primo svetla varianta Vlastni rezie (vr-logo-bile.svg), takze
+   sedi na vsech strankach s tmavou listou bez vyjimek. Drive ho
+   vymenovalo CSS jen na strankach vyzvy a prevadelo na bilou
+   filtrem - ten ale sebral i modry akcent ve znaku. */
 body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top .navbar-brand.logo img {
-    content: url("/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg");
     width: 150px;
     height: auto;
-    filter: brightness(0) invert(1);
 }
 
 /* Tmave pozadi listy kresli pseudoprvek ::before na navbaru
