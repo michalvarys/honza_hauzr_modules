@@ -54,6 +54,7 @@ Obsahuje:
         'views/vyzva.xml',
         'views/blue.xml',
         'views/vr_home.xml',
+        'views/vr_tah.xml',
     ],
     'images': [
         'static/description/cover.png',

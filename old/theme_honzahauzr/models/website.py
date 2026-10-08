@@ -62,6 +62,19 @@ class Website(models.Model):
         web = self.sudo().browse(id_webu)
         if not web.logo:
             return ''
+
+        # Vektorove logo se nezmensuje. Zmensovani ma usetrit bajty
+        # u fotografie; SVG je male uz samo a hlavne ho knihovna na
+        # obrazky vubec neotevre - skoncila by vyjimkou pri kazdem
+        # nacteni stranky. Pozna se podle zacatku souboru, protoze
+        # pripona tu neni k dispozici.
+        try:
+            zacatek = base64.b64decode(web.logo)[:200].lstrip()
+            if zacatek[:5] == b'<?xml' or zacatek[:4] == b'<svg':
+                return ''
+        except Exception:
+            return ''
+
         try:
             obrazek = Image.open(io.BytesIO(base64.b64decode(web.logo)))
             obrazek.thumbnail(self.HH_LOGO_ROZMER, Image.LANCZOS)

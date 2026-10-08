@@ -87,6 +87,13 @@
 </record>
 
 
+
+<record id="asset_vr_tah_scss" model="theme.ir.asset">
+    <field name="name">Vlastní režie - Tvůj tah (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="sequence">22</field>
+    <field name="path">theme_honzahauzr/static/src/css/vr-tah.scss</field>
+</record>
 <!-- Zahazuje chyby, ktere do stranky zanese sam prohlizec nebo jeho
      doplnky - bez toho na ne Odoo vytahne okno "Oops" a navstevnik
      ma pocit, ze je rozbity web. Viz hlavicka skriptu. -->
