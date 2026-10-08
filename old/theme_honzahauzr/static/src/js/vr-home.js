@@ -24,8 +24,11 @@
 (function () {
     "use strict";
 
+    /* Hlavni stranka Vlastni rezie nese menu v <header>, prodejni
+       stranka Tvuj tah v <nav>. Obe maji stejny hamburger, takze je
+       obslouzi jeden skript - hleda se oboji. */
     function hlavicka() {
-        return document.querySelector("#vr-home header");
+        return document.querySelector("#vr-home header, #vr-tah nav");
     }
 
     function zavri(h) {

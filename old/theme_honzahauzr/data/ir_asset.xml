@@ -94,6 +94,22 @@
     <field name="sequence">22</field>
     <field name="path">theme_honzahauzr/static/src/css/vr-tah.scss</field>
 </record>
+
+<!-- Jednotna vyska list a jejich mizeni pri rolovani. Sequence 24:
+     az za styly jednotlivych stranek, aby prepsalo jejich vlastni
+     vysky a polohy. -->
+<record id="asset_hh_lista_scss" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - horní lišta (styly)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="sequence">24</field>
+    <field name="path">theme_honzahauzr/static/src/css/hh-lista.scss</field>
+</record>
+
+<record id="asset_hh_lista_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - horní lišta (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-lista.js</field>
+</record>
 <!-- Zahazuje chyby, ktere do stranky zanese sam prohlizec nebo jeho
      doplnky - bez toho na ne Odoo vytahne okno "Oops" a navstevnik
      ma pocit, ze je rozbity web. Viz hlavicka skriptu. -->

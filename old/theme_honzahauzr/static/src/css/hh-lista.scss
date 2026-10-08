@@ -1,0 +1,82 @@
+/* ===================================================================
+   HORNI LISTA - jednotna vyska a mizeni pri rolovani
+
+   Platí pro celý web. Lišty jsou na stránkách dvojí: většina používá
+   hlavičku Odoo, hlavní stránka Vlastní režie a prodejní stránka
+   Tvůj tah si nesou vlastní. Dřív měly různou výšku - vlastní 84 px,
+   Odoo zhruba 50 - takže při přechodu mezi stránkami obsah poskočil.
+
+   Chování je všude stejné: lišta drží nahoře, při rolování dolů se
+   odsune pryč a při rolování nahoru se vrátí. Třídy přepíná
+   hh-lista.js, samotný posun je tady.
+   =================================================================== */
+
+/* Jednotná výška. Hodnota vychází z návrhu Vlastní režie, podle
+   kterého se řídí zbytek webu. */
+:root {
+    --hh-lista: 84px;
+}
+
+@media (max-width: 900px) {
+    :root {
+        --hh-lista: 72px;
+    }
+}
+
+/* --- vlastní lišty stránek Vlastní režie ------------------------- */
+
+/* Přilepení je podmínka toho, aby mizení dávalo smysl: lišta, která
+   prostě odroluje pryč, nemá co schovávat ani vracet. Stránka Tvůj
+   tah sticky z návrhu měla, hlavní stránka Vlastní režie ne. */
+#vr-home header,
+#vr-tah nav {
+    height: var(--hh-lista);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+/* --- lišta Odoo --------------------------------------------------- */
+#wrapwrap > header#top .navbar {
+    min-height: var(--hh-lista);
+}
+
+/* --- mizení při rolování ------------------------------------------ */
+
+/* Posouvá se o vlastní výšku, ne o pevné číslo - lišty se liší
+   podle stránky a kdyby se posunovaly o méně, zůstal by nahoře
+   proužek. */
+.hh-lista {
+    transition: transform .28s ease;
+    will-change: transform;
+}
+
+.hh-lista--pryc {
+    transform: translateY(-100%);
+}
+
+/* Kdo si vypnul animace v systému, nemá je vidět ani tady. Lišta
+   se pořád schovává, jen skokem. */
+@media (prefers-reduced-motion: reduce) {
+    .hh-lista {
+        transition: none;
+    }
+}
+
+/* --- aby bylo co schovávat ---------------------------------------- */
+
+/* Lišta Odoo na běžných stránkách zůstávala v toku a prostě
+   odrolovala pryč. Přilepená nahoře dává mizení smysl. */
+#wrapwrap > header#top.o_header_standard {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+/* Na stránkách výzvy sedí lišta mimo tok, aby pod ní mohla úvodní
+   sekce vyjet až nahoru a nezůstal nad ní tmavý pruh (viz
+   hh-vyzva.scss). Sticky by ji do toku vrátilo a pruh s ní, proto
+   fixed - vznáší se nad obsahem a schovává se stejně jako jinde. */
+body:has(#wrap.hhv, #wrap.hhd) #wrapwrap > header#top {
+    position: fixed !important;
+}

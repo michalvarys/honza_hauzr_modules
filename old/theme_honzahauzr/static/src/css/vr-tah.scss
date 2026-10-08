@@ -713,3 +713,99 @@
         padding:26px;min-height:0
     }
 }
+
+/* ===== HAMBURGER =====
+
+   Navrh s hamburgerem pocital - trida .nav-toggle je ve stylech
+   vyse - ale v predloze zustala jen tam: v kodu stranky zadne
+   tlacitko neni a pravidlo ho navic schovava i na mobilu. Na uzkem
+   okne se tim padem odkazy proste ztratily a zbylo jen modre
+   tlacitko, uplne stejne jako driv na hlavni strance.
+
+   Pouziva se tedy stejny hamburger jako tam, vcetne tridy
+   .vr-burger - obslouzi je jeden spolecny skript (vr-home.js). */
+#vr-tah .vr-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px;
+    padding: 0 10px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+}
+
+#vr-tah .vr-burger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform .25s ease, opacity .18s ease;
+}
+
+#vr-tah nav.vr-open .vr-burger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+#vr-tah nav.vr-open .vr-burger span:nth-child(2) {
+    opacity: 0;
+}
+#vr-tah nav.vr-open .vr-burger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+    #vr-tah nav {
+        position: relative;
+    }
+
+    #vr-tah .vr-burger {
+        display: flex;
+    }
+
+    /* Panel se odsazuje stejne jako obsah stranky, aby odkazy
+       zacinaly presne pod logem. */
+    #vr-tah .nav-links {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        z-index: 6;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 4px #{"max(24px, (100% - 1180px) / 2)"} 18px;
+        background: var(--cream);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 16px 28px rgba(32, 36, 38, .12);
+    }
+
+    #vr-tah nav.vr-open .nav-links {
+        display: flex;
+    }
+
+    /* Prepisuje pravidlo z predlohy, ktere odkazy na uzkem okne
+       schovavalo uplne. V panelu uz je kam dat. */
+    #vr-tah .nav-links a:not(.nav-cta) {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: .82rem;
+    }
+
+    #vr-tah .nav-links .nav-cta {
+        margin-top: 18px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 560px) {
+    #vr-tah .nav-links {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
