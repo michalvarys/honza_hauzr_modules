@@ -30,7 +30,7 @@
             
               <header>
                 <div class="wrap nav">
-                  <a class="brand" href="#top" aria-label="Vlastní režie"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a>
+                  <a class="brand" t-att-href="request.env[&#39;ir.config_parameter&#39;].sudo().get_param(&#39;theme_honzahauzr.odkaz_loga&#39;) or &#39;/&#39;" aria-label="Vlastní režie"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a>
                   <button type="button" class="vr-burger" aria-label="Menu" aria-expanded="false" aria-controls="vr-menu"><span></span><span></span><span></span></button>
                   <nav class="navlinks" id="vr-menu" aria-label="Hlavní navigace">
                     <a href="#jak">Jak to funguje</a>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="delivery">
                       <div class="delivery-copy"><span>11 hlavních videí</span><span>fyzický workbook · 125 stran</span><span>soukromé členské prostředí Vlastní režie</span><span>3 živá setkání</span><span>průběžná podpora</span></div>
-                      <a class="btn btn-light" href="#">Poznat program Tvůj tah <span class="arrow">→</span></a>
+                      <a class="btn btn-light" href="/tvuj-tah">Poznat program Tvůj tah <span class="arrow">→</span></a>
                     </div>
                   </div>
                 </section>
@@ -137,7 +137,7 @@
                       <p class="lead muted">Ne každý potřebuje stejný program. Proto Vlastní režie postupně staví cesty pro různé životní situace — vždy podle skutečné potřeby, ne proto, aby byl katalog plný.</p>
                     </div>
                     <div class="program-list">
-                      <a class="program" href="#tvuj-tah"><span class="state live">První hlavní cesta</span><strong>Tvůj tah</strong><p>40denní vedený proces: pravdivější mapa sebe, respekt k sobě, vlastní pravidla, 90denní priorita a první tah v realitě.</p><span class="go">→</span></a>
+                      <a class="program" href="/tvuj-tah"><span class="state live">První hlavní cesta</span><strong>Tvůj tah</strong><p>40denní vedený proces: pravdivější mapa sebe, respekt k sobě, vlastní pravidla, 90denní priorita a první tah v realitě.</p><span class="go">→</span></a>
                       <div class="program"><span class="state">Připravujeme</span><strong>Vlastní pravidla</strong><p>Praktická cesta k hranicím, sebehodnotě a standardům, za kterými dokážeš stát.</p><span class="go">↗</span></div>
                       <div class="program"><span class="state">Postupně</span><strong>Specializované programy</strong><p>Vztahy, intimita, emoce, tělo, identita a další témata podle ověřené poptávky.</p><span class="go">+</span></div>
                       <div class="program"><span class="state">Výběrově</span><strong>Live, experti a VIP</strong><p>Menší skupiny, workshopy a hlubší práce tam, kde online cesta nestačí.</p><span class="go">↗</span></div>
@@ -153,7 +153,7 @@
                       <h2>Ne další knihovna videí. Prostředí, které tě vede.</h2>
                       <p class="lead">V programu vždy víš, kde právě jsi, co je důležité a co máš udělat dál. Neztratíš se mezi lekcemi ani nezmizíš potichu mezi stovkami účastníků.</p>
                       <p>Soukromé členské prostředí Vlastní režie propojuje jednotlivé kroky programu, orientaci den po dni, prostor pro otázky a průběžnou podporu. Citlivá práce zůstává soukromá a sdílení je dobrovolné.</p>
-                      <div class="hero-actions"><a class="btn btn-dark" href="#tvuj-tah">Jak funguje Tvůj tah <span class="arrow">→</span></a></div>
+                      <div class="hero-actions"><a class="btn btn-dark" href="/tvuj-tah">Jak funguje Tvůj tah <span class="arrow">→</span></a></div>
                     </div>
                   </div>
                 </section>
@@ -167,7 +167,7 @@
                       <p class="lead">Dlouho jsem navenek fungoval. Měl jsem práci, výsledky i cestu, která dávala smysl. Jen jsem si postupně uvědomil, že velká část směru, kterým jdu, vlastně není úplně moje.</p>
                       <p class="muted">Vlastní režie nevznikla z pozice člověka, který má všechno vyřešené. Vznikla z přesvědčení, že pochopení má vést k rozhodnutí a rozhodnutí ke skutečnému kroku. Neřeknu ti, jak máš žít. Pomůžu ti ale podívat se na vlastní vzorce tak, aby další tah byl opravdu tvůj.</p>
                       <div class="signature">Honza Hauzr · mentor pro muže · zakladatel</div>
-                      <a class="btn" href="#">Poznat Honzu a jeho příběh <span class="arrow">→</span></a>
+                      <a class="btn" href="https://honza-hauzr-dev.cluster.varyshop.cz/">Poznat Honzu a jeho příběh <span class="arrow">→</span></a>
                     </div>
                   </div>
                 </section>
@@ -212,7 +212,7 @@
                   <div class="wrap">
                     <div class="eyebrow">Tvůj další tah</div>
                     <h2>Nemusíš znát celý plán. Potřebuješ vědět, co uděláš dál.</h2>
-                    <div class="hero-actions"><a class="btn btn-dark" href="/zpet-do-zivota">Začni bezplatnou 3denní výzvou <span class="arrow">→</span></a><a class="btn" href="#tvuj-tah">Prozkoumat Tvůj tah</a></div>
+                    <div class="hero-actions"><a class="btn btn-dark" href="/zpet-do-zivota">Začni bezplatnou 3denní výzvou <span class="arrow">→</span></a><a class="btn" href="/tvuj-tah">Prozkoumat Tvůj tah</a></div>
                   </div>
                 </section>
               </main>

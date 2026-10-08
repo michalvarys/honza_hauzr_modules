@@ -55,6 +55,7 @@ Obsahuje:
         'views/blue.xml',
         'views/vr_home.xml',
         'views/vr_tah.xml',
+        'views/logo_odkaz.xml',
     ],
     'images': [
         'static/description/cover.png',

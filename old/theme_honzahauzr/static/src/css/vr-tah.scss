@@ -486,9 +486,6 @@
 #vr-tah .footer p {
     font-size:.75rem;margin:0;color:#b7bbbc
 }
-#vr-tah .mobile-cta {
-    display:none
-}
 @media(max-width:900px) {
     #vr-tah .wrap {
         width:#{"min(100% - 30px,var(--max))"}
@@ -555,12 +552,6 @@
     }
     #vr-tah .offer-grid {
         gap:50px
-    }
-    #vr-tah .mobile-cta {
-        display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:30
-    }
-    #vr-tah .mobile-cta .btn {
-        width:100%;justify-content:center;box-shadow:0 8px 32px rgba(0,0,0,.25)
     }
     #vr-tah {
         padding-bottom:70px

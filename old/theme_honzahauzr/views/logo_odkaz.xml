@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     KAM VEDE LOGO V LISTE
+
+     Ve výchozím stavu Odoo vede logo na kořen webu, na kterém člověk
+     zrovna je. Značka Vlastní režie ale sedí pod Honzou Hauzrem,
+     takže z jejích stránek má logo vést na jeho web, ne na vlastní
+     úvodní stránku.
+
+     Adresa se nepíše do kódu, ale bere se ze systémového parametru
+     theme_honzahauzr.odkaz_loga. Důvody dva: téma je společné pro
+     oba weby, takže natvrdo zapsaná adresa by platila i tam, kde se
+     nehodí - a na ostrém webu bude doména jiná než na devu, takže by
+     se musel měnit kód. Bez parametru se logo chová jako v Odoo.
+
+     Dědí se od placeholder_header_brand, ne od option_header_brand_logo.
+     Druhá jmenovaná je sama jen inherit, který odkaz teprve vkládá -
+     xpath hledající <a> v ní nic nenajde a celý web spadne na 500.
+     Priorita 99 zajistí, že se tahle úprava pustí až po ní, tedy ve
+     chvíli, kdy odkaz v šabloně už je.
+     ================================================================ -->
+
+<template id="hh_logo_odkaz" inherit_id="website.placeholder_header_brand"
+          name="Odkaz loga v liště" priority="99">
+    <xpath expr="//a[@data-name='Navbar Logo']" position="attributes">
+        <attribute name="t-att-href">request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/'</attribute>
+    </xpath>
+</template>
+
+</odoo>
