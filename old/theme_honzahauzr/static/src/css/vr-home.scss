@@ -15,7 +15,7 @@
    =================================================================== */
 
 
-    #vr-home{--cream:#f4efe6;--ivory:#fbf8f2;--sand:#d8c7ae;--taupe:#918277;--graphite:#25282a;--ink:#17191a;--blue:#00c6ff;--line:rgba(37,40,42,.16);--white:#fff;font-family:Manrope,Arial,sans-serif;color:var(--graphite);background:var(--cream);line-height:1.55;overflow:hidden}
+    #vr-home{--cream:#f4efe6;--ivory:#fbf8f2;--sand:#d8c7ae;--taupe:#918277;--graphite:#25282a;--ink:#17191a;--blue:#00c6ff;--line:rgba(37,40,42,.16);--white:#fff;font-family:Manrope,Arial,sans-serif;color:var(--graphite);background:var(--cream);line-height:1.55;overflow:clip}
     #vr-home *{box-sizing:border-box}
     #vr-home a{color:inherit;text-decoration:none}
     #vr-home .wrap{width:#{"min(1180px, calc(100% - 48px))"};margin:0 auto}
@@ -300,3 +300,12 @@
    a web se vykreslí úplně bez stylů. Zápis #{"..."} řekne SCSS,
    ať to nechá být a pošle to do výsledného CSS tak, jak to je.
    Prohlížeč si s tím poradí sám. */
+
+/* Poznámka k overflow:clip u #vr-home výše:
+
+   Původně tam bylo overflow:hidden, aby dekorace nikde nepřetékala
+   do stran. Jenže hidden na předkovi ruší position:sticky - lišta
+   se pak nepřilepila nahoře, odrolovala s obsahem pryč a její
+   schovávání při rolování nemělo co schovávat.
+
+   clip ořezává stejně, ale sticky nechává být. */

@@ -45,20 +45,32 @@
 
 /* Posouvá se o vlastní výšku, ne o pevné číslo - lišty se liší
    podle stránky a kdyby se posunovaly o méně, zůstal by nahoře
-   proužek. */
-.hh-lista {
+   proužek.
+
+   Selektory jsou schválně dlouhé a posun nese !important. Odoo si
+   na svou hlavičku sahá vlastními pravidly s vyšší vahou (přilepení
+   při rolování), takže samotné .hh-lista--pryc se neprosadilo:
+   třída na liště seděla, ale transform zůstal none a lišta se
+   nehnula. */
+#wrapwrap > header#top.hh-lista,
+#vr-home header.hh-lista,
+#vr-tah nav.hh-lista {
     transition: transform .28s ease;
     will-change: transform;
 }
 
-.hh-lista--pryc {
-    transform: translateY(-100%);
+#wrapwrap > header#top.hh-lista--pryc,
+#vr-home header.hh-lista--pryc,
+#vr-tah nav.hh-lista--pryc {
+    transform: translateY(-100%) !important;
 }
 
 /* Kdo si vypnul animace v systému, nemá je vidět ani tady. Lišta
    se pořád schovává, jen skokem. */
 @media (prefers-reduced-motion: reduce) {
-    .hh-lista {
+    #wrapwrap > header#top.hh-lista,
+    #vr-home header.hh-lista,
+    #vr-tah nav.hh-lista {
         transition: none;
     }
 }
