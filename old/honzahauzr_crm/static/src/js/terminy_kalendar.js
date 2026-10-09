@@ -130,6 +130,12 @@ export class TerminyKalendar extends Component {
         this.rozvrh = useState({
             od: 8,
             do: 21,
+            // Druhe a treti pasmo jsou nepovinna. Nula znamena
+            // nevyplneno - server je pak preskoci.
+            od2: 0,
+            do2: 0,
+            od3: 0,
+            do3: 0,
             delka: 45,
             dopredu: 30,
             dny: [true, true, true, true, true, false, false],
@@ -488,7 +494,18 @@ export class TerminyKalendar extends Component {
 
     get rozsahPopis() {
         const dny = DNY_ZKRATKA.filter((_, i) => this.rozvrh.dny[i]).join(", ");
-        return `${dny || "žádný den"} · ${this._cas(this.rozvrh.od)}–${this._cas(this.rozvrh.do)} · po ${this.rozvrh.delka} min`;
+        // Vypsat se musi vsechna vyplnena pasma. Krajni hodiny celeho
+        // dne by lhaly - "10:00-20:00" u rozvrhu 10-12 / 18-20 vypada
+        // jako cely den, pritom se bere jen ctyri hodiny.
+        const pasma = [
+            [this.rozvrh.od, this.rozvrh.do],
+            [this.rozvrh.od2, this.rozvrh.do2],
+            [this.rozvrh.od3, this.rozvrh.do3],
+        ]
+            .filter(([od, doo]) => doo > od)
+            .map(([od, doo]) => `${this._cas(od)}–${this._cas(doo)}`)
+            .join(", ");
+        return `${dny || "žádný den"} · ${pasma || "žádné pásmo"} · po ${this.rozvrh.delka} min`;
     }
 
     async ulozRozvrh() {
@@ -497,6 +514,10 @@ export class TerminyKalendar extends Component {
             const vysledek = await this.orm.call("hh.termin", "hh_ulozit_rozvrh", [{
                 od: this.rozvrh.od,
                 do: this.rozvrh.do,
+                od2: this.rozvrh.od2,
+                do2: this.rozvrh.do2,
+                od3: this.rozvrh.od3,
+                do3: this.rozvrh.do3,
                 delka: this.rozvrh.delka,
                 dopredu: this.rozvrh.dopredu,
                 dny: [...this.rozvrh.dny],

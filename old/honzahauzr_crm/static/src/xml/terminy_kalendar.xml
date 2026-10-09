@@ -169,6 +169,10 @@
                         </div>
                     </div>
 
+                    <!-- Tri pasma pod sebou. Druhe a treti jsou nepovinna:
+                         prazdna (nula) znamena, ze se nepouzivaji. Diky nim
+                         jde vynechat poledne nebo podvecer, coz s jedinym
+                         rozsahem neslo. -->
                     <div class="hht-rozvrh__radek">
                         <label class="hht-pole">
                             <span class="hht-pole__popisek">Od hodiny</span>
@@ -189,6 +193,33 @@
                             <span class="hht-pole__popisek">Nabízet dopředu (dnů)</span>
                             <input type="number" min="1" max="365" step="1"
                                    t-model.number="rozvrh.dopredu"/>
+                        </label>
+                    </div>
+
+                    <div class="hht-rozvrh__radek">
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Druhé pásmo od</span>
+                            <input type="number" min="0" max="23" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.od2"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Druhé pásmo do</span>
+                            <input type="number" min="0" max="24" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.do2"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Třetí pásmo od</span>
+                            <input type="number" min="0" max="23" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.od3"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Třetí pásmo do</span>
+                            <input type="number" min="0" max="24" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.do3"/>
                         </label>
                     </div>
 

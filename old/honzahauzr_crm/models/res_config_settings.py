@@ -42,6 +42,32 @@ class ResConfigSettings(models.TransientModel):
         help='Poslední hodina dne. Termín, který by za ni přesáhl, '
              'se už nenabídne.',
     )
+    # Druhe a treti pasmo jsou nepovinna. Nula na obou stranach
+    # znamena "nepouziva se" - kdo bere hovory cely den v kuse,
+    # vyplni jen prvni. Diky nim jde vynechat poledne nebo podvecer,
+    # coz s jedinym rozsahem neslo.
+    hh_rez_od2 = fields.Float(
+        string="Druhé pásmo od",
+        config_parameter="honzahauzr_crm.rez_od2",
+        default=0.0,
+        help="Nepovinné. Nech na nule, pokud druhé pásmo nepotřebuješ.",
+    )
+    hh_rez_do2 = fields.Float(
+        string="Druhé pásmo do",
+        config_parameter="honzahauzr_crm.rez_do2",
+        default=0.0,
+    )
+    hh_rez_od3 = fields.Float(
+        string="Třetí pásmo od",
+        config_parameter="honzahauzr_crm.rez_od3",
+        default=0.0,
+        help="Nepovinné. Nech na nule, pokud třetí pásmo nepotřebuješ.",
+    )
+    hh_rez_do3 = fields.Float(
+        string="Třetí pásmo do",
+        config_parameter="honzahauzr_crm.rez_do3",
+        default=0.0,
+    )
     hh_rez_delka = fields.Integer(
         string='Délka hovoru (minuty)',
         config_parameter='honzahauzr_crm.rez_delka',

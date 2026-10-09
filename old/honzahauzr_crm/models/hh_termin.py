@@ -177,10 +177,10 @@ class HhTermin(models.Model):
         minuty = set()
 
         rozvrh = self._hh_rozvrh()
-        if rozvrh['do'] > rozvrh['od']:
-            krok = rozvrh['delka_min'] or 45
-            cas = int(round(rozvrh['od'] * 60))
-            konec = int(round(rozvrh['do'] * 60))
+        krok = rozvrh['delka_min'] or 45
+        for pasmo_od, pasmo_do in rozvrh['pasma']:
+            cas = int(round(pasmo_od * 60))
+            konec = int(round(pasmo_do * 60))
             while cas <= konec:
                 minuty.add(cas)
                 cas += krok
@@ -606,9 +606,28 @@ class HhTermin(models.Model):
 
         delka = int(cislo('rez_delka', 45)) or 45
 
+        # Pasma, ve kterych se hovory beru. Prvni je povinne, dalsi
+        # dve nepovinna - kdo bere cely den v kuse, vyplni jen prvni
+        # a zbyla nechá na nule. Tim jdou vynechat poledne nebo
+        # podvecer, coz s jednim intervalem neslo.
+        vsechna = []
+        for poradi in ('', '2', '3'):
+            od = cislo('rez_od%s' % poradi, 10.0 if not poradi else 0.0)
+            do = cislo('rez_do%s' % poradi, 20.0 if not poradi else 0.0)
+            vsechna.append((od, do))
+        pasma = [p for p in vsechna if p[1] > p[0]]
+
         return {
-            'od': cislo('rez_od', 10.0),
-            'do': cislo('rez_do', 20.0),
+            # od/do zustavaji kvuli mistum, ktera pocitaji s jednim
+            # rozsahem - drzi krajni hodiny celeho dne.
+            'od': min(p[0] for p in pasma) if pasma else 0.0,
+            'do': max(p[1] for p in pasma) if pasma else 0.0,
+            'pasma': pasma,
+            # Vsechna tri pasma tak, jak jsou v nastaveni, vcetne
+            # nevyplnenych. Nastaveni pod kalendarem je potrebuje
+            # v puvodnim poradi, aby druhy radek zustal druhym radkem
+            # i kdyz je prvni prazdny.
+            'pasma_vse': vsechna,
             'delka_min': delka,
             'dopredu': int(cislo('rez_dopredu', 30)) or 30,
             'dny': dny,
@@ -639,10 +658,10 @@ class HhTermin(models.Model):
         rozvrh = self._hh_rozvrh()
         pasmo = self._hh_pasmo()
 
-        if rozvrh['do'] <= rozvrh['od']:
+        if not rozvrh['pasma']:
             _logger.warning(
-                'Honza Hauzr: rozvrh terminu ma konec driv nez zacatek '
-                '(%s - %s), nic se nevyrobi.', rozvrh['od'], rozvrh['do'])
+                'Honza Hauzr: rozvrh terminu nema ani jedno platne pasmo '
+                '(konec driv nez zacatek), nic se nevyrobi.')
             return 0
 
         ted = fields.Datetime.now()
@@ -665,8 +684,16 @@ class HhTermin(models.Model):
             if not rozvrh['dny'][den.weekday()]:
                 continue
 
-            hodina = rozvrh['od']
-            while hodina + delka_hodin <= rozvrh['do'] + 1e-9:
+            # Kazde pasmo zvlast, at se hodiny negeneruji i v mezere
+            # mezi nimi (treba pres poledne).
+            hodiny_dne = []
+            for pasmo_od, pasmo_do in rozvrh['pasma']:
+                h = pasmo_od
+                while h + delka_hodin <= pasmo_do + 1e-9:
+                    hodiny_dne.append(h)
+                    h += delka_hodin
+
+            for hodina in hodiny_dne:
                 cele = int(hodina)
                 minuty = int(round((hodina - cele) * 60))
                 naivni = datetime(den.year, den.month, den.day, cele, minuty)
@@ -675,8 +702,6 @@ class HhTermin(models.Model):
                 # chytne letni cas a den, kdy se posouvaji hodiny.
                 mistni = pasmo.localize(naivni, is_dst=None)
                 v_utc = mistni.astimezone(pytz.utc).replace(tzinfo=None)
-
-                hodina += delka_hodin
 
                 # Terminy, ktere uz jsou za nami, nema smysl nabizet.
                 if v_utc <= ted:
@@ -732,8 +757,19 @@ class HhTermin(models.Model):
         """Rozvrh pro nastaveni pod kalendarem."""
         rozvrh = self._hh_rozvrh()
         return {
-            'od': rozvrh['od'],
-            'do': rozvrh['do'],
+            # Prvni pasmo zustava pod od/do, aby se nemenily nazvy,
+            # ktere uz nastaveni pouziva. Druhe a treti se pridavaji
+            # k nim - rozepsana do poli, ne jako seznam, protoze
+            # kazde ma v nastaveni svuj vlastni vstup.
+            'od': rozvrh['pasma_vse'][0][0],
+            'do': rozvrh['pasma_vse'][0][1],
+            'od2': rozvrh['pasma_vse'][1][0],
+            'do2': rozvrh['pasma_vse'][1][1],
+            'od3': rozvrh['pasma_vse'][2][0],
+            'do3': rozvrh['pasma_vse'][2][1],
+            # Pasma, ze kterych se hodiny doopravdy vyrabeji - jen ta
+            # vyplnena.
+            'pasma': rozvrh['pasma'],
             'delka': rozvrh['delka_min'],
             'dopredu': rozvrh['dopredu'],
             'dny': rozvrh['dny'],
@@ -759,20 +795,45 @@ class HhTermin(models.Model):
         """
         param = self.env['ir.config_parameter'].sudo()
 
-        od = float(rozvrh.get('od', 8.0))
-        do = float(rozvrh.get('do', 21.0))
         delka = int(rozvrh.get('delka', 45)) or 45
         dopredu = int(rozvrh.get('dopredu', 30)) or 30
         dny = [bool(d) for d in (rozvrh.get('dny') or [])]
         dny = (dny + [False] * 7)[:7]
 
-        if do <= od:
-            raise UserError(_('Konec dne musí být později než začátek.'))
+        # Tri pasma. Druhe a treti jsou nepovinna - nula na obou
+        # stranach znamena, ze se nepouzivaji.
+        pasma = []
+        for poradi in (1, 2, 3):
+            klic_od = 'od' if poradi == 1 else 'od%s' % poradi
+            klic_do = 'do' if poradi == 1 else 'do%s' % poradi
+            p_od = float(rozvrh.get(klic_od) or 0.0)
+            p_do = float(rozvrh.get(klic_do) or 0.0)
+
+            if not p_od and not p_do:
+                pasma.append((0.0, 0.0))
+                continue
+            if p_do <= p_od:
+                raise UserError(_(
+                    'U %s. pásma musí být konec později než začátek.'
+                ) % poradi)
+            pasma.append((p_od, p_do))
+
+        if not any(p[1] > p[0] for p in pasma):
+            raise UserError(_('Aspoň jedno pásmo musí být vyplněné.'))
+
+        # Prekryv by znamenal, ze se tatáž hodina vyrobi dvakrat.
+        serazena = sorted([p for p in pasma if p[1] > p[0]])
+        for drivejsi, pozdejsi in zip(serazena, serazena[1:]):
+            if pozdejsi[0] < drivejsi[1]:
+                raise UserError(_('Pásma se nesmí překrývat.'))
+
         if not any(dny):
             raise UserError(_('Aspoň jeden den v týdnu musí zůstat zapnutý.'))
 
-        param.set_param('honzahauzr_crm.rez_od', str(od))
-        param.set_param('honzahauzr_crm.rez_do', str(do))
+        for poradi, (p_od, p_do) in enumerate(pasma, start=1):
+            pripona = '' if poradi == 1 else str(poradi)
+            param.set_param('honzahauzr_crm.rez_od%s' % pripona, str(p_od))
+            param.set_param('honzahauzr_crm.rez_do%s' % pripona, str(p_do))
         param.set_param('honzahauzr_crm.rez_delka', str(delka))
         param.set_param('honzahauzr_crm.rez_dopredu', str(dopredu))
         for klic, zapnuto in zip(self.HH_DNY_KLICE, dny):
@@ -813,14 +874,24 @@ class HhTermin(models.Model):
             # kdyz se zmeni delka hovoru, stary raster v okne zustane
             # a s novym se prekryva - v dni pak stoji 10:00 z hodinove
             # mrizky vedle 10:15 ze ctyricetipetiminutove.
-            odsazeni = (hodina - rozvrh['od']) / krok if krok else -1
-            na_mrizce = abs(odsazeni - round(odsazeni)) < 1e-6
+            # Hodina musi padnout do nektereho pasma a sednout na jeho
+            # mrizku. Mrizka se pocita od zacatku toho pasma, ne ode dne:
+            # kdyz druhe pasmo zacina v 14:20, jeho hodiny nemaji nic
+            # spolecneho s rastrem toho prvniho.
+            v_pasmu = False
+            for pasmo_od, pasmo_do in rozvrh['pasma']:
+                if hodina < pasmo_od - 1e-9:
+                    continue
+                if hodina + krok > pasmo_do + 1e-9:
+                    continue
+                odsazeni = (hodina - pasmo_od) / krok if krok else -1
+                if abs(odsazeni - round(odsazeni)) < 1e-6:
+                    v_pasmu = True
+                    break
 
             sedi = (
                 rozvrh['dny'][mistni.weekday()]
-                and hodina >= rozvrh['od'] - 1e-9
-                and hodina + krok <= rozvrh['do'] + 1e-9
-                and na_mrizce
+                and v_pasmu
                 and abs(termin.delka - krok) < 1e-6
             )
             if sedi:
