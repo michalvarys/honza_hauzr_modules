@@ -1137,10 +1137,12 @@
         min-height: 0;
     }
 
-    /* Na telefonu jde fotka az za text: logo, text, tlacitko, radek
-       s informacemi, teprve pak fotka. Driv stala uplne nahore. */
+    /* Na telefonu stoji fotka uplne nahore, nad textem. Chvili byla
+       az za nim, ale uvodni obrazovka pak zacinala samym nadpisem
+       a pusobila, jako by se stranka jeste nacitala. Na pocitaci
+       zustava vedle textu, tam se nic nemeni. */
     .hhv .hhv-hero__photo {
-        order: 1;
+        order: 0;
         margin-right: -20px;
         margin-left: -20px;
         /* Pevny pomer stran - bez nej by obrazek v mrizce nemel
@@ -1162,8 +1164,10 @@
             var(--hhv-graphite) 100%);
     }
 
+    /* Text je v kodu driv nez fotka, takze pri stejnem poradi by
+       zustal nahore. Posunuti o jedna da fotku pred nej. */
     .hhv .hhv-hero__text {
-        order: 0;
+        order: 1;
         padding: 18px 0 30px;
     }
 
