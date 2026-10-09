@@ -169,8 +169,8 @@
                         </div>
                     </div>
 
-                    <!-- Tri pasma pod sebou. Druhe a treti jsou nepovinna:
-                         prazdna (nula) znamena, ze se nepouzivaji. Diky nim
+                    <!-- Ctyri pasma pod sebou. Druhe az ctvrte jsou
+                         nepovinna: nula znamena, ze se nepouzivaji. Diky nim
                          jde vynechat poledne nebo podvecer, coz s jedinym
                          rozsahem neslo. -->
                     <div class="hht-rozvrh__radek">
@@ -221,6 +221,26 @@
                                    placeholder="nepovinné"
                                    t-model.number="rozvrh.do3"/>
                         </label>
+                    </div>
+
+                    <div class="hht-rozvrh__radek">
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Čtvrté pásmo od</span>
+                            <input type="number" min="0" max="23" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.od4"/>
+                        </label>
+                        <label class="hht-pole">
+                            <span class="hht-pole__popisek">Čtvrté pásmo do</span>
+                            <input type="number" min="0" max="24" step="0.25"
+                                   placeholder="nepovinné"
+                                   t-model.number="rozvrh.do4"/>
+                        </label>
+                        <!-- Dve prazdna mista. Bez nich by se dve pole
+                             roztahla pres celou sirku a ctvrte pasmo by
+                             vypadalo jinak nez radky nad nim. -->
+                        <span class="hht-pole"/>
+                        <span class="hht-pole"/>
                     </div>
 
                     <div class="hht-rozvrh__pata">

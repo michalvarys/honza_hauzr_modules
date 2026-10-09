@@ -607,11 +607,11 @@ class HhTermin(models.Model):
         delka = int(cislo('rez_delka', 45)) or 45
 
         # Pasma, ve kterych se hovory beru. Prvni je povinne, dalsi
-        # dve nepovinna - kdo bere cely den v kuse, vyplni jen prvni
+        # tri nepovinna - kdo bere cely den v kuse, vyplni jen prvni
         # a zbyla nechá na nule. Tim jdou vynechat poledne nebo
         # podvecer, coz s jednim intervalem neslo.
         vsechna = []
-        for poradi in ('', '2', '3'):
+        for poradi in ('', '2', '3', '4'):
             od = cislo('rez_od%s' % poradi, 10.0 if not poradi else 0.0)
             do = cislo('rez_do%s' % poradi, 20.0 if not poradi else 0.0)
             vsechna.append((od, do))
@@ -767,6 +767,8 @@ class HhTermin(models.Model):
             'do2': rozvrh['pasma_vse'][1][1],
             'od3': rozvrh['pasma_vse'][2][0],
             'do3': rozvrh['pasma_vse'][2][1],
+            'od4': rozvrh['pasma_vse'][3][0],
+            'do4': rozvrh['pasma_vse'][3][1],
             # Pasma, ze kterych se hodiny doopravdy vyrabeji - jen ta
             # vyplnena.
             'pasma': rozvrh['pasma'],
@@ -800,10 +802,10 @@ class HhTermin(models.Model):
         dny = [bool(d) for d in (rozvrh.get('dny') or [])]
         dny = (dny + [False] * 7)[:7]
 
-        # Tri pasma. Druhe a treti jsou nepovinna - nula na obou
+        # Ctyri pasma. Druhe az ctvrte jsou nepovinna - nula na obou
         # stranach znamena, ze se nepouzivaji.
         pasma = []
-        for poradi in (1, 2, 3):
+        for poradi in (1, 2, 3, 4):
             klic_od = 'od' if poradi == 1 else 'od%s' % poradi
             klic_do = 'do' if poradi == 1 else 'do%s' % poradi
             p_od = float(rozvrh.get(klic_od) or 0.0)

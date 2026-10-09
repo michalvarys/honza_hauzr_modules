@@ -40,9 +40,9 @@
                         <field name="hh_rez_do" widget="float_time" class="col-2"/>
                     </div>
                     <!--
-                        Druhe a treti pasmo. Nechaji se na nule, kdyz se
-                        hovory beru cely den v kuse; vyplni se, kdyz ma
-                        byt mezi nimi dira - treba poledni pauza.
+                        Druhe az ctvrte pasmo. Nechaji se na nule, kdyz
+                        se hovory beru cely den v kuse; vyplni se, kdyz
+                        ma byt mezi nimi dira - treba poledni pauza.
                     -->
                     <div class="row">
                         <label for="hh_rez_od2" class="col-4 o_light_label"/>
@@ -59,6 +59,14 @@
                     <div class="row">
                         <label for="hh_rez_do3" class="col-4 o_light_label"/>
                         <field name="hh_rez_do3" widget="float_time" class="col-2"/>
+                    </div>
+                    <div class="row">
+                        <label for="hh_rez_od4" class="col-4 o_light_label"/>
+                        <field name="hh_rez_od4" widget="float_time" class="col-2"/>
+                    </div>
+                    <div class="row">
+                        <label for="hh_rez_do4" class="col-4 o_light_label"/>
+                        <field name="hh_rez_do4" widget="float_time" class="col-2"/>
                     </div>
                     <div class="row">
                         <label for="hh_rez_delka" class="col-4 o_light_label"/>

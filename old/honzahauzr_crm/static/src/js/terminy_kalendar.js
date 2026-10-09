@@ -130,12 +130,14 @@ export class TerminyKalendar extends Component {
         this.rozvrh = useState({
             od: 8,
             do: 21,
-            // Druhe a treti pasmo jsou nepovinna. Nula znamena
+            // Druhe az ctvrte pasmo jsou nepovinna. Nula znamena
             // nevyplneno - server je pak preskoci.
             od2: 0,
             do2: 0,
             od3: 0,
             do3: 0,
+            od4: 0,
+            do4: 0,
             delka: 45,
             dopredu: 30,
             dny: [true, true, true, true, true, false, false],
@@ -501,6 +503,7 @@ export class TerminyKalendar extends Component {
             [this.rozvrh.od, this.rozvrh.do],
             [this.rozvrh.od2, this.rozvrh.do2],
             [this.rozvrh.od3, this.rozvrh.do3],
+            [this.rozvrh.od4, this.rozvrh.do4],
         ]
             .filter(([od, doo]) => doo > od)
             .map(([od, doo]) => `${this._cas(od)}–${this._cas(doo)}`)
@@ -518,6 +521,8 @@ export class TerminyKalendar extends Component {
                 do2: this.rozvrh.do2,
                 od3: this.rozvrh.od3,
                 do3: this.rozvrh.do3,
+                od4: this.rozvrh.od4,
+                do4: this.rozvrh.do4,
                 delka: this.rozvrh.delka,
                 dopredu: this.rozvrh.dopredu,
                 dny: [...this.rozvrh.dny],
