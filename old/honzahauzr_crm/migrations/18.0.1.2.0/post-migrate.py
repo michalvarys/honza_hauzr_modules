@@ -111,7 +111,8 @@ def migrate(cr, version):
                 'stitek_id': stitek.id,
                 'po_dnech': zprava['po_dnech'],
                 'predmet': zprava['predmet'],
-                'telo': zprava['telo'],
+                'body_arch': zprava['telo'],
+                'body_html': zprava['telo'],
                 'zapnuto': True,
             })
             prevedeno[(stupen.id, zprava['cislo'])] = sablona.id

@@ -559,8 +559,12 @@ class CrmLead(models.Model):
                 sablona_mailu.predmet or '', 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
+            # Posila se verze se styly prepsanymi do znacek, kterou
+            # vyrobil editor. Kdyz zprava vznikla jinudy a ta verze
+            # chybi, vezme se rovnou text z editoru.
             telo = sablona._render_template(
-                sablona_mailu.telo or '', 'crm.lead', [self.id],
+                sablona_mailu.body_html or sablona_mailu.body_arch or '',
+                'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
 

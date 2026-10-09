@@ -15,10 +15,16 @@ Záměrně je to modul, ne pravidlo v databázi - nastavení v databázi by se
 muselo po nasazení na server dělat znovu, kód se nasadí sám.
 """,
     'category': 'Sales/CRM',
-    'version': '18.0.1.2.0',
+    'version': '18.0.1.3.0',
     'author': 'Michal Varys',
     'license': 'LGPL-3',
-    'depends': ['crm', 'website'],
+    'depends': [
+        # Kvuli editoru e-mailu: bloky, obrazky a hotove
+        # predlohy, ktere Odoo pouziva v Email Marketingu.
+        'mass_mailing',
+        'crm',
+        'website',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'data/crm_tag_data.xml',

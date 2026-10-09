@@ -98,7 +98,16 @@ class HhMailSablona(models.Model):
         translate=True,
         help='Co uvidí příjemce v poště jako předmět zprávy.',
     )
-    telo = fields.Html(
+    # Dve pole na jeden text, stejne jako to ma Email Marketing.
+    # V telo_arch se zprava sklada - jsou v nem bloky, tridy a styly
+    # editoru. Pri ulozeni z nej editor vyrobi telo: tytez bloky, ale
+    # se styly prepsanymi primo do znacek. Posta totiz externi styly
+    # zahazuje a bez toho by zprava dorazila rozsypana.
+    # Nazvy poli jsou anglicke zamerne. Editor z Email Marketingu
+    # si pole body_html hleda podle jmena primo v kodu widgetu
+    # (fieldDependencies), takze pod jinym nazvem formular spadne
+    # na "Invalid field 'body_html'".
+    body_arch = fields.Html(
         string='Text',
         translate=True,
         sanitize=False,
@@ -106,6 +115,25 @@ class HhMailSablona(models.Model):
              '{{ object.contact_name }} = jméno\n'
              '{{ object.email_from }} = e-mailová adresa\n'
              '{{ object.hh_vyzva_odkaz }} = osobní odkaz do výzvy',
+    )
+    body_html = fields.Html(
+        string='Text pro odeslání',
+        translate=True,
+        sanitize=False,
+        help='Verze, která opravdu odejde. Vyrobí ji editor sám '
+             'při uložení, ručně se do ní nepíše.',
+    )
+
+    # Editor z Email Marketingu si sahne na mailing_model_id a cte
+    # z nej rovnou druhou polozku (nazev modelu) bez kontroly, jestli
+    # vubec neco je. Bez tohohle pole spadne formular na
+    # "Cannot read properties of undefined". Nic jineho ho nepouziva -
+    # zpravy se vzdycky posilaji prilezitosti.
+    mailing_model_id = fields.Many2one(
+        'ir.model',
+        string='Model',
+        readonly=True,
+        default=lambda self: self.env['ir.model']._get_id('crm.lead'),
     )
 
     active = fields.Boolean(
