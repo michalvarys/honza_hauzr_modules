@@ -276,30 +276,45 @@
    byl Honza videt cely a ostre. */
 .hhv .hhv-hero__photo {
     position: relative;
-    /* vystrceni az k prave hrane okna - sloupec konci u kontejneru,
-       ale fotka ma jit do kraje */
-    margin-right: calc((100% - 100vw) / 2);
+    /* Vystrceni az k prave hrane okna - sloupec konci u kontejneru,
+       ale fotka ma jit do kraje. Pocita se z kontejneru (1080 px),
+       ne ze sirky sloupce: driv tu bylo 100 %, tedy sirka bunky,
+       a box pretekal skoro 300 px za okraj okna. S orezanym pozadim
+       to nebylo videt, u obrazku zarovnaneho doprava uz ano -
+       skoncil z poloviny mimo obrazovku.
+
+       min() drzi hodnotu zaporna. V oknech uzsich nez kontejner by
+       vysla kladna a box by se misto roztazeni zuzil. */
+    margin-right: #{"min(0px, calc((1080px - 100vw) / 2))"};
     min-height: 360px;
     overflow: hidden;
 }
 
-/* Obrazek vyplni sloupec. Vyssi cislo v object-position posouva Honzu
-   v ramu nahoru a odkryva vic toho pod nim - pri 26 % mu spodek bundy
-   koncil hned nad hranou sekce. */
+/* Snimek je na vysku (3 : 4), sloupec na pocitaci na sirku (4 : 3).
+   Roztazeny pres celou sirku by se z nej orezal vodorovny pruh a
+   z Honzy zbyl oblicej pres cely sloupec. Proto se neroztahuje:
+   vysku dostane celou, sirka si dopocita z pomeru snimku a zbytek
+   sloupce zustane grafitovy. Honza je tak na fotce cely i s padakem
+   a sluncem.
+
+   right/left misto inset: obrazek se drzi prave hrany, kam sloupec
+   vybiha az ke kraji okna. Zarovnany doleva by uprostred sekce
+   nechal svisly pruh. */
 .hhv .hhv-hero__photo img {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: auto;
     z-index: 0;
     display: block;
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
-    /* Fotka je na vysku (3 : 4), ale sloupec na pocitaci je na sirku
-       (4 : 3). Vejde se proto jen necelych 57 % vysky snimku a je
-       jedno, kterou cast - vzdycky je to vodorovny pruh. Tenhle
-       zacina tesne nad helmou a konci pod bradou, takze v zaberu
-       zustane oblicej i kus oblohy se sluncem. */
-    object-position: center 48%;
+    /* Leva hrana snimku uz nelezi v prechodu, ktery kresli ::before
+       pres cely sloupec - zacina az nekde uprostred nej. Bez tohohle
+       by tam byla ostra svisla cara jako po nalepenem obdelniku. */
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #000 17%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #000 17%);
 }
 
 /* Prechod z fotky do textoveho sloupce, at hrana neni tvrda */
@@ -1155,10 +1170,18 @@
         min-height: 0;
     }
 
-    /* Vyrez je tu temer cela fotka - pomer boxu 4 : 5 je skoro pomer
-       snimku (3 : 4) - takze neni co posouvat. */
+    /* Na telefonu je sloupec pres celou sirku a poměrem (4 : 5) skoro
+       sedi na snimek (3 : 4), takze se obrazek zase roztahne a orizne
+       se z nej jen par procent. Prechod na leve hrane tu nema co
+       resit - fotka jde od kraje ke kraji. */
     .hhv .hhv-hero__photo img {
+        left: 0;
+        right: 0;
+        width: 100%;
+        object-fit: cover;
         object-position: center 50%;
+        -webkit-mask-image: none;
+        mask-image: none;
     }
 
     /* Nahore prechod z grafitu, na kterem lezi text nad fotkou, dole

@@ -111,6 +111,19 @@
     #vr-home .program strong{font-size:clamp(22px,2.7vw,34px);font-weight:500;letter-spacing:-.025em}
     #vr-home .program p{margin:0;font-size:14px;color:#69615b}
     #vr-home .program .go{font-size:27px;text-align:right}
+    /* ===== Vlastni pravidla - pripravovana cesta =====================
+       Svetle pozadi (cream) a pismo jako zbytek webu, zadna vlastni
+       barva navic. Blok jen ohlasuje, ze se neco chysta, takze je
+       zamerne klidnejsi nez sekce nad nim a pod nim. */
+    #vr-home .rules{background:var(--cream)}
+    #vr-home .rules-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:80px;align-items:end}
+    /* Stitek, ne tlacitko: zadny ramecek, zadne pozadi, nic klikaciho.
+       Odlisuje ho jen velikost, prostrkani a tlumena barva. */
+    #vr-home .rules .state{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:18px}
+    #vr-home .rules h2{margin:0}
+    #vr-home .rules .lead{margin-top:18px}
+    #vr-home .rules-note{font-size:14px;color:#69615b;border-top:1px solid var(--line);padding-top:18px}
+
     #vr-home .community{padding:105px 0;background:#b9a791;color:#272422}
     #vr-home .community-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
     #vr-home .community-mark{height:360px;border:1px solid rgba(37,40,42,.35);position:relative;display:flex;align-items:center;justify-content:center}
@@ -161,7 +174,7 @@
       #vr-home .navlinks a:not(.btn):hover{border-color:var(--line)}
       #vr-home .navlinks .btn{width:100%;margin-top:18px}
       #vr-home .hero{padding:40px 0 56px}
-      #vr-home .hero-grid,#vr-home .problem-head,#vr-home .method-intro,#vr-home .challenge-grid,#vr-home .flag-top,#vr-home .paths-intro,#vr-home .community-grid,#vr-home .founder-grid,#vr-home .principles-grid,#vr-home .newsletter-row{grid-template-columns:1fr;gap:42px}
+      #vr-home .hero-grid,#vr-home .problem-head,#vr-home .method-intro,#vr-home .challenge-grid,#vr-home .flag-top,#vr-home .paths-intro,#vr-home .rules-grid,#vr-home .community-grid,#vr-home .founder-grid,#vr-home .principles-grid,#vr-home .newsletter-row{grid-template-columns:1fr;gap:42px}
       #vr-home .display{font-size:clamp(50px,14vw,78px)}
       #vr-home .hero-visual{min-height:480px}
       #vr-home .hero-photo{left:24px}

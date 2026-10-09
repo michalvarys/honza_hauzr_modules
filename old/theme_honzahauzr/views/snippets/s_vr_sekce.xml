@@ -105,6 +105,21 @@
                 </section>
 </template>
 
+<template id="s_vr_pravidla" name="Vlastní pravidla">
+    <section class="s_vr_pravidla section rules" id="vlastni-pravidla">
+      <div class="wrap rules-grid">
+        <div class="rules-copy">
+          <!-- "Pripravujeme" je stitek, ne tlacitko: zadny ramecek,
+               zadny odkaz, nic, na co by slo klikat. -->
+          <span class="state">Připravujeme</span>
+          <h2>Vlastní pravidla</h2>
+          <p class="lead muted">Praktická cesta k hranicím, sebehodnotě a standardům, za kterými dokážeš stát.</p>
+        </div>
+        <div class="rules-note">Druhá hlavní cesta Vlastní režie. Otevře se, až bude hotová — ne proto, aby byl katalog plný.</div>
+      </div>
+    </section>
+</template>
+
 <template id="s_vr_zakladatel" name="O zakladateli">
 <section class="s_vr_zakladatel section founder">
                   <div class="wrap founder-grid">

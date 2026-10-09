@@ -44,6 +44,8 @@
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_vyzva.svg"/>
         <t t-snippet="theme_honzahauzr.s_vr_tvuj_tah" string="Tvůj tah" group="vlastnirezie"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_tvuj_tah.svg"/>
+        <t t-snippet="theme_honzahauzr.s_vr_pravidla" string="Vlastní pravidla" group="vlastnirezie"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_pravidla.svg"/>
         <t t-snippet="theme_honzahauzr.s_vr_zakladatel" string="O zakladateli" group="vlastnirezie"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_zakladatel.svg"/>
         <t t-snippet="theme_honzahauzr.s_vr_newsletter" string="Newsletter" group="vlastnirezie"
