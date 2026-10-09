@@ -33,11 +33,14 @@
                   <a class="brand" t-att-href="request.env[&#39;ir.config_parameter&#39;].sudo().get_param(&#39;theme_honzahauzr.odkaz_loga&#39;) or &#39;/&#39;" aria-label="Vlastní režie"><img src="/theme_honzahauzr/static/src/img/vr/vr-home-5-16543097.svg" alt="Vlastní režie"/></a>
                   <button type="button" class="vr-burger" aria-label="Menu" aria-expanded="false" aria-controls="vr-menu"><span></span><span></span><span></span></button>
                   <nav class="navlinks" id="vr-menu" aria-label="Hlavní navigace">
+                    <!-- Polozky Cesty, Komunita a Pro cleny tu byly, ale
+                         mirily na sekce, ktere ze stranky sly pryc. Odkaz
+                         na kotvu, ktera neexistuje, po kliknuti neudela
+                         nic - proto zmizely s nimi. -->
                     <a href="#jak">Jak to funguje</a>
-                    <a href="#cesty">Cesty</a>
-                    <a href="#komunita">Komunita</a>
+                    <a href="#vyzva">3denní výzva</a>
+                    <a href="#tvuj-tah">Tvůj tah</a>
                     <a href="#o-znacce">O značce</a>
-                    <a class="member" href="#komunita">Pro členy</a>
                     <a class="btn btn-blue" href="/zpet-do-zivota">Začni zdarma <span class="arrow">→</span></a>
                   </nav>
                 </div>
