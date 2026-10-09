@@ -36,6 +36,23 @@
     <field name="color">3</field>
 </record>
 
+<!--
+    Stitky webu. Odber novinek vede z obou webu do jedne schranky,
+    takze samotny stitek "Newsletter" uz nestaci - podle nej nepoznas,
+    jestli clovek prisel od Honzy nebo z Vlastni rezie. Nasazuji se
+    vedle stitku formulare, ne misto nej.
+-->
+
+<record id="tag_web_honzahauzr" model="crm.tag">
+    <field name="name">Honza Hauzr</field>
+    <field name="color">5</field>
+</record>
+
+<record id="tag_web_vlastni_rezie" model="crm.tag">
+    <field name="name">Vlastní režie</field>
+    <field name="color">8</field>
+</record>
+
 <record id="tag_rezervace" model="crm.tag">
     <field name="name">Rezervace hovoru</field>
     <field name="color">6</field>

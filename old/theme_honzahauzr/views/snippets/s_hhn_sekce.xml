@@ -353,6 +353,10 @@
                       data-success-mode="message">
                     <input type="hidden" name="name" value="Newsletter z webu honzahauzr.cz"/>
                     <input type="hidden" name="hh_zdroj" value="newsletter"/>
+                    <!-- Ze ktereho webu clovek prisel. Odber vede z obou do jedne
+                         schranky, takze bez tohohle pole se odberatele nerozlisi. -->
+                    <input type="hidden" name="hh_web"
+                       t-att-value="'vlastni_rezie' if request.params.get('zdroj') == 'vlastni-rezie' else 'honzahauzr'"/>
                     <div class="s_website_form_field s_website_form_required">
                         <label class="col-form-label s_website_form_label hh-sr-only" for="hhn_news_email">E-mail</label>
                         <input type="email" id="hhn_news_email" class="form-control s_website_form_input hh-news__input"
