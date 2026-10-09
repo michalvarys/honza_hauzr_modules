@@ -105,38 +105,6 @@
                 </section>
 </template>
 
-<template id="s_vr_cesty" name="Cesty">
-<section class="s_vr_cesty section paths" id="cesty">
-                  <div class="wrap">
-                    <div class="paths-intro">
-                      <div><div class="eyebrow">Produktový svět</div><h2>Jedna značka. Více cest.</h2></div>
-                      <p class="lead muted">Ne každý potřebuje stejný program. Proto Vlastní režie postupně staví cesty pro různé životní situace — vždy podle skutečné potřeby, ne proto, aby byl katalog plný.</p>
-                    </div>
-                    <div class="program-list">
-                      <a class="program" href="#tvuj-tah"><span class="state live">První hlavní cesta</span><strong>Tvůj tah</strong><p>40denní vedený proces: pravdivější mapa sebe, respekt k sobě, vlastní pravidla, 90denní priorita a první tah v realitě.</p><span class="go">→</span></a>
-                      <div class="program"><span class="state">Připravujeme</span><strong>Vlastní pravidla</strong><p>Praktická cesta k hranicím, sebehodnotě a standardům, za kterými dokážeš stát.</p><span class="go">↗</span></div>
-                      <div class="program"><span class="state">Postupně</span><strong>Specializované programy</strong><p>Vztahy, intimita, emoce, tělo, identita a další témata podle ověřené poptávky.</p><span class="go">+</span></div>
-                      <div class="program"><span class="state">Výběrově</span><strong>Live, experti a VIP</strong><p>Menší skupiny, workshopy a hlubší práce tam, kde online cesta nestačí.</p><span class="go">↗</span></div>
-                    </div>
-                  </div>
-                </section>
-</template>
-
-<template id="s_vr_komunita" name="Komunita">
-<section class="s_vr_komunita community" id="komunita">
-                  <div class="wrap community-grid">
-                    <div class="community-mark"><span>Prostor, kde<br/>v tom nezůstaneš<br/>sám.</span></div>
-                    <div>
-                      <div class="eyebrow" style="color:#5f554d">Soukromé členské prostředí Vlastní režie</div>
-                      <h2>Ne další knihovna videí. Prostředí, které tě vede.</h2>
-                      <p class="lead">V programu vždy víš, kde právě jsi, co je důležité a co máš udělat dál. Neztratíš se mezi lekcemi ani nezmizíš potichu mezi stovkami účastníků.</p>
-                      <p>Soukromé členské prostředí Vlastní režie propojuje jednotlivé kroky programu, orientaci den po dni, prostor pro otázky a průběžnou podporu. Citlivá práce zůstává soukromá a sdílení je dobrovolné.</p>
-                      <div class="hero-actions"><a class="btn btn-dark" href="#tvuj-tah">Jak funguje Tvůj tah <span class="arrow">→</span></a></div>
-                    </div>
-                  </div>
-                </section>
-</template>
-
 <template id="s_vr_zakladatel" name="O zakladateli">
 <section class="s_vr_zakladatel section founder">
                   <div class="wrap founder-grid">
@@ -148,20 +116,6 @@
                       <p class="muted">Vlastní režie nevznikla z pozice člověka, který má všechno vyřešené. Vznikla z přesvědčení, že pochopení má vést k rozhodnutí a rozhodnutí ke skutečnému kroku. Neřeknu ti, jak máš žít. Pomůžu ti ale podívat se na vlastní vzorce tak, aby další tah byl opravdu tvůj.</p>
                       <div class="signature">Honza Hauzr · mentor pro muže · zakladatel</div>
                       <a class="btn" href="#">Poznat Honzu a jeho příběh <span class="arrow">→</span></a>
-                    </div>
-                  </div>
-                </section>
-</template>
-
-<template id="s_vr_principy" name="Principy">
-<section class="s_vr_principy section principles">
-                  <div class="wrap principles-grid">
-                    <div><div class="eyebrow">Principy</div><h2>Nechceme ti řídit život.</h2><p class="lead muted">Chceme ti pomoct převzít jeho režii.</p></div>
-                    <div class="principle-list">
-                      <div class="principle"><b>01</b><div><strong>Orientace před optimalizací</strong><p>Nejdřív zjisti, kde jsi a co je tvoje. Až potom stav návyky a plán.</p></div></div>
-                      <div class="principle"><b>02</b><div><strong>Sebedůvěra vzniká z důkazů</strong><p>Důvěru v sebe stavíš historií dodržených rozhodnutí, ne pozitivními větami.</p></div></div>
-                      <div class="principle"><b>03</b><div><strong>Odpovědnost předchází svobodě</strong><p>Svoboda nezačíná tím, že zmizí omezení. Začíná volbou vlastního postoje a kroku.</p></div></div>
-                      <div class="principle"><b>04</b><div><strong>Pochopení není změna</strong><p>Důležitá myšlenka musí vést k experimentu, rozhodnutí nebo chování v realitě.</p></div></div>
                     </div>
                   </div>
                 </section>

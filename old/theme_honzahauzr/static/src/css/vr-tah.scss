@@ -387,14 +387,22 @@
 #vr-tah .fit-card.no li:before {
     content:"×";color:#8c5d51
 }
+/* Nad garanci byla pisková plocha s velkou šipkou. Šla pryč,
+   takže rámeček drží jen text a nedělí se na dva sloupce. Výšku
+   dřív držela ta plocha (min-height 300px); teď ji dává odsazení
+   textu, aby po odstranění nevznikla úzká lišta ani prázdné
+   místo. */
 #vr-tah .guarantee-box {
-    display:grid;grid-template-columns:.65fr 1.35fr;border:1px solid var(--line)
-}
-#vr-tah .guarantee-mark {
-    display:flex;align-items:center;justify-content:center;min-height:300px;background:var(--sand);font-size:6rem
+    border:1px solid var(--line)
 }
 #vr-tah .guarantee-copy {
-    padding:50px
+    padding:56px 50px
+}
+/* Druhý odstavec u členského prostředí. Je to <span> uvnitř
+   stejného <p>, aby obojí zůstalo jednou položkou seznamu - ne
+   dvěma. Jako blok se chová až tady. */
+#vr-tah .feature-dalsi {
+    display:block;margin-top:14px
 }
 #vr-tah .guarantee-copy h3 {
     font-size:2.5rem
@@ -547,7 +555,7 @@
     #vr-tah .proof-grid {
         grid-template-columns:1fr
     }
-    #vr-tah .fit-grid, #vr-tah .guarantee-box {
+    #vr-tah .fit-grid {
         grid-template-columns:1fr
     }
     #vr-tah .offer-grid {

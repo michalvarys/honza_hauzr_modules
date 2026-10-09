@@ -129,6 +129,14 @@
     var lista = document.querySelector(".hhv-sticky");
     var registrace = document.getElementById("registrace");
 
+    /* Pevna tlacitka na strance - v uvodu, za popisem dnu, za pribehem
+       a v registracnim formulari. Lepkave tlacitko se schovava vzdycky,
+       kdyz je nektere z nich na obrazovce: jinak stoji dve stejna
+       tlacitka tesne nad sebou a to spodni jen zabira misto. Drive se
+       hlidal jen formular, takze u tlacitka za pribehem se dvojice
+       porad objevovala. */
+    var pevnaTlacitka = [];
+
     /* Cookie lista sedi na stejnem miste dole. Dokud visi na strance,
        nase tlacitko nikam neleze - zadani zakazuje, aby ji prekrylo. */
     function visiCookieLista() {
@@ -145,22 +153,39 @@
     }
 
     if (lista && !vEditoru) {
-        var formularJeVidet = false;
+        pevnaTlacitka = [].slice.call(
+            document.querySelectorAll(".hhv .hhv-cta")
+        ).filter(function (prvek) {
+            return !lista.contains(prvek);
+        });
 
-        if (umiPozorovat && registrace) {
-            new IntersectionObserver(
+        /* Pocita se, kolik jich je prave videt. Samotne "posledni
+           hlaseni" by nestacilo - pozorovatel ohlasi kazde tlacitko
+           zvlast a to pozdejsi by prepsalo to drivejsi. */
+        var viditelna = 0;
+
+        if (umiPozorovat && pevnaTlacitka.length) {
+            var pozorovatel = new IntersectionObserver(
                 function (zaznamy) {
-                    formularJeVidet = zaznamy[0].isIntersecting;
+                    for (var i = 0; i < zaznamy.length; i++) {
+                        viditelna += zaznamy[i].isIntersecting ? 1 : -1;
+                    }
+                    if (viditelna < 0) {
+                        viditelna = 0;
+                    }
                     prekresliListu();
                 },
                 { threshold: 0 }
-            ).observe(registrace);
+            );
+            for (var t = 0; t < pevnaTlacitka.length; t++) {
+                pozorovatel.observe(pevnaTlacitka[t]);
+            }
         }
 
         function prekresliListu() {
             // "Az po prvnim scrollu" = jakmile hero odjede z obrazovky.
             var odrolovano = window.scrollY > window.innerHeight * 0.6;
-            var ukazat = odrolovano && !formularJeVidet && !visiCookieLista();
+            var ukazat = odrolovano && !viditelna && !visiCookieLista();
 
             lista.classList.toggle("hhv-sticky--on", ukazat);
             stranka.classList.toggle("hhv-has-sticky", ukazat);
