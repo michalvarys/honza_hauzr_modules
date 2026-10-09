@@ -98,12 +98,17 @@ class CrmLead(models.Model):
         copy=False,
         readonly=True,
     )
-    hh_stupen_maily = fields.Char(
-        string='Odeslané zprávy sloupce',
+    hh_odeslane_maily_ids = fields.Many2many(
+        'hh.mail.sablona',
+        'hh_lead_odeslany_mail_rel',
+        'lead_id',
+        'mail_id',
+        string='Zprávy řady, které už odešly',
         copy=False,
-        readonly=True,
-        help='Cisla uz odeslanych zprav z rady, oddelena carkou.',
+        help='Pojistka proti dvojímu odeslání. Maže se při vstupu '
+             'do nového sloupce, kdy řada začíná znovu.',
     )
+
 
     # ------------------------------------------------------------------
     # kontakt z e-mailu
@@ -450,10 +455,12 @@ class CrmLead(models.Model):
         return vysledek
 
     def _hh_ohlasit_stupen(self):
-        """Zahaji radu e-maily napsanou u stupne.
+        """Zahaji radu e-mailu zarazenych u stupne.
 
-        Prvni zprava odejde hned, druha a treti az s odstupem - o ty se
-        stara nocni, respektive hodinovy ukol _hh_rozeslat_navazujici.
+        Zpravy s odstupem 0 odejdou hned, zbytek si vezme hodinovy
+        ukol _hh_rozeslat_navazujici. Hned, a ne az pri nejakem behu
+        ukolu: uvitaci zprava ma prijit v okamziku prihlaseni, ne
+        treba o padesat minut pozdeji.
         """
         self.ensure_one()
 
@@ -470,89 +477,90 @@ class CrmLead(models.Model):
         # Odpocet navazujicich zprav bezi od vstupu do sloupce.
         self.sudo().write({
             'hh_stupen_od': fields.Datetime.now(),
-            'hh_stupen_maily': '',
+            'hh_odeslane_maily_ids': [(5, 0, 0)],
             'hh_odeslane_stupne_ids': [(4, stupen.id)],
         })
 
-        self._hh_poslat_cast_rady(1)
+        for zprava in stupen.hh_maily_k_odeslani():
+            if not zprava.po_dnech:
+                self._hh_poslat_zpravu(zprava)
+            else:
+                # Serazene podle odstupu, takze dal uz jsou jen
+                # zpravy do budoucna - o ty se postara hodinovy ukol.
+                break
 
-    def _hh_poslat_cast_rady(self, cislo):
+    def _hh_poslat_zpravu(self, zprava):
         """Odesle jednu zpravu z rady a poznamena si ji."""
         self.ensure_one()
 
-        stupen = self.stage_id
-        if not stupen:
+        if not zprava.zapnuto:
             return False
 
-        cast = stupen.hh_mail_cast(cislo)
-        if not cast['zapnuto']:
-            return False
-
-        if str(cislo) in self._hh_odeslane_casti():
+        # Kazda zprava jen jednou. Bez tohohle by hodinovy ukol poslal
+        # tutez zpravu pri kazdem behu, dokud je karta ve sloupci.
+        if zprava in self.hh_odeslane_maily_ids:
             return False
 
         prijemce = self.email_from or self.partner_id.email
         if not prijemce:
             return False
 
-        if not self._hh_poslat_email_stupne(stupen, prijemce, cast):
+        if not self._hh_poslat_email_stupne(self.stage_id, prijemce, zprava):
             return False
 
-        odeslane = self._hh_odeslane_casti() | {str(cislo)}
-        self.sudo().hh_stupen_maily = ','.join(sorted(odeslane))
+        self.sudo().hh_odeslane_maily_ids = [(4, zprava.id)]
         return True
-
-    def _hh_odeslane_casti(self):
-        self.ensure_one()
-        return {c for c in (self.hh_stupen_maily or '').split(',') if c}
 
     @api.model
     def _hh_rozeslat_navazujici(self):
-        """Hodinovy ukol: rozesle druhou a treti zpravu, az prijde jejich cas.
+        """Hodinovy ukol: rozesle zpravy rady, az prijde jejich cas.
 
         Po hodinach, ne jednou za noc: odpocet je navazany na okamzik,
         kdy karta do sloupce vstoupila, zvlast za kazdeho cloveka. Kdo
         se prihlasil v poledne, ma dalsi den dostat take kolem poledne.
+
+        Zpravy s odstupem 0 uz odesly pri vstupu do sloupce, takze se
+        tady preskakuji - jinak by se poslaly podruhe tem, kdo do
+        sloupce prisli jeste pred tim, nez je Honza zaradil.
         """
         ted = fields.Datetime.now()
         odeslano = 0
 
-        for cislo in (2, 3):
-            stupne = self.env['crm.stage'].search([
-                ('hh_mail%s_enabled' % cislo, '=', True),
-            ])
-            if not stupne:
+        stupne = self.env['crm.stage'].search([('hh_stitek_ids', '!=', False)])
+        for stupen in stupne:
+            zpravy = stupen.hh_maily_k_odeslani().filtered('po_dnech')
+            if not zpravy:
                 continue
 
             leady = self.sudo().search([
-                ('stage_id', 'in', stupne.ids),
+                ('stage_id', '=', stupen.id),
                 ('hh_stupen_od', '!=', False),
                 ('active', '=', True),
             ])
             for lead in leady:
-                cast = lead.stage_id.hh_mail_cast(cislo)
-                kdy = lead.hh_stupen_od + timedelta(days=cast['po_dnech'])
-                if ted < kdy:
-                    continue
-                if lead._hh_poslat_cast_rady(cislo):
-                    odeslano += 1
+                for zprava in zpravy:
+                    kdy = lead.hh_stupen_od + timedelta(days=zprava.po_dnech)
+                    if ted < kdy:
+                        # Zpravy jsou serazene podle odstupu, takze
+                        # dalsi uz je jeste dal v budoucnu.
+                        break
+                    if lead._hh_poslat_zpravu(zprava):
+                        odeslano += 1
 
         if odeslano:
             _logger.info(
-                'Honza Hauzr CRM: rozeslano %s navazujicich zprav.', odeslano)
+                'Honza Hauzr CRM: rozeslano %s zprav z rad sloupcu.', odeslano)
         return True
 
-    def _hh_poslat_email_stupne(self, stupen, prijemce, cast=None):
-        if cast is None:
-            cast = stupen.hh_mail_cast(1)
+    def _hh_poslat_email_stupne(self, stupen, prijemce, sablona_mailu):
         try:
             sablona = self.env['mail.render.mixin'].sudo()
             predmet = sablona._render_template(
-                cast['predmet'] or '', 'crm.lead', [self.id],
+                sablona_mailu.predmet or '', 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
             telo = sablona._render_template(
-                cast['telo'] or '', 'crm.lead', [self.id],
+                sablona_mailu.telo or '', 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
 
@@ -572,6 +580,6 @@ class CrmLead(models.Model):
             # E-mail nesmi nikdy shodit presun karty - kdyz se neodesle,
             # jen se to zapise do logu a prilezitost dojede do stupne.
             _logger.warning(
-                'Honza Hauzr CRM: e-mail stupne %s se nepodarilo odeslat: %s',
-                stupen.name, chyba)
+                'Honza Hauzr CRM: e-mail "%s" ze sloupce %s se nepodarilo '
+                'odeslat: %s', sablona_mailu.name, stupen.name, chyba)
             return False

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Jedna polozka v horni liste, zbytek pod ni.
+
+    Drive sedelo "Nastaveni sloupcu" primo v liste vedle Prodeje
+    a Vykazu. S knihovnou e-mailu a stitky by tam stala vedle sebe
+    uz ctyri vlastni polozka a lista by se tim rozjela. Rozbalovaci
+    nabidka je drzi pod sebou, stejne jako to ma Odoo u Prodeje.
+
+    Terminy hovoru zustavaji samostatne - to neni nastaveni, ale
+    kalendar, do ktereho Honza chodi kazdy den.
+-->
+<menuitem id="menu_hh_nastaveni"
+          name="Nastavení"
+          parent="crm.crm_menu_root"
+          sequence="30"/>
+
+<menuitem id="menu_stupne_crm"
+          name="Sloupce nástěnky"
+          parent="menu_hh_nastaveni"
+          action="action_stupne_crm"
+          sequence="10"/>
+
+<menuitem id="menu_hh_mail_sablona"
+          name="Knihovna e-mailů"
+          parent="menu_hh_nastaveni"
+          action="action_hh_mail_sablona"
+          sequence="20"/>
+
+<menuitem id="menu_hh_mail_stitek"
+          name="Štítky e-mailů"
+          parent="menu_hh_nastaveni"
+          action="action_hh_mail_stitek"
+          sequence="30"/>
+
+</odoo>

@@ -1,107 +1,60 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class CrmStage(models.Model):
-    """Ke kazdemu stupni se da napsat e-mail, ktery se sam odesle.
+    """Sloupec nastenky a rady e-mailu, ktere se z nej posilaji.
 
-    Text se pise primo sem, ne pres samostatne sablony - Honza si
-    jednou vyplni predmet a telo u kazdeho stupne (Nove, Prijate,
-    Neplacene, Placene) a dal uz jen pretahuje karty. Stejne to ma
-    Jarda Kotlar na boardu objednavek.
+    Sloupec je sekce, do ktere clovek prijde - Chci odebirat, 3denni
+    vyzva, Rezervace. Jakmile v ni karta pristane, zacne jeho vlastni
+    odpocet a podle nej odchazi jedna zprava za druhou.
+
+    Texty ani predmety se tu nepisi a jednotlive zpravy se tu ani
+    nevybiraji. Sloupec nese jen stitky - a odejde vsechno, co pod ne
+    v knihovne spada. Co se v rade posila, kdy a jestli vubec, se
+    nastavuje u e-mailu samotneho.
     """
 
     _inherit = 'crm.stage'
 
-    # Napoveda schvalne cela v help, ne jako odstavce ve formulari.
-    # Formular se otevira v dialogu a kazdy radek navic tlaci tlacitka
-    # Ulozit a Zrusit pod spodni okraj obrazovky.
-    hh_mail_enabled = fields.Boolean(
-        string='Poslat e-mail zájemci',
-        help='Když příležitost vstoupí do tohoto sloupce, odejde na adresu '
-             'z formuláře e-mail s předmětem a textem níže.\n\n'
-             'E-mail odejde jen jednou. Když kartu vrátíš o sloupec zpět '
-             'a zase sem, podruhé už se neposílá.\n\n'
-             'Vypni, když má být sloupec jen tvůj interní krok bez e-mailu.',
+    hh_stitek_ids = fields.Many2many(
+        'hh.mail.stitek',
+        'hh_stage_mail_stitek_rel',
+        'stage_id',
+        'stitek_id',
+        string='Řady e-mailů',
+        help='Které řady se z tohohle sloupce posílají. Jednotlivé '
+             'zprávy i jejich odstupy se nastavují v knihovně e-mailů.',
     )
-    hh_mail_subject = fields.Char(
-        string='Předmět e-mailu',
-        translate=True,
-        help='Zástupné texty, které se vyplní samy:\n'
-             '{{ object.contact_name }} = jméno\n'
-             '{{ object.email_from }} = e-mailová adresa\n'
-             '{{ object.name }} = název příležitosti',
-    )
-    hh_mail_body = fields.Html(
-        string='Text e-mailu',
-        translate=True,
-        sanitize=False,
-        help='Text zprávy. Zástupné texty, které se vyplní samy:\n'
-             '{{ object.contact_name }} = jméno\n'
-             '{{ object.email_from }} = e-mailová adresa\n'
-             '{{ object.name }} = název příležitosti',
+    hh_maily_count = fields.Integer(
+        string='Počet e-mailů',
+        compute='_compute_hh_maily_count',
     )
 
-    # ------------------------------------------------------------------
-    # navazujici e-maily
-    # ------------------------------------------------------------------
-    #
-    # Tridenni vyzva potrebuje tri zpravy za sebou, ne jednu: prvni den
-    # odkaz na video, druhy a treti den pripomenuti dalsiho dilu. Jeden
-    # e-mail na sloupec by znamenal delat tri sloupce a kazdy den karty
-    # rucne pretahovat.
-    #
-    # Odpocet bezi od okamziku, kdy karta do sloupce vstoupila, zvlast
-    # za kazdou prilezitost - kdo se prihlasi v poledne, dostane druhy
-    # den take kolem poledne.
+    @api.depends('hh_stitek_ids.mail_count')
+    def _compute_hh_maily_count(self):
+        for stupen in self:
+            stupen.hh_maily_count = sum(
+                stupen.hh_stitek_ids.mapped('mail_count'))
 
-    hh_mail2_enabled = fields.Boolean(
-        string='Poslat druhý e-mail',
-        help='Navazující zpráva, která odejde s odstupem po tom prvním.',
-    )
-    hh_mail2_po = fields.Integer(
-        string='Druhý e-mail po (dnech)',
-        default=1,
-        help='Kolik dní po vstupu do sloupce zpráva odejde. 1 = další den.',
-    )
-    hh_mail2_subject = fields.Char(string='Předmět druhého e-mailu', translate=True)
-    hh_mail2_body = fields.Html(
-        string='Text druhého e-mailu', translate=True, sanitize=False)
-
-    hh_mail3_enabled = fields.Boolean(
-        string='Poslat třetí e-mail',
-        help='Poslední zpráva v řadě.',
-    )
-    hh_mail3_po = fields.Integer(
-        string='Třetí e-mail po (dnech)',
-        default=2,
-        help='Kolik dní po vstupu do sloupce zpráva odejde. 2 = třetí den.',
-    )
-    hh_mail3_subject = fields.Char(string='Předmět třetího e-mailu', translate=True)
-    hh_mail3_body = fields.Html(
-        string='Text třetího e-mailu', translate=True, sanitize=False)
-
-    def hh_mail_cast(self, cislo):
-        """Predmet, telo a odstup pro zadanou zpravu v rade (1, 2, 3)."""
+    def hh_maily_k_odeslani(self):
+        """Zapnute zpravy vsech rad sloupce, serazene podle odstupu."""
         self.ensure_one()
-        if cislo == 1:
-            return {
-                'zapnuto': self.hh_mail_enabled,
-                'predmet': self.hh_mail_subject,
-                'telo': self.hh_mail_body,
-                # Prvni zprava odchazi hned pri vstupu do sloupce.
-                'po_dnech': 0,
-            }
-        if cislo == 2:
-            return {
-                'zapnuto': self.hh_mail2_enabled,
-                'predmet': self.hh_mail2_subject,
-                'telo': self.hh_mail2_body,
-                'po_dnech': max(0, self.hh_mail2_po or 0),
-            }
+        if not self.hh_stitek_ids:
+            return self.env['hh.mail.sablona']
+        return self.env['hh.mail.sablona'].search([
+            ('stitek_id', 'in', self.hh_stitek_ids.ids),
+            ('zapnuto', '=', True),
+        ], order='po_dnech, id')
+
+    def action_hh_maily(self):
+        """Otevre e-maily, ktere se z tohohle sloupce posilaji."""
+        self.ensure_one()
         return {
-            'zapnuto': self.hh_mail3_enabled,
-            'predmet': self.hh_mail3_subject,
-            'telo': self.hh_mail3_body,
-            'po_dnech': max(0, self.hh_mail3_po or 0),
+            'type': 'ir.actions.act_window',
+            'name': 'E-maily sloupce %s' % self.name,
+            'res_model': 'hh.mail.sablona',
+            'view_mode': 'list,form',
+            'domain': [('stitek_id', 'in', self.hh_stitek_ids.ids)],
+            'context': {'search_default_podle_stitku': 1},
         }

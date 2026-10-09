@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Knihovna e-mailu.
+
+    Zpravy pod sebou tak, jak chodi: nejdriv podle rady (stitku),
+    uvnitr ni podle dne. U kazde se rovnou v seznamu prepina, jestli
+    se posila, a prepise den i nazev - bez otevirani zaznamu.
+
+    Driv se predmet a telo psaly primo u sloupce, a to ve trech
+    pevnych trojicich poli. Vic nez tri zpravy nesly a stejny text
+    ve dvou radach se musel psat dvakrat.
+-->
+
+<record id="view_hh_mail_sablona_list" model="ir.ui.view">
+    <field name="name">hh.mail.sablona.list</field>
+    <field name="model">hh.mail.sablona</field>
+    <field name="arch" type="xml">
+        <list string="E-maily" multi_edit="1">
+            <field name="stitek_id" widget="many2one_avatar"
+                   optional="show"/>
+            <field name="po_dnech" string="Po dnech"/>
+            <field name="kdy_popis" string="Kdy" optional="hide"/>
+            <field name="name" string="Název"/>
+            <field name="predmet" string="Předmět" optional="show"/>
+            <field name="zapnuto" widget="boolean_toggle" string="Odesílat"/>
+        </list>
+    </field>
+</record>
+
+<record id="view_hh_mail_sablona_form" model="ir.ui.view">
+    <field name="name">hh.mail.sablona.form</field>
+    <field name="model">hh.mail.sablona</field>
+    <field name="arch" type="xml">
+        <form string="E-mail">
+            <sheet>
+                <widget name="web_ribbon" title="Archivováno"
+                        bg_color="text-bg-danger" invisible="active"/>
+                <div class="oe_title">
+                    <label for="name" string="Název"/>
+                    <h1><field name="name" placeholder="Např. Výzva – den 2"/></h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="stitek_id"
+                               options="{'no_quick_create': False}"
+                               placeholder="Např. Třídenní výzva"/>
+                        <field name="po_dnech"/>
+                    </group>
+                    <group>
+                        <field name="zapnuto" widget="boolean_toggle"/>
+                        <field name="active" invisible="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="predmet" placeholder="Co uvidí příjemce v poště"/>
+                </group>
+                <separator string="Text zprávy"/>
+                <field name="telo" nolabel="1" class="hh-telo-mailu"
+                       placeholder="Text, který příjemci odejde…"/>
+                <div class="text-muted small">
+                    Odkaz na osobní stránku s videi se píše jako
+                    <code>{{ object.hh_vyzva_odkaz }}</code> &#8211; každý dostane
+                    svůj vlastní a otevřou se mu na ní jen dny, které už má
+                    odemčené. Jméno je <code>{{ object.contact_name }}</code>.
+                </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="view_hh_mail_sablona_search" model="ir.ui.view">
+    <field name="name">hh.mail.sablona.search</field>
+    <field name="model">hh.mail.sablona</field>
+    <field name="arch" type="xml">
+        <search string="E-maily">
+            <field name="name"/>
+            <field name="predmet"/>
+            <field name="stitek_id"/>
+            <filter name="odesilane" string="Odesílané"
+                    domain="[('zapnuto', '=', True)]"/>
+            <filter name="neodesilane" string="Vypnuté"
+                    domain="[('zapnuto', '=', False)]"/>
+            <separator/>
+            <filter name="archivovane" string="Archivované"
+                    domain="[('active', '=', False)]"/>
+            <group expand="1" string="Seskupit podle">
+                <filter name="podle_stitku" string="Štítek"
+                        context="{'group_by': 'stitek_id'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="action_hh_mail_sablona" model="ir.actions.act_window">
+    <field name="name">Knihovna e-mailů</field>
+    <field name="res_model">hh.mail.sablona</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="view_hh_mail_sablona_search"/>
+    <!-- Rovnou seskupene po radach, at je videt, co patri k cemu. -->
+    <field name="context">{'search_default_podle_stitku': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Napiš první e-mail
+        </p>
+        <p>
+            Tady si v klidu připravíš zprávy. U každé řekneš, do které
+            řady patří (štítek) a kolikátý den po vstupu do sloupce
+            odejde. U sloupce pak stačí přihodit štítek.
+        </p>
+    </field>
+</record>
+
+<!-- Stitky = rady. Editovatelne primo v seznamu, je to jen nazev. -->
+<record id="view_hh_mail_stitek_list" model="ir.ui.view">
+    <field name="name">hh.mail.stitek.list</field>
+    <field name="model">hh.mail.stitek</field>
+    <field name="arch" type="xml">
+        <list string="Řady e-mailů" editable="bottom">
+            <field name="name" string="Název řady"/>
+            <field name="mail_count" string="Odesílaných e-mailů"/>
+            <field name="color" widget="color_picker" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="action_hh_mail_stitek" model="ir.actions.act_window">
+    <field name="name">Štítky e-mailů</field>
+    <field name="res_model">hh.mail.stitek</field>
+    <field name="view_mode">list</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Zatím tu není žádný štítek
+        </p>
+        <p>
+            Štítek drží pohromadě jednu řadu zpráv – třeba „Třídenní
+            výzva“. U sloupce pak přihodíš štítek a odejde všechno,
+            co pod něj patří.
+        </p>
+    </field>
+</record>
+
+</odoo>

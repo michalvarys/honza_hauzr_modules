@@ -38,17 +38,20 @@ def post_init_hook(env):
     if not firma.tz:
         firma.tz = 'Europe/Prague'
 
-    # Text e-mailu se predvyplni, ale odesilani zustava vypnute.
-    # Honza si sam rozhodne, co a kdy komu posle - kdyby se e-mail
-    # odesilal sam, odesel by uz v okamziku, kdy prihlaska ze
-    # tridenni vyzvy spadne do sveho sloupce.
-    vyzva = env.ref('crm.stage_lead2', raise_if_not_found=False)
-    if vyzva and not vyzva.hh_mail_subject:
-        vyzva.hh_mail_enabled = False
-        vyzva.hh_mail_subject = 'Děkuju za zájem'
-        vyzva.hh_mail_body = (
-            '<p>Ahoj,</p>'
-            '<p>děkuju za zájem. Mám tvůj e-mail a co nejdřív se ti ozvu '
-            's dalšími kroky.</p>'
-            '<p>Honza Hauzr</p>'
-        )
+    # Jeden e-mail do knihovny, aby nebyla po instalaci prazdna a bylo
+    # na cem videt, jak to funguje. Do zadneho sloupce se nezarazuje:
+    # Honza si sam rozhodne, co a kdy komu posle. Kdyby se zaradil,
+    # odesel by uz v okamziku, kdy prvni prihlaska spadne do sveho
+    # sloupce.
+    Sablona = env['hh.mail.sablona']
+    if not Sablona.search_count([]):
+        Sablona.create({
+            'name': 'Děkuju za zájem',
+            'predmet': 'Děkuju za zájem',
+            'telo': (
+                '<p>Ahoj,</p>'
+                '<p>děkuju za zájem. Mám tvůj e-mail a co nejdřív se ti '
+                'ozvu s dalšími kroky.</p>'
+                '<p>Honza Hauzr</p>'
+            ),
+        })

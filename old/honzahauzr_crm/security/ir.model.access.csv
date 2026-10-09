@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hh_termin_prodej,hh.termin prodej,model_hh_termin,sales_team.group_sale_salesman,1,1,1,0
 access_hh_termin_vedouci,hh.termin vedouci,model_hh_termin,sales_team.group_sale_manager,1,1,1,1
+access_hh_mail_stitek_prodej,hh.mail.stitek prodej,model_hh_mail_stitek,sales_team.group_sale_salesman,1,0,0,0
+access_hh_mail_stitek_vedouci,hh.mail.stitek vedouci,model_hh_mail_stitek,sales_team.group_sale_manager,1,1,1,1
+access_hh_mail_sablona_prodej,hh.mail.sablona prodej,model_hh_mail_sablona,sales_team.group_sale_salesman,1,0,0,0
+access_hh_mail_sablona_vedouci,hh.mail.sablona vedouci,model_hh_mail_sablona,sales_team.group_sale_manager,1,1,1,1
