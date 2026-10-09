@@ -1047,49 +1047,6 @@
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* ===== LEPKAVE TLACITKO NA MOBILU ===== */
-
-/* Ukaze se az po prvnim odrolovani a schova se, jakmile je videt
-   samotny formular. Skript ho navic drzi schovane, dokud na strance
-   visi cookie lista - zadani zakazuje, aby ji prekryvalo. */
-.hhv-sticky {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1035;
-    display: none;
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
-    background: rgba(26, 24, 21, 0.94);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.28s ease;
-}
-
-.hhv-sticky .hhv-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 420px;
-    padding: 14px 20px;
-    border-radius: 3px;
-    background: #a06a37;
-    color: #fff;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-indent: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
-.hhv-sticky.hhv-sticky--on {
-    transform: translateY(0);
-}
-
 /* ===== NABEH PRI SCROLLU ===== */
 
 /* Tridu nasazuje skript, a jen kdyz umi prvky zase odkryt. Bez ni
@@ -1115,8 +1072,7 @@
     }
 
     .hhv .hhv-cta,
-    .hhv .hhv-faq__chev,
-    .hhv-sticky {
+    .hhv .hhv-faq__chev {
         transition: none;
     }
 }
@@ -1228,19 +1184,6 @@
     .hhv .hhv-day__photo {
         aspect-ratio: 16 / 10;
     }
-
-    /* Lepkave tlacitko zabira spodni pruh - posledni sekce pod nim
-       nesmi zustat schovana. */
-    .hhv-sticky {
-        display: block;
-    }
-
-    /* Misto pro lepkave tlacitko. Paticka uz neni uvnitr .hhv, ale
-       v layoutu za nim - odsazeni proto dostava konec stranky, aby
-       tlacitko nezakrylo posledni radky ani paticku. */
-    .hhv-has-sticky {
-        padding-bottom: 86px;
-    }
 }
 
 /* ===== SPODEK STRANKY NA MOBILU =====
@@ -1271,15 +1214,21 @@ body:has(#wrap.hhv) {
    Napis "CHCI VSTOUPIT DO VYZVY ZDARMA" je velkymi, prostrkany
    a nezalamuje se. S odsazenim 2x 30 px potrebuje 320 px, takze
    na telefonu sirokem 360 px vylezl z mista, ktere mel, a konec
-   napisu se orizl. Mensi odsazeni ho na takovy displej vejde cele;
-   na jeste uzsich se radeji zalomi, nez aby zase pretekl. */
+   napisu se orizl.
+
+   Resi se to zalomenim, ne stlacenim: tlacitko zabere celou sirku,
+   odsazeni zustava pohodlne a napis se rozlozi na dva radky. Zkusit
+   ho vmacknout na jeden radek znamenalo text tesne u obou hran
+   a na uzsich displejich by stejne nestacilo. */
 @media (max-width: 420px) {
     .hhv .hhv-cta {
+        display: flex;
+        width: 100%;
         max-width: 100%;
-        padding-left: 18px;
-        padding-right: 18px;
+        padding: 17px 24px;
         white-space: normal;
         text-align: center;
+        line-height: 1.5;
     }
 }
 

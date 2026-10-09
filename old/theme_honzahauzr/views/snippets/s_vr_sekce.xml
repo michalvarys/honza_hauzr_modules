@@ -109,13 +109,19 @@
     <section class="s_vr_pravidla section rules" id="vlastni-pravidla">
       <div class="wrap rules-grid">
         <div class="rules-copy">
-          <!-- "Pripravujeme" je stitek, ne tlacitko: zadny ramecek,
-               zadny odkaz, nic, na co by slo klikat. -->
-          <span class="state">Připravujeme</span>
+          <div class="eyebrow">Hranice a respekt k sobě</div>
           <h2>Vlastní pravidla</h2>
-          <p class="lead muted">Praktická cesta k hranicím, sebehodnotě a standardům, za kterými dokážeš stát.</p>
+          <p class="rules-claim">Říct NE. A stát si za tím.</p>
+          <p class="lead muted">Říkáš ANO, i když chceš říct NE? Připravujeme praktický program, ve kterém si ujasníš vlastní potřeby a hranice, naučíš se je sdělit a stát si za nimi i ve chvíli, kdy druhý nesouhlasí.</p>
+          <!-- Stitek, ne tlacitko: span bez odkazu, nic klikaciho. -->
+          <span class="rules-stitek"><i></i>Připravujeme</span>
         </div>
-        <div class="rules-note">Druhá hlavní cesta Vlastní režie. Otevře se, až bude hotová — ne proto, aby byl katalog plný.</div>
+        <ol class="rules-kroky">
+          <li><b>01</b><strong>Poznat</strong></li>
+          <li><b>02</b><strong>Definovat</strong></li>
+          <li><b>03</b><strong>Komunikovat</strong></li>
+          <li><b>04</b><strong>Ustát</strong></li>
+        </ol>
       </div>
     </section>
 </template>

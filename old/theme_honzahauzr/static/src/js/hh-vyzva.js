@@ -122,101 +122,14 @@
         }, 1200);
     }
 
-    // ------------------------------------------------------------------
-    // 2. lepkave tlacitko na mobilu
-    // ------------------------------------------------------------------
-
-    var lista = document.querySelector(".hhv-sticky");
     var registrace = document.getElementById("registrace");
 
-    /* Pevna tlacitka na strance - v uvodu, za popisem dnu, za pribehem
-       a v registracnim formulari. Lepkave tlacitko se schovava vzdycky,
-       kdyz je nektere z nich na obrazovce: jinak stoji dve stejna
-       tlacitka tesne nad sebou a to spodni jen zabira misto. Drive se
-       hlidal jen formular, takze u tlacitka za pribehem se dvojice
-       porad objevovala. */
-    var pevnaTlacitka = [];
-
-    /* Cookie lista sedi na stejnem miste dole. Dokud visi na strance,
-       nase tlacitko nikam neleze - zadani zakazuje, aby ji prekrylo. */
-    function visiCookieLista() {
-        var kandidati = document.querySelectorAll(
-            "#website_cookies_bar, .o_cookies_bar_toggle, .s_popup_bottom"
-        );
-        for (var i = 0; i < kandidati.length; i++) {
-            var prvek = kandidati[i];
-            if (prvek.offsetParent !== null && prvek.offsetHeight > 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    if (lista && !vEditoru) {
-        pevnaTlacitka = [].slice.call(
-            document.querySelectorAll(".hhv .hhv-cta")
-        ).filter(function (prvek) {
-            return !lista.contains(prvek);
-        });
-
-        /* Pocita se, kolik jich je prave videt. Samotne "posledni
-           hlaseni" by nestacilo - pozorovatel ohlasi kazde tlacitko
-           zvlast a to pozdejsi by prepsalo to drivejsi. */
-        var viditelna = 0;
-
-        if (umiPozorovat && pevnaTlacitka.length) {
-            var pozorovatel = new IntersectionObserver(
-                function (zaznamy) {
-                    for (var i = 0; i < zaznamy.length; i++) {
-                        viditelna += zaznamy[i].isIntersecting ? 1 : -1;
-                    }
-                    if (viditelna < 0) {
-                        viditelna = 0;
-                    }
-                    prekresliListu();
-                },
-                { threshold: 0 }
-            );
-            for (var t = 0; t < pevnaTlacitka.length; t++) {
-                pozorovatel.observe(pevnaTlacitka[t]);
-            }
-        }
-
-        function prekresliListu() {
-            // "Az po prvnim scrollu" = jakmile hero odjede z obrazovky.
-            var odrolovano = window.scrollY > window.innerHeight * 0.6;
-            var ukazat = odrolovano && !viditelna && !visiCookieLista();
-
-            lista.classList.toggle("hhv-sticky--on", ukazat);
-            stranka.classList.toggle("hhv-has-sticky", ukazat);
-        }
-
-        var cekaSeNaSnimek = false;
-        window.addEventListener(
-            "scroll",
-            function () {
-                if (cekaSeNaSnimek) {
-                    return;
-                }
-                cekaSeNaSnimek = true;
-                requestAnimationFrame(function () {
-                    cekaSeNaSnimek = false;
-                    prekresliListu();
-                });
-            },
-            { passive: true }
-        );
-
-        window.addEventListener("resize", prekresliListu, { passive: true });
-        prekresliListu();
-    }
-
     // ------------------------------------------------------------------
-    // 3. posun na formular
+    // 2. posun na formular
     // ------------------------------------------------------------------
 
     document
-        .querySelectorAll('.hhv a[href="#registrace"], .hhv-sticky a[href="#registrace"]')
+        .querySelectorAll('.hhv a[href="#registrace"]')
         .forEach(function (odkaz) {
             odkaz.addEventListener("click", function (udalost) {
                 zmer("hhv_cta_klik", {
@@ -240,7 +153,7 @@
         });
 
     // ------------------------------------------------------------------
-    // 4. formular
+    // 3. formular
     // ------------------------------------------------------------------
 
     var formular = document.querySelector(".hhv-form");

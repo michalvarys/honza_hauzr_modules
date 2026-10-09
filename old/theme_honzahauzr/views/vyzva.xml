@@ -601,13 +601,6 @@
                  pozornost od jedine akce na strance. -->
 
         </div>
-
-        <!-- Lepkave tlacitko na mobilu. Stoji mimo #wrap, aby ho nesla
-             omylem smazat pri uprave sekci, a schovane zustava, dokud
-             navstevnik neodroluje hero. -->
-        <div class="hhv-sticky">
-            <a href="#registrace" class="hhv-cta" data-hhv-misto="lepkave">Chci vstoupit do výzvy zdarma</a>
-        </div>
     </t>
 </template>
 

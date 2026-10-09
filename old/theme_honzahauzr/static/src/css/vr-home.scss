@@ -112,17 +112,28 @@
     #vr-home .program p{margin:0;font-size:14px;color:#69615b}
     #vr-home .program .go{font-size:27px;text-align:right}
     /* ===== Vlastni pravidla - pripravovana cesta =====================
-       Svetle pozadi (cream) a pismo jako zbytek webu, zadna vlastni
-       barva navic. Blok jen ohlasuje, ze se neco chysta, takze je
-       zamerne klidnejsi nez sekce nad nim a pod nim. */
+       Podle navrhu od klienta. Svetle pozadi (cream) a pismo jako
+       zbytek webu, zadna vlastni barva navic. Vlevo nazev a popis,
+       vpravo ctyri kroky, mezi nimi svisla linka. */
     #vr-home .rules{background:var(--cream)}
-    #vr-home .rules-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:80px;align-items:end}
-    /* Stitek, ne tlacitko: zadny ramecek, zadne pozadi, nic klikaciho.
-       Odlisuje ho jen velikost, prostrkani a tlumena barva. */
-    #vr-home .rules .state{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:18px}
-    #vr-home .rules h2{margin:0}
-    #vr-home .rules .lead{margin-top:18px}
-    #vr-home .rules-note{font-size:14px;color:#69615b;border-top:1px solid var(--line);padding-top:18px}
+    #vr-home .rules-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:start;padding-bottom:58px;border-bottom:1px solid var(--line)}
+    #vr-home .rules h2{font-size:clamp(46px,6.6vw,96px);line-height:.95;letter-spacing:-.045em;font-weight:700;margin:16px 0 0}
+    #vr-home .rules-claim{font-size:clamp(21px,2.5vw,31px);font-weight:600;letter-spacing:-.02em;margin:16px 0 0}
+    #vr-home .rules .lead{margin-top:24px;max-width:32em}
+
+    /* Stitek, ne tlacitko. Ramecek je tu z navrhu, ale je to <span>
+       bez odkazu - neni na nem nic, na co by slo kliknout, a proto
+       taky nema zadnou reakci na najeti mysi. */
+    #vr-home .rules-stitek{display:inline-flex;align-items:center;gap:11px;margin-top:32px;padding:12px 22px;border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
+    #vr-home .rules-stitek i{width:9px;height:9px;border-radius:50%;background:var(--taupe)}
+
+    /* Kroky. Linka deli jen mezery mezi nimi, nad prvnim a pod
+       poslednim zadna neni - jinak by splynuly s okrajem bloku. */
+    #vr-home .rules-kroky{list-style:none;margin:0;padding:6px 0 0 62px;border-left:1px solid var(--line)}
+    #vr-home .rules-kroky li{display:grid;grid-template-columns:54px 1fr;align-items:baseline;gap:14px;padding:24px 0}
+    #vr-home .rules-kroky li + li{border-top:1px solid var(--line)}
+    #vr-home .rules-kroky b{font-size:12px;letter-spacing:.14em;color:var(--taupe);font-weight:500}
+    #vr-home .rules-kroky strong{font-size:clamp(27px,3.3vw,42px);font-weight:700;letter-spacing:-.03em}
 
     #vr-home .community{padding:105px 0;background:#b9a791;color:#272422}
     #vr-home .community-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
@@ -188,6 +199,11 @@
       #vr-home .method-step:last-child{grid-column:1/-1;border-right:0}
       #vr-home .flagship{padding:72px 0}
       #vr-home .delivery{align-items:flex-start;flex-direction:column}
+      /* Kroky jdou pod popis, svisla linka by je uz nemela od ceho
+         oddelovat. */
+      #vr-home .rules-grid{padding-bottom:42px}
+      #vr-home .rules-kroky{padding:0;border-left:0;border-top:1px solid var(--line)}
+      #vr-home .rules-kroky li{padding:18px 0}
       #vr-home .program-list{margin-top:46px}
       #vr-home .program{grid-template-columns:115px 1fr 32px}
       #vr-home .program p{grid-column:2/4}
