@@ -294,7 +294,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 40%;
+    /* Fotka je na vysku (3 : 4), ale sloupec na pocitaci je na sirku
+       (4 : 3). Vejde se proto jen necelych 57 % vysky snimku a je
+       jedno, kterou cast - vzdycky je to vodorovny pruh. Tenhle
+       zacina tesne nad helmou a konci pod bradou, takze v zaberu
+       zustane oblicej i kus oblohy se sluncem. */
+    object-position: center 48%;
 }
 
 /* Prechod z fotky do textoveho sloupce, at hrana neni tvrda */
@@ -1137,16 +1142,23 @@
         min-height: 0;
     }
 
-    /* Na telefonu jde fotka az za text: logo, text, tlacitko, radek
-       s informacemi, teprve pak fotka. Driv stala uplne nahore. */
+    /* Na telefonu stoji fotka nahore, nad textem. Chvili byla az za
+       nim, ale uvodni obrazovka pak zacinala samym textem a pusobila,
+       jako by se stranka jeste nacitala. */
     .hhv .hhv-hero__photo {
-        order: 1;
+        order: 0;
         margin-right: -20px;
         margin-left: -20px;
         /* Pevny pomer stran - bez nej by obrazek v mrizce nemel
            z ceho vzit vysku a sloupec by se srazil na nulu. */
         aspect-ratio: 4 / 5;
         min-height: 0;
+    }
+
+    /* Vyrez je tu temer cela fotka - pomer boxu 4 : 5 je skoro pomer
+       snimku (3 : 4) - takze neni co posouvat. */
+    .hhv .hhv-hero__photo img {
+        object-position: center 50%;
     }
 
     /* Nahore prechod z grafitu, na kterem lezi text nad fotkou, dole
@@ -1162,8 +1174,10 @@
             var(--hhv-graphite) 100%);
     }
 
+    /* Text je v kodu driv nez fotka, takze pri stejnem poradi by
+       zustal nahore. Posunuti o jedna dava fotku pred nej. */
     .hhv .hhv-hero__text {
-        order: 0;
+        order: 1;
         padding: 18px 0 30px;
     }
 
