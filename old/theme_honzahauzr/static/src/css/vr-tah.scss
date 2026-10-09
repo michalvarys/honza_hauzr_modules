@@ -578,6 +578,19 @@
     #vr-tah .hero-media {
         min-height:430px
     }
+    /* Cedulka lezi pres fotku. Na pocitaci je to v pohode - fotka ma
+       pod sebou dost mista - ale na telefonu zabrala skoro cely
+       obrazek a z Honzy koukal jen kus hlavy. Je proto mensi,
+       sedi niz u spodni hrany a text ma kratsi radky. */
+    #vr-tah .hero-note {
+        left:14px;right:14px;bottom:14px;
+        max-width:none;
+        padding:13px 15px;
+        font-size:.85rem;line-height:1.35
+    }
+    #vr-tah .hero-note strong {
+        font-size:1rem;margin-bottom:2px
+    }
     #vr-tah .hero-actions .btn {
         width:100%;justify-content:center
     }
