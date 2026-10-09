@@ -35,10 +35,13 @@ class CrmLead(models.Model):
         'rezervace': 'honzahauzr_crm.tag_rezervace',
     }
 
-    # Klic webu -> XML id stitku. Posila ho skryte pole hh_web.
-    HH_STITKY_WEBU = {
-        'honzahauzr': 'honzahauzr_crm.tag_web_honzahauzr',
-        'vlastni_rezie': 'honzahauzr_crm.tag_web_vlastni_rezie',
+    # Zkratka webu, ktera se pripina k nazvu stitku. Odber novinek
+    # vede z obou domen do jedne schranky, takze samotny "Newsletter"
+    # na karte nerekne, odkud clovek prisel. Dva stitky vedle sebe to
+    # rikaly taky, ale na karte se cetly hur nez jeden: "Newsletter HH".
+    HH_ZKRATKY_WEBU = {
+        'honzahauzr': 'HH',
+        'vlastni_rezie': 'VR',
     }
 
     # Zalozni rozpoznani podle nazvu prilezitosti. Slouzi jen pro
@@ -178,24 +181,15 @@ class CrmLead(models.Model):
 
         zapis = {}
 
-        prikazy = []
-        stitek = self.env.ref(self.HH_STITKY.get(zdroj, ''),
-                              raise_if_not_found=False)
+        # Clovek uz kartu ma. Kdyz se ted ozval z druhe domeny,
+        # pribude dalsi stitek vedle toho puvodniho - at je videt,
+        # odkud vsude prisel.
+        web = hodnoty.get('hh_web') or self.hh_web
+        stitek = self._hh_stitek_pro(zdroj, web)
         if stitek and stitek not in self.tag_ids:
-            prikazy.append((4, stitek.id))
-
-        # Clovek uz kartu ma, ale ted prisel z druheho webu - oba
-        # stitky maji zustat, at je videt, odkud vsude se ozval.
-        web = hodnoty.get('hh_web')
-        stitek_webu = self.env.ref(self.HH_STITKY_WEBU.get(web or '', ''),
-                                   raise_if_not_found=False)
-        if stitek_webu and stitek_webu not in self.tag_ids:
-            prikazy.append((4, stitek_webu.id))
-        if not self.hh_web and web:
-            zapis['hh_web'] = web
-
-        if prikazy:
-            zapis['tag_ids'] = prikazy
+            zapis['tag_ids'] = [(4, stitek.id)]
+        if not self.hh_web and hodnoty.get('hh_web'):
+            zapis['hh_web'] = hodnoty['hh_web']
 
         # Chybejici udaje se doplni, vyplnene se neprepisuji - to, co
         # clovek napsal poprve, je stejne dobre jako to nove.
@@ -273,8 +267,7 @@ class CrmLead(models.Model):
         if not zdroj:
             return
 
-        stitek = self.env.ref(self.HH_STITKY.get(zdroj, ''),
-                              raise_if_not_found=False)
+        stitek = self._hh_stitek_pro(zdroj, self.hh_web)
         if not stitek:
             return
 
@@ -283,26 +276,34 @@ class CrmLead(models.Model):
         # priste uz nehadal a dal se podle nej filtrovat.
         if not self.hh_zdroj:
             hodnoty['hh_zdroj'] = zdroj
-        prikazy = []
         if stitek not in self.tag_ids:
-            prikazy.append((4, stitek.id))
-        stitek_webu = self._hh_stitek_webu()
-        if stitek_webu and stitek_webu not in self.tag_ids:
-            prikazy.append((4, stitek_webu.id))
-        if prikazy:
-            hodnoty['tag_ids'] = prikazy
+            hodnoty['tag_ids'] = [(4, stitek.id)]
         if hodnoty:
             self.write(hodnoty)
 
-    def _hh_stitek_webu(self):
-        """Stitek webu, ze ktereho prilezitost prisla.
+    @api.model
+    def _hh_stitek_pro(self, zdroj, web):
+        """Stitek pro dvojici formular + web, treba "Newsletter HH".
 
-        Vraci prazdno, kdyz web neni vyplneny - starsi zaznamy a
-        rucne zalozene karty zadny takovy stitek dostat nemaji.
+        Zaklad je pripraveny stitek formulare. Kdyz je znamy i web,
+        hleda se stitek s pripnutou zkratkou - a kdyz jeste neni,
+        zalozi se, aby se barva i nazev daly v CRM prepsat.
         """
-        self.ensure_one()
-        return self.env.ref(self.HH_STITKY_WEBU.get(self.hh_web or '', ''),
-                            raise_if_not_found=False)
+        zaklad = self.env.ref(self.HH_STITKY.get(zdroj or '', ''),
+                              raise_if_not_found=False)
+        if not zaklad:
+            return self.env['crm.tag']
+
+        zkratka = self.HH_ZKRATKY_WEBU.get(web or '')
+        if not zkratka:
+            return zaklad
+
+        nazev = '%s %s' % (zaklad.name, zkratka)
+        Stitek = self.env['crm.tag'].sudo()
+        stitek = Stitek.search([('name', '=', nazev)], limit=1)
+        if not stitek:
+            stitek = Stitek.create({'name': nazev, 'color': zaklad.color})
+        return stitek
 
     def _hh_uhodnout_zdroj(self):
         nazev = (self.name or '').lower()

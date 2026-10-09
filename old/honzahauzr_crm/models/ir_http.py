@@ -37,8 +37,70 @@ ZAMEK_IKONA = (
 )
 
 
+# Adresy administrace. Nepatri sem /web/assets, /web/image ani
+# /web/content - z tech zije i verejny web a odstrihnout je by
+# znamenalo stranku bez stylu a obrazku. Prihlaseni (/web/login)
+# zustava taky: bez nej by na druhe domene neslo otevrit editor
+# a obsah by se tam nedal upravovat.
+ADRESY_ADMINU = ('/odoo', '/web/dashboard')
+
+
 class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
+
+    @classmethod
+    def _dispatch(cls, endpoint):
+        odbocka = cls._hh_admin_patri_jinam()
+        if odbocka is not None:
+            return odbocka
+        return super()._dispatch(endpoint)
+
+    @classmethod
+    def _hh_admin_patri_jinam(cls):
+        """Na webu bez administrace posle zpatky tam, kam patri.
+
+        Weby bezi z jedne databaze a nastenka je spolecna, takze
+        administrace na druhe domene by byla tatáž administrace na
+        druhe adrese - jen by se v tom clovek ztratil.
+        """
+        try:
+            # Web se hleda podle domeny, ne pres request.website:
+            # u adres administrace zadny "aktualni web" neni, takze
+            # by odbocka nikdy nenaskocila.
+            web = cls._hh_web_podle_domeny()
+            if not web or not web.hh_admin_jinde:
+                return None
+
+            cesta = request.httprequest.path
+            if not (cesta == '/web'
+                    or any(cesta == a or cesta.startswith(a + '/')
+                           for a in ADRESY_ADMINU)):
+                return None
+
+            domu = web.hh_web_s_adminem()
+            if not domu or not domu.domain:
+                return None
+
+            cil = domu.domain.rstrip('/') + cesta
+            if request.httprequest.query_string:
+                cil += '?' + request.httprequest.query_string.decode()
+            return request.redirect(cil, code=302, local=False)
+        except Exception:
+            # Odbocka nesmi nikdy shodit samotnou stranku.
+            _logger.exception(
+                'Honza Hauzr CRM: presmerovani administrace selhalo.')
+            return None
+
+    @classmethod
+    def _hh_web_podle_domeny(cls):
+        """Web podle adresy, na kterou prohlizec klepl."""
+        hostitel = (request.httprequest.host or '').split(':')[0].lower()
+        if not hostitel:
+            return None
+        for web in request.env['website'].sudo().search([]):
+            if web.domain and hostitel in web.domain.lower():
+                return web
+        return None
 
     @classmethod
     def _post_dispatch(cls, response):
