@@ -160,5 +160,11 @@
      Ve svazku "minimal" ze stejneho duvodu jako skript na videa: v
      beznem frontend svazku by se dostal ke slovu az par stovek
      milisekund po zobrazeni stranky a do te doby by logo vedlo pryc. -->
+<record id="asset_hh_odkazy_js" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - adresa výzvy (skript)</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-odkazy.js</field>
+</record>
+
 </data>
 </odoo>

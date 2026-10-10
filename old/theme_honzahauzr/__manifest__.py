@@ -46,6 +46,8 @@ Obsahuje:
         'views/snippets/s_hhn_polozky.xml',
         'views/snippets/s_hhn_sekce.xml',
         'views/snippets/s_vr_sekce.xml',
+        'views/snippets/s_hhv_sekce.xml',
+        'views/snippets/s_tah_sekce.xml',
         'views/snippets/snippets_registry.xml',
 
         'views/paticka.xml',
@@ -56,6 +58,7 @@ Obsahuje:
         'views/vr_home.xml',
         'views/vr_tah.xml',
         'views/logo_odkaz.xml',
+        'views/odkazy.xml',
     ],
     'images': [
         'static/description/cover.png',

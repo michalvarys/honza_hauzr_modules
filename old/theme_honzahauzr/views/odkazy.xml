@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     ADRESY, KTERÉ SE BEROU ZE SYSTÉMOVÝCH PARAMETRŮ
+
+     Téma je společné pro oba weby a na ostrém webu budou domény jiné
+     než na devu, takže některé odkazy nesmí být zapsané v kódu.
+
+     Dřív se vykládaly přímo v šabloně stránky přes t-att-href. To ale
+     rozbíjelo editor: Odoo při vykreslování rozdává editační značky
+     (distribute_branding v ir_ui_view.py) a prvku, který obsahuje
+     jakoukoli QWeb direktivu, je sebere a rozdá potomkům. Obalový div
+     stránky tím přestal být editovatelnou plochou - a protože pravidlo
+     pro sekce má jen "drop-in" na .oe_structure a žádné "drop-near",
+     neměla pak žádná sekce kam spadnout a v panelu zešedly všechny.
+
+     Hlavička stránky je ze značkování vynechaná celá (distribute_branding
+     se na <head> hned ukončí), takže adresy můžou bezpečně bydlet tady.
+     Odkazy v obsahu mají statické href jako záchranu pro případ, že
+     skript neproběhne, a nesou data-hh-odkaz s klíčem; zbytek obstará
+     hh-odkazy.js.
+     ================================================================ -->
+
+<template id="hh_odkazy" inherit_id="website.layout" name="Adresy z parametrů">
+    <xpath expr="//head" position="inside">
+        <meta name="hh-odkaz-vyzva"
+              t-att-content="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'"/>
+        <meta name="hh-odkaz-newsletter"
+              t-att-content="(env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/').rstrip('/') + '/#newsletter'"/>
+    </xpath>
+</template>
+
+</odoo>

@@ -46,8 +46,8 @@
                 </div>
               </header>
             
-              <main id="top">
-                <section class="s_vr_hero hero">
+              <main id="top" class="oe_structure">
+                <section data-name="Úvod" class="s_vr_hero hero">
                   <div class="wrap hero-grid">
                     <div class="hero-copy">
                       <div class="eyebrow">Praktická vzdělávací platforma pro skutečný život</div>
@@ -66,7 +66,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_znacka section" id="o-znacce">
+                <section data-name="O značce" class="s_vr_znacka section" id="o-znacce">
                   <div class="wrap">
                     <div class="problem-head">
                       <div><div class="eyebrow">Proč Vlastní režie</div></div>
@@ -81,7 +81,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_jak section method" id="jak">
+                <section data-name="Jak to funguje" class="s_vr_jak section method" id="jak">
                   <div class="wrap">
                     <div class="method-intro">
                       <div><div class="eyebrow">Jak pracujeme</div><h2>Z poznání musí vzniknout tah.</h2></div>
@@ -97,7 +97,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_vyzva section challenge" id="vyzva">
+                <section data-name="3denní výzva" class="s_vr_vyzva section challenge" id="vyzva">
                   <div class="wrap challenge-grid">
                     <div>
                       <div class="eyebrow">Začni tady · bezplatná 3denní výzva</div>
@@ -114,7 +114,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_tvuj_tah flagship" id="tvuj-tah">
+                <section data-name="Tvůj tah" class="s_vr_tvuj_tah flagship" id="tvuj-tah">
                   <div class="wrap">
                     <div class="flag-top">
                       <div><div class="eyebrow">První hlavní program Vlastní režie</div><div class="flag-title">TVŮJ TAH<small>40 dní ve vlastní režii</small></div></div>
@@ -133,7 +133,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_pravidla section rules" id="vlastni-pravidla">
+                <section data-name="Vlastní pravidla" class="s_vr_pravidla section rules" id="vlastni-pravidla">
                   <div class="wrap rules-grid">
                     <div class="rules-copy">
                       <div class="eyebrow">Hranice a respekt k sobě</div>
@@ -152,7 +152,7 @@
                   </div>
                 </section>
             
-                <section class="s_vr_zakladatel section founder">
+                <section data-name="O zakladateli" class="s_vr_zakladatel section founder">
                   <div class="wrap founder-grid">
                     <div class="founder-photo" aria-label="Honza Hauzr v horách"></div>
                     <div>
@@ -166,18 +166,18 @@
                   </div>
                 </section>
             
-                <section class="s_vr_newsletter newsletter">
+                <section data-name="Newsletter" class="s_vr_newsletter newsletter">
                   <div class="wrap newsletter-row">
                     <div><div class="eyebrow">Poznámky z vlastní režie</div><h3>Jednou za čas konkrétní myšlenka. Žádný motivační spam.</h3></div>
                     <!-- Formular na odber je na webu jen jeden, na hlavni strance.
                          Druhy by znamenal udrzovat tentyz text na dvou mistech.
                          Adresa se bere ze stejneho parametru jako cil loga, takze
                          se pri spusteni na ostro prepisuje na jednom miste. -->
-                    <a class="btn btn-dark" t-att-href="(env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/').rstrip('/') + '/#newsletter'">Chci odebírat <span class="arrow">→</span></a>
+                    <a class="btn btn-dark" href="/#newsletter" data-hh-odkaz="newsletter">Chci odebírat <span class="arrow">→</span></a>
                   </div>
                 </section>
             
-                <section class="s_vr_zaver closing">
+                <section data-name="Závěr" class="s_vr_zaver closing">
                   <div class="wrap">
                     <div class="eyebrow">Tvůj další tah</div>
                     <h2>Nemusíš znát celý plán. Potřebuješ vědět, co uděláš dál.</h2>

@@ -29,6 +29,13 @@
              vzhled a vlastni pismo, takze mezi tmave Hauzrovy nepatri. -->
         <t snippet-group="vlastnirezie" t-snippet="website.s_snippet_group" string="Vlastní režie"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vr/s_vr_hero.svg"/>
+        <!-- Každá stránka má vlastní dlaždici, ať je poznat, odkud
+             sekce je. Dřív tu byly jen dvě a sekce stránek Zpět do
+             života a Tvůj tah v panelu nebyly vůbec. -->
+        <t snippet-group="vyzva" t-snippet="website.s_snippet_group" string="Zpět do života"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_hero.svg"/>
+        <t snippet-group="tah" t-snippet="website.s_snippet_group" string="Tvůj tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_hero.svg"/>
     </xpath>
 
     <!-- Snippety samotne -->
@@ -103,6 +110,58 @@
         <t t-snippet="theme_honzahauzr.s_hh_wip" string="Připravujeme" group="honzahauzr"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_wip.svg"/>
 
+        <!-- Sekce stránky Zpět do života -->
+        <t t-snippet="theme_honzahauzr.s_hhv_hero" string="Výzva — hlavička" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_hero.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_zastaveni" string="Výzva — zastavení" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_zastaveni.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_video" string="Výzva — video" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_video.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_dny" string="Výzva — tři dny" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_dny.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_pro_tebe" string="Výzva — je to pro tebe" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_pro_tebe.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_o_mne" string="Výzva — o mně" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_o_mne.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_prubeh" string="Výzva — jak to probíhá" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_prubeh.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_faq" string="Výzva — časté otázky" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_faq.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_registrace" string="Výzva — registrace" group="vyzva"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_registrace.svg"/>
+
+        <!-- Sekce stránky Tvůj tah -->
+        <t t-snippet="theme_honzahauzr.s_tah_hero" string="Tvůj tah — úvod" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_hero.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_cisla" string="Tvůj tah — čísla" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_cisla.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_poznani" string="Tvůj tah — možná se poznáš" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_poznani.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_mechanismus" string="Tvůj tah — proč se to nezměnilo" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_mechanismus.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_faze" string="Tvůj tah — čtyři fáze" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_faze.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_vysledky" string="Tvůj tah — co si odneseš" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_vysledky.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_obsah" string="Tvůj tah — co je uvnitř" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_obsah.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_rytmus" string="Tvůj tah — jak vypadá 40 dní" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_rytmus.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_zakladatel" string="Tvůj tah — o zakladateli" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_zakladatel.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_reference" string="Tvůj tah — reference" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_reference.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_pro_koho" string="Tvůj tah — pro koho to je" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_pro_koho.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_garance" string="Tvůj tah — garance" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_garance.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_nabidka" string="Tvůj tah — nabídka" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_nabidka.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_faq" string="Tvůj tah — časté otázky" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_faq.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_zaver" string="Tvůj tah — závěr" group="tah"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_zaver.svg"/>
+
     </xpath>
 
     <!--
@@ -166,6 +225,58 @@
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_pdf.png"/>
         <t t-snippet="theme_honzahauzr.s_hh_footer" string="Patička"
            t-thumbnail="/theme_honzahauzr/static/src/img/snippets/s_hh_footer.png"/>
+
+        <!-- Sekce stránky Zpět do života -->
+        <t t-snippet="theme_honzahauzr.s_hhv_hero" string="Výzva — hlavička"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_hero.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_zastaveni" string="Výzva — zastavení"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_zastaveni.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_video" string="Výzva — video"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_video.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_dny" string="Výzva — tři dny"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_dny.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_pro_tebe" string="Výzva — je to pro tebe"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_pro_tebe.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_o_mne" string="Výzva — o mně"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_o_mne.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_prubeh" string="Výzva — jak to probíhá"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_prubeh.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_faq" string="Výzva — časté otázky"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_faq.svg"/>
+        <t t-snippet="theme_honzahauzr.s_hhv_registrace" string="Výzva — registrace"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/vyzva-s_hhv_registrace.svg"/>
+
+        <!-- Sekce stránky Tvůj tah -->
+        <t t-snippet="theme_honzahauzr.s_tah_hero" string="Tvůj tah — úvod"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_hero.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_cisla" string="Tvůj tah — čísla"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_cisla.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_poznani" string="Tvůj tah — možná se poznáš"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_poznani.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_mechanismus" string="Tvůj tah — proč se to nezměnilo"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_mechanismus.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_faze" string="Tvůj tah — čtyři fáze"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_faze.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_vysledky" string="Tvůj tah — co si odneseš"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_vysledky.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_obsah" string="Tvůj tah — co je uvnitř"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_obsah.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_rytmus" string="Tvůj tah — jak vypadá 40 dní"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_rytmus.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_zakladatel" string="Tvůj tah — o zakladateli"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_zakladatel.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_reference" string="Tvůj tah — reference"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_reference.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_pro_koho" string="Tvůj tah — pro koho to je"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_pro_koho.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_garance" string="Tvůj tah — garance"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_garance.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_nabidka" string="Tvůj tah — nabídka"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_nabidka.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_faq" string="Tvůj tah — časté otázky"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_faq.svg"/>
+        <t t-snippet="theme_honzahauzr.s_tah_zaver" string="Tvůj tah — závěr"
+           t-thumbnail="/theme_honzahauzr/static/src/img/snippets/tah-s_tah_zaver.svg"/>
     </xpath>
 
 </template>

@@ -49,7 +49,7 @@
                             vlastní pravidla a udělat konkrétní další krok.
                         </p>
                         <div class="hhn-hero__action" data-anim="fade-up" data-delay="360">
-                            <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                            <a href="/zpet-do-zivota" data-hh-odkaz="vyzva" class="hhn-cta">
                                 Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="hhn-split__action" data-anim="fade-up" data-delay="400">
-                                <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                                <a href="/zpet-do-zivota" data-hh-odkaz="vyzva" class="hhn-cta">
                                     Začni zde zdarma
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                                 </a>
@@ -209,7 +209,7 @@
                     <!-- Tlacitko pod odstavcem, ne mezi fotkami. Mezi nimi
                          prekryvalo obe a pusobilo jako chyba. -->
                     <div class="hhn-center-action o_snippet_drop_in_only">
-                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta" data-anim="fade-in" data-delay="200">
+                        <a href="/zpet-do-zivota" data-hh-odkaz="vyzva" class="hhn-cta" data-anim="fade-in" data-delay="200">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                     <div class="hhn-center-action" data-anim="fade-up" data-delay="420">
-                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                        <a href="/zpet-do-zivota" data-hh-odkaz="vyzva" class="hhn-cta">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -336,7 +336,7 @@
                         </div>
                     </div>
                     <div class="hhn-challenge__action" data-anim="fade-up" data-delay="420">
-                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                        <a href="/zpet-do-zivota" data-hh-odkaz="vyzva" class="hhn-cta">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
