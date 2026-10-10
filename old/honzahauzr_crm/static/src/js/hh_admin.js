@@ -23,7 +23,6 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 
 const ZALOZKY = [
-    { klic: "nastenka", popis: "Nástěnka" },
     { klic: "lide", popis: "Lidé" },
     { klic: "vyzva", popis: "Výzva" },
     { klic: "hovory", popis: "Hovory" },
@@ -45,11 +44,7 @@ class HhAdmin extends Component {
         const kontext = (this.props.action && this.props.action.context) || {};
 
         this.stav = useState({
-            obrazovka: kontext.hh_obrazovka || "nastenka",
-            tazena: null,
-            cil: null,
-            novaSekce: null,
-            prejmenovavana: null,
+            obrazovka: kontext.hh_obrazovka || "lide",
             hlaska: null,
             nacita: true,
             cisla: null,
@@ -75,9 +70,7 @@ class HhAdmin extends Component {
         this.stav.nacita = true;
         const o = this.stav.obrazovka;
         try {
-            if (o === "nastenka") {
-                this.stav.data = await this.orm.call("hh.admin", "hh_nastenka", []);
-            } else if (o === "lide") {
+            if (o === "lide") {
                 this.stav.data = await this.orm.call("hh.admin", "hh_lide",
                     [this.stav.hledani, this.stav.stupen]);
             } else if (o === "vyzva") {
@@ -128,168 +121,6 @@ class HhAdmin extends Component {
     vyska(pocet, data) {
         const max = Math.max(...data.map((d) => d.pocet), 1);
         return Math.round((pocet / max) * 100) + "%";
-    }
-
-    zacniTahnout(karta, sloupec, udalost) {
-        this.stav.tazena = { id: karta.id, zeSloupce: sloupec.id };
-        // Bez dataTransfer nekterе prohlizece tazeni vubec nezahaji.
-        if (udalost.dataTransfer) {
-            udalost.dataTransfer.effectAllowed = "move";
-            udalost.dataTransfer.setData("text/plain", String(karta.id));
-        }
-    }
-
-    prestanTahnout() {
-        this.stav.tazena = null;
-        this.stav.cil = null;
-    }
-
-    nadSloupcem(sloupec, udalost) {
-        // Bez tohohle prohlizec pusteni vubec nedovoli.
-        udalost.preventDefault();
-        if (udalost.dataTransfer) {
-            udalost.dataTransfer.dropEffect = "move";
-        }
-        if (this.stav.tazena && this.stav.cil !== sloupec.id) {
-            this.stav.cil = sloupec.id;
-        }
-    }
-
-    opustilSloupec(sloupec) {
-        if (this.stav.cil === sloupec.id) {
-            this.stav.cil = null;
-        }
-    }
-
-    async pustNaSloupec(sloupec) {
-        const t = this.stav.tazena;
-        this.stav.tazena = null;
-        this.stav.cil = null;
-        if (!t || t.zeSloupce === sloupec.id) {
-            return;
-        }
-
-        // Karta se prehodi rovnou tady, jeste pred zapisem. Drive se
-        // cekalo na server a deska se pak nacetla cela znovu - pri
-        // kazdem presunu to bliklo a karta na okamzik zmizela.
-        const zdroj = this.stav.data.find((s) => s.id === t.zeSloupce);
-        const cil = this.stav.data.find((s) => s.id === sloupec.id);
-        if (!zdroj || !cil) {
-            return;
-        }
-        const kde = zdroj.karty.findIndex((k) => k.id === t.id);
-        if (kde < 0) {
-            return;
-        }
-        const karta = zdroj.karty[kde];
-        zdroj.karty.splice(kde, 1);
-        zdroj.celkem -= 1;
-        cil.karty.unshift(karta);
-        cil.celkem += 1;
-
-        // Bezny zapis, at plati stejna pravidla jako doted: presun
-        // do sloupce spusti e-maily navazane na jeho stitky.
-        await this.orm.write("crm.lead", [t.id], { stage_id: sloupec.id });
-        // Jen cisla nahore. Celou desku uz nacitat netreba, na
-        // obrazovce sedi spravne.
-        this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
-    }
-
-    // ------------------------------------------------------------------
-    // nova sekce
-    //
-    // Jde toutez cestou jako sekce zalozena formularem z webu, takze
-    // vznikne sloupec i oba stitky a jsou spolu svazane.
-    // ------------------------------------------------------------------
-
-    zacniSekci() {
-        this.stav.novaSekce = "";
-    }
-
-    zrusSekci() {
-        this.stav.novaSekce = null;
-    }
-
-    pisSekci(udalost) {
-        this.stav.novaSekce = udalost.target.value;
-    }
-
-    async klavesaSekce(udalost) {
-        if (udalost.key === "Enter") {
-            await this.ulozSekci();
-        } else if (udalost.key === "Escape") {
-            this.zrusSekci();
-        }
-    }
-
-    async ulozSekci() {
-        const nazev = (this.stav.novaSekce || "").trim();
-        if (!nazev) {
-            this.stav.novaSekce = null;
-            return;
-        }
-        await this.orm.call("hh.admin", "hh_pridat_sekci", [nazev]);
-        this.stav.novaSekce = null;
-        await this.nacti();
-    }
-
-    // --- karta do sloupce ---
-    //
-    // Otevre bezny formular s predvyplnenym sloupcem. Vlastni rychle
-    // zalozeni by znamenalo obejit kontroly, ktere formular dela.
-    pridejKartu(sloupec) {
-        this.action.doAction({
-            type: "ir.actions.act_window",
-            res_model: "crm.lead",
-            views: [[false, "form"]],
-            target: "current",
-            context: { default_stage_id: sloupec.id },
-        });
-    }
-
-    // --- prejmenovani sloupce ---
-
-    zacniPrejmenovat(sloupec, udalost) {
-        udalost.stopPropagation();
-        this.stav.prejmenovavana = { id: sloupec.id, nazev: sloupec.nazev };
-    }
-
-    pisNazev(udalost) {
-        this.stav.prejmenovavana.nazev = udalost.target.value;
-    }
-
-    async klavesaNazev(udalost) {
-        if (udalost.key === "Enter") {
-            await this.ulozNazev();
-        } else if (udalost.key === "Escape") {
-            this.stav.prejmenovavana = null;
-        }
-    }
-
-    async ulozNazev() {
-        const p = this.stav.prejmenovavana;
-        this.stav.prejmenovavana = null;
-        if (!p || !p.nazev.trim()) {
-            return;
-        }
-        await this.orm.call("hh.admin", "hh_prejmenovat_sekci", [p.id, p.nazev]);
-        await this.nacti();
-    }
-
-    // --- smazani sloupce ---
-
-    async smazSekci(sloupec, udalost) {
-        udalost.stopPropagation();
-        const odpoved = await this.orm.call("hh.admin", "hh_smazat_sekci", [sloupec.id]);
-        if (!odpoved.ok) {
-            // Hlaska rovnou u sloupce, ne v rohu obrazovky - clovek
-            // se diva sem.
-            this.stav.hlaska = odpoved.duvod;
-            return;
-        }
-        this.stav.hlaska = null;
-        this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
-        await this.nacti();
     }
 
     kdy(zprava) {

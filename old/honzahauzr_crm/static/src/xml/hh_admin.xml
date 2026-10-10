@@ -9,6 +9,10 @@
             <span class="hha-znacka">Honza Hauzr</span>
 
             <nav class="hha-zalozky">
+                <!-- Nastenka je ta od Odoo, proto odskok a ne zalozka.
+                     Stoji ale vlevo mezi nimi, protoze se na ni chodi
+                     stejne casto. -->
+                <button class="hha-zalozka" t-on-click="otevriNastenku">Nástěnka</button>
                 <t t-foreach="zalozky" t-as="z" t-key="z.klic">
                     <button class="hha-zalozka"
                             t-att-class="{ 'hha-zalozka--aktivni': stav.obrazovka === z.klic }"
@@ -34,7 +38,6 @@
             </div>
 
             <button class="hha-tlacitko" t-on-click="otevriKalendar">Termíny hovorů</button>
-            <button class="hha-tlacitko" t-on-click="otevriNastenku">Nástěnka</button>
         </div>
 
         <!-- ===== CISLA ===== -->
@@ -66,105 +69,6 @@
         </t>
 
         <t t-else="">
-
-            <!-- ===== NASTENKA ===== -->
-            <t t-if="stav.obrazovka === 'nastenka'">
-                <div class="hhn-hlaska" t-if="stav.hlaska">
-                    <span t-esc="stav.hlaska"/>
-                    <button class="hhn-hlaska__zavrit" t-on-click="() => this.stav.hlaska = null">×</button>
-                </div>
-                <div class="hhn-deska">
-                    <t t-foreach="stav.data" t-as="sloupec" t-key="sloupec.id">
-                        <div class="hhn-sloupec"
-                             t-att-class="{ 'hhn-sloupec--cil': stav.cil === sloupec.id }"
-                             t-on-dragover="(ev) => this.nadSloupcem(sloupec, ev)"
-                             t-on-dragleave="() => this.opustilSloupec(sloupec)"
-                             t-on-drop="() => this.pustNaSloupec(sloupec)">
-                            <header class="hhn-sloupec__hlava">
-                                <t t-if="stav.prejmenovavana and stav.prejmenovavana.id === sloupec.id">
-                                    <input class="hhn-sloupec__pole" type="text"
-                                           t-att-value="stav.prejmenovavana.nazev"
-                                           t-on-input="pisNazev"
-                                           t-on-keydown="klavesaNazev"
-                                           t-on-blur="ulozNazev"/>
-                                </t>
-                                <t t-else="">
-                                    <span class="hhn-sloupec__nazev" t-esc="sloupec.nazev"
-                                          title="Klikni a přejmenuj"
-                                          t-on-click="(ev) => this.zacniPrejmenovat(sloupec, ev)"/>
-                                    <span class="hhn-sloupec__pocet" t-esc="sloupec.celkem"/>
-                                    <button class="hhn-sloupec__akce" title="Přidat kartu"
-                                            t-on-click="() => this.pridejKartu(sloupec)">+</button>
-                                    <button class="hhn-sloupec__akce hhn-sloupec__akce--smazat"
-                                            title="Smazat sekci"
-                                            t-on-click="(ev) => this.smazSekci(sloupec, ev)">×</button>
-                                </t>
-                            </header>
-
-                            <div class="hhn-sloupec__karty">
-                                <t t-foreach="sloupec.karty" t-as="karta" t-key="karta.id">
-                                    <article class="hhn-karta" draggable="true"
-                                             t-att-class="{ 'hhn-karta--tazena': stav.tazena and stav.tazena.id === karta.id }"
-                                             t-on-dragstart="(ev) => this.zacniTahnout(karta, sloupec, ev)"
-                                             t-on-dragend="prestanTahnout"
-                                             t-on-click="() => this.otevriLead(karta.id)">
-                                        <h3 class="hhn-karta__nazev" t-esc="karta.name"/>
-                                        <p class="hhn-karta__kdo" t-if="karta.contact_name"
-                                           t-esc="karta.contact_name"/>
-                                        <div class="hhn-karta__stitky">
-                                            <t t-foreach="karta.stitky" t-as="s" t-key="s_index">
-                                                <span class="hhn-karta__stitek" t-esc="s"/>
-                                            </t>
-                                        </div>
-                                        <p class="hhn-karta__paticka">
-                                            <span t-esc="karta.kdy"/>
-                                            <span class="hhn-karta__mail" t-if="karta.email_from"
-                                                  t-esc="karta.email_from"/>
-                                        </p>
-                                    </article>
-                                </t>
-
-                                <div class="hhn-sloupec__prazdno" t-if="!sloupec.karty.length">
-                                    Sem přetáhni kartu.
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-
-                    <!-- Pridani sekce. Zalozi sloupec i oba stitky,
-                         stejne jako kdyz prijde clovek z nove sekce
-                         na webu. -->
-                    <div class="hhn-sloupec hhn-sloupec--nova">
-                        <t t-if="stav.novaSekce === null">
-                            <button class="hhn-pridat" t-on-click="zacniSekci">
-                                + Nová sekce
-                            </button>
-                        </t>
-                        <t t-else="">
-                            <div class="hhn-nova">
-                                <input class="hhn-nova__pole" type="text"
-                                       placeholder="Název sekce"
-                                       autofocus="autofocus"
-                                       t-att-value="stav.novaSekce"
-                                       t-on-input="pisSekci"
-                                       t-on-keydown="klavesaSekce"/>
-                                <div class="hhn-nova__tlacitka">
-                                    <button class="hha-tlacitko hha-tlacitko--svetly"
-                                            t-on-click="ulozSekci">Založit</button>
-                                    <button class="hhm-tlacitko hhm-tlacitko--tichy"
-                                            t-on-click="zrusSekci">Zrušit</button>
-                                </div>
-                                <p class="hhn-nova__popis">
-                                    Založí se sloupec, štítek na kartu i štítek
-                                    na e-maily. Zprávy si do řady přidáš
-                                    v Sekvencích.
-                                </p>
-                            </div>
-                        </t>
-                    </div>
-
-                </div>
-            </t>
 
             <!-- ===== LIDE ===== -->
             <t t-if="stav.obrazovka === 'lide'">
