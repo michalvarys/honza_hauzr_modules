@@ -165,6 +165,87 @@ class CrmLeadVyzva(models.Model):
         return self.env['ir.config_parameter'].sudo().get_param(
             'web.base.url', '').rstrip('/')
 
+    # Osloveni jako pole, aby si e-mail nemusel resit, jestli jmeno
+    # vubec zname. Samotne "Ahoj {{ object.contact_name }}," by u
+    # cloveka bez jmena vypsalo "Ahoj ,".
+    hh_osloveni = fields.Char(
+        string='Oslovení do e-mailu',
+        compute='_compute_hh_osloveni',
+        help='Ahoj Petře, nebo jen Ahoj, kdyz jmeno nezname. '
+             'V e-mailu se pise jako {{ object.hh_osloveni }}.',
+    )
+
+    def _compute_hh_osloveni(self):
+        for lead in self:
+            jmeno = (lead.contact_name or '').split(' ')[0].strip()
+            paty = self._hh_paty_pad(jmeno)
+            lead.hh_osloveni = ('Ahoj %s,' % paty) if paty else 'Ahoj,'
+
+    @api.model
+    def _hh_paty_pad(self, jmeno):
+        """Pátý pád křestního jména, nebo prázdno, když si nejsem jistý.
+
+        "Ahoj Petr," je špatně česky a v e-mailu to vypadá jako od
+        stroje. Pátý pád ale nejde odvodit spolehlivě pro každé jméno:
+        Pavel má Pavle, Karel Karle, Petr Petře - a Dalibor zase
+        Dalibore, takže jedno pravidlo pro -r neexistuje.
+
+        Řeší se to tak, že převádím jen zakončení, kde je tvar
+        jednoznačný. U zbytku vrátím prázdno a e-mail pozdraví jen
+        "Ahoj," - radši bez jména než se špatným tvarem.
+        """
+        jmeno = (jmeno or '').strip()
+        if len(jmeno) < 2 or not jmeno[0].isupper():
+            return ''
+
+        n = jmeno.lower()
+
+        # Honza -> Honzo, Jirka -> Jirko
+        if n.endswith('a'):
+            return jmeno[:-1] + 'o'
+        # Jiří, Oto, Dale - beze zmeny
+        if n[-1] in 'eiíoyý':
+            return jmeno
+        # Tomáš -> Tomáši, Ondřej -> Ondřeji, Luboš -> Luboši
+        if n[-1] in 'šžčřj':
+            return jmeno + 'i'
+        # Zdeněk -> Zdeňku, tedy nejen vypadle e, ale i zmekcene n.
+        # Takovych zmen je vic, nez chci hadat - jmeno radeji pryc.
+        if n.endswith('ěk'):
+            return ''
+        # Marek -> Marku, Radek -> Radku (e pred k vypada)
+        if n.endswith('ek'):
+            return jmeno[:-2] + 'ku'
+        # Patrik -> Patriku, Dominik -> Dominiku
+        if n.endswith('k'):
+            return jmeno + 'u'
+        # Vojtěch -> Vojtěchu
+        if n.endswith('ch'):
+            return jmeno + 'u'
+        # Pavel -> Pavle, Karel -> Karle (vypada e pred l)
+        if n.endswith('el'):
+            return jmeno[:-2] + 'le'
+        # Martin -> Martine, Michal -> Michale, Jakub -> Jakube
+        if n[-1] in 'lnmbpvdtsz':
+            return jmeno + 'e'
+
+        # Petr, Dalibor, Oldřich a spol. - jiste si nejsem, jmeno pryc
+        return ''
+
+    # Adresa webu jako pole, aby se v e-mailu dalo napsat
+    # {{ object.hh_vyzva_zaklad }} a slozit z toho odkaz na obrazek.
+    # Natvrdo zapsana domena by po spusteni na ostro ukazovala na dev.
+    hh_vyzva_zaklad = fields.Char(
+        string='Adresa webu výzvy',
+        compute='_compute_hh_vyzva_zaklad',
+        help='Adresa webu, na kterem vyzva bydli, bez lomitka na konci. '
+             'V e-mailu se pise jako {{ object.hh_vyzva_zaklad }}.',
+    )
+
+    def _compute_hh_vyzva_zaklad(self):
+        for lead in self:
+            lead.hh_vyzva_zaklad = lead._hh_zaklad_vyzvy()
+
     def _hh_zajistit_klic(self):
         """Doplni osobni klic tomu, kdo ho jeste nema.
 
