@@ -47,6 +47,9 @@ class HhAdmin extends Component {
         this.stav = useState({
             obrazovka: kontext.hh_obrazovka || "nastenka",
             tazena: null,
+            novaSekce: null,
+            prejmenovavana: null,
+            hlaska: null,
             nacita: true,
             cisla: null,
             data: null,
@@ -144,6 +147,103 @@ class HhAdmin extends Component {
         // Bezny zapis, at plati stejna pravidla jako doted: presun
         // do sloupce spusti e-maily navazane na jeho stitky.
         await this.orm.write("crm.lead", [t.id], { stage_id: sloupec.id });
+        this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
+        await this.nacti();
+    }
+
+    // ------------------------------------------------------------------
+    // nova sekce
+    //
+    // Jde toutez cestou jako sekce zalozena formularem z webu, takze
+    // vznikne sloupec i oba stitky a jsou spolu svazane.
+    // ------------------------------------------------------------------
+
+    zacniSekci() {
+        this.stav.novaSekce = "";
+    }
+
+    zrusSekci() {
+        this.stav.novaSekce = null;
+    }
+
+    pisSekci(udalost) {
+        this.stav.novaSekce = udalost.target.value;
+    }
+
+    async klavesaSekce(udalost) {
+        if (udalost.key === "Enter") {
+            await this.ulozSekci();
+        } else if (udalost.key === "Escape") {
+            this.zrusSekci();
+        }
+    }
+
+    async ulozSekci() {
+        const nazev = (this.stav.novaSekce || "").trim();
+        if (!nazev) {
+            this.stav.novaSekce = null;
+            return;
+        }
+        await this.orm.call("hh.admin", "hh_pridat_sekci", [nazev]);
+        this.stav.novaSekce = null;
+        await this.nacti();
+    }
+
+    // --- karta do sloupce ---
+    //
+    // Otevre bezny formular s predvyplnenym sloupcem. Vlastni rychle
+    // zalozeni by znamenalo obejit kontroly, ktere formular dela.
+    pridejKartu(sloupec) {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "crm.lead",
+            views: [[false, "form"]],
+            target: "current",
+            context: { default_stage_id: sloupec.id },
+        });
+    }
+
+    // --- prejmenovani sloupce ---
+
+    zacniPrejmenovat(sloupec, udalost) {
+        udalost.stopPropagation();
+        this.stav.prejmenovavana = { id: sloupec.id, nazev: sloupec.nazev };
+    }
+
+    pisNazev(udalost) {
+        this.stav.prejmenovavana.nazev = udalost.target.value;
+    }
+
+    async klavesaNazev(udalost) {
+        if (udalost.key === "Enter") {
+            await this.ulozNazev();
+        } else if (udalost.key === "Escape") {
+            this.stav.prejmenovavana = null;
+        }
+    }
+
+    async ulozNazev() {
+        const p = this.stav.prejmenovavana;
+        this.stav.prejmenovavana = null;
+        if (!p || !p.nazev.trim()) {
+            return;
+        }
+        await this.orm.call("hh.admin", "hh_prejmenovat_sekci", [p.id, p.nazev]);
+        await this.nacti();
+    }
+
+    // --- smazani sloupce ---
+
+    async smazSekci(sloupec, udalost) {
+        udalost.stopPropagation();
+        const odpoved = await this.orm.call("hh.admin", "hh_smazat_sekci", [sloupec.id]);
+        if (!odpoved.ok) {
+            // Hlaska rovnou u sloupce, ne v rohu obrazovky - clovek
+            // se diva sem.
+            this.stav.hlaska = odpoved.duvod;
+            return;
+        }
+        this.stav.hlaska = null;
         this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
         await this.nacti();
     }

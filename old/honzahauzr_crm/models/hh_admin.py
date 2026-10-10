@@ -96,6 +96,51 @@ class HhAdmin(models.AbstractModel):
 
         return out
 
+    @api.model
+    def hh_pridat_sekci(self, nazev):
+        """Zalozi sekci z nastenky.
+
+        Jde toutez cestou jako sekce zalozena formularem z webu, takze
+        vznikne sloupec i oba stitky a jsou spolu svazane. Dve ruzne
+        cesty k temuz by znamenaly, ze rucne zalozeny sloupec nema
+        radu e-mailu a nikdo nevi proc.
+        """
+        stupen = self.env['crm.lead']._hh_zajistit_sekci(nazev)
+        return stupen.id if stupen else False
+
+    @api.model
+    def hh_prejmenovat_sekci(self, stupen_id, nazev):
+        """Prejmenuje sloupec. Stitky si nazev nechavaji.
+
+        Prejmenovat s nim i stitky by znamenalo prepsat je i u lidi,
+        kteri uz timhle sloupcem davno prosli - a v jejich historii
+        by pak stalo neco, co tam nikdy nebylo.
+        """
+        nazev = (nazev or '').strip()
+        if not nazev:
+            return False
+        self.env['crm.stage'].sudo().browse(stupen_id).name = nazev
+        return True
+
+    @api.model
+    def hh_smazat_sekci(self, stupen_id):
+        """Smaze sloupec, ale jen prazdny.
+
+        Se smazanim sloupce, ve kterem nekdo stoji, by ti lide zmizeli
+        z nastenky - Odoo je nikam neprerazuje. Stitky zustavaji:
+        visi na nich rada e-mailu a muzou patrit i jinam.
+        """
+        stupen = self.env['crm.stage'].sudo().browse(stupen_id)
+        if not stupen.exists():
+            return {'ok': False, 'duvod': 'Sekce už neexistuje.'}
+        pocet = self.env['crm.lead'].sudo().search_count(
+            [('stage_id', '=', stupen.id), ('active', '=', True)])
+        if pocet:
+            return {'ok': False,
+                    'duvod': 'V sekci je %s lidí. Nejdřív je přesuň jinam.' % pocet}
+        stupen.unlink()
+        return {'ok': True}
+
     # ------------------------------------------------------------------
     # zalozka Lide
     # ------------------------------------------------------------------

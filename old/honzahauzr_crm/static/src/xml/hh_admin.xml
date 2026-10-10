@@ -69,14 +69,34 @@
 
             <!-- ===== NASTENKA ===== -->
             <t t-if="stav.obrazovka === 'nastenka'">
+                <div class="hhn-hlaska" t-if="stav.hlaska">
+                    <span t-esc="stav.hlaska"/>
+                    <button class="hhn-hlaska__zavrit" t-on-click="() => this.stav.hlaska = null">×</button>
+                </div>
                 <div class="hhn-deska">
                     <t t-foreach="stav.data" t-as="sloupec" t-key="sloupec.id">
                         <div class="hhn-sloupec"
                              t-on-dragover="nadSloupcem"
                              t-on-drop="() => this.pustNaSloupec(sloupec)">
                             <header class="hhn-sloupec__hlava">
-                                <span class="hhn-sloupec__nazev" t-esc="sloupec.nazev"/>
-                                <span class="hhn-sloupec__pocet" t-esc="sloupec.celkem"/>
+                                <t t-if="stav.prejmenovavana and stav.prejmenovavana.id === sloupec.id">
+                                    <input class="hhn-sloupec__pole" type="text"
+                                           t-att-value="stav.prejmenovavana.nazev"
+                                           t-on-input="pisNazev"
+                                           t-on-keydown="klavesaNazev"
+                                           t-on-blur="ulozNazev"/>
+                                </t>
+                                <t t-else="">
+                                    <span class="hhn-sloupec__nazev" t-esc="sloupec.nazev"
+                                          title="Klikni a přejmenuj"
+                                          t-on-click="(ev) => this.zacniPrejmenovat(sloupec, ev)"/>
+                                    <span class="hhn-sloupec__pocet" t-esc="sloupec.celkem"/>
+                                    <button class="hhn-sloupec__akce" title="Přidat kartu"
+                                            t-on-click="() => this.pridejKartu(sloupec)">+</button>
+                                    <button class="hhn-sloupec__akce hhn-sloupec__akce--smazat"
+                                            title="Smazat sekci"
+                                            t-on-click="(ev) => this.smazSekci(sloupec, ev)">×</button>
+                                </t>
                             </header>
 
                             <div class="hhn-sloupec__karty">
@@ -106,6 +126,39 @@
                             </div>
                         </div>
                     </t>
+
+                    <!-- Pridani sekce. Zalozi sloupec i oba stitky,
+                         stejne jako kdyz prijde clovek z nove sekce
+                         na webu. -->
+                    <div class="hhn-sloupec hhn-sloupec--nova">
+                        <t t-if="stav.novaSekce === null">
+                            <button class="hhn-pridat" t-on-click="zacniSekci">
+                                + Nová sekce
+                            </button>
+                        </t>
+                        <t t-else="">
+                            <div class="hhn-nova">
+                                <input class="hhn-nova__pole" type="text"
+                                       placeholder="Název sekce"
+                                       autofocus="autofocus"
+                                       t-att-value="stav.novaSekce"
+                                       t-on-input="pisSekci"
+                                       t-on-keydown="klavesaSekce"/>
+                                <div class="hhn-nova__tlacitka">
+                                    <button class="hha-tlacitko hha-tlacitko--svetly"
+                                            t-on-click="ulozSekci">Založit</button>
+                                    <button class="hhm-tlacitko hhm-tlacitko--tichy"
+                                            t-on-click="zrusSekci">Zrušit</button>
+                                </div>
+                                <p class="hhn-nova__popis">
+                                    Založí se sloupec, štítek na kartu i štítek
+                                    na e-maily. Zprávy si do řady přidáš
+                                    v Sekvencích.
+                                </p>
+                            </div>
+                        </t>
+                    </div>
+
                 </div>
             </t>
 

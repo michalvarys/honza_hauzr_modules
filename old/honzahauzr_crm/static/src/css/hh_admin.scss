@@ -583,3 +583,115 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+
+/* --- pridani sekce ---------------------------------------- */
+
+.hhn-sloupec--nova {
+    background: transparent;
+    border-style: dashed;
+}
+
+.hhn-pridat {
+    width: 100%;
+    padding: 16px 12px;
+    border: 0;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--hha-ink-muted);
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.6);
+        color: var(--hha-bronze);
+    }
+}
+
+.hhn-nova {
+    padding: 12px;
+    background: #fff;
+}
+
+.hhn-nova__pole {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--hha-line);
+    font-size: 13px;
+    color: var(--hha-ink);
+}
+
+.hhn-nova__tlacitka {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.hhn-nova__popis {
+    margin: 10px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--hha-ink-muted);
+}
+
+
+/* --- akce v hlave sloupce --------------------------------- */
+
+.hhn-sloupec__nazev {
+    cursor: text;
+}
+
+.hhn-sloupec__pole {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 4px 6px;
+    border: 1px solid var(--hha-bronze);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--hha-graphite);
+}
+
+.hhn-sloupec__akce {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1px solid transparent;
+    background: transparent;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--hha-ink-muted);
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--hha-line);
+        background: #fff;
+        color: var(--hha-graphite);
+    }
+}
+
+.hhn-sloupec__akce--smazat:hover {
+    border-color: #b23a2e;
+    color: #b23a2e;
+}
+
+.hhn-hlaska {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 24px;
+    padding: 10px 14px;
+    border: 1px solid #b23a2e;
+    background: #fff;
+    font-size: 13px;
+    color: #b23a2e;
+}
+
+.hhn-hlaska__zavrit {
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+    line-height: 1;
+    color: inherit;
+    cursor: pointer;
+}
