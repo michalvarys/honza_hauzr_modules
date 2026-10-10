@@ -138,18 +138,24 @@ class IrHttp(models.AbstractModel):
         if not data or ZNACKA.encode() not in data:
             return
 
-        # Kdo web upravuje, musi videt vsechny tri dny - jinak by si
-        # k dnum 2 a 3 nemel jak video vlozit. Zamek se proto tyka jen
-        # navstevniku.
-        if request.env.user.has_group(
-                'website.group_website_restricted_editor'):
-            return
+        volba = request.env['crm.lead']._hh_nahled()
 
         # Nahled "odemceno" necha videa ve strance, at je videt, jak
         # vypada hotova vyzva. Protejsek "zamceno" se tu neresi - ten
         # uz zaridilo rozpoznani ucastnika, ktere nikoho nevrati,
         # a bez ucastnika se vyrizne vsechno.
-        if request.env['crm.lead']._hh_nahled() == 'odemceno':
+        if volba == 'odemceno':
+            return
+
+        # Kdo web upravuje, musi videt vsechny tri dny - jinak by si
+        # k dnum 2 a 3 nemel jak video vlozit.
+        #
+        # Jakmile si ale zvoli nahled, plati nahled. Driv tahle vyjimka
+        # stala pred nim a prebila ho: Honzovi, ktery je prihlaseny,
+        # vypadaly vsechny tri volby uplne stejne, protoze dny mel
+        # odemcene porad.
+        if not volba and request.env.user.has_group(
+                'website.group_website_restricted_editor'):
             return
 
         lead = request.env['crm.lead']._hh_vyzva_ucastnik()
@@ -223,10 +229,9 @@ class IrHttp(models.AbstractModel):
         prepinac zustal v obsahu i potom, co ho nekdo vypne.
 
         Zobrazuje se jen pri zapnutem systemovem parametru
-        honzahauzr_crm.nahled_vyzvy, a i tehdy jen v ladicim rezimu
-        (?debug=1 v adrese). Bez nej je to pro navstevnika jen
-        nepochopitelny box v rohu - a zustaval by videt i na ostrem
-        webu, kdyby nekdo zapomnel parametr smazat.
+        honzahauzr_crm.nahled_vyzvy, a i tehdy jen prihlasene obsluze.
+        Pro navstevnika je to nepochopitelny box v rohu - a zustaval by
+        videt i na ostrem webu, kdyby nekdo zapomnel parametr smazat.
         """
         if not request or not response:
             return
@@ -234,7 +239,7 @@ class IrHttp(models.AbstractModel):
             return
         if 'html' not in (response.headers.get('Content-Type') or ''):
             return
-        if not cls._hh_ladici_rezim():
+        if not cls._hh_obsluha_prihlasena():
             return
 
         data = getattr(response, 'data', None)
@@ -263,14 +268,28 @@ class IrHttp(models.AbstractModel):
             strom, encoding='utf-8', doctype='<!DOCTYPE html>')
 
     @classmethod
-    def _hh_ladici_rezim(cls):
-        """Bezi stranka v ladicim rezimu?
+    def _hh_obsluha_prihlasena(cls):
+        """Divá se na stránku přihlášená obsluha?
 
-        Odoo si volbu z ?debug= pamatuje v relaci, takze se nemusi
-        psat do kazde adresy znovu. Vypne se pres ?debug=0.
+        Drive to bylo navazane na ladici rezim (?debug=1). To znamenalo
+        psat si priznak do adresy pokazde znovu a pri bezne praci
+        v administraci prepinac videt nebyl. Rozhoduje proto
+        prihlaseni: kdo je v administraci, prepinac vidi, navstevnik
+        nikdy.
+
+        Rozhoduje uid v relaci, ne request.env.user: ten je v tomhle
+        haku, ktery bezi az nad hotovou odpovedi, verejny uzivatel
+        i kdyz je clovek prihlaseny.
+
+        Skupina base.group_user je "vnitrni uzivatel" - portaloveho
+        zakaznika ani verejneho uzivatele neobsahuje.
         """
         try:
-            return bool(request.session.debug)
+            uid = request.session.uid
+            if not uid:
+                return False
+            return request.env['res.users'].sudo().browse(uid).has_group(
+                'base.group_user')
         except Exception:
             return False
 

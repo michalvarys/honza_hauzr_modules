@@ -590,6 +590,11 @@ class CrmLead(models.Model):
         if not prijemce:
             return False
 
+        # Osobni odkaz na vyzvu ({{ object.hh_vyzva_odkaz }}) potrebuje
+        # klic. Kdo prisel jinudy nez pres formular vyzvy, zadny nema -
+        # bez tohohle by mu v e-mailu odesla adresa bez ?k=.
+        self._hh_zajistit_klic()
+
         if not self._hh_poslat_email_stupne(self.stage_id, prijemce, zprava):
             return False
 

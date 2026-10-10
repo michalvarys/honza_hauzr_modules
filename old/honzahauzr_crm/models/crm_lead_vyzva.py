@@ -165,6 +165,21 @@ class CrmLeadVyzva(models.Model):
         return self.env['ir.config_parameter'].sudo().get_param(
             'web.base.url', '').rstrip('/')
 
+    def _hh_zajistit_klic(self):
+        """Doplni osobni klic tomu, kdo ho jeste nema.
+
+        Klic se zaklada pri registraci pres formular vyzvy. Koho ale
+        Honza do sloupce presune rucne - treba cloveka, ktery drive
+        prisel jen pres odber novinek - ten zadny nemel a v e-mailu
+        mu odesel obecny odkaz bez ?k=, tedy na prazdnou stranku.
+
+        Vola se tesne pred odeslanim, at uz jde o zpravu z rady
+        sloupce nebo o rucne poslany den.
+        """
+        for lead in self:
+            if not lead.hh_vyzva_klic:
+                lead.sudo().hh_vyzva_klic = secrets.token_urlsafe(24)
+
     def _hh_vyzva_odkaz(self):
         self.ensure_one()
         zaklad = self._hh_zaklad_vyzvy()
@@ -186,6 +201,8 @@ class CrmLeadVyzva(models.Model):
         prijemce = self.email_from or self.partner_id.email
         if not prijemce:
             return
+
+        self._hh_zajistit_klic()
 
         jmeno = (self.contact_name or '').strip()
         osloveni = ('Ahoj %s,' % jmeno) if jmeno else 'Ahoj,'
