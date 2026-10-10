@@ -23,10 +23,13 @@
           action="action_stupne_crm"
           sequence="10"/>
 
+<!-- Miri na vlastni obrazovku, ne na seznam od Odoo. Seznam
+     zustava dostupny pres akci action_hh_mail_sablona, ze ktere
+     se otevira formular jedne zpravy. -->
 <menuitem id="menu_hh_mail_sablona"
-          name="Knihovna e-mailů"
+          name="Sekvence e-mailů"
           parent="menu_hh_nastaveni"
-          action="action_hh_mail_sablona"
+          action="action_hh_maily_prehled"
           sequence="20"/>
 
 <menuitem id="menu_hh_mail_stitek"

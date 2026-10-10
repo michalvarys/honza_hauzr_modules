@@ -1,0 +1,221 @@
+/* ============================================================
+   SEKVENCE E-MAILU V ADMINU (prefix hhm-)
+
+   Vsechno je zanorene pod .hhm. Nacita se pres assets_backend,
+   tedy pro celou instanci - a na stejnem serveru bezi i cizi
+   projekty. Nic tu proto nesmi mirit na obecne selektory.
+
+   Paleta je stejna jako u kalendare terminu, aby obe vlastni
+   obrazovky v adminu drzely pohromade.
+   ============================================================ */
+
+.hhm {
+    --hhm-cream: #f4efe6;
+    --hhm-sand: #e9e0d2;
+    --hhm-graphite: #23211d;
+    --hhm-bronze: #a06a37;
+    --hhm-ink: #23211d;
+    --hhm-ink-soft: #5d554b;
+    --hhm-ink-muted: #857b6e;
+    --hhm-line: rgba(35, 33, 29, 0.14);
+    --hhm-zelena: #35694a;
+
+    box-sizing: border-box;
+    /* Obrazovka sedi v plose, kterou ji Odoo da, a ta ma
+       overflow:hidden - pri vic stitcich by se zbytek oriznul. */
+    min-height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 24px 28px 48px;
+    background: var(--hhm-cream);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--hhm-ink);
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+/* --- lista ------------------------------------------------- */
+
+.hhm-lista {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.hhm-lista__nadpis {
+    margin: 0;
+    margin-right: auto;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--hhm-graphite);
+}
+
+/* --- tlacitka ---------------------------------------------- */
+
+.hhm-tlacitko {
+    padding: 8px 16px;
+    border: 1px solid var(--hhm-line);
+    border-radius: 0;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--hhm-ink);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+
+    &:hover {
+        background: var(--hhm-sand);
+        border-color: var(--hhm-bronze);
+    }
+}
+
+.hhm-tlacitko--tichy {
+    border-color: transparent;
+    background: transparent;
+    color: var(--hhm-ink-muted);
+
+    &:hover {
+        background: #fff;
+        border-color: var(--hhm-line);
+        color: var(--hhm-ink);
+    }
+}
+
+/* --- stitek a jeho rada ------------------------------------ */
+
+.hhm-stitek {
+    margin-bottom: 22px;
+    border: 1px solid var(--hhm-line);
+    background: #fff;
+}
+
+.hhm-stitek__hlava {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--hhm-line);
+}
+
+.hhm-stitek__nazev {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--hhm-graphite);
+}
+
+.hhm-stitek__pocet {
+    margin-right: auto;
+    font-size: 12px;
+    color: var(--hhm-ink-muted);
+}
+
+.hhm-stitek__prazdno,
+.hhm-prazdno {
+    padding: 18px;
+    font-size: 13px;
+    color: var(--hhm-ink-muted);
+}
+
+.hhm-rada {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* --- jedna zprava ------------------------------------------ */
+
+.hhm-zprava {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--hhm-line);
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    &:hover {
+        background: var(--hhm-cream);
+    }
+}
+
+/* Vypnuta zprava zustava videt, jen ustoupi - aby bylo poznat,
+   ze v rade je, ale neodchazi. */
+.hhm-zprava--vypnuta {
+    .hhm-zprava__predmet,
+    .hhm-zprava__kdy {
+        color: var(--hhm-ink-muted);
+    }
+}
+
+.hhm-zprava__kdy {
+    flex: 0 0 72px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--hhm-bronze);
+}
+
+.hhm-zprava__text {
+    flex: 1 1 auto;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.hhm-zprava__predmet {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--hhm-ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hhm-zprava__nazev {
+    display: block;
+    font-size: 12px;
+    color: var(--hhm-ink-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* --- prepinac odesilani ------------------------------------ */
+
+.hhm-prepinac {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid var(--hhm-line);
+    border-radius: 11px;
+    background: var(--hhm-sand);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.hhm-prepinac__kolecko {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.15s;
+}
+
+.hhm-prepinac--zap {
+    background: var(--hhm-zelena);
+    border-color: var(--hhm-zelena);
+
+    .hhm-prepinac__kolecko {
+        transform: translateX(18px);
+    }
+}

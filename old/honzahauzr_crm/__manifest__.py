@@ -62,8 +62,11 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'web.assets_backend': [
             'honzahauzr_crm/static/src/css/stupen.scss',
             'honzahauzr_crm/static/src/css/terminy_kalendar.scss',
+            'honzahauzr_crm/static/src/css/maily_prehled.scss',
             'honzahauzr_crm/static/src/js/terminy_kalendar.js',
+            'honzahauzr_crm/static/src/js/maily_prehled.js',
             'honzahauzr_crm/static/src/xml/terminy_kalendar.xml',
+            'honzahauzr_crm/static/src/xml/maily_prehled.xml',
         ],
     },
     'post_init_hook': 'post_init_hook',
