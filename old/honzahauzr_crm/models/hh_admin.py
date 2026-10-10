@@ -52,6 +52,51 @@ class HhAdmin(models.AbstractModel):
         }
 
     # ------------------------------------------------------------------
+    # zalozka Nastenka
+    # ------------------------------------------------------------------
+
+    @api.model
+    def hh_nastenka(self, limit=60):
+        """Sloupce a karty v nich - totez, co ukazuje nastenka Odoo.
+
+        Prehazovani karet se dela beznym zapisem do stage_id, takze
+        plati stejna pravidla jako doted: presun do sloupce spusti
+        e-maily navazane na jeho stitky.
+        """
+        Lead = self.env['crm.lead'].sudo()
+        stupne = self.env['crm.stage'].sudo().search([], order='sequence, id')
+
+        out = []
+        for s in stupne:
+            leady = Lead.search_read(
+                [('active', '=', True), ('stage_id', '=', s.id)],
+                ['name', 'contact_name', 'email_from', 'phone', 'tag_ids',
+                 'create_date', 'expected_revenue'],
+                limit=limit, order='create_date desc')
+            out.append({
+                'id': s.id,
+                'nazev': s.name,
+                'karty': leady,
+                'celkem': Lead.search_count(
+                    [('active', '=', True), ('stage_id', '=', s.id)]),
+            })
+
+        # Nazvy stitku najednou, at se na ne nechodi po jedne karte.
+        ids = set()
+        for sl in out:
+            for k in sl['karty']:
+                ids.update(k['tag_ids'])
+        stitky = {t['id']: t['name'] for t in self.env['crm.tag'].sudo()
+                  .search_read([('id', 'in', list(ids))], ['name'])}
+        for sl in out:
+            for k in sl['karty']:
+                k['stitky'] = [stitky.get(i, '') for i in k['tag_ids']]
+                k['kdy'] = fields.Datetime.context_timestamp(
+                    self, k['create_date']).strftime('%d.%m.%Y')
+
+        return out
+
+    # ------------------------------------------------------------------
     # zalozka Lide
     # ------------------------------------------------------------------
 

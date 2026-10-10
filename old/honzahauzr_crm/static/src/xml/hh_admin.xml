@@ -67,6 +67,48 @@
 
         <t t-else="">
 
+            <!-- ===== NASTENKA ===== -->
+            <t t-if="stav.obrazovka === 'nastenka'">
+                <div class="hhn-deska">
+                    <t t-foreach="stav.data" t-as="sloupec" t-key="sloupec.id">
+                        <div class="hhn-sloupec"
+                             t-on-dragover="nadSloupcem"
+                             t-on-drop="() => this.pustNaSloupec(sloupec)">
+                            <header class="hhn-sloupec__hlava">
+                                <span class="hhn-sloupec__nazev" t-esc="sloupec.nazev"/>
+                                <span class="hhn-sloupec__pocet" t-esc="sloupec.celkem"/>
+                            </header>
+
+                            <div class="hhn-sloupec__karty">
+                                <t t-foreach="sloupec.karty" t-as="karta" t-key="karta.id">
+                                    <article class="hhn-karta" draggable="true"
+                                             t-on-dragstart="() => this.zacniTahnout(karta, sloupec)"
+                                             t-on-click="() => this.otevriLead(karta.id)">
+                                        <h3 class="hhn-karta__nazev" t-esc="karta.name"/>
+                                        <p class="hhn-karta__kdo" t-if="karta.contact_name"
+                                           t-esc="karta.contact_name"/>
+                                        <div class="hhn-karta__stitky">
+                                            <t t-foreach="karta.stitky" t-as="s" t-key="s_index">
+                                                <span class="hhn-karta__stitek" t-esc="s"/>
+                                            </t>
+                                        </div>
+                                        <p class="hhn-karta__paticka">
+                                            <span t-esc="karta.kdy"/>
+                                            <span class="hhn-karta__mail" t-if="karta.email_from"
+                                                  t-esc="karta.email_from"/>
+                                        </p>
+                                    </article>
+                                </t>
+
+                                <div class="hhn-sloupec__prazdno" t-if="!sloupec.karty.length">
+                                    Sem přetáhni kartu.
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+
             <!-- ===== LIDE ===== -->
             <t t-if="stav.obrazovka === 'lide'">
                 <div class="hha-filtr">

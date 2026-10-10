@@ -23,6 +23,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 
 const ZALOZKY = [
+    { klic: "nastenka", popis: "Nástěnka" },
     { klic: "lide", popis: "Lidé" },
     { klic: "vyzva", popis: "Výzva" },
     { klic: "hovory", popis: "Hovory" },
@@ -44,7 +45,8 @@ class HhAdmin extends Component {
         const kontext = (this.props.action && this.props.action.context) || {};
 
         this.stav = useState({
-            obrazovka: kontext.hh_obrazovka || "lide",
+            obrazovka: kontext.hh_obrazovka || "nastenka",
+            tazena: null,
             nacita: true,
             cisla: null,
             data: null,
@@ -69,7 +71,9 @@ class HhAdmin extends Component {
         this.stav.nacita = true;
         const o = this.stav.obrazovka;
         try {
-            if (o === "lide") {
+            if (o === "nastenka") {
+                this.stav.data = await this.orm.call("hh.admin", "hh_nastenka", []);
+            } else if (o === "lide") {
                 this.stav.data = await this.orm.call("hh.admin", "hh_lide",
                     [this.stav.hledani, this.stav.stupen]);
             } else if (o === "vyzva") {
@@ -120,6 +124,28 @@ class HhAdmin extends Component {
     vyska(pocet, data) {
         const max = Math.max(...data.map((d) => d.pocet), 1);
         return Math.round((pocet / max) * 100) + "%";
+    }
+
+    zacniTahnout(karta, sloupec) {
+        this.stav.tazena = { id: karta.id, zeSloupce: sloupec.id };
+    }
+
+    nadSloupcem(udalost) {
+        // Bez tohohle prohlizec pusteni vubec nedovoli.
+        udalost.preventDefault();
+    }
+
+    async pustNaSloupec(sloupec) {
+        const t = this.stav.tazena;
+        this.stav.tazena = null;
+        if (!t || t.zeSloupce === sloupec.id) {
+            return;
+        }
+        // Bezny zapis, at plati stejna pravidla jako doted: presun
+        // do sloupce spusti e-maily navazane na jeho stitky.
+        await this.orm.write("crm.lead", [t.id], { stage_id: sloupec.id });
+        this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
+        await this.nacti();
     }
 
     kdy(zprava) {

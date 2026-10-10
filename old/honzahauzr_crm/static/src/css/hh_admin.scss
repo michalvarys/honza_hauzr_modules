@@ -466,3 +466,120 @@
 .hha-obsah {
     padding: 18px 24px 0;
 }
+
+
+/* --- nastenka (prefix hhn-) -------------------------------
+   Stejne sloupce a karty jako nastenka Odoo, jen v nasem
+   vzhledu. Prehazovani zapisuje primo do stage_id, takze se
+   logika nikde neobchazi. */
+
+.hhn-deska {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px 24px 24px;
+    overflow-x: auto;
+}
+
+.hhn-sloupec {
+    flex: 0 0 280px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--hha-line);
+}
+
+.hhn-sloupec__hlava {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--hha-line);
+    background: #fff;
+}
+
+.hhn-sloupec__nazev {
+    margin-right: auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--hha-graphite);
+}
+
+.hhn-sloupec__pocet {
+    min-width: 22px;
+    padding: 1px 7px;
+    background: var(--hha-sand);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--hha-ink-soft);
+}
+
+.hhn-sloupec__karty {
+    padding: 10px;
+    min-height: 90px;
+}
+
+.hhn-sloupec__prazdno {
+    padding: 22px 8px;
+    border: 1px dashed var(--hha-line);
+    font-size: 12px;
+    text-align: center;
+    color: var(--hha-ink-muted);
+}
+
+.hhn-karta {
+    margin-bottom: 9px;
+    padding: 11px 12px;
+    background: #fff;
+    border: 1px solid var(--hha-line);
+    cursor: grab;
+
+    &:hover {
+        border-color: var(--hha-bronze);
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.hhn-karta__nazev {
+    margin: 0 0 3px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--hha-ink);
+}
+
+.hhn-karta__kdo {
+    margin: 0 0 7px;
+    font-size: 12px;
+    color: var(--hha-ink-soft);
+}
+
+.hhn-karta__stitky {
+    margin-bottom: 7px;
+}
+
+.hhn-karta__stitek {
+    display: inline-block;
+    margin: 0 4px 3px 0;
+    padding: 2px 8px;
+    border: 1px solid var(--hha-bronze);
+    font-size: 10px;
+    color: var(--hha-bronze);
+}
+
+.hhn-karta__paticka {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    font-size: 11px;
+    color: var(--hha-ink-muted);
+}
+
+.hhn-karta__mail {
+    margin-left: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
