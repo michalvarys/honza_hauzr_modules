@@ -3,22 +3,22 @@
 /**
  * Administrace Honzy Hauzra.
  *
- * Jedna obrazovka se ctyrmi zalozkami misto peti ruznych pohledu
- * Odoo. Duvod je praktický: Honza potrebuje videt lidi, vyzvu
- * a hovory, ne filtry, razeni, vyber sloupcu a chatter. Co tu neni,
- * je zamerne pryc.
+ * Jedna obrazovka se zalozkami misto nekolika ruznych pohledu Odoo.
+ * Duvod je praktický: Honza potrebuje videt lidi, vyzvu, hovory
+ * a sekvence, ne filtry, razeni, vyber sloupcu a chatter. Co tu
+ * neni, je zamerne pryc.
  *
- * Data chodi po zalozkach z modelu hh.admin, vzdycky jednim dotazem.
- * Pri prepnuti zalozky by se jinak poslalo nekolik dotazu za sebou
- * a cisla by naskakovala postupne.
+ * Logika zustava stejna jako doted - nic se neprepocitava a nic
+ * nove nevznika. Meni se jen to, jak je to videt.
  *
- * Nic se tu nepocita znovu a nic se tu nezapisuje - obrazovka data
- * jen ukazuje. Upravy se otviraji v beznem formulari, protoze v nem
- * sedi vec, kterou by prepsani stalo: editor e-mailu, kalendar,
- * chatter u prilezitosti.
+ * Nastenka prilezitosti (kanban) se zamerne nenahrazuje, jen se na
+ * ni odsud da skocit. Honza ji pouziva a je na ni zvykly.
+ *
+ * Data chodi po obrazovkach z modelu hh.admin, vzdycky jednim
+ * dotazem - jinak by cisla naskakovala postupne.
  */
 
-import { Component, onWillStart, useState } from "@odoo/owl";
+import { Component, onWillStart, useExternalListener, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 
@@ -38,13 +38,25 @@ class HhAdmin extends Component {
         this.action = useService("action");
         this.zalozky = ZALOZKY;
 
+        // Na kterou obrazovku se ma otevrit, rekne akce. Diky tomu
+        // muze nabidka v CRM mirit rovnou na sekvence nebo stitky
+        // a nemusi pro ne existovat vlastni obrazovka.
+        const kontext = (this.props.action && this.props.action.context) || {};
+
         this.stav = useState({
-            zalozka: "lide",
+            obrazovka: kontext.hh_obrazovka || "lide",
             nacita: true,
             cisla: null,
             data: null,
             hledani: "",
             stupen: null,
+            nabidka: false,
+        });
+
+        // Kliknuti mimo nabidku ji zavre. Bez toho by zustala
+        // viset, dokud na ni clovek neklikne znovu.
+        useExternalListener(window, "click", () => {
+            this.stav.nabidka = false;
         });
 
         onWillStart(async () => {
@@ -55,15 +67,19 @@ class HhAdmin extends Component {
 
     async nacti() {
         this.stav.nacita = true;
-        const z = this.stav.zalozka;
+        const o = this.stav.obrazovka;
         try {
-            if (z === "lide") {
+            if (o === "lide") {
                 this.stav.data = await this.orm.call("hh.admin", "hh_lide",
                     [this.stav.hledani, this.stav.stupen]);
-            } else if (z === "vyzva") {
+            } else if (o === "vyzva") {
                 this.stav.data = await this.orm.call("hh.admin", "hh_vyzva", []);
-            } else if (z === "hovory") {
+            } else if (o === "hovory") {
                 this.stav.data = await this.orm.call("hh.admin", "hh_hovory", []);
+            } else if (o === "sekvence") {
+                this.stav.data = await this.orm.call("hh.admin", "hh_sekvence", []);
+            } else if (o === "stitky") {
+                this.stav.data = await this.orm.call("hh.admin", "hh_stitky", []);
             } else {
                 this.stav.data = await this.orm.call("hh.admin", "hh_statistiky", []);
             }
@@ -73,12 +89,19 @@ class HhAdmin extends Component {
     }
 
     async prepni(klic) {
-        if (this.stav.zalozka === klic) {
+        this.stav.nabidka = false;
+        if (this.stav.obrazovka === klic) {
             return;
         }
-        this.stav.zalozka = klic;
+        this.stav.obrazovka = klic;
         this.stav.data = null;
         await this.nacti();
+    }
+
+    prepniNabidku(udalost) {
+        // Bez zastaveni by ji hned zavrel posluchac na okne.
+        udalost.stopPropagation();
+        this.stav.nabidka = !this.stav.nabidka;
     }
 
     async hledej(udalost) {
@@ -99,6 +122,23 @@ class HhAdmin extends Component {
         return Math.round((pocet / max) * 100) + "%";
     }
 
+    kdy(zprava) {
+        return zprava.po_dnech ? `${zprava.po_dnech}. den` : "hned";
+    }
+
+    async prepniOdesilani(zprava) {
+        // Zapis napred, at prepinac nereaguje se zpozdenim.
+        zprava.zapnuto = !zprava.zapnuto;
+        await this.orm.write("hh.mail.sablona", [zprava.id], { zapnuto: zprava.zapnuto });
+    }
+
+    // ------------------------------------------------------------------
+    // odskoky do bezneho formulare
+    //
+    // Upravy se zamerne otviraji tam: sedi v nem veci, ktere by
+    // prepsani stalo - editor e-mailu i historie u prilezitosti.
+    // ------------------------------------------------------------------
+
     otevriLead(id) {
         this.action.doAction({
             type: "ir.actions.act_window",
@@ -109,12 +149,53 @@ class HhAdmin extends Component {
         });
     }
 
+    otevriZpravu(id) {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "hh.mail.sablona",
+            res_id: id,
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
+
+    pridejZpravu(stitek) {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "hh.mail.sablona",
+            views: [[false, "form"]],
+            target: "current",
+            context: stitek.id ? { default_stitek_id: stitek.id } : {},
+        });
+    }
+
+    otevriStitek(id) {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "hh.mail.stitek",
+            res_id: id,
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
+
+    pridejStitek() {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "hh.mail.stitek",
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
+
     otevriKalendar() {
+        this.stav.nabidka = false;
         this.action.doAction("honzahauzr_crm.hh_terminy_kalendar_action");
     }
 
-    otevriSekvence() {
-        this.action.doAction("honzahauzr_crm.action_hh_maily_prehled");
+    otevriNastenku() {
+        this.stav.nabidka = false;
+        this.action.doAction("crm.crm_lead_action_pipeline");
     }
 }
 

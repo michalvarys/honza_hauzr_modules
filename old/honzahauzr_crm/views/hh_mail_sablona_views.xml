@@ -118,7 +118,14 @@
 -->
 <record id="action_hh_maily_prehled" model="ir.actions.client">
     <field name="name">Sekvence e-mailů</field>
-    <field name="tag">hh_maily_prehled</field>
+    <field name="tag">hh_admin</field>
+    <field name="context">{'hh_obrazovka': 'sekvence'}</field>
+</record>
+
+<record id="action_hh_stitky_prehled" model="ir.actions.client">
+    <field name="name">Štítky e-mailů</field>
+    <field name="tag">hh_admin</field>
+    <field name="context">{'hh_obrazovka': 'stitky'}</field>
 </record>
 
 <record id="action_hh_mail_sablona" model="ir.actions.act_window">

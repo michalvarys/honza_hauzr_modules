@@ -35,7 +35,7 @@
 <menuitem id="menu_hh_mail_stitek"
           name="Štítky e-mailů"
           parent="menu_hh_nastaveni"
-          action="action_hh_mail_stitek"
+          action="action_hh_stitky_prehled"
           sequence="30"/>
 
 </odoo>

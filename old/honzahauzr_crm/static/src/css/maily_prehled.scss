@@ -9,7 +9,12 @@
    obrazovky v adminu drzely pohromade.
    ============================================================ */
 
-.hhm {
+/* Promenne plati i uvnitr administrace: obrazovka sekvenci
+   v ni zije a tridy hhm- se pouzivaji i tam. Dokud visely jen na
+   .hhm, byl v administraci prepinac odesilani neviditelny - nemel
+   odkud vzit pozadi ani ramecek. */
+.hhm,
+.hha {
     --hhm-cream: #f4efe6;
     --hhm-sand: #e9e0d2;
     --hhm-graphite: #23211d;
@@ -19,7 +24,9 @@
     --hhm-ink-muted: #857b6e;
     --hhm-line: rgba(35, 33, 29, 0.14);
     --hhm-zelena: #35694a;
+}
 
+.hhm {
     box-sizing: border-box;
     /* Obrazovka sedi v plose, kterou ji Odoo da, a ta ma
        overflow:hidden - pri vic stitcich by se zbytek oriznul. */

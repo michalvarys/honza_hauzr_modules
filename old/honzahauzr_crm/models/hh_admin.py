@@ -165,6 +165,54 @@ class HhAdmin(models.AbstractModel):
         }
 
     # ------------------------------------------------------------------
+    # obrazovka Sekvence
+    # ------------------------------------------------------------------
+
+    @api.model
+    def hh_sekvence(self):
+        """Stitky a pod nimi jejich zpravy, serazene podle odstupu."""
+        stitky = self.env['hh.mail.stitek'].sudo().search_read(
+            [], ['name'], order='name')
+        zpravy = self.env['hh.mail.sablona'].sudo().search_read(
+            [], ['name', 'predmet', 'po_dnech', 'zapnuto', 'stitek_id'],
+            order='po_dnech, id')
+
+        podle = {}
+        for z in zpravy:
+            podle.setdefault(z['stitek_id'][0] if z['stitek_id'] else 0, []).append(z)
+
+        out = [dict(s, zpravy=podle.get(s['id'], [])) for s in stitky]
+
+        # Zpravy bez stitku by jinak zmizely ze sveta - nikde jinde
+        # uz se neukazuji.
+        if podle.get(0):
+            out.append({'id': 0, 'name': 'Bez štítku', 'zpravy': podle[0]})
+        return out
+
+    # ------------------------------------------------------------------
+    # obrazovka Stitky
+    # ------------------------------------------------------------------
+
+    @api.model
+    def hh_stitky(self):
+        """Stitky s tim, kolik zprav na nich visi a kolik sloupcu je
+        pouziva. Bez toho druheho cisla nejde poznat, jestli se stitek
+        da smazat."""
+        Stitek = self.env['hh.mail.stitek'].sudo()
+        out = []
+        for s in Stitek.search([], order='name'):
+            sloupce = self.env['crm.stage'].sudo().search(
+                [('hh_stitek_ids', 'in', s.id)])
+            out.append({
+                'id': s.id,
+                'name': s.name,
+                'zprav': len(s.mail_ids),
+                'zapnutych': len(s.mail_ids.filtered('zapnuto')),
+                'sloupce': sloupce.mapped('name'),
+            })
+        return out
+
+    # ------------------------------------------------------------------
     # zalozka Statistiky
     # ------------------------------------------------------------------
 

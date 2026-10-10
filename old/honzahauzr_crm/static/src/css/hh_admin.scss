@@ -401,3 +401,68 @@
     font-size: 13px;
     color: var(--hha-ink-muted);
 }
+
+/* --- rozbalovaci nabidka v liste -------------------------- */
+
+.hha-nabidka {
+    position: relative;
+}
+
+.hha-sipka {
+    margin-left: 4px;
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.hha-tlacitko--aktivni {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+.hha-tlacitko--svetly {
+    border-color: var(--hha-line);
+    background: #fff;
+    color: var(--hha-ink);
+
+    &:hover {
+        background: var(--hha-sand);
+        color: var(--hha-ink);
+    }
+}
+
+/* Polozky pod sebou, ne vedle sebe - tri polozky v rade by
+   z listy udelaly kasi. */
+.hha-nabidka__seznam {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 5;
+    min-width: 190px;
+    padding: 4px 0;
+    background: #fff;
+    border: 1px solid var(--hha-line);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.hha-nabidka__polozka {
+    display: block;
+    width: 100%;
+    padding: 9px 16px;
+    border: 0;
+    background: transparent;
+    font-size: 13px;
+    text-align: left;
+    color: var(--hha-ink);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--hha-cream);
+    }
+}
+
+/* --- obal obrazovek, ktere si nesou vlastni karty --------- */
+
+.hha-obsah {
+    padding: 18px 24px 0;
+}

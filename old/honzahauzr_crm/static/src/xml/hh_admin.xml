@@ -4,19 +4,37 @@
 <t t-name="honzahauzr_crm.HhAdmin">
     <div class="hha">
 
-        <!-- ===== LISTA SE ZALOZKAMI ===== -->
+        <!-- ===== LISTA ===== -->
         <div class="hha-lista">
             <span class="hha-znacka">Honza Hauzr</span>
+
             <nav class="hha-zalozky">
                 <t t-foreach="zalozky" t-as="z" t-key="z.klic">
                     <button class="hha-zalozka"
-                            t-att-class="{ 'hha-zalozka--aktivni': stav.zalozka === z.klic }"
+                            t-att-class="{ 'hha-zalozka--aktivni': stav.obrazovka === z.klic }"
                             t-on-click="() => this.prepni(z.klic)"
                             t-esc="z.popis"/>
                 </t>
             </nav>
-            <button class="hha-tlacitko" t-on-click="otevriSekvence">Sekvence</button>
-            <button class="hha-tlacitko" t-on-click="otevriKalendar">Kalendář</button>
+
+            <!-- Rozbalovaci nabidka, polozky pod sebou. Vedle ni
+                 veci, na ktere se chodi primo. -->
+            <div class="hha-nabidka">
+                <button class="hha-tlacitko"
+                        t-att-class="{ 'hha-tlacitko--aktivni': stav.obrazovka === 'sekvence' or stav.obrazovka === 'stitky' }"
+                        t-on-click="prepniNabidku">
+                    E-maily <span class="hha-sipka">▾</span>
+                </button>
+                <div class="hha-nabidka__seznam" t-if="stav.nabidka">
+                    <button class="hha-nabidka__polozka"
+                            t-on-click="() => this.prepni('sekvence')">Sekvence e-mailů</button>
+                    <button class="hha-nabidka__polozka"
+                            t-on-click="() => this.prepni('stitky')">Štítky e-mailů</button>
+                </div>
+            </div>
+
+            <button class="hha-tlacitko" t-on-click="otevriKalendar">Termíny hovorů</button>
+            <button class="hha-tlacitko" t-on-click="otevriNastenku">Nástěnka</button>
         </div>
 
         <!-- ===== CISLA ===== -->
@@ -50,7 +68,7 @@
         <t t-else="">
 
             <!-- ===== LIDE ===== -->
-            <t t-if="stav.zalozka === 'lide'">
+            <t t-if="stav.obrazovka === 'lide'">
                 <div class="hha-filtr">
                     <input class="hha-hledani" type="search" placeholder="Hledat jméno, e-mail nebo telefon…"
                            t-att-value="stav.hledani" t-on-change="hledej"/>
@@ -103,7 +121,7 @@
             </t>
 
             <!-- ===== VYZVA ===== -->
-            <t t-if="stav.zalozka === 'vyzva'">
+            <t t-if="stav.obrazovka === 'vyzva'">
                 <t t-if="!stav.data.lide.length">
                     <div class="hha-prazdno">Ve výzvě teď nikdo není.</div>
                 </t>
@@ -146,7 +164,7 @@
             </t>
 
             <!-- ===== HOVORY ===== -->
-            <t t-if="stav.zalozka === 'hovory'">
+            <t t-if="stav.obrazovka === 'hovory'">
                 <h2 class="hha-nadpis">Domluvené hovory</h2>
                 <t t-if="!stav.data.rezervovane.length">
                     <div class="hha-prazdno">Žádný hovor před sebou nemáš.</div>
@@ -189,8 +207,105 @@
                 </div>
             </t>
 
+            <!-- ===== SEKVENCE ===== -->
+            <t t-if="stav.obrazovka === 'sekvence'">
+                <div class="hha-obsah">
+                    <t t-if="!stav.data.length">
+                        <div class="hha-prazdno">
+                            Zatím tu nejsou žádné štítky. Založ si je ve Štítcích
+                            a pak k nim přidej zprávy.
+                        </div>
+                    </t>
+                    <t t-foreach="stav.data" t-as="stitek" t-key="stitek.id">
+                        <section class="hhm-stitek">
+                            <header class="hhm-stitek__hlava">
+                                <h2 class="hhm-stitek__nazev" t-esc="stitek.name"/>
+                                <span class="hhm-stitek__pocet">
+                                    <t t-esc="stitek.zpravy.length"/>
+                                    <t t-if="stitek.zpravy.length === 1"> zpráva</t>
+                                    <t t-elif="stitek.zpravy.length &gt;= 2 and stitek.zpravy.length &lt;= 4"> zprávy</t>
+                                    <t t-else=""> zpráv</t>
+                                </span>
+                                <button class="hhm-tlacitko hhm-tlacitko--tichy"
+                                        t-on-click="() => this.pridejZpravu(stitek)">Přidat zprávu</button>
+                            </header>
+
+                            <t t-if="!stitek.zpravy.length">
+                                <div class="hhm-stitek__prazdno">
+                                    Na tenhle štítek se zatím nic neposílá.
+                                </div>
+                            </t>
+
+                            <ol class="hhm-rada" t-else="">
+                                <t t-foreach="stitek.zpravy" t-as="zprava" t-key="zprava.id">
+                                    <li class="hhm-zprava"
+                                        t-att-class="{ 'hhm-zprava--vypnuta': !zprava.zapnuto }">
+                                        <span class="hhm-zprava__kdy" t-esc="kdy(zprava)"/>
+                                        <div class="hhm-zprava__text"
+                                             t-on-click="() => this.otevriZpravu(zprava.id)">
+                                            <span class="hhm-zprava__predmet" t-esc="zprava.predmet or zprava.name"/>
+                                            <span class="hhm-zprava__nazev" t-esc="zprava.name"/>
+                                        </div>
+                                        <button class="hhm-prepinac"
+                                                t-att-class="{ 'hhm-prepinac--zap': zprava.zapnuto }"
+                                                t-att-title="zprava.zapnuto ? 'Odesílá se' : 'Neodesílá se'"
+                                                t-on-click="() => this.prepniOdesilani(zprava)">
+                                            <span class="hhm-prepinac__kolecko"/>
+                                        </button>
+                                        <button class="hhm-tlacitko hhm-tlacitko--tichy"
+                                                t-on-click="() => this.otevriZpravu(zprava.id)">Upravit</button>
+                                    </li>
+                                </t>
+                            </ol>
+                        </section>
+                    </t>
+                </div>
+            </t>
+
+            <!-- ===== STITKY ===== -->
+            <t t-if="stav.obrazovka === 'stitky'">
+                <div class="hha-filtr">
+                    <span class="hha-pocet"><t t-esc="stav.data.length"/> štítků</span>
+                    <button class="hha-tlacitko hha-tlacitko--svetly"
+                            t-on-click="pridejStitek">Nový štítek</button>
+                </div>
+                <table class="hha-tabulka">
+                    <thead>
+                        <tr>
+                            <th>Štítek</th>
+                            <th>Zpráv</th>
+                            <th>Odesílá se</th>
+                            <th>Používají ho fáze</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="stav.data" t-as="s" t-key="s.id">
+                            <tr t-on-click="() => this.otevriStitek(s.id)">
+                                <td class="hha-tabulka__jmeno" t-esc="s.name"/>
+                                <td t-esc="s.zprav"/>
+                                <td>
+                                    <span t-esc="s.zapnutych"/>
+                                    <span class="hha-tichy" t-if="s.zprav !== s.zapnutych">
+                                        (<t t-esc="s.zprav - s.zapnutych"/> vypnuto)
+                                    </span>
+                                </td>
+                                <td>
+                                    <t t-foreach="s.sloupce" t-as="f" t-key="f_index">
+                                        <span class="hha-faze" t-esc="f"/>
+                                    </t>
+                                    <span class="hha-tichy" t-if="!s.sloupce.length">žádná</span>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr t-if="!stav.data.length">
+                            <td colspan="4" class="hha-prazdno">Zatím žádné štítky.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+
             <!-- ===== STATISTIKY ===== -->
-            <t t-if="stav.zalozka === 'statistiky'">
+            <t t-if="stav.obrazovka === 'statistiky'">
                 <div class="hha-mrizka">
 
                     <section class="hha-blok">
