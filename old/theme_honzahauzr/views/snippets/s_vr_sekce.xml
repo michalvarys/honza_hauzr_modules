@@ -146,28 +146,11 @@
 <section class="s_vr_newsletter newsletter">
       <div class="wrap newsletter-row">
         <div><div class="eyebrow">Poznámky z vlastní režie</div><h3>Jednou za čas konkrétní myšlenka. Žádný motivační spam.</h3></div>
-        <form class="formline s_website_form" action="/website/form/" method="post"
-              enctype="multipart/form-data" data-model_name="crm.lead"
-              data-success-mode="message">
-          <div class="s_website_form_rows">
-              <div class="s_website_form_field s_website_form_dnone">
-                  <input type="hidden" class="s_website_form_input" name="name" value="Newsletter — Vlastní režie"/>
-                  <input type="hidden" name="hh_zdroj" value="newsletter"/>
-                  <!-- Ze ktereho webu clovek prisel. Odber vede z obou domen
-                       do jedne schranky, takze bez tohohle pole by se
-                       odberatele nerozlisili. Hodnotu nese samotny web. -->
-                  <input type="hidden" name="hh_web" t-att-value="website.hh_kod"/>
-              </div>
-              <div class="s_website_form_field s_website_form_model_required" data-type="email">
-                  <input class="s_website_form_input" type="email" name="email_from"
-                         required="1" aria-label="E-mail" placeholder="Tvůj e-mail"/>
-              </div>
-              <div class="s_website_form_submit">
-                  <button type="button" class="s_website_form_send">Chci odebírat →</button>
-                  <span id="s_website_form_result"/>
-              </div>
-          </div>
-        </form>
+        <!-- Formular na odber je na webu jen jeden, na hlavni strance.
+             Druhy by znamenal udrzovat tentyz text na dvou mistech.
+             Adresa se bere ze stejneho parametru jako cil loga, takze
+             se pri spusteni na ostro prepisuje na jednom miste. -->
+        <a class="btn btn-dark" t-att-href="(env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/').rstrip('/') + '/#newsletter'">Chci odebírat <span class="arrow">→</span></a>
       </div>
     </section>
 </template>

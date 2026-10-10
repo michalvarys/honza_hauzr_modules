@@ -2,6 +2,7 @@
 import logging
 from datetime import timedelta
 
+from odoo.http import request
 from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
@@ -33,6 +34,19 @@ class CrmLead(models.Model):
         'pdf': 'honzahauzr_crm.tag_pdf',
         'poptavka': 'honzahauzr_crm.tag_poptavka',
         'rezervace': 'honzahauzr_crm.tag_rezervace',
+    }
+
+    # Klic zdroje -> XML id seznamu adres v Email Marketingu.
+    # Prihlaska nepada jen do nastenky, ale i sem: odtud se pak posila
+    # hromadna zprava, aniz by se adresy musely vypisovat rucne nebo
+    # exportovat z CRM.
+    HH_SEZNAMY = {
+        'newsletter': 'honzahauzr_crm.seznam_newsletter',
+        'vyzva': 'honzahauzr_crm.seznam_vyzva',
+        'hovor': 'honzahauzr_crm.seznam_hovor',
+        'rezervace': 'honzahauzr_crm.seznam_rezervace',
+        'pdf': 'honzahauzr_crm.seznam_pdf',
+        'poptavka': 'honzahauzr_crm.seznam_poptavka',
     }
 
     # Zkratka webu, ktera se pripina k nazvu stitku. Odber novinek
@@ -184,12 +198,16 @@ class CrmLead(models.Model):
         # Clovek uz kartu ma. Kdyz se ted ozval z druhe domeny,
         # pribude dalsi stitek vedle toho puvodniho - at je videt,
         # odkud vsude prisel.
-        web = hodnoty.get('hh_web') or self.hh_web
+        # Zamerne se nebere self.hh_web: ten rika, odkud clovek prisel
+        # poprve. Tenhle krok udelal tam, kde je prave ted.
+        web = hodnoty.get('hh_web') or self._hh_web_ze_stranky()
         stitek = self._hh_stitek_pro(zdroj, web)
         if stitek and stitek not in self.tag_ids:
             zapis['tag_ids'] = [(4, stitek.id)]
         if not self.hh_web and hodnoty.get('hh_web'):
             zapis['hh_web'] = hodnoty['hh_web']
+
+        self._hh_zaradit_do_seznamu(zdroj)
 
         # Chybejici udaje se doplni, vyplnene se neprepisuji - to, co
         # clovek napsal poprve, je stejne dobre jako to nove.
@@ -267,11 +285,14 @@ class CrmLead(models.Model):
         if not zdroj:
             return
 
-        stitek = self._hh_stitek_pro(zdroj, self.hh_web)
+        web = self.hh_web or self._hh_web_ze_stranky()
+        stitek = self._hh_stitek_pro(zdroj, web)
         if not stitek:
             return
 
         hodnoty = {}
+        if web and not self.hh_web:
+            hodnoty['hh_web'] = web
         # Kdyz zdroj prisel jen z nazvu, dopise se i do pole, aby se
         # priste uz nehadal a dal se podle nej filtrovat.
         if not self.hh_zdroj:
@@ -280,6 +301,69 @@ class CrmLead(models.Model):
             hodnoty['tag_ids'] = [(4, stitek.id)]
         if hodnoty:
             self.write(hodnoty)
+
+        self._hh_zaradit_do_seznamu(zdroj)
+
+    def _hh_zaradit_do_seznamu(self, zdroj):
+        """Prida adresu do seznamu v Email Marketingu.
+
+        Kontakt je jeden na adresu, at se clovek prihlasil kamkoliv -
+        jen se mu pribaluji dalsi seznamy. Odhlaseni a blacklist si
+        Email Marketing hlida sam, tohle do nich nesaha.
+        """
+        self.ensure_one()
+        try:
+            seznam = self.env.ref(self.HH_SEZNAMY.get(zdroj or '', ''),
+                                  raise_if_not_found=False)
+            adresa = (self.email_from or '').strip()
+            if not seznam or not adresa:
+                return
+
+            Kontakt = self.env['mailing.contact'].sudo()
+            kontakt = Kontakt.search([('email', '=ilike', adresa)], limit=1)
+            if not kontakt:
+                kontakt = Kontakt.create({
+                    'name': self.contact_name or adresa,
+                    'email': adresa,
+                    'list_ids': [(4, seznam.id)],
+                })
+                return
+
+            # Jmeno se doplni, az kdyz ho clovek nekde vyplnil -
+            # u odberu novinek formular jmeno nema a prepsat uz znamy
+            # nazev adresou by byl krok zpatky.
+            if self.contact_name and kontakt.name != self.contact_name:
+                if not kontakt.name or kontakt.name == adresa:
+                    kontakt.name = self.contact_name
+
+            if seznam not in kontakt.list_ids:
+                kontakt.list_ids = [(4, seznam.id)]
+        except Exception:
+            # Zarazeni do seznamu nesmi nikdy shodit zalozeni
+            # prilezitosti - ta je dulezitejsi.
+            _logger.warning(
+                'Honza Hauzr CRM: adresu %s se nepodarilo zaradit do '
+                'seznamu (%s).', self.email_from, zdroj, exc_info=True)
+
+    @api.model
+    def _hh_web_ze_stranky(self):
+        """Web, na kterem clovek prave ted formular odeslal.
+
+        Bere se z pozadavku, ne z karty. Kdo uz je v CRM z newsletteru
+        od Honzy Hauzra a pak se prihlasi do vyzvy na Vlastni rezii,
+        ma u teto prihlasky dostat VR - rozhoduje misto, kde se
+        prihlasil, ne historie karty.
+
+        Mimo pozadavek (nocni ukol, rucne zalozena karta) vraci
+        prazdno, aby se web nehadal.
+        """
+        try:
+            if not request:
+                return False
+            web = getattr(request, 'website', None)
+            return web.hh_kod if web else False
+        except Exception:
+            return False
 
     @api.model
     def _hh_stitek_pro(self, zdroj, web):

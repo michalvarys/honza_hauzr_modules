@@ -149,10 +149,25 @@ class CrmLeadVyzva(models.Model):
         for lead in self:
             lead.hh_vyzva_odkaz = lead._hh_vyzva_odkaz()
 
+    def _hh_zaklad_vyzvy(self):
+        """Adresa webu, na kterem vyzva bydli.
+
+        Weby jsou dva v jedne databazi a vyzva patri Vlastni rezii.
+        web.base.url mi ale miri na web Honzy Hauzra, takze odsud by
+        chodily osobni odkazy na cizi domenu. Bere se proto domena
+        toho webu, kde vyzva doopravdy je; kdyz zadny takovy neni,
+        zustava zalozni web.base.url.
+        """
+        web = self.env['website'].sudo().search(
+            [('hh_kod', '=', 'vlastni_rezie')], limit=1)
+        if web and web.domain:
+            return web.domain.strip().rstrip('/')
+        return self.env['ir.config_parameter'].sudo().get_param(
+            'web.base.url', '').rstrip('/')
+
     def _hh_vyzva_odkaz(self):
         self.ensure_one()
-        zaklad = self.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url', '').rstrip('/')
+        zaklad = self._hh_zaklad_vyzvy()
         if not self.hh_vyzva_klic:
             return '%s/zpet-do-zivota/vyzva' % zaklad
         return '%s/zpet-do-zivota/vyzva?k=%s' % (zaklad, self.hh_vyzva_klic)

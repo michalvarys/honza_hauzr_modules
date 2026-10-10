@@ -49,7 +49,7 @@
                             vlastní pravidla a udělat konkrétní další krok.
                         </p>
                         <div class="hhn-hero__action" data-anim="fade-up" data-delay="360">
-                            <a t-att-href="request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                            <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
                                 Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="hhn-split__action" data-anim="fade-up" data-delay="400">
-                                <a t-att-href="request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                                <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
                                     Začni zde zdarma
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                                 </a>
@@ -209,7 +209,7 @@
                     <!-- Tlacitko pod odstavcem, ne mezi fotkami. Mezi nimi
                          prekryvalo obe a pusobilo jako chyba. -->
                     <div class="hhn-center-action o_snippet_drop_in_only">
-                        <a t-att-href="request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta" data-anim="fade-in" data-delay="200">
+                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta" data-anim="fade-in" data-delay="200">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                     <div class="hhn-center-action" data-anim="fade-up" data-delay="420">
-                        <a t-att-href="request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -336,7 +336,7 @@
                         </div>
                     </div>
                     <div class="hhn-challenge__action" data-anim="fade-up" data-delay="420">
-                        <a t-att-href="request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
+                        <a t-att-href="env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_vyzvy') or '/zpet-do-zivota'" class="hhn-cta">
                             Začni zde zdarma
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
                         </a>
@@ -369,12 +369,6 @@
                               data-success-mode="message">
                             <input type="hidden" name="name" value="Newsletter z webu honzahauzr.cz"/>
                             <input type="hidden" name="hh_zdroj" value="newsletter"/>
-                            <!-- Ze ktereho webu clovek prisel. Odber vede z obou domen do
-                                 jedne schranky, takze bez tohohle pole se odberatele nerozlisi.
-                                 Hodnotu nese samotny web, ne adresa - stranka vi, na kterem
-                                 z nich prave bezi. -->
-                            <input type="hidden" name="hh_web"
-                               t-att-value="website.hh_kod"/>
                             <div class="s_website_form_field s_website_form_required">
                                 <label class="col-form-label s_website_form_label hh-sr-only" for="hhn_news_email">E-mail</label>
                                 <input type="email" id="hhn_news_email" class="form-control s_website_form_input hh-news__input"

@@ -15,7 +15,7 @@ Záměrně je to modul, ne pravidlo v databázi - nastavení v databázi by se
 muselo po nasazení na server dělat znovu, kód se nasadí sám.
 """,
     'category': 'Sales/CRM',
-    'version': '18.0.1.3.0',
+    'version': '18.0.1.5.0',
     'author': 'Michal Varys',
     'license': 'LGPL-3',
     'depends': [
@@ -28,6 +28,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
     'data': [
         'security/ir.model.access.csv',
         'data/crm_tag_data.xml',
+        'data/mailing_list_data.xml',
         'data/website_form_data.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',

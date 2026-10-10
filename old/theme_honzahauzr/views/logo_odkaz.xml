@@ -25,7 +25,7 @@
 <template id="hh_logo_odkaz" inherit_id="website.placeholder_header_brand"
           name="Odkaz loga v liště" priority="99">
     <xpath expr="//a[@data-name='Navbar Logo']" position="attributes">
-        <attribute name="t-att-href">request.env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/'</attribute>
+        <attribute name="t-att-href">env['ir.config_parameter'].sudo().get_param('theme_honzahauzr.odkaz_loga') or '/'</attribute>
     </xpath>
 </template>
 

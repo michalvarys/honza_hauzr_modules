@@ -41,6 +41,15 @@
     min-height: var(--hh-lista);
 }
 
+/* Lista ma pevnou vysku, ale sama je blokova - svisle vystredeni se
+   na ni neprojevi a vnitrni radek zustal sedet nahore. Logo i odkazy
+   pak byly o dvanact pixelu nad stredem listy. Radek proto dostava
+   celou vysku, kterou lista nabizi, a sve prvky uz vystredi sam. */
+#wrapwrap > header#top .navbar > .o_main_nav {
+    min-height: calc(var(--hh-lista) - 20px);
+    align-items: center;
+}
+
 /* --- mizení při rolování ------------------------------------------ */
 
 /* Posouvá se o vlastní výšku, ne o pevné číslo - lišty se liší

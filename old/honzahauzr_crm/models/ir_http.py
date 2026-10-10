@@ -223,14 +223,18 @@ class IrHttp(models.AbstractModel):
         prepinac zustal v obsahu i potom, co ho nekdo vypne.
 
         Zobrazuje se jen pri zapnutem systemovem parametru
-        honzahauzr_crm.nahled_vyzvy. Na ostrem webu parametr nebude,
-        takze stranka zustane bez nej.
+        honzahauzr_crm.nahled_vyzvy, a i tehdy jen v ladicim rezimu
+        (?debug=1 v adrese). Bez nej je to pro navstevnika jen
+        nepochopitelny box v rohu - a zustaval by videt i na ostrem
+        webu, kdyby nekdo zapomnel parametr smazat.
         """
         if not request or not response:
             return
         if getattr(response, 'direct_passthrough', False):
             return
         if 'html' not in (response.headers.get('Content-Type') or ''):
+            return
+        if not cls._hh_ladici_rezim():
             return
 
         data = getattr(response, 'data', None)
@@ -257,6 +261,18 @@ class IrHttp(models.AbstractModel):
         telo.append(html.fragment_fromstring(cls._hh_prepinac_html(volba)))
         response.data = html.tostring(
             strom, encoding='utf-8', doctype='<!DOCTYPE html>')
+
+    @classmethod
+    def _hh_ladici_rezim(cls):
+        """Bezi stranka v ladicim rezimu?
+
+        Odoo si volbu z ?debug= pamatuje v relaci, takze se nemusi
+        psat do kazde adresy znovu. Vypne se pres ?debug=0.
+        """
+        try:
+            return bool(request.session.debug)
+        except Exception:
+            return False
 
     @classmethod
     def _hh_prepinac_html(cls, volba):
