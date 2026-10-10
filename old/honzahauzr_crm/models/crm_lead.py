@@ -657,6 +657,12 @@ class CrmLead(models.Model):
                 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
+            # Obrazky a odkazy se v editoru vkladaji relativne
+            # (/theme_honzahauzr/...). V e-mailu by takova adresa nikam
+            # nevedla, posta nema vuci cemu ji doplnit. Odoo na to ma
+            # _replace_local_links, ktery pred ne doplni adresu webu.
+            telo = sablona._replace_local_links(
+                telo, base_url=self._hh_zaklad_vyzvy())
 
             posta = self.env['mail.mail'].sudo().create({
                 'subject': predmet,
