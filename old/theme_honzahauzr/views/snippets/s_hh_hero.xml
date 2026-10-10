@@ -5,28 +5,30 @@
      Stranka si svoje sekce drzi vlastni (inline), tenhle snippet slouzi
      k pridavani dalsich takovych sekci v Odoo editoru. -->
 <template id="s_hh_hero" name="HH Úvodní obrazovka">
-    <section data-snippet="s_hh_hero" data-name="HH Úvodní obrazovka" class="hh-hero o_cc o_colored_level oe_img_bg o_bg_img_center" id="hero"
-             style="background-image: url('/theme_honzahauzr/static/src/img/hero-balon.webp'); background-size: cover; background-position: center;">
-        <div class="hh-hero__bg"/>
-        <div class="container">
-            <div class="hh-hero__content">
-                <p class="hh-hero__tagline" data-anim="fade-up">
-                    Osobní rozvoj &#8226; Koučink &#8226; Mentoring
-                </p>
-                <h1 data-anim="fade-up" data-delay="150">
-                    Začni žít život,<br/>který <em>stojí za to</em>
-                </h1>
-                <p class="hh-hero__sub" data-anim="fade-up" data-delay="300">
-                    Pomáhám lidem, kteří fungují na autopilotu, vrátit si směr,
-                    hranice a respekt k sobě.
-                </p>
-                <div class="hh-hero__ctas" data-anim="fade-up" data-delay="450">
-                    <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Domluvit úvodní hovor</a>
-                    <a href="#o-mne" class="hh-btn hh-btn--ghost">Můj příběh</a>
+<div class="hh-blok hh-landing" data-name="blok">
+        <section data-snippet="s_hh_hero" data-name="HH Úvodní obrazovka" class="hh-hero o_cc o_colored_level oe_img_bg o_bg_img_center" id="hero"
+                 style="background-image: url('/theme_honzahauzr/static/src/img/hero-balon.webp'); background-size: cover; background-position: center;">
+            <div class="hh-hero__bg"/>
+            <div class="container">
+                <div class="hh-hero__content">
+                    <p class="hh-hero__tagline" data-anim="fade-up">
+                        Osobní rozvoj &#8226; Koučink &#8226; Mentoring
+                    </p>
+                    <h1 data-anim="fade-up" data-delay="150">
+                        Začni žít život,<br/>který <em>stojí za to</em>
+                    </h1>
+                    <p class="hh-hero__sub" data-anim="fade-up" data-delay="300">
+                        Pomáhám lidem, kteří fungují na autopilotu, vrátit si směr,
+                        hranice a respekt k sobě.
+                    </p>
+                    <div class="hh-hero__ctas" data-anim="fade-up" data-delay="450">
+                        <a href="#kontakt" class="hh-btn hh-btn--primary hh-btn--large">Domluvit úvodní hovor</a>
+                        <a href="#o-mne" class="hh-btn hh-btn--ghost">Můj příběh</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+</div>
 </template>
 
 </odoo>

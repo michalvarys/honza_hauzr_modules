@@ -27,7 +27,8 @@
 
 /* Promenne sedi na <body>, ne na #wrap - hlavicku vykresluje
    Odoo mimo nej a tlacitko vyzvy v ni je barvu taky potrebuje. */
-body:has(#wrap.hh-landing.hhn) {
+body:has(#wrap.hh-landing.hhn) ,
+body:has(.hh-blok.hh-landing.hhn) {
     --f-modra: #00c6ff;
     /* Text na tlacitku. Na svetle tyrkysove je citelny jen tmavy -
        bила by se na ni ztratila. */
@@ -39,7 +40,8 @@ body:has(#wrap.hh-landing.hhn) {
    Modra cast byla patkova kurziva, ktera vedle tucneho
    bezpatkoveho nadpisu pusobila jako cizi prvek. Text, velikost
    i umisteni zustavaji - meni se jen rez a barva. */
-#wrap.hh-landing.hhn .hhn-hero h1 em {
+#wrap.hh-landing.hhn .hhn-hero h1 em ,
+.hh-blok.hh-landing.hhn .hhn-hero h1 em {
     font-family: inherit;
     font-style: normal;
     font-weight: inherit;
@@ -61,15 +63,20 @@ body:has(#wrap.hh-landing.hhn) {
 
    Texty se nemeni, jen se jinak zalomi. */
 @media (min-width: 992px) {
-    #wrap.hh-landing.hhn .hhn-h2 br {
+    #wrap.hh-landing.hhn .hhn-h2 br ,
+    .hh-blok.hh-landing.hhn .hhn-h2 br {
         display: none;
     }
 
-    #wrap.hh-landing.hhn .hhn-head-center {
+    #wrap.hh-landing.hhn .hhn-head-center ,
+
+    .hh-blok.hh-landing.hhn .hhn-head-center {
         max-width: 1100px;
     }
 
-    #wrap.hh-landing.hhn .hhn-story__text p {
+    #wrap.hh-landing.hhn .hhn-story__text p ,
+
+    .hh-blok.hh-landing.hhn .hhn-story__text p {
         max-width: 900px;
     }
 }
@@ -77,8 +84,11 @@ body:has(#wrap.hh-landing.hhn) {
 /* ===== SJEDNOCENA MODRA =====
    Zvyraznena slova v nadpisech a drobne modre nadpisky. */
 #wrap.hh-landing.hhn .hhn-accent,
+.hh-blok.hh-landing.hhn .hhn-accent,
 #wrap.hh-landing.hhn .hhn-eyebrow--accent,
-#wrap.hh-landing.hhn .hhn-eyebrow--sand {
+.hh-blok.hh-landing.hhn .hhn-eyebrow--accent,
+#wrap.hh-landing.hhn .hhn-eyebrow--sand ,
+.hh-blok.hh-landing.hhn .hhn-eyebrow--sand {
     color: var(--f-modra);
 }
 
@@ -86,7 +96,9 @@ body:has(#wrap.hh-landing.hhn) {
    Plna modra bez prechodu, tmavy text, mirne zaobleni, zadna
    zare. */
 #wrap.hh-landing.hhn .hhn-cta,
-#wrap.hh-landing.hhn .hh-btn {
+.hh-blok.hh-landing.hhn .hhn-cta,
+#wrap.hh-landing.hhn .hh-btn ,
+.hh-blok.hh-landing.hhn .hh-btn {
     border: 0;
     /* Hranata, ne jen mene zaoblena - v mockupu maji tlacitka
        ostre rohy. Zaobleni se zmensuje u fotek a kontejneru,
@@ -100,8 +112,12 @@ body:has(#wrap.hh-landing.hhn) {
 }
 
 #wrap.hh-landing.hhn .hhn-cta:hover,
+
+.hh-blok.hh-landing.hhn .hhn-cta:hover,
 #wrap.hh-landing.hhn .hhn-cta:focus-visible,
-#wrap.hh-landing.hhn .hh-btn:hover {
+.hh-blok.hh-landing.hhn .hhn-cta:focus-visible,
+#wrap.hh-landing.hhn .hh-btn:hover ,
+.hh-blok.hh-landing.hhn .hh-btn:hover {
     /* Jen o neco tmavsi odstin tehoz, zadna zmena barvy ani zare. */
     background: #00b0e4;
     color: var(--f-na-modre);
@@ -110,7 +126,8 @@ body:has(#wrap.hh-landing.hhn) {
 }
 
 /* Sipka zustava, ale bez kulate bubliny kolem sebe. */
-#wrap.hh-landing.hhn .hhn-cta svg {
+#wrap.hh-landing.hhn .hhn-cta svg ,
+.hh-blok.hh-landing.hhn .hhn-cta svg {
     padding: 0;
     border-radius: 0;
     background: none;
@@ -118,7 +135,9 @@ body:has(#wrap.hh-landing.hhn) {
     height: 15px;
 }
 
-#wrap.hh-landing.hhn .hhn-cta:hover svg {
+#wrap.hh-landing.hhn .hhn-cta:hover svg ,
+
+.hh-blok.hh-landing.hhn .hhn-cta:hover svg {
     background: none;
 }
 
@@ -133,12 +152,15 @@ body:has(#wrap.hh-landing.hhn) {
 
    Pres :has(), protoze hlavicka je spolecna pro cely web - zmena
    se tak tyka jen stranky, ktera uvnitr ma nas #wrap. */
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu {
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu ,
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top #top_menu {
     flex: 1 1 auto;
     width: 100%;
 }
 
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child ,
+
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
     margin-left: auto;
 }
 
@@ -159,7 +181,8 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
    Pod 992 px se nic z tohohle neuplatni, tam je misto menu
    hamburger. */
 @media (min-width: 992px) {
-    body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
+    body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child ,
+    body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child {
         transform: translateX(-14.2vw);
     }
 }
@@ -174,7 +197,9 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child 
    psane jen pres id se do hamburgeru vubec nedostane a zustane tam
    stary vzhled s prechodem a kulatymi rohy. */
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link,
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link {
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link ,
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link {
     border-radius: 0;
     background: var(--f-modra);
     background-image: none;
@@ -184,7 +209,10 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
 }
 
 body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link:hover,
-body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link:hover {
+
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top #top_menu > li:last-child > .nav-link:hover,
+body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link:hover ,
+body:has(.hh-blok.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child > .nav-link:hover {
     background: #00b0e4;
     color: var(--f-na-modre) !important;
     filter: none;
@@ -195,18 +223,26 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
    Kartlicky se otevrou: zadne ramecky, zadna vypln, zadne ikony.
    Poradi nese velka modra cislice, kterou generuje CSS. */
 #wrap.hh-landing.hhn .hhn-point__icon,
-#wrap.hh-landing.hhn .hhn-pillar__icon {
+.hh-blok.hh-landing.hhn .hhn-point__icon,
+#wrap.hh-landing.hhn .hhn-pillar__icon ,
+.hh-blok.hh-landing.hhn .hhn-pillar__icon {
     display: none;
 }
 
 #wrap.hh-landing.hhn .hhn-points,
-#wrap.hh-landing.hhn .hhn-pillars {
+
+.hh-blok.hh-landing.hhn .hhn-points,
+#wrap.hh-landing.hhn .hhn-pillars ,
+.hh-blok.hh-landing.hhn .hhn-pillars {
     counter-reset: polozka;
     gap: 0;
 }
 
 #wrap.hh-landing.hhn .hhn-point,
-#wrap.hh-landing.hhn .hhn-pillar {
+
+.hh-blok.hh-landing.hhn .hhn-point,
+#wrap.hh-landing.hhn .hhn-pillar ,
+.hh-blok.hh-landing.hhn .hhn-pillar {
     border: 0;
     border-radius: 0;
     background: none;
@@ -215,14 +251,20 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
 }
 
 #wrap.hh-landing.hhn .hhn-point:hover,
-#wrap.hh-landing.hhn .hhn-pillar:hover {
+
+.hh-blok.hh-landing.hhn .hhn-point:hover,
+#wrap.hh-landing.hhn .hhn-pillar:hover ,
+.hh-blok.hh-landing.hhn .hhn-pillar:hover {
     background: none;
     transform: none;
     box-shadow: none;
 }
 
 #wrap.hh-landing.hhn .hhn-point::before,
-#wrap.hh-landing.hhn .hhn-pillar::before {
+
+.hh-blok.hh-landing.hhn .hhn-point::before,
+#wrap.hh-landing.hhn .hhn-pillar::before ,
+.hh-blok.hh-landing.hhn .hhn-pillar::before {
     counter-increment: polozka;
     /* decimal-leading-zero dela 01, 02, 03, 04 */
     content: counter(polozka, decimal-leading-zero);
@@ -235,12 +277,15 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
 /* ----- 2. AUTOPILOT / ODKLADANI / HRANICE / SMER -----
    Mrizka 2x2 jako v mockupu. Cislo a nazev na jednom radku,
    popis pod nimi; mezi polickami jemne linky misto ramecku. */
-#wrap.hh-landing.hhn .hhn-points {
+#wrap.hh-landing.hhn .hhn-points ,
+.hh-blok.hh-landing.hhn .hhn-points {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-#wrap.hh-landing.hhn .hhn-point {
+#wrap.hh-landing.hhn .hhn-point ,
+
+.hh-blok.hh-landing.hhn .hhn-point {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: baseline;
@@ -253,25 +298,34 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
 
 /* Vnejsi hrany mrizky zustavaji bez linek, aby to nebyl ramecek
    dokola, ale jen deleni mezi policky. */
-#wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2) {
+#wrap.hh-landing.hhn .hhn-point:nth-child(-n + 2) ,
+.hh-blok.hh-landing.hhn .hhn-point:nth-child(-n + 2) {
     border-top: 0;
     padding-top: 0;
 }
 
-#wrap.hh-landing.hhn .hhn-point:nth-child(odd) {
+#wrap.hh-landing.hhn .hhn-point:nth-child(odd) ,
+
+.hh-blok.hh-landing.hhn .hhn-point:nth-child(odd) {
     border-left: 0;
 }
 
-#wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+#wrap.hh-landing.hhn .hhn-point:nth-child(even) ,
+
+.hh-blok.hh-landing.hhn .hhn-point:nth-child(even) {
     padding-left: 24px;
     padding-right: 0;
 }
 
-#wrap.hh-landing.hhn .hhn-point::before {
+#wrap.hh-landing.hhn .hhn-point::before ,
+
+.hh-blok.hh-landing.hhn .hhn-point::before {
     font-size: 1.6rem;
 }
 
-#wrap.hh-landing.hhn .hhn-point h3 {
+#wrap.hh-landing.hhn .hhn-point h3 ,
+
+.hh-blok.hh-landing.hhn .hhn-point h3 {
     grid-column: 2;
     margin: 0;
     color: #fff;
@@ -281,7 +335,9 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
     text-transform: uppercase;
 }
 
-#wrap.hh-landing.hhn .hhn-point p {
+#wrap.hh-landing.hhn .hhn-point p ,
+
+.hh-blok.hh-landing.hhn .hhn-point p {
     grid-column: 2;
     margin: 0;
     color: var(--hh-text-light);
@@ -291,34 +347,45 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
 /* ----- 3. JAK PRACUJI -----
    Ctyri sloupce oddelene jemnymi svislymi linkami, cislo nad
    nazvem. */
-#wrap.hh-landing.hhn .hhn-pillars {
+#wrap.hh-landing.hhn .hhn-pillars ,
+.hh-blok.hh-landing.hhn .hhn-pillars {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: start;
 }
 
-#wrap.hh-landing.hhn .hhn-pillar {
+#wrap.hh-landing.hhn .hhn-pillar ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar {
     display: block;
     padding: 0 24px;
     border-left: 1px solid var(--f-linka);
 }
 
-#wrap.hh-landing.hhn .hhn-pillar:first-child {
+#wrap.hh-landing.hhn .hhn-pillar:first-child ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar:first-child {
     border-left: 0;
     padding-left: 0;
 }
 
-#wrap.hh-landing.hhn .hhn-pillar:last-child {
+#wrap.hh-landing.hhn .hhn-pillar:last-child ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar:last-child {
     padding-right: 0;
 }
 
-#wrap.hh-landing.hhn .hhn-pillar::before {
+#wrap.hh-landing.hhn .hhn-pillar::before ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar::before {
     display: block;
     margin-bottom: 14px;
     font-size: 1.9rem;
 }
 
-#wrap.hh-landing.hhn .hhn-pillar h3 {
+#wrap.hh-landing.hhn .hhn-pillar h3 ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar h3 {
     margin: 0 0 10px;
     color: #fff;
     font-size: 1rem;
@@ -326,7 +393,9 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
     line-height: 1.35;
 }
 
-#wrap.hh-landing.hhn .hhn-pillar p {
+#wrap.hh-landing.hhn .hhn-pillar p ,
+
+.hh-blok.hh-landing.hhn .hhn-pillar p {
     margin: 0;
     color: var(--hh-text-light);
     font-size: 0.93rem;
@@ -337,14 +406,21 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
    Rozmery ani umisteni se nemeni, jen rohy prestanou byt tak
    kulate. */
 #wrap.hh-landing.hhn .hhn-split__photo,
+.hh-blok.hh-landing.hhn .hhn-split__photo,
 #wrap.hh-landing.hhn .hhn-video,
+.hh-blok.hh-landing.hhn .hhn-video,
 #wrap.hh-landing.hhn .hhn-card__photo,
+.hh-blok.hh-landing.hhn .hhn-card__photo,
 #wrap.hh-landing.hhn .hhn-foto,
-#wrap.hh-landing.hhn .hhn-gallery figure {
+.hh-blok.hh-landing.hhn .hhn-foto,
+#wrap.hh-landing.hhn .hhn-gallery figure ,
+.hh-blok.hh-landing.hhn .hhn-gallery figure {
     border-radius: 8px;
 }
 
-#wrap.hh-landing.hhn .hh-news__box {
+#wrap.hh-landing.hhn .hh-news__box ,
+
+.hh-blok.hh-landing.hhn .hh-news__box {
     border-radius: 10px;
 }
 
@@ -352,7 +428,8 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
    Misto jedne velke desky kolem vsech tri ma kazdy krok vlastni
    box. Spolecny kontejner proto ztraci podklad i ramecek - jinak
    by byla deska v desce - a zustava z nej jen mrizka. */
-#wrap.hh-landing.hhn .hhn-steps {
+#wrap.hh-landing.hhn .hhn-steps ,
+.hh-blok.hh-landing.hhn .hhn-steps {
     padding: 0;
     border: 0;
     border-radius: 0;
@@ -361,7 +438,9 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
     backdrop-filter: none;
 }
 
-#wrap.hh-landing.hhn .hhn-step {
+#wrap.hh-landing.hhn .hhn-step ,
+
+.hh-blok.hh-landing.hhn .hhn-step {
     padding: clamp(16px, 1.6vw, 22px);
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 10px;
@@ -370,50 +449,67 @@ body:has(#wrap.hh-landing.hhn) #wrapwrap > header#top .top_menu > li:last-child 
     backdrop-filter: blur(6px);
 }
 
-#wrap.hh-landing.hhn .hh-news__input {
+#wrap.hh-landing.hhn .hh-news__input ,
+
+.hh-blok.hh-landing.hhn .hh-news__input {
     border-radius: 6px;
 }
 
 /* Stitky Driv / Dnes byly pilulky. */
-#wrap.hh-landing.hhn .hhn-tag {
+#wrap.hh-landing.hhn .hhn-tag ,
+.hh-blok.hh-landing.hhn .hhn-tag {
     border-radius: 6px;
 }
 
 /* ===== UZKE OKNO =====
    Na mobilu jdou obe skupiny pod sebe pres celou sirku. */
 @media (max-width: 991px) {
-    #wrap.hh-landing.hhn .hhn-points {
+    #wrap.hh-landing.hhn .hhn-points ,
+    .hh-blok.hh-landing.hhn .hhn-points {
         grid-template-columns: 1fr;
     }
 
     #wrap.hh-landing.hhn .hhn-point,
-    #wrap.hh-landing.hhn .hhn-point:nth-child(even) {
+
+    .hh-blok.hh-landing.hhn .hhn-point,
+    #wrap.hh-landing.hhn .hhn-point:nth-child(even) ,
+    .hh-blok.hh-landing.hhn .hhn-point:nth-child(even) {
         padding: 20px 0;
         border-left: 0;
         border-top: 1px solid var(--f-linka);
     }
 
-    #wrap.hh-landing.hhn .hhn-point:first-child {
+    #wrap.hh-landing.hhn .hhn-point:first-child ,
+
+    .hh-blok.hh-landing.hhn .hhn-point:first-child {
         padding-top: 0;
         border-top: 0;
     }
 
-    #wrap.hh-landing.hhn .hhn-pillars {
+    #wrap.hh-landing.hhn .hhn-pillars ,
+
+    .hh-blok.hh-landing.hhn .hhn-pillars {
         grid-template-columns: 1fr;
     }
 
-    #wrap.hh-landing.hhn .hhn-pillar {
+    #wrap.hh-landing.hhn .hhn-pillar ,
+
+    .hh-blok.hh-landing.hhn .hhn-pillar {
         padding: 20px 0;
         border-left: 0;
         border-top: 1px solid var(--f-linka);
     }
 
-    #wrap.hh-landing.hhn .hhn-pillar:first-child {
+    #wrap.hh-landing.hhn .hhn-pillar:first-child ,
+
+    .hh-blok.hh-landing.hhn .hhn-pillar:first-child {
         padding-top: 0;
         border-top: 0;
     }
 
-    #wrap.hh-landing.hhn .hhn-pillar::before {
+    #wrap.hh-landing.hhn .hhn-pillar::before ,
+
+    .hh-blok.hh-landing.hhn .hhn-pillar::before {
         margin-bottom: 8px;
         font-size: 1.6rem;
     }

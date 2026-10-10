@@ -29,7 +29,9 @@
    prostě odroluje pryč, nemá co schovávat ani vracet. Stránka Tvůj
    tah sticky z návrhu měla, hlavní stránka Vlastní režie ne. */
 #vr-home header,
-#vr-tah nav {
+.vr-home header,
+#vr-tah nav ,
+.vr-tah nav {
     height: var(--hh-lista);
     position: sticky;
     top: 0;
@@ -63,14 +65,18 @@
    nehnula. */
 #wrapwrap > header#top.hh-lista,
 #vr-home header.hh-lista,
-#vr-tah nav.hh-lista {
+.vr-home header.hh-lista,
+#vr-tah nav.hh-lista ,
+.vr-tah nav.hh-lista {
     transition: transform .28s ease;
     will-change: transform;
 }
 
 #wrapwrap > header#top.hh-lista--pryc,
 #vr-home header.hh-lista--pryc,
-#vr-tah nav.hh-lista--pryc {
+.vr-home header.hh-lista--pryc,
+#vr-tah nav.hh-lista--pryc ,
+.vr-tah nav.hh-lista--pryc {
     transform: translateY(-100%) !important;
 }
 
@@ -79,7 +85,9 @@
 @media (prefers-reduced-motion: reduce) {
     #wrapwrap > header#top.hh-lista,
     #vr-home header.hh-lista,
-    #vr-tah nav.hh-lista {
+    .vr-home header.hh-lista,
+    #vr-tah nav.hh-lista ,
+    .vr-tah nav.hh-lista {
         transition: none;
     }
 }

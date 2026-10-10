@@ -306,6 +306,10 @@
 <template id="honzahauzr_snippet_options" name="Honza Hauzr - volby snippetů"
           inherit_id="website.snippet_options">
     <xpath expr="//div[@id='so_content_addition']" position="after">
+        <div id="hh_bloky"
+             data-selector=".hh-blok"
+             data-drop-near="section, .hh-blok"
+             data-drop-in=":not(p).oe_structure:not(.oe_structure_solo), :not(.o_mega_menu):not(p)[data-oe-type=html]"/>
         <div id="hhn_polozky"
              data-selector=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"
              data-drop-near=".hhn-point, .hhn-pillar, .hhn-step, .hhn-card, .hhn-gallery figure, .hhn-video, .hhn-center-action, .hhd-den"

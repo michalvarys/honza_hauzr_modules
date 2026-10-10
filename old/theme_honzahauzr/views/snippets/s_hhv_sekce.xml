@@ -12,534 +12,552 @@
      ================================================================ -->
 
 <template id="s_hhv_hero" name="Výzva — hlavička">
-    <section data-name="Výzva — hlavička" class="hhv-hero o_cc o_colored_level" id="uvod">
-                    <div class="container">
-                        <div class="hhv-hero__grid">
-                            <div class="hhv-hero__text">
-                                <span class="hhv-eyebrow" data-hhv-anim="up">Bezplatná 3denní online výzva pro muže</span>
-                                <h1 class="hhv-h1" data-hhv-anim="up" data-hhv-delay="80">
-                                    Z autopilota<br/>zpět do života
-                                </h1>
-                                <p class="hhv-lead" data-hhv-anim="up" data-hhv-delay="160">
-                                    Za 3 dny uvidíš, kde se ve vlastním životě zasekáváš — a uděláš
-                                    první konkrétní krok zpět k sobě.
-                                </p>
-                                <p class="hhv-body" data-hhv-anim="up" data-hhv-delay="220">
-                                    Možná tvůj život není katastrofa. Chodíš do práce. Plníš povinnosti.
-                                    Zvenku může vypadat, že vlastně funguješ. Jen někde uvnitř víš,
-                                    že některé důležité věci už dlouho odkládáš.
-                                </p>
-                                <div class="hhv-hero__action" data-hhv-anim="up" data-hhv-delay="280">
-                                    <a href="#registrace" class="hhv-cta" data-hhv-misto="hero">Chci vstoupit do výzvy zdarma</a>
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — hlavička" class="hhv-hero o_cc o_colored_level" id="uvod">
+                        <div class="container">
+                            <div class="hhv-hero__grid">
+                                <div class="hhv-hero__text">
+                                    <span class="hhv-eyebrow" data-hhv-anim="up">Bezplatná 3denní online výzva pro muže</span>
+                                    <h1 class="hhv-h1" data-hhv-anim="up" data-hhv-delay="80">
+                                        Z autopilota<br/>zpět do života
+                                    </h1>
+                                    <p class="hhv-lead" data-hhv-anim="up" data-hhv-delay="160">
+                                        Za 3 dny uvidíš, kde se ve vlastním životě zasekáváš — a uděláš
+                                        první konkrétní krok zpět k sobě.
+                                    </p>
+                                    <p class="hhv-body" data-hhv-anim="up" data-hhv-delay="220">
+                                        Možná tvůj život není katastrofa. Chodíš do práce. Plníš povinnosti.
+                                        Zvenku může vypadat, že vlastně funguješ. Jen někde uvnitř víš,
+                                        že některé důležité věci už dlouho odkládáš.
+                                    </p>
+                                    <div class="hhv-hero__action" data-hhv-anim="up" data-hhv-delay="280">
+                                        <a href="#registrace" class="hhv-cta" data-hhv-misto="hero">Chci vstoupit do výzvy zdarma</a>
+                                    </div>
+                                    <p class="hhv-micro" data-hhv-anim="up" data-hhv-delay="340">
+                                        <strong>3 dny &#8226; 3 videa &#8226; 3 konkrétní kroky</strong>
+                                        Přijde ti vždy jeden e-mail denně.
+                                    </p>
                                 </div>
-                                <p class="hhv-micro" data-hhv-anim="up" data-hhv-delay="340">
-                                    <strong>3 dny &#8226; 3 videa &#8226; 3 konkrétní kroky</strong>
-                                    Přijde ti vždy jeden e-mail denně.
-                                </p>
-                            </div>
-                            <!-- Skutecny obrazek, ne pozadi. Na pozadi se
-                                 nepredava prohlizeci prednost pri nacitani
-                                 a na uzkem displeji se spolehal na vysku,
-                                 kterou mu dal ramecek.
-
-                                 eager a fetchpriority="high" zamerne: je to
-                                 hlavni obrazek uvodni obrazovky, ma se zacit
-                                 nacitat hned, ne az na nej dojde rada. -->
-                            <div class="hhv-hero__photo">
-                                <img src="/theme_honzahauzr/static/src/img/vyzva-hero.webp"
-                                     alt="Honza Hauzr u motorky na polní cestě při západu slunce"
-                                     loading="eager" fetchpriority="high" decoding="async"/>
+                                <!-- Skutecny obrazek, ne pozadi. Na pozadi se
+                                     nepredava prohlizeci prednost pri nacitani
+                                     a na uzkem displeji se spolehal na vysku,
+                                     kterou mu dal ramecek.
+    
+                                     eager a fetchpriority="high" zamerne: je to
+                                     hlavni obrazek uvodni obrazovky, ma se zacit
+                                     nacitat hned, ne az na nej dojde rada. -->
+                                <div class="hhv-hero__photo">
+                                    <img src="/theme_honzahauzr/static/src/img/vyzva-hero.webp"
+                                         alt="Honza Hauzr u motorky na polní cestě při západu slunce"
+                                         loading="eager" fetchpriority="high" decoding="async"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+</div>
 </template>
 
 <template id="s_hhv_zastaveni" name="Výzva — zastavení">
-    <section data-name="Výzva — zastavení" class="hhv-stop o_cc o_colored_level">
-                    <div class="hhv-stop__pas">
-                        <div class="container">
-                            <div class="hhv-stop__inner">
-                                <p class="hhv-stop__intro" data-hhv-anim="up">
-                                    Možná ses přestal rozhodovat — a začal spíš pokračovat.
-                                </p>
-                                <h2 class="hhv-h2 hhv-stop__claim" data-hhv-anim="up" data-hhv-delay="120">
-                                    A pokud nic nezměníš, dalších pět let nemusí vypadat hůř.<br/>
-                                    Můžou vypadat úplně stejně.
-                                </h2>
-                                <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="200">
-                                    Možná máš rodinu, práci, závazky a spoustu důvodů nic
-                                    neměnit. Jenže i život, který není katastrofa, může být
-                                    životem, ve kterém se sám sobě postupně vzdaluješ.
-                                </p>
-                                <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="260">
-                                    Nejsi v tom sám. A tahle výzva po tobě nechce, abys
-                                    všechno zahodil nebo během tří dnů převrátil život
-                                    naruby. Jde o to zastavit se, pojmenovat, co už nechceš
-                                    dál přehlížet, a udělat první krok k tomu, abys znovu
-                                    převzal vlastní režii.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-</template>
-
-<template id="s_hhv_video" name="Výzva — video">
-    <section data-name="Výzva — video" class="hhv-video o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhn">
-                            <div class="hhn-video" data-hhn-video-mobil="" data-hhv-popis="Video" data-hhv-anim="up">
-                                <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
-                                    <div class="css_editable_mode_display"/>
-                                    <div class="media_iframe_video_size"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tri body a dve vety pod videem. Body rikaji, co vyzva
-                             neni - to je rychlejsi na precteni nez vysvetlovat,
-                             co je. Vety pod nimi pak reknou, co teda. -->
-                        <div class="hhv-nejsme" data-hhv-anim="up" data-hhv-delay="120">
-                            <ul class="hhv-nejsme__body">
-                                <li>Žádný „alfa samec“.</li>
-                                <li>Žádné vstávání ve čtyři ráno.</li>
-                                <li>Žádný vyřešený život za tři dny.</li>
-                            </ul>
-                            <p class="hhv-nejsme__text">
-                                Tohle není další dávka motivace. Je to krátký proces,
-                                ve kterém se na sebe podíváš upřímně a uděláš první
-                                konkrétní krok.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-</template>
-
-<template id="s_hhv_dny" name="Výzva — tři dny">
-    <section data-name="Výzva — tři dny" class="hhv-days o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhv-days__header">
-                            <h2 class="hhv-h2" data-hhv-anim="up">
-                                Nejen se podíváš. Uděláš první práci.
-                            </h2>
-                        </div>
-                        <div class="hhv-days__grid">
-                            <div class="hhv-day" data-hhv-anim="up">
-                                <span class="hhv-day__num">1</span>
-                                <div class="hhv-day__photo"
-                                     style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den1.webp');"/>
-                                <h3 class="hhv-day__name">Zrcadlo a pravda</h3>
-                                <p class="hhv-day__text">
-                                    Uvidíš, kde dnes stojíš, a vybereš oblast, kterou už nechceš
-                                    ignorovat. Projdeš osm oblastí života a podíváš se na větu,
-                                    kterou si o sobě v dané oblasti potvrzuješ.
-                                </p>
-                            </div>
-                            <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="110">
-                                <span class="hhv-day__num">2</span>
-                                <!-- Dvojice DŘÍV / DNES je jeden obrázek, ne dva vedle sebe:
-                                     na mobilu by se dva rozpadly pod sebe a souvislost
-                                     mezi nimi by se ztratila. -->
-                                <div class="hhv-day__photo"
-                                     style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den2.webp');"/>
-                                <h3 class="hhv-day__name">Důkaz</h3>
-                                <p class="hhv-day__text">
-                                    Najdeš ve vlastní zkušenosti důkaz, že se dokážeš změnit.
-                                    Zvolíš si malý konkrétní krok a svoje minimum pro dny, kdy
-                                    se ti nebude chtít. Začneš stavět důvěru v sebe na tom, co
-                                    skutečně uděláš.
-                                </p>
-                            </div>
-                            <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="220">
-                                <span class="hhv-day__num">3</span>
-                                <div class="hhv-day__photo"
-                                     style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den3.webp');"/>
-                                <h3 class="hhv-day__name">Tvůj tah</h3>
-                                <p class="hhv-day__text">
-                                    Pojmenuješ autopilota, který tě drží na místě, a uvidíš svůj
-                                    další krok. Až tady se přirozeně otevře možnost pokračovat dál.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="hhv-days__action" data-hhv-anim="up">
-                            <a href="#registrace" class="hhv-cta" data-hhv-misto="dny">Chci vstoupit do výzvy zdarma</a>
-                        </div>
-                    </div>
-                </section>
-</template>
-
-<template id="s_hhv_pro_tebe" name="Výzva — je to pro tebe">
-    <section data-name="Výzva — je to pro tebe" class="hhv-fit o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhv-fit__grid">
-                            <div data-hhv-anim="up">
-                                <h2 class="hhv-fit__title">Je to pro tebe, pokud&#8230;</h2>
-                                <ul class="hhv-list">
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                                        </span>
-                                        <span>Navenek funguješ, ale uvnitř víš, že takhle už nechceš pokračovat.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                                        </span>
-                                        <span>V některé důležité oblasti ztrácíš směr nebo respekt k sobě.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                                        </span>
-                                        <span>Nechceš čekat na krizi, aby ses začal hýbat.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                                        </span>
-                                        <span>Jsi ochotný podívat se i na svůj podíl — ne jen na chyby okolí.</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div data-hhv-anim="up" data-hhv-delay="120">
-                                <h2 class="hhv-fit__title">Není to pro tebe, pokud&#8230;</h2>
-                                <ul class="hhv-list hhv-list--no">
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
-                                        </span>
-                                        <span>Hledáš rychlý návod, jak máš žít.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
-                                        </span>
-                                        <span>Čekáš, až se nejdřív změní partnerka, šéf nebo okolnosti.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
-                                        </span>
-                                        <span>Nechceš nic psát ani udělat jeden konkrétní krok.</span>
-                                    </li>
-                                    <li>
-                                        <span class="hhv-list__mark">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
-                                        </span>
-                                        <span>Čekáš, že tři videa vyřeší věci, které roky odkládáš.</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-</template>
-
-<template id="s_hhv_o_mne" name="Výzva — o mně">
-    <section data-name="Výzva — o mně" class="hhv-about o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhv-about__grid">
-                            <!-- Jina fotka nez v hero, jak chce zadani. -->
-                            <div class="hhv-about__photo" data-hhv-anim="up"
-                                 style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-o-mne.webp');"
-                                 role="img" aria-label="Honza Hauzr v horách"/>
-                            <div class="hhv-about__text" data-hhv-anim="up" data-hhv-delay="120">
-                                <h2 class="hhv-h2">Proč tě tím provádím právě já</h2>
-                                <p class="hhv-body">
-                                    Jmenuji se Honza Hauzr a vím, jak snadné je ztratit
-                                    vlastní směr, i když zvenku všechno funguje.
-                                </p>
-                                <p class="hhv-body">
-                                    Dlouho jsem měl práci, výsledky i cestu, která dávala
-                                    smysl. Přesto jsem si postupně začal uvědomovat, že velká
-                                    část směru, kterým jdu, vlastně není úplně moje. Fungoval
-                                    jsem na autopilotu &#8212; v práci, ve vztazích i ve
-                                    vlastních očekáváních.
-                                </p>
-                                <p class="hhv-body">
-                                    Změna nezačala ve chvíli, kdy jsem našel dokonalý plán.
-                                    Začala ve chvíli, kdy jsem se zastavil, přestal ignorovat
-                                    to, co už dál nechci, začal si klást nepříjemné otázky,
-                                    převzal svůj podíl a začal dělat konkrétní rozhodnutí.
-                                </p>
-                                <p class="hhv-body">
-                                    Dnes pomáhám mužům, kteří chtějí žít vědoměji, klidněji
-                                    a víc podle sebe. Neřeknu ti, jak máš žít. Pomůžu ti ale
-                                    podívat se na vlastní vzorce tak, aby z uvědomění vznikl
-                                    skutečný krok &#8212; krok, který bude opravdu tvůj.
-                                </p>
-                                <div class="hhv-sign">
-                                    <p class="hhv-sign__name">Honza Hauzr</p>
-                                    <p class="hhv-sign__role">Mentor pro muže</p>
-                                    <p class="hhv-sign__brand">Vlastní režie</p>
-                                    <p class="hhv-sign__edu">
-                                        Prošel jsem koučovacími výcviky a dál se vzdělávám
-                                        v psychologii a lidském fungování.
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — zastavení" class="hhv-stop o_cc o_colored_level">
+                        <div class="hhv-stop__pas">
+                            <div class="container">
+                                <div class="hhv-stop__inner">
+                                    <p class="hhv-stop__intro" data-hhv-anim="up">
+                                        Možná ses přestal rozhodovat — a začal spíš pokračovat.
+                                    </p>
+                                    <h2 class="hhv-h2 hhv-stop__claim" data-hhv-anim="up" data-hhv-delay="120">
+                                        A pokud nic nezměníš, dalších pět let nemusí vypadat hůř.<br/>
+                                        Můžou vypadat úplně stejně.
+                                    </h2>
+                                    <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="200">
+                                        Možná máš rodinu, práci, závazky a spoustu důvodů nic
+                                        neměnit. Jenže i život, který není katastrofa, může být
+                                        životem, ve kterém se sám sobě postupně vzdaluješ.
+                                    </p>
+                                    <p class="hhv-stop__text" data-hhv-anim="up" data-hhv-delay="260">
+                                        Nejsi v tom sám. A tahle výzva po tobě nechce, abys
+                                        všechno zahodil nebo během tří dnů převrátil život
+                                        naruby. Jde o to zastavit se, pojmenovat, co už nechceš
+                                        dál přehlížet, a udělat první krok k tomu, abys znovu
+                                        převzal vlastní režii.
                                     </p>
                                 </div>
                             </div>
                         </div>
+                    </section>
+</div>
+</template>
 
-                        <!-- Vyzva k akci hned za osobnim pribehem. Tady je
-                             clovek nejblip k rozhodnuti - dokud musel scrollovat
-                             az dolu k formulari, cesta se zbytecne natahovala. -->
-                        <div class="hhv-about__action" data-hhv-anim="up">
-                            <a href="#registrace" class="hhv-cta" data-hhv-misto="pribeh">Chci vstoupit do výzvy zdarma</a>
+<template id="s_hhv_video" name="Výzva — video">
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — video" class="hhv-video o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhn">
+                                <div class="hhn-video" data-hhn-video-mobil="" data-hhv-popis="Video" data-hhv-anim="up">
+                                    <div class="media_iframe_video o_snippet_drop_in_only" data-oe-expression="//www.youtube.com/embed/AqlcXZrmMNk?rel=0&amp;autoplay=0&amp;controls=1">
+                                        <div class="css_editable_mode_display"/>
+                                        <div class="media_iframe_video_size"/>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- Tri body a dve vety pod videem. Body rikaji, co vyzva
+                                 neni - to je rychlejsi na precteni nez vysvetlovat,
+                                 co je. Vety pod nimi pak reknou, co teda. -->
+                            <div class="hhv-nejsme" data-hhv-anim="up" data-hhv-delay="120">
+                                <ul class="hhv-nejsme__body">
+                                    <li>Žádný „alfa samec“.</li>
+                                    <li>Žádné vstávání ve čtyři ráno.</li>
+                                    <li>Žádný vyřešený život za tři dny.</li>
+                                </ul>
+                                <p class="hhv-nejsme__text">
+                                    Tohle není další dávka motivace. Je to krátký proces,
+                                    ve kterém se na sebe podíváš upřímně a uděláš první
+                                    konkrétní krok.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+</div>
+</template>
+
+<template id="s_hhv_dny" name="Výzva — tři dny">
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — tři dny" class="hhv-days o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhv-days__header">
+                                <h2 class="hhv-h2" data-hhv-anim="up">
+                                    Nejen se podíváš. Uděláš první práci.
+                                </h2>
+                            </div>
+                            <div class="hhv-days__grid">
+                                <div class="hhv-day" data-hhv-anim="up">
+                                    <span class="hhv-day__num">1</span>
+                                    <div class="hhv-day__photo"
+                                         style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den1.webp');"/>
+                                    <h3 class="hhv-day__name">Zrcadlo a pravda</h3>
+                                    <p class="hhv-day__text">
+                                        Uvidíš, kde dnes stojíš, a vybereš oblast, kterou už nechceš
+                                        ignorovat. Projdeš osm oblastí života a podíváš se na větu,
+                                        kterou si o sobě v dané oblasti potvrzuješ.
+                                    </p>
+                                </div>
+                                <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="110">
+                                    <span class="hhv-day__num">2</span>
+                                    <!-- Dvojice DŘÍV / DNES je jeden obrázek, ne dva vedle sebe:
+                                         na mobilu by se dva rozpadly pod sebe a souvislost
+                                         mezi nimi by se ztratila. -->
+                                    <div class="hhv-day__photo"
+                                         style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den2.webp');"/>
+                                    <h3 class="hhv-day__name">Důkaz</h3>
+                                    <p class="hhv-day__text">
+                                        Najdeš ve vlastní zkušenosti důkaz, že se dokážeš změnit.
+                                        Zvolíš si malý konkrétní krok a svoje minimum pro dny, kdy
+                                        se ti nebude chtít. Začneš stavět důvěru v sebe na tom, co
+                                        skutečně uděláš.
+                                    </p>
+                                </div>
+                                <div class="hhv-day" data-hhv-anim="up" data-hhv-delay="220">
+                                    <span class="hhv-day__num">3</span>
+                                    <div class="hhv-day__photo"
+                                         style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-den3.webp');"/>
+                                    <h3 class="hhv-day__name">Tvůj tah</h3>
+                                    <p class="hhv-day__text">
+                                        Pojmenuješ autopilota, který tě drží na místě, a uvidíš svůj
+                                        další krok. Až tady se přirozeně otevře možnost pokračovat dál.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="hhv-days__action" data-hhv-anim="up">
+                                <a href="#registrace" class="hhv-cta" data-hhv-misto="dny">Chci vstoupit do výzvy zdarma</a>
+                            </div>
+                        </div>
+                    </section>
+</div>
+</template>
+
+<template id="s_hhv_pro_tebe" name="Výzva — je to pro tebe">
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — je to pro tebe" class="hhv-fit o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhv-fit__grid">
+                                <div data-hhv-anim="up">
+                                    <h2 class="hhv-fit__title">Je to pro tebe, pokud&#8230;</h2>
+                                    <ul class="hhv-list">
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                            </span>
+                                            <span>Navenek funguješ, ale uvnitř víš, že takhle už nechceš pokračovat.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                            </span>
+                                            <span>V některé důležité oblasti ztrácíš směr nebo respekt k sobě.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                            </span>
+                                            <span>Nechceš čekat na krizi, aby ses začal hýbat.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                            </span>
+                                            <span>Jsi ochotný podívat se i na svůj podíl — ne jen na chyby okolí.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div data-hhv-anim="up" data-hhv-delay="120">
+                                    <h2 class="hhv-fit__title">Není to pro tebe, pokud&#8230;</h2>
+                                    <ul class="hhv-list hhv-list--no">
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+                                            </span>
+                                            <span>Hledáš rychlý návod, jak máš žít.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+                                            </span>
+                                            <span>Čekáš, až se nejdřív změní partnerka, šéf nebo okolnosti.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+                                            </span>
+                                            <span>Nechceš nic psát ani udělat jeden konkrétní krok.</span>
+                                        </li>
+                                        <li>
+                                            <span class="hhv-list__mark">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+                                            </span>
+                                            <span>Čekáš, že tři videa vyřeší věci, které roky odkládáš.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+</div>
+</template>
+
+<template id="s_hhv_o_mne" name="Výzva — o mně">
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — o mně" class="hhv-about o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhv-about__grid">
+                                <!-- Jina fotka nez v hero, jak chce zadani. -->
+                                <div class="hhv-about__photo" data-hhv-anim="up"
+                                     style="background-image: url('/theme_honzahauzr/static/src/img/vyzva-o-mne.webp');"
+                                     role="img" aria-label="Honza Hauzr v horách"/>
+                                <div class="hhv-about__text" data-hhv-anim="up" data-hhv-delay="120">
+                                    <h2 class="hhv-h2">Proč tě tím provádím právě já</h2>
+                                    <p class="hhv-body">
+                                        Jmenuji se Honza Hauzr a vím, jak snadné je ztratit
+                                        vlastní směr, i když zvenku všechno funguje.
+                                    </p>
+                                    <p class="hhv-body">
+                                        Dlouho jsem měl práci, výsledky i cestu, která dávala
+                                        smysl. Přesto jsem si postupně začal uvědomovat, že velká
+                                        část směru, kterým jdu, vlastně není úplně moje. Fungoval
+                                        jsem na autopilotu &#8212; v práci, ve vztazích i ve
+                                        vlastních očekáváních.
+                                    </p>
+                                    <p class="hhv-body">
+                                        Změna nezačala ve chvíli, kdy jsem našel dokonalý plán.
+                                        Začala ve chvíli, kdy jsem se zastavil, přestal ignorovat
+                                        to, co už dál nechci, začal si klást nepříjemné otázky,
+                                        převzal svůj podíl a začal dělat konkrétní rozhodnutí.
+                                    </p>
+                                    <p class="hhv-body">
+                                        Dnes pomáhám mužům, kteří chtějí žít vědoměji, klidněji
+                                        a víc podle sebe. Neřeknu ti, jak máš žít. Pomůžu ti ale
+                                        podívat se na vlastní vzorce tak, aby z uvědomění vznikl
+                                        skutečný krok &#8212; krok, který bude opravdu tvůj.
+                                    </p>
+                                    <div class="hhv-sign">
+                                        <p class="hhv-sign__name">Honza Hauzr</p>
+                                        <p class="hhv-sign__role">Mentor pro muže</p>
+                                        <p class="hhv-sign__brand">Vlastní režie</p>
+                                        <p class="hhv-sign__edu">
+                                            Prošel jsem koučovacími výcviky a dál se vzdělávám
+                                            v psychologii a lidském fungování.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- Vyzva k akci hned za osobnim pribehem. Tady je
+                                 clovek nejblip k rozhodnuti - dokud musel scrollovat
+                                 az dolu k formulari, cesta se zbytecne natahovala. -->
+                            <div class="hhv-about__action" data-hhv-anim="up">
+                                <a href="#registrace" class="hhv-cta" data-hhv-misto="pribeh">Chci vstoupit do výzvy zdarma</a>
+                            </div>
+                        </div>
+                    </section>
+</div>
 </template>
 
 <template id="s_hhv_prubeh" name="Výzva — jak to probíhá">
-    <section data-name="Výzva — jak to probíhá" class="hhv-flow o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhv-flow__header">
-                            <h2 class="hhv-h2" data-hhv-anim="up">Přihlásíš se. A pak už jen začneš.</h2>
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — jak to probíhá" class="hhv-flow o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhv-flow__header">
+                                <h2 class="hhv-h2" data-hhv-anim="up">Přihlásíš se. A pak už jen začneš.</h2>
+                            </div>
+                            <div class="hhv-flow__grid">
+                                <div class="hhv-step" data-hhv-anim="up">
+                                    <span class="hhv-step__num">1</span>
+                                    <p class="hhv-step__text">Zadáš jméno a e-mail.</p>
+                                </div>
+                                <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="90">
+                                    <span class="hhv-step__num">2</span>
+                                    <p class="hhv-step__text">Do e-mailu ti přijde první video a první úkol.</p>
+                                </div>
+                                <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="180">
+                                    <span class="hhv-step__num">3</span>
+                                    <p class="hhv-step__text">Další dva dny vždy dostaneš navazující krok.</p>
+                                </div>
+                                <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="270">
+                                    <span class="hhv-step__num">4</span>
+                                    <p class="hhv-step__text">Po třetím dni se sám rozhodneš, jestli chceš pokračovat dál.</p>
+                                </div>
+                            </div>
+                            <p class="hhv-micro hhv-flow__note" data-hhv-anim="up">
+                                Počítej přibližně s 20–30 minutami denně. Potřebuješ jen papír,
+                                klid a ochotu být k sobě fér.
+                            </p>
                         </div>
-                        <div class="hhv-flow__grid">
-                            <div class="hhv-step" data-hhv-anim="up">
-                                <span class="hhv-step__num">1</span>
-                                <p class="hhv-step__text">Zadáš jméno a e-mail.</p>
-                            </div>
-                            <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="90">
-                                <span class="hhv-step__num">2</span>
-                                <p class="hhv-step__text">Do e-mailu ti přijde první video a první úkol.</p>
-                            </div>
-                            <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="180">
-                                <span class="hhv-step__num">3</span>
-                                <p class="hhv-step__text">Další dva dny vždy dostaneš navazující krok.</p>
-                            </div>
-                            <div class="hhv-step" data-hhv-anim="up" data-hhv-delay="270">
-                                <span class="hhv-step__num">4</span>
-                                <p class="hhv-step__text">Po třetím dni se sám rozhodneš, jestli chceš pokračovat dál.</p>
-                            </div>
-                        </div>
-                        <p class="hhv-micro hhv-flow__note" data-hhv-anim="up">
-                            Počítej přibližně s 20–30 minutami denně. Potřebuješ jen papír,
-                            klid a ochotu být k sobě fér.
-                        </p>
-                    </div>
-                </section>
+                    </section>
+</div>
 </template>
 
 <template id="s_hhv_faq" name="Výzva — časté otázky">
-    <section data-name="Výzva — časté otázky" class="hhv-faq o_cc o_colored_level">
-                    <div class="container">
-                        <div class="hhv-faq__header">
-                            <h2 class="hhv-h2" data-hhv-anim="up">Často kladené otázky</h2>
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — časté otázky" class="hhv-faq o_cc o_colored_level">
+                        <div class="container">
+                            <div class="hhv-faq__header">
+                                <h2 class="hhv-h2" data-hhv-anim="up">Často kladené otázky</h2>
+                            </div>
+                            <div class="hhv-faq__list" data-hhv-anim="up" data-hhv-delay="100">
+                                <details class="hhv-faq__item" open="open">
+                                    <summary class="hhv-faq__q">
+                                        <span>Je výzva opravdu zdarma?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ano. Registrace, všechna tři videa i navazující úkoly
+                                        jsou zdarma.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Jak a kdy se mi zpřístupní jednotlivá videa?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Všechna tři videa najdeš na jedné stránce. První se ti
+                                        zpřístupní po registraci, druhé po 24 hodinách a třetí
+                                        po 48 hodinách. Každý den ti zároveň přijde e-mail
+                                        s připomenutím, že je připravený další krok.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Musím být online v konkrétní čas?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ne. Videa i úkoly si projdeš ve chvíli, kdy ti to
+                                        vyhovuje. Doporučuji ale projít výzvu během tří
+                                        navazujících dnů, protože každý krok staví na tom
+                                        předchozím.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Jak dlouho mi výzva zabere?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Počítej přibližně s 20&#8211;30 minutami denně. Nejde jen
+                                        o sledování videa &#8212; důležitá je také chvíle, kdy se
+                                        zastavíš a uděláš konkrétní úkol.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Potřebuji něco speciálního?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ne. Stačí ti papír, propiska, chvíle klidu a ochota být
+                                        k sobě upřímný.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Co když jeden den nestihnu?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Nic se neděje. Pokračuj ve chvíli, kdy budeš mít prostor.
+                                        Největší smysl ale výzva získá, když mezi jednotlivými
+                                        kroky nevznikne příliš dlouhá pauza.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Budu muset něco veřejně sdílet?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ne. Úkoly si děláš sám pro sebe a nic nemusíš
+                                        zveřejňovat ani nikomu posílat. Záleží jen na tobě, co si
+                                        necháš pro sebe a o čem případně budeš chtít mluvit.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Musím mít velký problém nebo být v krizi?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ne. Právě naopak. Nemusíš čekat, až se něco rozpadne.
+                                        Výzva je pro muže, kteří navenek fungují, ale cítí, že
+                                        v některé důležité oblasti už příliš dlouho stojí na
+                                        místě nebo jedou na autopilota.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Je to terapie?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Ne. Výzva nenahrazuje terapii, psychologickou ani
+                                        zdravotní péči. Je určená pro člověka, který chce lépe
+                                        pochopit svoje vzorce a začít dělat vědomější rozhodnutí
+                                        v běžném životě.
+                                    </p>
+                                </details>
+                                <details class="hhv-faq__item">
+                                    <summary class="hhv-faq__q">
+                                        <span>Co bude po třetím dni?</span>
+                                        <span class="hhv-faq__chev">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </span>
+                                    </summary>
+                                    <p class="hhv-faq__a">
+                                        Na konci ti ukážu možnost pokračovat hlouběji ve vedeném
+                                        programu Tvůj tah. Pokračování je zcela dobrovolné. Můžeš
+                                        si odnést pouze to, co získáš během tří dnů, a dál už
+                                        nikam pokračovat nemusíš.
+                                    </p>
+                                </details>
+                            </div>
                         </div>
-                        <div class="hhv-faq__list" data-hhv-anim="up" data-hhv-delay="100">
-                            <details class="hhv-faq__item" open="open">
-                                <summary class="hhv-faq__q">
-                                    <span>Je výzva opravdu zdarma?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ano. Registrace, všechna tři videa i navazující úkoly
-                                    jsou zdarma.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Jak a kdy se mi zpřístupní jednotlivá videa?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Všechna tři videa najdeš na jedné stránce. První se ti
-                                    zpřístupní po registraci, druhé po 24 hodinách a třetí
-                                    po 48 hodinách. Každý den ti zároveň přijde e-mail
-                                    s připomenutím, že je připravený další krok.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Musím být online v konkrétní čas?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ne. Videa i úkoly si projdeš ve chvíli, kdy ti to
-                                    vyhovuje. Doporučuji ale projít výzvu během tří
-                                    navazujících dnů, protože každý krok staví na tom
-                                    předchozím.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Jak dlouho mi výzva zabere?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Počítej přibližně s 20&#8211;30 minutami denně. Nejde jen
-                                    o sledování videa &#8212; důležitá je také chvíle, kdy se
-                                    zastavíš a uděláš konkrétní úkol.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Potřebuji něco speciálního?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ne. Stačí ti papír, propiska, chvíle klidu a ochota být
-                                    k sobě upřímný.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Co když jeden den nestihnu?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Nic se neděje. Pokračuj ve chvíli, kdy budeš mít prostor.
-                                    Největší smysl ale výzva získá, když mezi jednotlivými
-                                    kroky nevznikne příliš dlouhá pauza.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Budu muset něco veřejně sdílet?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ne. Úkoly si děláš sám pro sebe a nic nemusíš
-                                    zveřejňovat ani nikomu posílat. Záleží jen na tobě, co si
-                                    necháš pro sebe a o čem případně budeš chtít mluvit.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Musím mít velký problém nebo být v krizi?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ne. Právě naopak. Nemusíš čekat, až se něco rozpadne.
-                                    Výzva je pro muže, kteří navenek fungují, ale cítí, že
-                                    v některé důležité oblasti už příliš dlouho stojí na
-                                    místě nebo jedou na autopilota.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Je to terapie?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Ne. Výzva nenahrazuje terapii, psychologickou ani
-                                    zdravotní péči. Je určená pro člověka, který chce lépe
-                                    pochopit svoje vzorce a začít dělat vědomější rozhodnutí
-                                    v běžném životě.
-                                </p>
-                            </details>
-                            <details class="hhv-faq__item">
-                                <summary class="hhv-faq__q">
-                                    <span>Co bude po třetím dni?</span>
-                                    <span class="hhv-faq__chev">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                                    </span>
-                                </summary>
-                                <p class="hhv-faq__a">
-                                    Na konci ti ukážu možnost pokračovat hlouběji ve vedeném
-                                    programu Tvůj tah. Pokračování je zcela dobrovolné. Můžeš
-                                    si odnést pouze to, co získáš během tří dnů, a dál už
-                                    nikam pokračovat nemusíš.
-                                </p>
-                            </details>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+</div>
 </template>
 
 <template id="s_hhv_registrace" name="Výzva — registrace">
-    <section data-name="Výzva — registrace" class="hhv-reg o_cc o_colored_level" id="registrace">
-                    <div class="container">
-                        <div class="hhv-reg__inner">
-                            <h2 class="hhv-h2" data-hhv-anim="up">Nemusíš dnes vyřešit celý svůj život.</h2>
-                            <p class="hhv-reg__sub" data-hhv-anim="up" data-hhv-delay="90">
-                                Stačí přestat nechávat další důležité rozhodnutí na autopilotu.
-                            </p>
-
-                            <!-- Formular zapisuje primo do CRM (crm.lead). Skryte pole name
-                                 odlisi prihlasky do vyzvy od ostatnich zprav z webu.
-                                 Obal s_website_form_field je povinny - Odoo kontroluje jen
-                                 vstupy uvnitr nej, bez nej by proslo i prazdne pole. -->
-                            <form class="hhv-form s_website_form"
-                                  action="/website/form/" method="post" enctype="multipart/form-data"
-                                  data-model_name="crm.lead"
-                                  data-success-mode="message">
-                                <input type="hidden" name="name" value="Výzva: Z autopilota zpět do života"/>
-                                <input type="hidden" name="hh_zdroj" value="vyzva"/>
-                                <div class="hhv-form__row">
-                                    <div class="s_website_form_field s_website_form_required hhv-form__field">
-                                        <label class="s_website_form_label hhv-sr-only" for="hhv_jmeno">Křestní jméno</label>
-                                        <input type="text" id="hhv_jmeno" name="contact_name"
-                                               class="form-control s_website_form_input"
-                                               placeholder="Křestní jméno" required="required"
-                                               autocomplete="given-name"/>
-                                    </div>
-                                    <div class="s_website_form_field s_website_form_required hhv-form__field">
-                                        <label class="s_website_form_label hhv-sr-only" for="hhv_email">E-mail</label>
-                                        <input type="email" id="hhv_email" name="email_from"
-                                               class="form-control s_website_form_input"
-                                               placeholder="E-mail" required="required"
-                                               autocomplete="email"/>
-                                    </div>
-                                </div>
-                                <!-- Poradi podle zadani: jmeno, e-mail, souhlas,
-                                     teprve pak tlacitko. Souhlas pod tlacitkem
-                                     clovek prehledl a odeslani mu spadlo na
-                                     nezaskrtnutem policku.
-
-                                     Souhlas je zamerne bez atributu name - Odoo
-                                     odesila jen pojmenovana pole a neznamy nazev
-                                     by zapis leadu shodil. Povinnost hlida
-                                     prohlizec a skript hh-vyzva.js. -->
-                                <label class="hhv-consent" for="hhv_souhlas">
-                                    <input type="checkbox" id="hhv_souhlas" required="required"/>
-                                    <span>
-                                        Souhlasím se zpracováním osobních údajů za účelem zaslání
-                                        třídenní výzvy.
-                                        <span class="hhv-err">Bez souhlasu ti výzvu nemůžu poslat.</span>
-                                    </span>
-                                </label>
-                                <button type="submit" class="hhv-cta hhv-form__send s_website_form_send" data-hhv-misto="formular">
-                                    Chci vstoupit do výzvy zdarma
-                                </button>
-                                <p class="hhv-micro">
-                                    Informace o doručení výzvy a možnosti odhlášení.
+<div class="hh-blok hhv" data-name="blok">
+        <section data-name="Výzva — registrace" class="hhv-reg o_cc o_colored_level" id="registrace">
+                        <div class="container">
+                            <div class="hhv-reg__inner">
+                                <h2 class="hhv-h2" data-hhv-anim="up">Nemusíš dnes vyřešit celý svůj život.</h2>
+                                <p class="hhv-reg__sub" data-hhv-anim="up" data-hhv-delay="90">
+                                    Stačí přestat nechávat další důležité rozhodnutí na autopilotu.
                                 </p>
-                            </form>
-
-                            <div class="s_website_form_end_message d-none hhv-done">
-                                <div class="hhv-done__icon">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+    
+                                <!-- Formular zapisuje primo do CRM (crm.lead). Skryte pole name
+                                     odlisi prihlasky do vyzvy od ostatnich zprav z webu.
+                                     Obal s_website_form_field je povinny - Odoo kontroluje jen
+                                     vstupy uvnitr nej, bez nej by proslo i prazdne pole. -->
+                                <form class="hhv-form s_website_form"
+                                      action="/website/form/" method="post" enctype="multipart/form-data"
+                                      data-model_name="crm.lead"
+                                      data-success-mode="message">
+                                    <input type="hidden" name="name" value="Výzva: Z autopilota zpět do života"/>
+                                    <input type="hidden" name="hh_zdroj" value="vyzva"/>
+                                    <div class="hhv-form__row">
+                                        <div class="s_website_form_field s_website_form_required hhv-form__field">
+                                            <label class="s_website_form_label hhv-sr-only" for="hhv_jmeno">Křestní jméno</label>
+                                            <input type="text" id="hhv_jmeno" name="contact_name"
+                                                   class="form-control s_website_form_input"
+                                                   placeholder="Křestní jméno" required="required"
+                                                   autocomplete="given-name"/>
+                                        </div>
+                                        <div class="s_website_form_field s_website_form_required hhv-form__field">
+                                            <label class="s_website_form_label hhv-sr-only" for="hhv_email">E-mail</label>
+                                            <input type="email" id="hhv_email" name="email_from"
+                                                   class="form-control s_website_form_input"
+                                                   placeholder="E-mail" required="required"
+                                                   autocomplete="email"/>
+                                        </div>
+                                    </div>
+                                    <!-- Poradi podle zadani: jmeno, e-mail, souhlas,
+                                         teprve pak tlacitko. Souhlas pod tlacitkem
+                                         clovek prehledl a odeslani mu spadlo na
+                                         nezaskrtnutem policku.
+    
+                                         Souhlas je zamerne bez atributu name - Odoo
+                                         odesila jen pojmenovana pole a neznamy nazev
+                                         by zapis leadu shodil. Povinnost hlida
+                                         prohlizec a skript hh-vyzva.js. -->
+                                    <label class="hhv-consent" for="hhv_souhlas">
+                                        <input type="checkbox" id="hhv_souhlas" required="required"/>
+                                        <span>
+                                            Souhlasím se zpracováním osobních údajů za účelem zaslání
+                                            třídenní výzvy.
+                                            <span class="hhv-err">Bez souhlasu ti výzvu nemůžu poslat.</span>
+                                        </span>
+                                    </label>
+                                    <button type="submit" class="hhv-cta hhv-form__send s_website_form_send" data-hhv-misto="formular">
+                                        Chci vstoupit do výzvy zdarma
+                                    </button>
+                                    <p class="hhv-micro">
+                                        Informace o doručení výzvy a možnosti odhlášení.
+                                    </p>
+                                </form>
+    
+                                <div class="s_website_form_end_message d-none hhv-done">
+                                    <div class="hhv-done__icon">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                    </div>
+                                    <p>
+                                        Děkujeme za zájem. Brzy se ti ozveme
+                                        na e-mail, který jsi zadal.
+                                    </p>
                                 </div>
-                                <p>
-                                    Děkujeme za zájem. Brzy se ti ozveme
-                                    na e-mail, který jsi zadal.
-                                </p>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+</div>
 </template>
 
 </odoo>

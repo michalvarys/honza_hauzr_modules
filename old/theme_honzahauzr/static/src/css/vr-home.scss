@@ -15,154 +15,290 @@
    =================================================================== */
 
 
-    #vr-home{--cream:#f4efe6;--ivory:#fbf8f2;--sand:#d8c7ae;--taupe:#918277;--graphite:#25282a;--ink:#17191a;--blue:#00c6ff;--line:rgba(37,40,42,.16);--white:#fff;font-family:Manrope,Arial,sans-serif;color:var(--graphite);background:var(--cream);line-height:1.55;overflow:clip}
-    #vr-home *{box-sizing:border-box}
-    #vr-home a{color:inherit;text-decoration:none}
-    #vr-home .wrap{width:#{"min(1180px, calc(100% - 48px))"};margin:0 auto}
-    #vr-home .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--taupe)}
-    #vr-home .display{font-size:clamp(54px,8vw,116px);line-height:.9;letter-spacing:-.065em;font-weight:500;margin:20px 0 28px;max-width:920px}
-    #vr-home h2{font-size:clamp(36px,5vw,68px);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:14px 0 24px}
-    #vr-home h3{font-size:clamp(22px,2.4vw,32px);line-height:1.16;letter-spacing:-.025em;font-weight:500;margin:0 0 13px}
-    #vr-home p{margin:0 0 20px}
-    #vr-home .lead{font-size:clamp(18px,2vw,23px);line-height:1.55;max-width:720px}
-    #vr-home .muted{color:#665e58}
-    #vr-home .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 22px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--graphite);transition:.2s ease;background:transparent}
-    #vr-home .btn:hover{transform:translateY(-2px)}
-    #vr-home .btn-dark{background:var(--graphite);color:var(--white)}
-    #vr-home .btn-blue{background:var(--blue);border-color:var(--blue);color:#071114}
-    #vr-home .btn-light{border-color:rgba(255,255,255,.62);color:var(--white)}
-    #vr-home .arrow{font-size:19px;line-height:1}
-    #vr-home header{height:84px;background:rgba(244,239,230,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;position:relative;z-index:5}
-    #vr-home .nav{display:flex;align-items:center;justify-content:space-between;gap:28px}
-    #vr-home .brand{display:flex;align-items:center;gap:13px;min-width:210px}
-    #vr-home .brand img{width:190px;height:auto;display:block}
-    #vr-home .navlinks{display:flex;align-items:center;gap:28px;font-size:13px}
-    #vr-home .navlinks a:not(.btn){padding:12px 0;border-bottom:1px solid transparent}
-    #vr-home .navlinks a:not(.btn):hover{border-color:var(--graphite)}
-    #vr-home .member{color:#6f665f}
+    #vr-home,
+
+
+    .vr-home{--cream:#f4efe6;--ivory:#fbf8f2;--sand:#d8c7ae;--taupe:#918277;--graphite:#25282a;--ink:#17191a;--blue:#00c6ff;--line:rgba(37,40,42,.16);--white:#fff;font-family:Manrope,Arial,sans-serif;color:var(--graphite);background:var(--cream);line-height:1.55;overflow:clip}
+    #vr-home *,
+    .vr-home *{box-sizing:border-box}
+    #vr-home a,
+    .vr-home a{color:inherit;text-decoration:none}
+    #vr-home .wrap,
+    .vr-home .wrap{width:#{"min(1180px, calc(100% - 48px))"};margin:0 auto}
+    #vr-home .eyebrow,
+    .vr-home .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--taupe)}
+    #vr-home .display,
+    .vr-home .display{font-size:clamp(54px,8vw,116px);line-height:.9;letter-spacing:-.065em;font-weight:500;margin:20px 0 28px;max-width:920px}
+    #vr-home h2,
+    .vr-home h2{font-size:clamp(36px,5vw,68px);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:14px 0 24px}
+    #vr-home h3,
+    .vr-home h3{font-size:clamp(22px,2.4vw,32px);line-height:1.16;letter-spacing:-.025em;font-weight:500;margin:0 0 13px}
+    #vr-home p,
+    .vr-home p{margin:0 0 20px}
+    #vr-home .lead,
+    .vr-home .lead{font-size:clamp(18px,2vw,23px);line-height:1.55;max-width:720px}
+    #vr-home .muted,
+    .vr-home .muted{color:#665e58}
+    #vr-home .btn,
+    .vr-home .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 22px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--graphite);transition:.2s ease;background:transparent}
+    #vr-home .btn:hover,
+    .vr-home .btn:hover{transform:translateY(-2px)}
+    #vr-home .btn-dark,
+    .vr-home .btn-dark{background:var(--graphite);color:var(--white)}
+    #vr-home .btn-blue,
+    .vr-home .btn-blue{background:var(--blue);border-color:var(--blue);color:#071114}
+    #vr-home .btn-light,
+    .vr-home .btn-light{border-color:rgba(255,255,255,.62);color:var(--white)}
+    #vr-home .arrow,
+    .vr-home .arrow{font-size:19px;line-height:1}
+    #vr-home header,
+    .vr-home header{height:84px;background:rgba(244,239,230,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;position:relative;z-index:5}
+    #vr-home .nav,
+    .vr-home .nav{display:flex;align-items:center;justify-content:space-between;gap:28px}
+    #vr-home .brand,
+    .vr-home .brand{display:flex;align-items:center;gap:13px;min-width:210px}
+    #vr-home .brand img,
+    .vr-home .brand img{width:190px;height:auto;display:block}
+    #vr-home .navlinks,
+    .vr-home .navlinks{display:flex;align-items:center;gap:28px;font-size:13px}
+    #vr-home .navlinks a:not(.btn),
+    .vr-home .navlinks a:not(.btn){padding:12px 0;border-bottom:1px solid transparent}
+    #vr-home .navlinks a:not(.btn):hover,
+    .vr-home .navlinks a:not(.btn):hover{border-color:var(--graphite)}
+    #vr-home .member,
+    .vr-home .member{color:#6f665f}
     /* Hamburger. Na siroke obrazovce se nezobrazuje - menu je tam
        vypsane v rade. Tri prouzky se po otevreni prelozi do krizku,
        aby bylo videt, ze dalsi klepnuti menu zavre. */
-    #vr-home .vr-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-10px;padding:0 10px;background:transparent;border:0;cursor:pointer;color:inherit}
-    #vr-home .vr-burger span{display:block;width:24px;height:2px;background:var(--graphite);transition:transform .25s ease,opacity .18s ease}
-    #vr-home header.vr-open .vr-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    #vr-home header.vr-open .vr-burger span:nth-child(2){opacity:0}
-    #vr-home header.vr-open .vr-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    #vr-home .hero{padding:70px 0 95px;position:relative}
-    #vr-home .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
-    #vr-home .hero-copy{padding-top:12px}
-    #vr-home .hero-copy .display span{color:var(--taupe)}
-    #vr-home .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
-    #vr-home .hero-note{font-size:13px;margin-top:15px;color:#756b64}
-    #vr-home .hero-visual{position:relative;min-height:650px}
-    #vr-home .hero-photo{position:absolute;inset:0 0 0 34px;background-image:linear-gradient(180deg,rgba(37,40,42,.03),rgba(73,55,41,.18)),url('/theme_honzahauzr/static/src/img/vr/vr-home-1-c7ec793c.webp');background-size:cover;background-position:center 42%;clip-path:polygon(8% 0,100% 0,100% 90%,84% 100%,0 100%,0 10%)}
-    #vr-home .hero-stamp{position:absolute;left:0;bottom:58px;background:var(--graphite);color:#fff;padding:24px 26px;width:260px;font-size:14px;letter-spacing:.02em}
-    #vr-home .hero-stamp strong{display:block;color:var(--blue);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
-    #vr-home .section{padding:105px 0;border-top:1px solid var(--line)}
-    #vr-home .problem-head{display:grid;grid-template-columns:.72fr 1.28fr;gap:80px;align-items:start}
-    #vr-home .problem-head h2{margin-top:0}
-    #vr-home .truth-lines{margin-top:72px;border-top:1px solid var(--line)}
-    #vr-home .truth-row{display:grid;grid-template-columns:100px 1fr auto;gap:22px;align-items:center;padding:29px 0;border-bottom:1px solid var(--line)}
-    #vr-home .truth-row .no{font-size:12px;letter-spacing:.18em;color:var(--taupe)}
-    #vr-home .truth-row strong{font-size:clamp(20px,2.8vw,36px);font-weight:500;letter-spacing:-.025em}
-    #vr-home .truth-row span:last-child{color:var(--taupe);font-size:26px}
-    #vr-home .question{padding:54px 0 0;margin-left:calc(100% / 3);font-size:clamp(24px,3vw,39px);line-height:1.25;letter-spacing:-.03em}
-    #vr-home .method{background:var(--ivory)}
-    #vr-home .method-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:90px;align-items:end}
-    #vr-home .method-track{display:grid;grid-template-columns:repeat(5,1fr);margin-top:70px;border-top:1px solid var(--graphite)}
-    #vr-home .method-step{padding:25px 28px 0 0;min-height:190px;position:relative;border-right:1px solid var(--line)}
-    #vr-home .method-step:last-child{border-right:0;padding-right:0}
-    #vr-home .method-step:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--graphite);top:-5px;left:0}
-    #vr-home .method-step b{display:block;font-size:12px;color:var(--taupe);letter-spacing:.14em;margin-bottom:16px}
-    #vr-home .method-step strong{display:block;font-size:20px;font-weight:500;margin-bottom:9px}
-    #vr-home .method-step p{font-size:14px;color:#6b635d}
-    #vr-home .challenge{background:var(--sand)}
-    #vr-home .challenge-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:80px;align-items:start}
-    #vr-home .challenge h2{max-width:650px}
-    #vr-home .challenge .meta{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0}
-    #vr-home .chip{font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;border:1px solid rgba(37,40,42,.45)}
-    #vr-home .days{border-top:1px solid rgba(37,40,42,.38)}
-    #vr-home .day{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid rgba(37,40,42,.38)}
-    #vr-home .day b{font-size:12px;letter-spacing:.14em;color:#6d6259}
-    #vr-home .day strong{display:block;font-size:21px;font-weight:500;margin-bottom:5px}
-    #vr-home .day p{font-size:14px;margin:0;color:#5d554f}
-    #vr-home .flagship{background:var(--graphite);color:var(--white);padding:115px 0}
-    #vr-home .flagship .eyebrow{color:var(--blue)}
-    #vr-home .flag-top{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:end}
-    #vr-home .flag-title{font-size:clamp(68px,11vw,150px);line-height:.78;letter-spacing:-.075em;font-weight:500;margin:22px 0 28px}
-    #vr-home .flag-title small{display:block;font-size:clamp(22px,2.8vw,36px);letter-spacing:-.03em;line-height:1.1;color:#cbc4bc;margin-top:34px}
-    #vr-home .promise{font-size:clamp(23px,3vw,39px);line-height:1.3;letter-spacing:-.03em;border-left:2px solid var(--blue);padding-left:30px}
-    #vr-home .phases{display:grid;grid-template-columns:repeat(4,1fr);margin-top:75px;border-top:1px solid rgba(255,255,255,.28)}
-    #vr-home .phase{padding:27px 25px 14px 0;border-right:1px solid rgba(255,255,255,.18);min-height:170px}
-    #vr-home .phase:not(:first-child){padding-left:25px}
-    #vr-home .phase:last-child{border-right:0}
-    #vr-home .phase b{display:block;font-size:12px;color:var(--blue);letter-spacing:.16em;margin-bottom:14px}
-    #vr-home .phase strong{display:block;font-weight:500;font-size:20px;margin-bottom:9px}
-    #vr-home .phase p{color:#bfc2c3;font-size:14px}
-    #vr-home .delivery{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid rgba(255,255,255,.28);margin-top:34px;padding-top:30px}
-    #vr-home .delivery-copy{display:flex;gap:28px;flex-wrap:wrap;color:#d8dbdc;font-size:14px}
-    #vr-home .delivery-copy span:before{content:"•";color:var(--blue);margin-right:10px}
-    #vr-home .paths{background:var(--cream)}
-    #vr-home .paths-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}
-    #vr-home .program-list{margin-top:62px;border-top:1px solid var(--line)}
-    #vr-home .program{display:grid;grid-template-columns:180px 1fr 230px 40px;gap:28px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}
-    #vr-home .program .state{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
-    #vr-home .program .state.live{color:#087b61}
-    #vr-home .program strong{font-size:clamp(22px,2.7vw,34px);font-weight:500;letter-spacing:-.025em}
-    #vr-home .program p{margin:0;font-size:14px;color:#69615b}
-    #vr-home .program .go{font-size:27px;text-align:right}
+    #vr-home .vr-burger,
+    .vr-home .vr-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-10px;padding:0 10px;background:transparent;border:0;cursor:pointer;color:inherit}
+    #vr-home .vr-burger span,
+    .vr-home .vr-burger span{display:block;width:24px;height:2px;background:var(--graphite);transition:transform .25s ease,opacity .18s ease}
+    #vr-home header.vr-open .vr-burger span:nth-child(1),
+    .vr-home header.vr-open .vr-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    #vr-home header.vr-open .vr-burger span:nth-child(2),
+    .vr-home header.vr-open .vr-burger span:nth-child(2){opacity:0}
+    #vr-home header.vr-open .vr-burger span:nth-child(3),
+    .vr-home header.vr-open .vr-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    #vr-home .hero,
+    .vr-home .hero{padding:70px 0 95px;position:relative}
+    #vr-home .hero-grid,
+    .vr-home .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
+    #vr-home .hero-copy,
+    .vr-home .hero-copy{padding-top:12px}
+    #vr-home .hero-copy .display span,
+    .vr-home .hero-copy .display span{color:var(--taupe)}
+    #vr-home .hero-actions,
+    .vr-home .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+    #vr-home .hero-note,
+    .vr-home .hero-note{font-size:13px;margin-top:15px;color:#756b64}
+    #vr-home .hero-visual,
+    .vr-home .hero-visual{position:relative;min-height:650px}
+    #vr-home .hero-photo,
+    .vr-home .hero-photo{position:absolute;inset:0 0 0 34px;background-image:linear-gradient(180deg,rgba(37,40,42,.03),rgba(73,55,41,.18)),url('/theme_honzahauzr/static/src/img/vr/vr-home-1-c7ec793c.webp');background-size:cover;background-position:center 42%;clip-path:polygon(8% 0,100% 0,100% 90%,84% 100%,0 100%,0 10%)}
+    #vr-home .hero-stamp,
+    .vr-home .hero-stamp{position:absolute;left:0;bottom:58px;background:var(--graphite);color:#fff;padding:24px 26px;width:260px;font-size:14px;letter-spacing:.02em}
+    #vr-home .hero-stamp strong,
+    .vr-home .hero-stamp strong{display:block;color:var(--blue);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+    #vr-home .section,
+    .vr-home .section{padding:105px 0;border-top:1px solid var(--line)}
+    #vr-home .problem-head,
+    .vr-home .problem-head{display:grid;grid-template-columns:.72fr 1.28fr;gap:80px;align-items:start}
+    #vr-home .problem-head h2,
+    .vr-home .problem-head h2{margin-top:0}
+    #vr-home .truth-lines,
+    .vr-home .truth-lines{margin-top:72px;border-top:1px solid var(--line)}
+    #vr-home .truth-row,
+    .vr-home .truth-row{display:grid;grid-template-columns:100px 1fr auto;gap:22px;align-items:center;padding:29px 0;border-bottom:1px solid var(--line)}
+    #vr-home .truth-row .no,
+    .vr-home .truth-row .no{font-size:12px;letter-spacing:.18em;color:var(--taupe)}
+    #vr-home .truth-row strong,
+    .vr-home .truth-row strong{font-size:clamp(20px,2.8vw,36px);font-weight:500;letter-spacing:-.025em}
+    #vr-home .truth-row span:last-child,
+    .vr-home .truth-row span:last-child{color:var(--taupe);font-size:26px}
+    #vr-home .question,
+    .vr-home .question{padding:54px 0 0;margin-left:calc(100% / 3);font-size:clamp(24px,3vw,39px);line-height:1.25;letter-spacing:-.03em}
+    #vr-home .method,
+    .vr-home .method{background:var(--ivory)}
+    #vr-home .method-intro,
+    .vr-home .method-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:90px;align-items:end}
+    #vr-home .method-track,
+    .vr-home .method-track{display:grid;grid-template-columns:repeat(5,1fr);margin-top:70px;border-top:1px solid var(--graphite)}
+    #vr-home .method-step,
+    .vr-home .method-step{padding:25px 28px 0 0;min-height:190px;position:relative;border-right:1px solid var(--line)}
+    #vr-home .method-step:last-child,
+    .vr-home .method-step:last-child{border-right:0;padding-right:0}
+    #vr-home .method-step:before,
+    .vr-home .method-step:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--graphite);top:-5px;left:0}
+    #vr-home .method-step b,
+    .vr-home .method-step b{display:block;font-size:12px;color:var(--taupe);letter-spacing:.14em;margin-bottom:16px}
+    #vr-home .method-step strong,
+    .vr-home .method-step strong{display:block;font-size:20px;font-weight:500;margin-bottom:9px}
+    #vr-home .method-step p,
+    .vr-home .method-step p{font-size:14px;color:#6b635d}
+    #vr-home .challenge,
+    .vr-home .challenge{background:var(--sand)}
+    #vr-home .challenge-grid,
+    .vr-home .challenge-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:80px;align-items:start}
+    #vr-home .challenge h2,
+    .vr-home .challenge h2{max-width:650px}
+    #vr-home .challenge .meta,
+    .vr-home .challenge .meta{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0}
+    #vr-home .chip,
+    .vr-home .chip{font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;border:1px solid rgba(37,40,42,.45)}
+    #vr-home .days,
+    .vr-home .days{border-top:1px solid rgba(37,40,42,.38)}
+    #vr-home .day,
+    .vr-home .day{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid rgba(37,40,42,.38)}
+    #vr-home .day b,
+    .vr-home .day b{font-size:12px;letter-spacing:.14em;color:#6d6259}
+    #vr-home .day strong,
+    .vr-home .day strong{display:block;font-size:21px;font-weight:500;margin-bottom:5px}
+    #vr-home .day p,
+    .vr-home .day p{font-size:14px;margin:0;color:#5d554f}
+    #vr-home .flagship,
+    .vr-home .flagship{background:var(--graphite);color:var(--white);padding:115px 0}
+    #vr-home .flagship .eyebrow,
+    .vr-home .flagship .eyebrow{color:var(--blue)}
+    #vr-home .flag-top,
+    .vr-home .flag-top{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:end}
+    #vr-home .flag-title,
+    .vr-home .flag-title{font-size:clamp(68px,11vw,150px);line-height:.78;letter-spacing:-.075em;font-weight:500;margin:22px 0 28px}
+    #vr-home .flag-title small,
+    .vr-home .flag-title small{display:block;font-size:clamp(22px,2.8vw,36px);letter-spacing:-.03em;line-height:1.1;color:#cbc4bc;margin-top:34px}
+    #vr-home .promise,
+    .vr-home .promise{font-size:clamp(23px,3vw,39px);line-height:1.3;letter-spacing:-.03em;border-left:2px solid var(--blue);padding-left:30px}
+    #vr-home .phases,
+    .vr-home .phases{display:grid;grid-template-columns:repeat(4,1fr);margin-top:75px;border-top:1px solid rgba(255,255,255,.28)}
+    #vr-home .phase,
+    .vr-home .phase{padding:27px 25px 14px 0;border-right:1px solid rgba(255,255,255,.18);min-height:170px}
+    #vr-home .phase:not(:first-child),
+    .vr-home .phase:not(:first-child){padding-left:25px}
+    #vr-home .phase:last-child,
+    .vr-home .phase:last-child{border-right:0}
+    #vr-home .phase b,
+    .vr-home .phase b{display:block;font-size:12px;color:var(--blue);letter-spacing:.16em;margin-bottom:14px}
+    #vr-home .phase strong,
+    .vr-home .phase strong{display:block;font-weight:500;font-size:20px;margin-bottom:9px}
+    #vr-home .phase p,
+    .vr-home .phase p{color:#bfc2c3;font-size:14px}
+    #vr-home .delivery,
+    .vr-home .delivery{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid rgba(255,255,255,.28);margin-top:34px;padding-top:30px}
+    #vr-home .delivery-copy,
+    .vr-home .delivery-copy{display:flex;gap:28px;flex-wrap:wrap;color:#d8dbdc;font-size:14px}
+    #vr-home .delivery-copy span:before,
+    .vr-home .delivery-copy span:before{content:"•";color:var(--blue);margin-right:10px}
+    #vr-home .paths,
+    .vr-home .paths{background:var(--cream)}
+    #vr-home .paths-intro,
+    .vr-home .paths-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}
+    #vr-home .program-list,
+    .vr-home .program-list{margin-top:62px;border-top:1px solid var(--line)}
+    #vr-home .program,
+    .vr-home .program{display:grid;grid-template-columns:180px 1fr 230px 40px;gap:28px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}
+    #vr-home .program .state,
+    .vr-home .program .state{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
+    #vr-home .program .state.live,
+    .vr-home .program .state.live{color:#087b61}
+    #vr-home .program strong,
+    .vr-home .program strong{font-size:clamp(22px,2.7vw,34px);font-weight:500;letter-spacing:-.025em}
+    #vr-home .program p,
+    .vr-home .program p{margin:0;font-size:14px;color:#69615b}
+    #vr-home .program .go,
+    .vr-home .program .go{font-size:27px;text-align:right}
     /* ===== Vlastni pravidla - pripravovana cesta =====================
        Podle navrhu od klienta. Svetle pozadi (cream) a pismo jako
        zbytek webu, zadna vlastni barva navic. Vlevo nazev a popis,
        vpravo ctyri kroky, mezi nimi svisla linka. */
-    #vr-home .rules{background:var(--cream)}
-    #vr-home .rules-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:start;padding-bottom:58px;border-bottom:1px solid var(--line)}
-    #vr-home .rules h2{font-size:clamp(46px,6.6vw,96px);line-height:.95;letter-spacing:-.045em;font-weight:700;margin:16px 0 0}
-    #vr-home .rules-claim{font-size:clamp(21px,2.5vw,31px);font-weight:600;letter-spacing:-.02em;margin:16px 0 0}
-    #vr-home .rules .lead{margin-top:24px;max-width:32em}
+    #vr-home .rules,
+    .vr-home .rules{background:var(--cream)}
+    #vr-home .rules-grid,
+    .vr-home .rules-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:start;padding-bottom:58px;border-bottom:1px solid var(--line)}
+    #vr-home .rules h2,
+    .vr-home .rules h2{font-size:clamp(46px,6.6vw,96px);line-height:.95;letter-spacing:-.045em;font-weight:700;margin:16px 0 0}
+    #vr-home .rules-claim,
+    .vr-home .rules-claim{font-size:clamp(21px,2.5vw,31px);font-weight:600;letter-spacing:-.02em;margin:16px 0 0}
+    #vr-home .rules .lead,
+    .vr-home .rules .lead{margin-top:24px;max-width:32em}
 
     /* Stitek, ne tlacitko. Ramecek je tu z navrhu, ale je to <span>
        bez odkazu - neni na nem nic, na co by slo kliknout, a proto
        taky nema zadnou reakci na najeti mysi. */
-    #vr-home .rules-stitek{display:inline-flex;align-items:center;gap:11px;margin-top:32px;padding:12px 22px;border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
-    #vr-home .rules-stitek i{width:9px;height:9px;border-radius:50%;background:var(--taupe)}
+    #vr-home .rules-stitek,
+    .vr-home .rules-stitek{display:inline-flex;align-items:center;gap:11px;margin-top:32px;padding:12px 22px;border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
+    #vr-home .rules-stitek i,
+    .vr-home .rules-stitek i{width:9px;height:9px;border-radius:50%;background:var(--taupe)}
 
     /* Kroky. Linka deli jen mezery mezi nimi, nad prvnim a pod
        poslednim zadna neni - jinak by splynuly s okrajem bloku. */
-    #vr-home .rules-kroky{list-style:none;margin:0;padding:6px 0 0 62px;border-left:1px solid var(--line)}
-    #vr-home .rules-kroky li{display:grid;grid-template-columns:54px 1fr;align-items:baseline;gap:14px;padding:24px 0}
-    #vr-home .rules-kroky li + li{border-top:1px solid var(--line)}
-    #vr-home .rules-kroky b{font-size:12px;letter-spacing:.14em;color:var(--taupe);font-weight:500}
-    #vr-home .rules-kroky strong{font-size:clamp(27px,3.3vw,42px);font-weight:700;letter-spacing:-.03em}
+    #vr-home .rules-kroky,
+    .vr-home .rules-kroky{list-style:none;margin:0;padding:6px 0 0 62px;border-left:1px solid var(--line)}
+    #vr-home .rules-kroky li,
+    .vr-home .rules-kroky li{display:grid;grid-template-columns:54px 1fr;align-items:baseline;gap:14px;padding:24px 0}
+    #vr-home .rules-kroky li + li,
+    .vr-home .rules-kroky li + li{border-top:1px solid var(--line)}
+    #vr-home .rules-kroky b,
+    .vr-home .rules-kroky b{font-size:12px;letter-spacing:.14em;color:var(--taupe);font-weight:500}
+    #vr-home .rules-kroky strong,
+    .vr-home .rules-kroky strong{font-size:clamp(27px,3.3vw,42px);font-weight:700;letter-spacing:-.03em}
 
-    #vr-home .community{padding:105px 0;background:#b9a791;color:#272422}
-    #vr-home .community-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
-    #vr-home .community-mark{height:360px;border:1px solid rgba(37,40,42,.35);position:relative;display:flex;align-items:center;justify-content:center}
-    #vr-home .community-mark:before,#vr-home .community-mark:after{content:"";position:absolute;background:rgba(37,40,42,.28)}
-    #vr-home .community-mark:before{width:1px;height:calc(100% + 40px)}
-    #vr-home .community-mark:after{height:1px;width:calc(100% + 40px)}
-    #vr-home .community-mark span{background:#b9a791;position:relative;z-index:1;padding:20px;font-size:clamp(25px,4vw,47px);text-align:center;line-height:1.1;letter-spacing:-.04em}
-    #vr-home .community .btn{margin-top:12px}
-    #vr-home .founder{background:var(--ivory)}
-    #vr-home .founder-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:80px;align-items:center}
-    #vr-home .founder-photo{height:620px;background-image:linear-gradient(180deg,rgba(50,40,30,.02),rgba(50,40,30,.16)),url('/theme_honzahauzr/static/src/img/vr/vr-home-2-54f807f4.webp');background-size:cover;background-position:center;clip-path:polygon(0 0,90% 0,100% 12%,100% 100%,0 100%)}
-    #vr-home .signature{font-size:13px;letter-spacing:.09em;text-transform:uppercase;margin:28px 0 30px;color:#71675f}
-    #vr-home .principles{background:var(--cream)}
-    #vr-home .principles-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:100px;align-items:start}
-    #vr-home .principle-list{border-top:1px solid var(--line)}
-    #vr-home .principle{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:58px 1fr;gap:16px}
-    #vr-home .principle b{font-size:12px;color:var(--taupe);letter-spacing:.14em}
-    #vr-home .principle strong{font-size:20px;font-weight:500;display:block;margin-bottom:5px}
-    #vr-home .principle p{font-size:14px;color:#675f59;margin:0}
-    #vr-home .newsletter{background:var(--ivory);padding:78px 0}
-    #vr-home .newsletter-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end}
-    #vr-home .newsletter h3{font-size:clamp(28px,4vw,48px)}
-    #vr-home .formline{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--graphite);padding-bottom:8px}
-    #vr-home .formline input{background:transparent;border:0;padding:13px 0;font:inherit;color:var(--graphite);outline:none;min-width:0}
-    #vr-home .formline button{border:0;background:transparent;font:inherit;font-weight:500;padding:10px 0 10px 16px;color:var(--graphite)}
-    #vr-home .closing{padding:120px 0;background:var(--sand);text-align:center}
-    #vr-home .closing h2{max-width:920px;margin:12px auto 36px}
-    #vr-home .closing .hero-actions{justify-content:center}
+    #vr-home .community,
+
+    .vr-home .community{padding:105px 0;background:#b9a791;color:#272422}
+    #vr-home .community-grid,
+    .vr-home .community-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
+    #vr-home .community-mark,
+    .vr-home .community-mark{height:360px;border:1px solid rgba(37,40,42,.35);position:relative;display:flex;align-items:center;justify-content:center}
+    #vr-home .community-mark:before,
+    .vr-home .community-mark:before,#vr-home .community-mark:after,.vr-home .community-mark:after{content:"";position:absolute;background:rgba(37,40,42,.28)}
+    #vr-home .community-mark:before,
+    .vr-home .community-mark:before{width:1px;height:calc(100% + 40px)}
+    #vr-home .community-mark:after,
+    .vr-home .community-mark:after{height:1px;width:calc(100% + 40px)}
+    #vr-home .community-mark span,
+    .vr-home .community-mark span{background:#b9a791;position:relative;z-index:1;padding:20px;font-size:clamp(25px,4vw,47px);text-align:center;line-height:1.1;letter-spacing:-.04em}
+    #vr-home .community .btn,
+    .vr-home .community .btn{margin-top:12px}
+    #vr-home .founder,
+    .vr-home .founder{background:var(--ivory)}
+    #vr-home .founder-grid,
+    .vr-home .founder-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:80px;align-items:center}
+    #vr-home .founder-photo,
+    .vr-home .founder-photo{height:620px;background-image:linear-gradient(180deg,rgba(50,40,30,.02),rgba(50,40,30,.16)),url('/theme_honzahauzr/static/src/img/vr/vr-home-2-54f807f4.webp');background-size:cover;background-position:center;clip-path:polygon(0 0,90% 0,100% 12%,100% 100%,0 100%)}
+    #vr-home .signature,
+    .vr-home .signature{font-size:13px;letter-spacing:.09em;text-transform:uppercase;margin:28px 0 30px;color:#71675f}
+    #vr-home .principles,
+    .vr-home .principles{background:var(--cream)}
+    #vr-home .principles-grid,
+    .vr-home .principles-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:100px;align-items:start}
+    #vr-home .principle-list,
+    .vr-home .principle-list{border-top:1px solid var(--line)}
+    #vr-home .principle,
+    .vr-home .principle{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:58px 1fr;gap:16px}
+    #vr-home .principle b,
+    .vr-home .principle b{font-size:12px;color:var(--taupe);letter-spacing:.14em}
+    #vr-home .principle strong,
+    .vr-home .principle strong{font-size:20px;font-weight:500;display:block;margin-bottom:5px}
+    #vr-home .principle p,
+    .vr-home .principle p{font-size:14px;color:#675f59;margin:0}
+    #vr-home .newsletter,
+    .vr-home .newsletter{background:var(--ivory);padding:78px 0}
+    #vr-home .newsletter-row,
+    .vr-home .newsletter-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end}
+    #vr-home .newsletter h3,
+    .vr-home .newsletter h3{font-size:clamp(28px,4vw,48px)}
+    #vr-home .formline,
+    .vr-home .formline{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--graphite);padding-bottom:8px}
+    #vr-home .formline input,
+    .vr-home .formline input{background:transparent;border:0;padding:13px 0;font:inherit;color:var(--graphite);outline:none;min-width:0}
+    #vr-home .formline button,
+    .vr-home .formline button{border:0;background:transparent;font:inherit;font-weight:500;padding:10px 0 10px 16px;color:var(--graphite)}
+    #vr-home .closing,
+    .vr-home .closing{padding:120px 0;background:var(--sand);text-align:center}
+    #vr-home .closing h2,
+    .vr-home .closing h2{max-width:920px;margin:12px auto 36px}
+    #vr-home .closing .hero-actions,
+    .vr-home .closing .hero-actions{justify-content:center}
     /* Mobil - hlavicka s hamburgerem.
 
        Navrh klienta pocital s tim, ze se na uzkem okne odkazy proste
@@ -172,69 +308,123 @@
        a zabralo cely prvni pohled. Misto toho ma hlavicka hamburger
        a odkazy se vysouvaji pod ni. */
     @media(max-width:900px){
-      #vr-home .wrap{width:#{"min(100% - 32px, 720px)"}}
-      #vr-home header{height:72px}
-      #vr-home .brand{min-width:0}
-      #vr-home .brand img{width:158px}
-      #vr-home .vr-burger{display:flex}
+      #vr-home .wrap,
+      .vr-home .wrap{width:#{"min(100% - 32px, 720px)"}}
+      #vr-home header,
+      .vr-home header{height:72px}
+      #vr-home .brand,
+      .vr-home .brand{min-width:0}
+      #vr-home .brand img,
+      .vr-home .brand img{width:158px}
+      #vr-home .vr-burger,
+      .vr-home .vr-burger{display:flex}
       /* Panel se odsazuje stejne jako .wrap, aby odkazy zacinaly
          presne pod logem. */
-      #vr-home .navlinks{position:absolute;left:0;right:0;top:100%;z-index:6;display:none;flex-direction:column;align-items:stretch;gap:0;font-size:15px;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 16px 28px rgba(23,25,26,.1);padding:4px #{"max(16px, (100% - 720px) / 2)"} 18px}
-      #vr-home header.vr-open .navlinks{display:flex}
-      #vr-home .navlinks a:not(.btn){padding:15px 0;border-bottom:1px solid var(--line)}
-      #vr-home .navlinks a:not(.btn):hover{border-color:var(--line)}
-      #vr-home .navlinks .btn{width:100%;margin-top:18px}
-      #vr-home .hero{padding:40px 0 56px}
-      #vr-home .hero-grid,#vr-home .problem-head,#vr-home .method-intro,#vr-home .challenge-grid,#vr-home .flag-top,#vr-home .paths-intro,#vr-home .rules-grid,#vr-home .community-grid,#vr-home .founder-grid,#vr-home .principles-grid,#vr-home .newsletter-row{grid-template-columns:1fr;gap:42px}
-      #vr-home .display{font-size:clamp(50px,14vw,78px)}
-      #vr-home .hero-visual{min-height:480px}
-      #vr-home .hero-photo{left:24px}
-      #vr-home .section{padding:66px 0}
-      #vr-home .truth-lines{margin-top:48px}
-      #vr-home .truth-row{grid-template-columns:52px 1fr auto}
-      #vr-home .question{padding:40px 0 0;margin-left:0}
-      #vr-home .method-track,#vr-home .phases{grid-template-columns:1fr 1fr;margin-top:52px}
-      #vr-home .method-step,#vr-home .phase{border-bottom:1px solid var(--line);padding:24px 20px 18px 0}
-      #vr-home .method-step:nth-child(even),#vr-home .phase:nth-child(even){border-right:0;padding-left:20px}
-      #vr-home .method-step:last-child{grid-column:1/-1;border-right:0}
-      #vr-home .flagship{padding:72px 0}
-      #vr-home .delivery{align-items:flex-start;flex-direction:column}
+      #vr-home .navlinks,
+      .vr-home .navlinks{position:absolute;left:0;right:0;top:100%;z-index:6;display:none;flex-direction:column;align-items:stretch;gap:0;font-size:15px;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 16px 28px rgba(23,25,26,.1);padding:4px #{"max(16px, (100% - 720px) / 2)"} 18px}
+      #vr-home header.vr-open .navlinks,
+      .vr-home header.vr-open .navlinks{display:flex}
+      #vr-home .navlinks a:not(.btn),
+      .vr-home .navlinks a:not(.btn){padding:15px 0;border-bottom:1px solid var(--line)}
+      #vr-home .navlinks a:not(.btn):hover,
+      .vr-home .navlinks a:not(.btn):hover{border-color:var(--line)}
+      #vr-home .navlinks .btn,
+      .vr-home .navlinks .btn{width:100%;margin-top:18px}
+      #vr-home .hero,
+      .vr-home .hero{padding:40px 0 56px}
+      #vr-home .hero-grid,
+      .vr-home .hero-grid,#vr-home .problem-head,.vr-home .problem-head,#vr-home .method-intro,.vr-home .method-intro,#vr-home .challenge-grid,.vr-home .challenge-grid,#vr-home .flag-top,.vr-home .flag-top,#vr-home .paths-intro,.vr-home .paths-intro,#vr-home .rules-grid,.vr-home .rules-grid,#vr-home .community-grid,.vr-home .community-grid,#vr-home .founder-grid,.vr-home .founder-grid,#vr-home .principles-grid,.vr-home .principles-grid,#vr-home .newsletter-row,.vr-home .newsletter-row{grid-template-columns:1fr;gap:42px}
+      #vr-home .display,
+      .vr-home .display{font-size:clamp(50px,14vw,78px)}
+      #vr-home .hero-visual,
+      .vr-home .hero-visual{min-height:480px}
+      #vr-home .hero-photo,
+      .vr-home .hero-photo{left:24px}
+      #vr-home .section,
+      .vr-home .section{padding:66px 0}
+      #vr-home .truth-lines,
+      .vr-home .truth-lines{margin-top:48px}
+      #vr-home .truth-row,
+      .vr-home .truth-row{grid-template-columns:52px 1fr auto}
+      #vr-home .question,
+      .vr-home .question{padding:40px 0 0;margin-left:0}
+      #vr-home .method-track,
+      .vr-home .method-track,#vr-home .phases,.vr-home .phases{grid-template-columns:1fr 1fr;margin-top:52px}
+      #vr-home .method-step,
+      .vr-home .method-step,#vr-home .phase,.vr-home .phase{border-bottom:1px solid var(--line);padding:24px 20px 18px 0}
+      #vr-home .method-step:nth-child(even),
+      .vr-home .method-step:nth-child(even),#vr-home .phase:nth-child(even),.vr-home .phase:nth-child(even){border-right:0;padding-left:20px}
+      #vr-home .method-step:last-child,
+      .vr-home .method-step:last-child{grid-column:1/-1;border-right:0}
+      #vr-home .flagship,
+      .vr-home .flagship{padding:72px 0}
+      #vr-home .delivery,
+      .vr-home .delivery{align-items:flex-start;flex-direction:column}
       /* Kroky jdou pod popis, svisla linka by je uz nemela od ceho
          oddelovat. */
-      #vr-home .rules-grid{padding-bottom:42px}
-      #vr-home .rules-kroky{padding:0;border-left:0;border-top:1px solid var(--line)}
-      #vr-home .rules-kroky li{padding:18px 0}
-      #vr-home .program-list{margin-top:46px}
-      #vr-home .program{grid-template-columns:115px 1fr 32px}
-      #vr-home .program p{grid-column:2/4}
-      #vr-home .community{padding:78px 0}
-      #vr-home .community-mark{height:280px;order:2}
-      #vr-home .founder-photo{height:460px}
-      #vr-home .newsletter{padding:66px 0}
-      #vr-home .closing{padding:88px 0}
+      #vr-home .rules-grid,
+      .vr-home .rules-grid{padding-bottom:42px}
+      #vr-home .rules-kroky,
+      .vr-home .rules-kroky{padding:0;border-left:0;border-top:1px solid var(--line)}
+      #vr-home .rules-kroky li,
+      .vr-home .rules-kroky li{padding:18px 0}
+      #vr-home .program-list,
+      .vr-home .program-list{margin-top:46px}
+      #vr-home .program,
+      .vr-home .program{grid-template-columns:115px 1fr 32px}
+      #vr-home .program p,
+      .vr-home .program p{grid-column:2/4}
+      #vr-home .community,
+      .vr-home .community{padding:78px 0}
+      #vr-home .community-mark,
+      .vr-home .community-mark{height:280px;order:2}
+      #vr-home .founder-photo,
+      .vr-home .founder-photo{height:460px}
+      #vr-home .newsletter,
+      .vr-home .newsletter{padding:66px 0}
+      #vr-home .closing,
+      .vr-home .closing{padding:88px 0}
     }
     @media(max-width:560px){
-      #vr-home .wrap{width:calc(100% - 26px)}
-      #vr-home .brand img{width:138px}
-      #vr-home .navlinks{padding-left:13px;padding-right:13px}
-      #vr-home .hero{padding:32px 0 44px}
-      #vr-home .hero .eyebrow{max-width:260px}
-      #vr-home .display{font-size:46px}
-      #vr-home .hero-visual{min-height:360px}
+      #vr-home .wrap,
+      .vr-home .wrap{width:calc(100% - 26px)}
+      #vr-home .brand img,
+      .vr-home .brand img{width:138px}
+      #vr-home .navlinks,
+      .vr-home .navlinks{padding-left:13px;padding-right:13px}
+      #vr-home .hero,
+      .vr-home .hero{padding:32px 0 44px}
+      #vr-home .hero .eyebrow,
+      .vr-home .hero .eyebrow{max-width:260px}
+      #vr-home .display,
+      .vr-home .display{font-size:46px}
+      #vr-home .hero-visual,
+      .vr-home .hero-visual{min-height:360px}
       /* Fotka drzi stejny okraj jako zbytek stranky, aby nebyla
          zaraz s jednim krajem a od druheho odsazena. */
-      #vr-home .hero-photo{left:0}
-      #vr-home .hero-stamp{width:230px;padding:19px;bottom:20px}
-      #vr-home .hero-actions{flex-direction:column;align-items:stretch}
+      #vr-home .hero-photo,
+      .vr-home .hero-photo{left:0}
+      #vr-home .hero-stamp,
+      .vr-home .hero-stamp{width:230px;padding:19px;bottom:20px}
+      #vr-home .hero-actions,
+      .vr-home .hero-actions{flex-direction:column;align-items:stretch}
       /* Jen tlacitka v sekcich, ne to v hlavicce. */
-      #vr-home .hero-actions .btn{width:100%}
-      #vr-home .section{padding:52px 0}
-      #vr-home .truth-lines{margin-top:34px}
-      #vr-home .truth-row{grid-template-columns:42px 1fr}
-      #vr-home .truth-row span:last-child{display:none}
-      #vr-home .question{padding:30px 0 0}
-      #vr-home .method-track{grid-template-columns:1fr;margin-top:36px}
-      #vr-home .method-step,#vr-home .method-step:nth-child(even){border-right:0;padding:22px 0;min-height:0}
+      #vr-home .hero-actions .btn,
+      .vr-home .hero-actions .btn{width:100%}
+      #vr-home .section,
+      .vr-home .section{padding:52px 0}
+      #vr-home .truth-lines,
+      .vr-home .truth-lines{margin-top:34px}
+      #vr-home .truth-row,
+      .vr-home .truth-row{grid-template-columns:42px 1fr}
+      #vr-home .truth-row span:last-child,
+      .vr-home .truth-row span:last-child{display:none}
+      #vr-home .question,
+      .vr-home .question{padding:30px 0 0}
+      #vr-home .method-track,
+      .vr-home .method-track{grid-template-columns:1fr;margin-top:36px}
+      #vr-home .method-step,
+      .vr-home .method-step,#vr-home .method-step:nth-child(even),.vr-home .method-step:nth-child(even){border-right:0;padding:22px 0;min-height:0}
 
       /* Fází jsou čtyři, takže na mobilu drží mřížku 2 × 2 místo
          sloupce pod sebou. Čtyři plné odstavce za sebou vytlačily
@@ -242,34 +432,58 @@
          fáze vejde na jednu obrazovku pod text nad ní.
          Kroků v postupu je pět, ty zůstávají pod sebou - lichý
          počet by v mřížce nechal prázdné okno. */
-      #vr-home .phases{grid-template-columns:1fr 1fr;margin-top:36px;column-gap:18px}
+      #vr-home .phases,
+      .vr-home .phases{grid-template-columns:1fr 1fr;margin-top:36px;column-gap:18px}
       #vr-home .phase,
-      #vr-home .phase:not(:first-child){border-right:0;padding:18px 0 0;min-height:0}
-      #vr-home .phase:nth-child(odd){padding-right:9px}
-      #vr-home .phase:nth-child(even){padding-left:9px}
+      .vr-home .phase,
+      #vr-home .phase:not(:first-child),
+      .vr-home .phase:not(:first-child){border-right:0;padding:18px 0 0;min-height:0}
+      #vr-home .phase:nth-child(odd),
+      .vr-home .phase:nth-child(odd){padding-right:9px}
+      #vr-home .phase:nth-child(even),
+      .vr-home .phase:nth-child(even){padding-left:9px}
       /* Dělicí čára zůstává jen mezi řádky mřížky, ne pod poslední
          dvojicí - tam už ji nahradí čára bloku pod fázemi. */
-      #vr-home .phase:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:18px}
-      #vr-home .method-step:before{display:none}
-      #vr-home .flagship{padding:56px 0}
-      #vr-home .flag-title small{margin-top:20px}
-      #vr-home .program-list{margin-top:32px}
-      #vr-home .program{grid-template-columns:1fr 30px;gap:8px 15px}
-      #vr-home .program .state{grid-column:1}
-      #vr-home .program strong{grid-column:1}
-      #vr-home .program p{grid-column:1/3}
-      #vr-home .program .go{grid-column:2;grid-row:2;text-align:right}
-      #vr-home .community{padding:56px 0}
-      #vr-home .community-mark{height:230px}
+      #vr-home .phase:nth-child(-n+2),
+      .vr-home .phase:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:18px}
+      #vr-home .method-step:before,
+      .vr-home .method-step:before{display:none}
+      #vr-home .flagship,
+      .vr-home .flagship{padding:56px 0}
+      #vr-home .flag-title small,
+      .vr-home .flag-title small{margin-top:20px}
+      #vr-home .program-list,
+      .vr-home .program-list{margin-top:32px}
+      #vr-home .program,
+      .vr-home .program{grid-template-columns:1fr 30px;gap:8px 15px}
+      #vr-home .program .state,
+      .vr-home .program .state{grid-column:1}
+      #vr-home .program strong,
+      .vr-home .program strong{grid-column:1}
+      #vr-home .program p,
+      .vr-home .program p{grid-column:1/3}
+      #vr-home .program .go,
+      .vr-home .program .go{grid-column:2;grid-row:2;text-align:right}
+      #vr-home .community,
+      .vr-home .community{padding:56px 0}
+      #vr-home .community-mark,
+      .vr-home .community-mark{height:230px}
       /* Krizek kolem znaku se na sirku uz neprodluzuje ven,
          jinak lezl az pod kraj obrazovky. */
-      #vr-home .community-mark:after{width:100%}
-      #vr-home .founder-photo{height:380px}
-      #vr-home .principle{grid-template-columns:42px 1fr}
-      #vr-home .newsletter{padding:52px 0}
-      #vr-home .formline{grid-template-columns:1fr}
-      #vr-home .formline button{text-align:left;padding-left:0}
-      #vr-home .closing{padding:64px 0}
+      #vr-home .community-mark:after,
+      .vr-home .community-mark:after{width:100%}
+      #vr-home .founder-photo,
+      .vr-home .founder-photo{height:380px}
+      #vr-home .principle,
+      .vr-home .principle{grid-template-columns:42px 1fr}
+      #vr-home .newsletter,
+      .vr-home .newsletter{padding:52px 0}
+      #vr-home .formline,
+      .vr-home .formline{grid-template-columns:1fr}
+      #vr-home .formline button,
+      .vr-home .formline button{text-align:left;padding-left:0}
+      #vr-home .closing,
+      .vr-home .closing{padding:64px 0}
 
       /* Vypisy pod sebou - kroky metody, faze programu, principy,
          dny vyzvy, cesty i radky "v cem se poznas".
@@ -279,27 +493,49 @@
          se na obrazovku vesly sotva dve. Nize uvedene hodnoty plati
          az za puvodnimi pravidly, proto jsou na konci bloku. */
       #vr-home .method-step,
-      #vr-home .method-step:nth-child(even){padding:15px 0}
+      .vr-home .method-step,
+      #vr-home .method-step:nth-child(even),
+      .vr-home .method-step:nth-child(even){padding:15px 0}
       #vr-home .phase,
-      #vr-home .phase:not(:first-child){padding:15px 0 0}
-      #vr-home .phase:nth-child(odd){padding-right:8px}
-      #vr-home .phase:nth-child(even){padding-left:8px}
-      #vr-home .phase:nth-child(-n+2){padding-bottom:15px}
-      #vr-home .principle,#vr-home .day{padding:16px 0}
-      #vr-home .program{padding:18px 0}
-      #vr-home .truth-row{padding:18px 0}
-      #vr-home .method-step b,#vr-home .phase b{margin-bottom:6px}
+      .vr-home .phase,
+      #vr-home .phase:not(:first-child),
+      .vr-home .phase:not(:first-child){padding:15px 0 0}
+      #vr-home .phase:nth-child(odd),
+      .vr-home .phase:nth-child(odd){padding-right:8px}
+      #vr-home .phase:nth-child(even),
+      .vr-home .phase:nth-child(even){padding-left:8px}
+      #vr-home .phase:nth-child(-n+2),
+      .vr-home .phase:nth-child(-n+2){padding-bottom:15px}
+      #vr-home .principle,
+      .vr-home .principle,#vr-home .day,.vr-home .day{padding:16px 0}
+      #vr-home .program,
+      .vr-home .program{padding:18px 0}
+      #vr-home .truth-row,
+      .vr-home .truth-row{padding:18px 0}
+      #vr-home .method-step b,
+      .vr-home .method-step b,#vr-home .phase b,.vr-home .phase b{margin-bottom:6px}
       #vr-home .method-step strong,
+      .vr-home .method-step strong,
       #vr-home .phase strong,
+      .vr-home .phase strong,
       #vr-home .principle strong,
-      #vr-home .day strong{font-size:17px;margin-bottom:4px}
-      #vr-home .program strong,#vr-home .truth-row strong{font-size:18px}
-      #vr-home .method-step p,#vr-home .phase p{margin-bottom:0}
+      .vr-home .principle strong,
+      #vr-home .day strong,
+      .vr-home .day strong{font-size:17px;margin-bottom:4px}
+      #vr-home .program strong,
+      .vr-home .program strong,#vr-home .truth-row strong,.vr-home .truth-row strong{font-size:18px}
       #vr-home .method-step p,
+      .vr-home .method-step p,#vr-home .phase p,.vr-home .phase p{margin-bottom:0}
+      #vr-home .method-step p,
+      .vr-home .method-step p,
       #vr-home .phase p,
+      .vr-home .phase p,
       #vr-home .principle p,
+      .vr-home .principle p,
       #vr-home .day p,
-      #vr-home .program p{line-height:1.45}
+      .vr-home .day p,
+      #vr-home .program p,
+      .vr-home .program p{line-height:1.45}
     }
   
 
@@ -313,26 +549,32 @@
    i tlačítko zůstanou položkami mřížky a formulář vypadá přesně
    jako v návrhu. */
 #vr-home .formline .s_website_form_rows,
+.vr-home .formline .s_website_form_rows,
 #vr-home .formline .s_website_form_field,
-#vr-home .formline .s_website_form_submit {
+.vr-home .formline .s_website_form_field,
+#vr-home .formline .s_website_form_submit ,
+.vr-home .formline .s_website_form_submit {
     display: contents;
 }
 
 /* Skrytá pole (název leadu, zdroj) se nesmí zobrazit ani zabrat
    místo v mřížce. */
-#vr-home .formline .s_website_form_dnone {
+#vr-home .formline .s_website_form_dnone ,
+.vr-home .formline .s_website_form_dnone {
     display: none;
 }
 
 /* Hláška po odeslání se roztáhne pod celý formulář, ne vedle
    tlačítka. */
-#vr-home .formline #s_website_form_result {
+#vr-home .formline #s_website_form_result ,
+.vr-home .formline #s_website_form_result {
     grid-column: 1 / -1;
 }
 
 /* Tlačítko je v návrhu <button>, Odoo na něj jen věší odesílání -
    vzhled zůstává z pravidla #vr-home .formline button výše. */
-#vr-home .formline button.s_website_form_send {
+#vr-home .formline button.s_website_form_send ,
+.vr-home .formline button.s_website_form_send {
     cursor: pointer;
 }
 

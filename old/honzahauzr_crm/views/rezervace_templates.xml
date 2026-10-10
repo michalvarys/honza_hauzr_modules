@@ -50,6 +50,8 @@
         <t t-set="additional_title">Rezervace úvodního hovoru</t>
 
         <div id="wrap" class="hhr">
+
+            <div class="oe_structure" id="oe_structure_rezervace_dny_nahore"/>
             <t t-call="honzahauzr_crm.rezervace_hlava">
                 <t t-set="nadpis">Vyber si den na úvodní hovor</t>
                 <t t-set="podnadpis">Prošel jsi tři dny výzvy. Tohle je nezávazný hovor o tom, co ti z nich vyšlo a co dává smysl dál.</t>
@@ -117,6 +119,8 @@
                     </p>
                 </div>
             </section>
+            <div class="oe_structure" id="oe_structure_rezervace_dny_dole"/>
+
         </div>
     </t>
 </template>
@@ -127,6 +131,8 @@
         <t t-set="additional_title">Rezervace úvodního hovoru</t>
 
         <div id="wrap" class="hhr">
+
+            <div class="oe_structure" id="oe_structure_rezervace_den_nahore"/>
             <t t-call="honzahauzr_crm.rezervace_hlava">
                 <t t-set="nadpis">Vyber si čas</t>
                 <t t-set="podnadpis" t-value="popis"/>
@@ -209,6 +215,8 @@
                     </form>
                 </div>
             </section>
+            <div class="oe_structure" id="oe_structure_rezervace_den_dole"/>
+
         </div>
     </t>
 </template>
@@ -219,6 +227,8 @@
         <t t-set="additional_title">Termín je domluvený</t>
 
         <div id="wrap" class="hhr hhr--stred">
+
+            <div class="oe_structure" id="oe_structure_rezervace_hotovo_nahore"/>
             <section class="hhr-obsah">
                 <div class="container">
                     <div class="hhr-hotovo">
@@ -234,6 +244,8 @@
                     </div>
                 </div>
             </section>
+            <div class="oe_structure" id="oe_structure_rezervace_hotovo_dole"/>
+
         </div>
     </t>
 </template>
@@ -244,6 +256,8 @@
         <t t-set="additional_title">Zrušení termínu</t>
 
         <div id="wrap" class="hhr hhr--stred">
+
+            <div class="oe_structure" id="oe_structure_rezervace_zruseno_nahore"/>
             <section class="hhr-obsah">
                 <div class="container">
                     <div class="hhr-hotovo">
@@ -269,6 +283,8 @@
                     </div>
                 </div>
             </section>
+            <div class="oe_structure" id="oe_structure_rezervace_zruseno_dole"/>
+
         </div>
     </t>
 </template>

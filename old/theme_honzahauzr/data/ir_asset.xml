@@ -161,8 +161,17 @@
      beznem frontend svazku by se dostal ke slovu az par stovek
      milisekund po zobrazeni stranky a do te doby by logo vedlo pryc. -->
 <record id="asset_hh_odkazy_js" model="theme.ir.asset">
-    <field name="name">Honza Hauzr - adresa výzvy (skript)</field>
-    <field name="bundle">web.assets_frontend</field>
+    <field name="name">Honza Hauzr - adresy z parametrů (skript)</field>
+    <field name="bundle">web.assets_frontend_minimal</field>
+    <field name="directive">after</field>
+    <field name="target">web/static/src/module_loader.js</field>
+    <field name="path">theme_honzahauzr/static/src/js/hh-odkazy.js</field>
+</record>
+
+<record id="asset_hh_odkazy_js_lazy" model="theme.ir.asset">
+    <field name="name">Honza Hauzr - adresy z parametrů (pryč z lazy)</field>
+    <field name="bundle">web.assets_frontend_lazy</field>
+    <field name="directive">remove</field>
     <field name="path">theme_honzahauzr/static/src/js/hh-odkazy.js</field>
 </record>
 
