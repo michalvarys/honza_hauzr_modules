@@ -106,28 +106,6 @@
     </field>
 </record>
 
-<!--
-    Vlastni obrazovka sekvenci.
-
-    Seznam od Odoo ukaze totez, ale nese s sebou filtry, razeni,
-    vyber sloupcu a hromadne akce - veci, ktere tady nejsou k nicemu.
-    Usporadani dat zustava stejne, jen se ukazuje bez nich.
-
-    Puvodni akce nize zustava: otevira se z ni formular zpravy,
-    protoze v nem sedi editor z Email Marketingu.
--->
-<record id="action_hh_maily_prehled" model="ir.actions.client">
-    <field name="name">Sekvence e-mailů</field>
-    <field name="tag">hh_admin</field>
-    <field name="context">{'hh_obrazovka': 'sekvence'}</field>
-</record>
-
-<record id="action_hh_stitky_prehled" model="ir.actions.client">
-    <field name="name">Štítky e-mailů</field>
-    <field name="tag">hh_admin</field>
-    <field name="context">{'hh_obrazovka': 'stitky'}</field>
-</record>
-
 <record id="action_hh_mail_sablona" model="ir.actions.act_window">
     <field name="name">Knihovna e-mailů</field>
     <field name="res_model">hh.mail.sablona</field>

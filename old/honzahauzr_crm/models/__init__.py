@@ -1,5 +1,4 @@
 from . import hh_mail_sablona
-from . import hh_admin
 from . import crm_lead
 from . import crm_lead_vyzva
 from . import crm_lead_sekce

@@ -32,7 +32,6 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/website_form_data.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
-        'views/hh_admin_views.xml',
         'views/mail_tema.xml',
         'views/crm_stage_views.xml',
         # Menu az za akcemi - polozky na ne odkazuji.
@@ -63,12 +62,8 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'web.assets_backend': [
             'honzahauzr_crm/static/src/css/stupen.scss',
             'honzahauzr_crm/static/src/css/terminy_kalendar.scss',
-            'honzahauzr_crm/static/src/css/maily_prehled.scss',
-            'honzahauzr_crm/static/src/css/hh_admin.scss',
             'honzahauzr_crm/static/src/js/terminy_kalendar.js',
-            'honzahauzr_crm/static/src/js/hh_admin.js',
             'honzahauzr_crm/static/src/xml/terminy_kalendar.xml',
-            'honzahauzr_crm/static/src/xml/hh_admin.xml',
         ],
     },
     'post_init_hook': 'post_init_hook',
