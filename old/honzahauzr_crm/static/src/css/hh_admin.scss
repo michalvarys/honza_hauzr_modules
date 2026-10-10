@@ -1,0 +1,403 @@
+/* ============================================================
+   ADMINISTRACE HONZY HAUZRA (prefix hha-)
+
+   Vsechno je zanorene pod .hha. Nacita se pres assets_backend,
+   tedy pro celou instanci - a na stejnem serveru bezi i cizi
+   projekty. Nic tu proto nesmi mirit na obecne selektory.
+
+   Paleta je stejna jako u kalendare terminu a sekvenci, aby
+   vlastni obrazovky v adminu drzely pohromade.
+   ============================================================ */
+
+.hha {
+    --hha-cream: #f4efe6;
+    --hha-sand: #e9e0d2;
+    --hha-graphite: #23211d;
+    --hha-bronze: #a06a37;
+    --hha-ink: #23211d;
+    --hha-ink-soft: #5d554b;
+    --hha-ink-muted: #857b6e;
+    --hha-line: rgba(35, 33, 29, 0.14);
+    --hha-zelena: #35694a;
+
+    box-sizing: border-box;
+    /* Obrazovka sedi v plose, kterou ji Odoo da, a ta ma
+       overflow:hidden - delsi tabulka by se jinak oriznula. */
+    min-height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 0 0 48px;
+    background: var(--hha-cream);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--hha-ink);
+    font-size: 14px;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+/* --- lista se zalozkami ------------------------------------ */
+
+.hha-lista {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 24px;
+    height: 54px;
+    background: var(--hha-graphite);
+}
+
+.hha-znacka {
+    margin-right: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.hha-zalozky {
+    display: flex;
+    gap: 2px;
+    margin-right: auto;
+}
+
+.hha-zalozka {
+    padding: 8px 16px;
+    border: 0;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.62);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.hha-zalozka--aktivni {
+    color: #fff;
+    border-bottom-color: var(--hha-bronze);
+}
+
+.hha-tlacitko {
+    padding: 7px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+}
+
+/* --- karty s cisly ----------------------------------------- */
+
+.hha-karty {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 22px 24px 8px;
+}
+
+.hha-karta {
+    padding: 16px 18px;
+    border: 1px solid var(--hha-line);
+    background: #fff;
+}
+
+.hha-karta__cislo {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--hha-graphite);
+}
+
+.hha-karta__popis {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--hha-ink-muted);
+}
+
+/* --- filtr nad tabulkou ------------------------------------ */
+
+.hha-filtr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px 10px;
+}
+
+.hha-hledani,
+.hha-vyber {
+    padding: 8px 12px;
+    border: 1px solid var(--hha-line);
+    background: #fff;
+    font-size: 13px;
+    color: var(--hha-ink);
+}
+
+.hha-hledani {
+    flex: 0 1 320px;
+}
+
+/* Vyber faze se nema roztahovat pres celou sirku - vedle nej
+   ma zbyt misto na pocet. */
+.hha-vyber {
+    flex: 0 0 auto;
+    min-width: 170px;
+}
+
+.hha-pocet {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--hha-ink-muted);
+}
+
+/* --- tabulka ----------------------------------------------- */
+
+.hha-tabulka {
+    width: calc(100% - 48px);
+    margin: 0 24px 24px;
+    border: 1px solid var(--hha-line);
+    border-collapse: collapse;
+    background: #fff;
+
+    th {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--hha-line);
+        background: var(--hha-cream);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: left;
+        color: var(--hha-ink-muted);
+    }
+
+    td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--hha-line);
+        vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    tbody tr:hover {
+        background: var(--hha-cream);
+    }
+}
+
+.hha-tabulka__jmeno {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.hha-radek {
+    display: block;
+}
+
+.hha-tichy {
+    color: var(--hha-ink-muted);
+    font-size: 12px;
+}
+
+.hha-faze,
+.hha-stitek {
+    display: inline-block;
+    margin: 0 4px 3px 0;
+    padding: 3px 9px;
+    border: 1px solid var(--hha-line);
+    font-size: 11px;
+    color: var(--hha-ink-soft);
+}
+
+.hha-faze {
+    border-color: var(--hha-bronze);
+    color: var(--hha-bronze);
+}
+
+.hha-odkaz {
+    color: var(--hha-bronze);
+    text-decoration: underline;
+}
+
+/* --- dny vyzvy --------------------------------------------- */
+
+.hha-den {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border: 1px solid var(--hha-line);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--hha-ink-muted);
+}
+
+.hha-den--odemceno {
+    border-color: var(--hha-zelena);
+    background: var(--hha-zelena);
+    color: #fff;
+}
+
+/* --- hovory ------------------------------------------------ */
+
+.hha-nadpis {
+    margin: 22px 24px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--hha-graphite);
+}
+
+.hha-volne {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 24px;
+}
+
+.hha-volne__den {
+    padding: 8px 12px;
+    border: 1px solid var(--hha-line);
+    background: #fff;
+    text-align: center;
+}
+
+.hha-volne__datum {
+    display: block;
+    font-size: 12px;
+    color: var(--hha-ink-muted);
+}
+
+.hha-volne__pocet {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--hha-graphite);
+}
+
+/* --- statistiky -------------------------------------------- */
+
+.hha-mrizka {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px 24px 0;
+}
+
+.hha-blok {
+    padding: 4px 18px 20px;
+    border: 1px solid var(--hha-line);
+    background: #fff;
+
+    .hha-nadpis {
+        margin: 16px 0 12px;
+    }
+}
+
+.hha-blok--siroky {
+    grid-column: 1 / -1;
+}
+
+.hha-pruh {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.hha-pruh__popis {
+    flex: 0 0 150px;
+    font-size: 12px;
+    color: var(--hha-ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hha-pruh__cara {
+    flex: 1 1 auto;
+    height: 10px;
+    background: var(--hha-cream);
+}
+
+.hha-pruh__vypln {
+    display: block;
+    height: 100%;
+    background: var(--hha-bronze);
+}
+
+.hha-pruh__cislo {
+    flex: 0 0 34px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    color: var(--hha-graphite);
+}
+
+.hha-sloupce {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    height: 150px;
+    padding-top: 10px;
+}
+
+.hha-sloupec {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.hha-sloupec__cislo {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--hha-graphite);
+}
+
+/* Sloupec roste odspodu; vlastni vysku dostava ze stylu u znacky.
+   Sirka je omezena, aby pri malo tydnech nevznikly bloky pres pul
+   obrazovky. */
+.hha-sloupec__vypln {
+    display: block;
+    width: 100%;
+    max-width: 56px;
+    min-height: 3px;
+    background: var(--hha-graphite);
+}
+
+.hha-sloupec__popis {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--hha-ink-muted);
+}
+
+/* --- prazdne stavy ----------------------------------------- */
+
+.hha-prazdno {
+    padding: 22px 24px;
+    font-size: 13px;
+    color: var(--hha-ink-muted);
+}

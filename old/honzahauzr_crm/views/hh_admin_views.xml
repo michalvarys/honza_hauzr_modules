@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     VLASTNÍ ADMINISTRACE
+
+     Samostatná položka mezi aplikacemi, ne další nabídka pod CRM.
+     Honza tak má jedno místo, kam chodí, a nemusí se prokousávat
+     pohledy Odoo, které pro jeho práci nejsou.
+
+     Obsah skládá komponenta hh_admin, podklady jí dává model
+     hh.admin. Odkazy na kalendář a sekvence vedou na obrazovky,
+     které už existují - ty se nepředělávaly.
+     ================================================================ -->
+
+<record id="action_hh_admin" model="ir.actions.client">
+    <field name="name">Honza Hauzr</field>
+    <field name="tag">hh_admin</field>
+</record>
+
+<!--
+    noupdate="1": nabídka se založí při instalaci a pak už se na ni
+    nesahá. Bez toho by ji každý upgrade modulu obnovil včetně
+    zapnutí - stejná past jako u Termínů hovorů.
+-->
+<data noupdate="1">
+    <menuitem id="menu_hh_admin_root"
+              name="Honza Hauzr"
+              action="action_hh_admin"
+              web_icon="honzahauzr_crm,static/description/icon.png"
+              sequence="5"/>
+</data>
+
+</odoo>

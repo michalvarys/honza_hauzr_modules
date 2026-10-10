@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="honzahauzr_crm.HhAdmin">
+    <div class="hha">
+
+        <!-- ===== LISTA SE ZALOZKAMI ===== -->
+        <div class="hha-lista">
+            <span class="hha-znacka">Honza Hauzr</span>
+            <nav class="hha-zalozky">
+                <t t-foreach="zalozky" t-as="z" t-key="z.klic">
+                    <button class="hha-zalozka"
+                            t-att-class="{ 'hha-zalozka--aktivni': stav.zalozka === z.klic }"
+                            t-on-click="() => this.prepni(z.klic)"
+                            t-esc="z.popis"/>
+                </t>
+            </nav>
+            <button class="hha-tlacitko" t-on-click="otevriSekvence">Sekvence</button>
+            <button class="hha-tlacitko" t-on-click="otevriKalendar">Kalendář</button>
+        </div>
+
+        <!-- ===== CISLA ===== -->
+        <div class="hha-karty" t-if="stav.cisla">
+            <div class="hha-karta">
+                <span class="hha-karta__cislo" t-esc="stav.cisla.lidi"/>
+                <span class="hha-karta__popis">lidí v CRM</span>
+            </div>
+            <div class="hha-karta">
+                <span class="hha-karta__cislo" t-esc="stav.cisla.vyzva"/>
+                <span class="hha-karta__popis">ve výzvě</span>
+            </div>
+            <div class="hha-karta">
+                <span class="hha-karta__cislo" t-esc="stav.cisla.hovory"/>
+                <span class="hha-karta__popis">hovorů před sebou</span>
+            </div>
+            <div class="hha-karta">
+                <span class="hha-karta__cislo" t-esc="stav.cisla.maily"/>
+                <span class="hha-karta__popis">odeslaných e-mailů</span>
+            </div>
+        </div>
+
+        <t t-if="stav.nacita">
+            <div class="hha-prazdno">Načítám…</div>
+        </t>
+
+        <t t-elif="!stav.data">
+            <div class="hha-prazdno">Nic k zobrazení.</div>
+        </t>
+
+        <t t-else="">
+
+            <!-- ===== LIDE ===== -->
+            <t t-if="stav.zalozka === 'lide'">
+                <div class="hha-filtr">
+                    <input class="hha-hledani" type="search" placeholder="Hledat jméno, e-mail nebo telefon…"
+                           t-att-value="stav.hledani" t-on-change="hledej"/>
+                    <select class="hha-vyber" t-on-change="filtrujStupen">
+                        <option value="">Všechny fáze</option>
+                        <t t-foreach="stav.data.stupne" t-as="s" t-key="s.id">
+                            <option t-att-value="s.id" t-att-selected="stav.stupen === s.id" t-esc="s.name"/>
+                        </t>
+                    </select>
+                    <span class="hha-pocet">
+                        <t t-esc="stav.data.lide.length"/> z <t t-esc="stav.data.celkem"/>
+                    </span>
+                </div>
+
+                <table class="hha-tabulka">
+                    <thead>
+                        <tr>
+                            <th>Jméno</th>
+                            <th>Kontakt</th>
+                            <th>Fáze</th>
+                            <th>Odkud</th>
+                            <th>Štítky</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="stav.data.lide" t-as="l" t-key="l.id">
+                            <tr t-on-click="() => this.otevriLead(l.id)">
+                                <td class="hha-tabulka__jmeno" t-esc="l.contact_name or l.name"/>
+                                <td>
+                                    <span class="hha-radek" t-esc="l.email_from or ''"/>
+                                    <span class="hha-radek hha-tichy" t-esc="l.phone or ''"/>
+                                </td>
+                                <td><span class="hha-faze" t-esc="l.stupen"/></td>
+                                <td>
+                                    <span class="hha-radek" t-esc="l.zdroj"/>
+                                    <span class="hha-radek hha-tichy" t-esc="l.web"/>
+                                </td>
+                                <td>
+                                    <t t-foreach="l.stitky" t-as="s" t-key="s_index">
+                                        <span class="hha-stitek" t-esc="s"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr t-if="!stav.data.lide.length">
+                            <td colspan="5" class="hha-prazdno">Nikdo tu neodpovídá hledání.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+
+            <!-- ===== VYZVA ===== -->
+            <t t-if="stav.zalozka === 'vyzva'">
+                <t t-if="!stav.data.lide.length">
+                    <div class="hha-prazdno">Ve výzvě teď nikdo není.</div>
+                </t>
+                <table class="hha-tabulka" t-else="">
+                    <thead>
+                        <tr>
+                            <th>Jméno</th>
+                            <th>Ve výzvě od</th>
+                            <th>Dny</th>
+                            <th>Osobní odkaz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="stav.data.lide" t-as="l" t-key="l.id">
+                            <tr>
+                                <td class="hha-tabulka__jmeno" t-on-click="() => this.otevriLead(l.id)">
+                                    <span class="hha-radek" t-esc="l.jmeno"/>
+                                    <span class="hha-radek hha-tichy" t-esc="l.email"/>
+                                </td>
+                                <td t-esc="l.od"/>
+                                <td>
+                                    <t t-foreach="l.dny" t-as="d" t-key="d.cislo">
+                                        <span class="hha-den"
+                                              t-att-class="{ 'hha-den--odemceno': d.odemceno }"
+                                              t-att-title="d.odemceno ? 'Odemčeno' : ('Odemkne se za ' + d.zbyva + ' h')">
+                                            <t t-esc="d.cislo"/>
+                                        </span>
+                                    </t>
+                                    <span class="hha-tichy" t-if="!l.dny.length">zatím nezačal</span>
+                                </td>
+                                <td>
+                                    <a t-if="l.maKlic" class="hha-odkaz" t-att-href="l.odkaz"
+                                       target="_blank" rel="noopener">otevřít</a>
+                                    <span class="hha-tichy" t-else="">nemá klíč</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+
+            <!-- ===== HOVORY ===== -->
+            <t t-if="stav.zalozka === 'hovory'">
+                <h2 class="hha-nadpis">Domluvené hovory</h2>
+                <t t-if="!stav.data.rezervovane.length">
+                    <div class="hha-prazdno">Žádný hovor před sebou nemáš.</div>
+                </t>
+                <table class="hha-tabulka" t-else="">
+                    <thead>
+                        <tr>
+                            <th>Kdy</th>
+                            <th>Kdo</th>
+                            <th>Kontakt</th>
+                            <th>Poznámka</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="stav.data.rezervovane" t-as="r" t-key="r.id">
+                            <tr>
+                                <td class="hha-tabulka__jmeno" t-esc="r.kdy"/>
+                                <td t-esc="r.jmeno or ''"/>
+                                <td>
+                                    <span class="hha-radek" t-esc="r.email or ''"/>
+                                    <span class="hha-radek hha-tichy" t-esc="r.telefon or ''"/>
+                                </td>
+                                <td class="hha-tichy" t-esc="r.poznamka or ''"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <h2 class="hha-nadpis">Volné termíny napřed</h2>
+                <div class="hha-volne">
+                    <t t-foreach="stav.data.volne" t-as="v" t-key="v.den">
+                        <div class="hha-volne__den">
+                            <span class="hha-volne__datum" t-esc="v.den"/>
+                            <span class="hha-volne__pocet" t-esc="v.pocet"/>
+                        </div>
+                    </t>
+                    <div class="hha-prazdno" t-if="!stav.data.volne.length">
+                        Na nejbližší tři týdny nejsou volné termíny.
+                    </div>
+                </div>
+            </t>
+
+            <!-- ===== STATISTIKY ===== -->
+            <t t-if="stav.zalozka === 'statistiky'">
+                <div class="hha-mrizka">
+
+                    <section class="hha-blok">
+                        <h2 class="hha-nadpis">Kdo kde stojí</h2>
+                        <t t-foreach="stav.data.stupne" t-as="s" t-key="s.nazev">
+                            <div class="hha-pruh">
+                                <span class="hha-pruh__popis" t-esc="s.nazev"/>
+                                <span class="hha-pruh__cara">
+                                    <span class="hha-pruh__vypln"
+                                          t-attf-style="width: {{ vyska(s.pocet, stav.data.stupne) }}"/>
+                                </span>
+                                <span class="hha-pruh__cislo" t-esc="s.pocet"/>
+                            </div>
+                        </t>
+                    </section>
+
+                    <section class="hha-blok">
+                        <h2 class="hha-nadpis">Odkud lidé chodí</h2>
+                        <t t-foreach="stav.data.zdroje" t-as="z" t-key="z.nazev">
+                            <div class="hha-pruh">
+                                <span class="hha-pruh__popis" t-esc="z.nazev"/>
+                                <span class="hha-pruh__cara">
+                                    <span class="hha-pruh__vypln"
+                                          t-attf-style="width: {{ vyska(z.pocet, stav.data.zdroje) }}"/>
+                                </span>
+                                <span class="hha-pruh__cislo" t-esc="z.pocet"/>
+                            </div>
+                        </t>
+                    </section>
+
+                    <section class="hha-blok hha-blok--siroky">
+                        <h2 class="hha-nadpis">Přírůstek po týdnech</h2>
+                        <div class="hha-sloupce">
+                            <t t-foreach="stav.data.tydny" t-as="t" t-key="t.popis">
+                                <div class="hha-sloupec">
+                                    <span class="hha-sloupec__cislo" t-esc="t.pocet"/>
+                                    <span class="hha-sloupec__vypln"
+                                          t-attf-style="height: {{ vyska(t.pocet, stav.data.tydny) }}"/>
+                                    <span class="hha-sloupec__popis" t-esc="t.popis"/>
+                                </div>
+                            </t>
+                        </div>
+                    </section>
+
+                </div>
+            </t>
+
+        </t>
+
+    </div>
+</t>
+
+</templates>
