@@ -163,6 +163,9 @@ class CrmLead(models.Model):
 
         leady = super().create(zbyle) if zbyle else self.browse()
         for lead in leady:
+            # Napred sekce podle stranky, pak teprve zdroj:
+            # hadani zdroje podle nazvu by jinak novou sekci prebilo.
+            lead._hh_doplnit_sekci_ze_stranky()
             lead._hh_oznacit_zdroj()
             lead._hh_zaradit_do_stupne()
             # Az po zarazeni podle hh_zdroj: kdyz formular posle

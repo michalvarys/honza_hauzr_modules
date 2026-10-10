@@ -21,7 +21,10 @@ Puvodni zarazovani podle hh_zdroj zustava beze zmeny. Tohle se
 pridava az nad nim a jen tehdy, kdyz hh_sekce opravdu prijde.
 """
 
+from urllib.parse import urlparse
+
 from odoo import api, fields, models
+from odoo.http import request
 
 
 class CrmLeadSekce(models.Model):
@@ -78,9 +81,52 @@ class CrmLeadSekce(models.Model):
 
         return stupen
 
+    @api.model
+    def _hh_sekce_ze_stranky(self):
+        """Nazev sekce podle stranky, na ktere clovek formular odeslal.
+
+        Tohle je ta cast, kvuli ktere se nemusi nic chystat dopredu:
+        kdyz Honza postavi na webu stranku "40denní výzva" a da na ni
+        formular, nemusi k nemu nic vyplnovat ani zakladat sekci
+        v administraci. Nazev se vezme ze stranky samotne.
+
+        Bere se adresa, ze ktere formular prisel, a k ni stranka
+        v databazi. Nazev stranky je to, co Honza videl, kdyz ji
+        zakladal - tedy presne to, cemu rika sekce.
+        """
+        try:
+            if not request:
+                return ''
+            cesta = urlparse(request.httprequest.referrer or '').path
+        except Exception:
+            # Mimo webovy pozadavek - import, shell, planovana uloha.
+            return ''
+        if not cesta or cesta == '/':
+            return ''
+        stranka = self.env['website.page'].sudo().search(
+            [('url', '=', cesta)], limit=1)
+        return (stranka.name or '').strip()
+
+    def _hh_doplnit_sekci_ze_stranky(self):
+        """Doplni sekci podle stranky, kdyz ji formular neposlal.
+
+        Pousti se jeste pred oznacenim zdroje, a to zamerne. Zalozni
+        hadani zdroje se diva na nazev karty a ve jmenu
+        "40denní výzva" najde slovo vyzva - kartu by odklonilo do
+        tridenni vyzvy a vlastni sekce by nevznikla. Kdyz uz sekci
+        zname, hadani se preskakuje.
+        """
+        self.ensure_one()
+        if self.hh_sekce or self.hh_zdroj:
+            return
+        nazev = self._hh_sekce_ze_stranky()
+        if nazev:
+            self.sudo().hh_sekce = nazev
+
     def _hh_zaradit_do_sekce(self):
         """Posune kartu do sekce, kterou poslal formular."""
         self.ensure_one()
+
         if not self.hh_sekce:
             return
 
