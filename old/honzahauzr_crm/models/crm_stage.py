@@ -37,6 +37,47 @@ class CrmStage(models.Model):
             stupen.hh_maily_count = sum(
                 stupen.hh_stitek_ids.mapped('mail_count'))
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Novy sloupec dostane svou radu e-mailu rovnou.
+
+        Honza prida sloupec na nastence a ocekava, ze si k nemu muze
+        hned napsat zpravy. Bez toho by musel jit do stitku, zalozit
+        stejnojmenny a prihodit ho zpatky ke sloupci - tri kroky
+        navic a tri mista, kde se da zapomenout.
+        """
+        stupne = super().create(vals_list)
+        stupne._hh_zajistit_vlastni_stitek()
+        return stupne
+
+    def _hh_zajistit_vlastni_stitek(self):
+        """Prihodi sloupci radu e-mailu pojmenovanou jako on."""
+        Stitek = self.env['hh.mail.stitek'].sudo()
+        for stupen in self:
+            if stupen.hh_stitek_ids:
+                continue
+            stitek = Stitek.search([('name', '=ilike', stupen.name)], limit=1)
+            if not stitek:
+                stitek = Stitek.create({'name': stupen.name})
+            stupen.sudo().hh_stitek_ids = [(4, stitek.id)]
+
+    @api.model
+    def _hh_doplnit_stitky(self):
+        """Kazdy sloupec dostane svou radu e-mailu.
+
+        V knihovne se zpravy radi podle stitku a sloupec bez stitku
+        se v ni vubec neukaze - Honza by pro nej musel stitek zakladat
+        rucne a pamatovat si, ze se jmenuje stejne jako sloupec.
+
+        Pousti se pri kazdem upgradu modulu, takze sloupce pridane
+        pozdeji se doplni samy. Co uz stitek ma, se nechava byt -
+        i kdyz se jmenuje jinak: nazev stitku je vec, kterou si Honza
+        muze zmenit, a prepsat mu ji by bylo svevolne.
+        """
+        bez = self.sudo().search([('hh_stitek_ids', '=', False)])
+        bez._hh_zajistit_vlastni_stitek()
+        return bez.mapped('name')
+
     def hh_maily_k_odeslani(self):
         """Zapnute zpravy vsech rad sloupce, serazene podle odstupu."""
         self.ensure_one()

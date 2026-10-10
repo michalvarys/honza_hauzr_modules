@@ -238,11 +238,26 @@ class CrmLead(models.Model):
 
     @api.model
     def _hh_stupen_zdroje(self, zdroj):
+        """Sloupec, do ktereho zdroj patri. Kdyz chybi, zalozi se.
+
+        Driv se jen hledalo podle XML id a kdyz sloupec nekdo smazal,
+        vratilo se prazdno a clovek spadl do prvniho sloupce bez
+        rady e-mailu. Ted se sekce zalozi stejne jako sekce, ktera
+        prijde z webu poprve - i se stitkem na kartu a stitkem na
+        e-maily.
+        """
         xmlid = self.HH_STUPNE.get(zdroj)
         if not xmlid:
             return self.env['crm.stage']
-        return self.env.ref(xmlid, raise_if_not_found=False) \
-            or self.env['crm.stage']
+
+        stupen = self.env.ref(xmlid, raise_if_not_found=False)
+        if stupen:
+            return stupen
+
+        popis = dict(self._fields['hh_zdroj'].selection).get(zdroj)
+        if not popis:
+            return self.env['crm.stage']
+        return self._hh_zajistit_sekci(popis)
 
     def _hh_zaradit_do_stupne(self):
         """Posune prilezitost rovnou do sloupce, ktery jejimu zdroji patri.
@@ -259,11 +274,12 @@ class CrmLead(models.Model):
         """
         self.ensure_one()
 
-        xmlid = self.HH_STUPNE.get(self.hh_zdroj)
-        if not xmlid:
-            return
-
-        stupen = self.env.ref(xmlid, raise_if_not_found=False)
+        # Pres _hh_stupen_zdroje, ne vlastnim hledanim podle XML id:
+        # tam se sekce v pripade potreby i zalozi. Driv tu byla
+        # kopie toho hledani, ktera pri chybejicim sloupci jen
+        # skoncila - clovek spadl do prvniho sloupce bez rady
+        # e-mailu a nikdo o tom nevedel.
+        stupen = self._hh_stupen_zdroje(self.hh_zdroj)
         if not stupen:
             return
 

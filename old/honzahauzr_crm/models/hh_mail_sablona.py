@@ -71,9 +71,18 @@ class HhMailSablona(models.Model):
         required=True,
         ondelete='restrict',
         index=True,
+        # Bez group_expand ukazuje seskupeny seznam jen rady, ve
+        # kterych uz nejaka zprava je. Prazdna rada se v knihovne
+        # vubec neobjevila, takze nebylo poznat, ze existuje a ze
+        # se do ni da psat.
+        group_expand='_hh_vsechny_stitky',
         help='Řada, do které zpráva patří. U sloupce pak stačí '
              'přihodit tenhle štítek a odejde všechno, co pod něj spadá.',
     )
+
+    @api.model
+    def _hh_vsechny_stitky(self, stitky, domena):
+        return self.env['hh.mail.stitek'].search([], order='name')
     po_dnech = fields.Integer(
         string='Po (dnech)',
         default=1,

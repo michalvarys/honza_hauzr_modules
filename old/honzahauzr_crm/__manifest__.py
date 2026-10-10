@@ -30,6 +30,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/crm_tag_data.xml',
         'data/mailing_list_data.xml',
         'data/website_form_data.xml',
+        'data/sekce_doplneni.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
         'views/mail_tema.xml',
