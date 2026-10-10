@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- ================================================================
+     NÁŠ NÁVRH V GALERII EDITORU
+
+     Galerie, kterou editor nabídne u prázdné zprávy, se skládá ze
+     šablony mass_mailing.email_designer_themes. Každá dlaždice je
+     jeden div s názvem, titulkem a cestou k náhledům; editor si
+     z té cesty složí tři obrázky: _small.png do dlaždice,
+     _large.png do velkého náhledu a _logo.png.
+
+     data-nowrap="1" říká, ať editor obsah neobaluje svým sloupcem.
+     Náš návrh si nese vlastní tabulku i pozadí, stejně jako to má
+     vestavěné téma Plain Text.
+
+     Zástupné texty jsou zapsané entitami, viz nástroj, který tenhle
+     soubor vyrábí - QWeb by je jinak vyhodnotil už tady.
+     ================================================================ -->
+
+<template id="theme_vr_vyzva_telo" name="Vlastní režie — tělo návrhu">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:32px 12px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:28px 40px 22px 40px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:38px 40px 8px 40px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Den 1 &#183; Z autopilota zpět do života</p>
+            <h1 style="margin:0 0 22px 0;font-family:Helvetica,Arial,sans-serif;font-size:30px;line-height:1.25;font-weight:bold;color:#23211d;">Vítej ve výzvě. Den&#160;1 na tebe čeká.</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">&#123;&#123; object.hh_osloveni &#125;&#125;</p>
+              <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">jsi uvnitř. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do svého běžného dne.</p>
+              <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;"><strong>Den 1 &#8211; Zrcadlo a pravda.</strong> Podíváš se bez obalu na to, kde dnes jsi, a vybereš jednu oblast, kterou už nechceš dál ignorovat.</p>
+              <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Stačí na to dvacet minut v klidu. Klidně dneska večer.</p>
+          </td>
+        </tr>
+
+        <!-- tlacitko s osobnim odkazem -->
+        <tr>
+          <td align="center" style="padding:14px 40px 10px 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="&#123;&#123; object.hh_vyzva_odkaz &#125;&#125;"
+                     style="display:inline-block;padding:16px 38px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Otevřít Den 1</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 40px 32px 40px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="&#123;&#123; object.hh_vyzva_odkaz &#125;&#125;" style="color:#5d554b;">&#123;&#123; object.hh_vyzva_odkaz &#125;&#125;</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 40px 34px 40px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              Držím ti palce,<br/><strong>Honza Hauzr</strong>
+            </p>
+            <p style="margin:12px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#8c8276;">Den 2 ti odemknu za 24 hodin a dám ti vědět e-mailem.</p>
+          </td>
+        </tr>
+
+      </table>
+
+      <p style="margin:18px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#a89681;">
+        Vlastní režie &#183; Honza Hauzr
+      </p>
+
+    </td>
+  </tr>
+</table>
+</template>
+
+<template id="theme_vr_vyzva" inherit_id="mass_mailing.email_designer_themes"
+          name="Vlastní režie — návrh do galerie">
+    <xpath expr="//div[@data-name='default']" position="after">
+        <div data-name="vr_vyzva"
+             title="Vlastní režie"
+             data-nowrap="1"
+             data-img="/theme_honzahauzr/static/src/img/mail/vr_den1_thumb">
+            <t t-call="honzahauzr_crm.theme_vr_vyzva_telo"/>
+        </div>
+    </xpath>
+</template>
+
+</odoo>

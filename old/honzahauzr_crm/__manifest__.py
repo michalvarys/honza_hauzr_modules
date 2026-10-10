@@ -32,6 +32,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/website_form_data.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
+        'views/mail_tema.xml',
         'views/crm_stage_views.xml',
         # Menu az za akcemi - polozky na ne odkazuji.
         'views/menu.xml',
