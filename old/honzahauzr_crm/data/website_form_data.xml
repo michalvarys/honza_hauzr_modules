@@ -15,13 +15,18 @@
     stitku. Zalozni rozpoznani podle nazvu v crm_lead.py zustava, uz
     ale jen jako pojistka pro starsi formulare.
 
+    hh_sekce nese nazev sekce, ze ktere clovek prisel. Kdyz pro
+    ni jeste neni sloupec na nastence, zalozi se i se stitky sam -
+    viz crm_lead_sekce.py. Diky tomu staci na webu pridat formular
+    a v administraci uz se nemusi nic chystat dopredu.
+
     hh_web rika, ze ktereho z obou webu clovek prisel. Odber
     novinek vede z obou do jedne schranky, takze bez nej by se
     odberatele nedali rozlisit.
 -->
 <function model="ir.model.fields" name="formbuilder_whitelist">
     <value>crm.lead</value>
-    <value eval="['hh_zdroj', 'hh_web']"/>
+    <value eval="['hh_zdroj', 'hh_web', 'hh_sekce']"/>
 </function>
 
 </odoo>

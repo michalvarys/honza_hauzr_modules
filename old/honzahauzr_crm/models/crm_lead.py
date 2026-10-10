@@ -165,6 +165,10 @@ class CrmLead(models.Model):
         for lead in leady:
             lead._hh_oznacit_zdroj()
             lead._hh_zaradit_do_stupne()
+            # Az po zarazeni podle hh_zdroj: kdyz formular posle
+            # i nazev sekce, ma prednost a sloupec se pro ni
+            # v pripade potreby zalozi.
+            lead._hh_zaradit_do_sekce()
             lead._hh_doplnit_kontakt()
             lead._hh_upozornit()
         return nalezene | leady
@@ -226,6 +230,12 @@ class CrmLead(models.Model):
             # Pres write kvuli e-mailu navazanemu na presun sloupce.
             self.sudo().write(zapis)
 
+        # Clovek, ktery uz v nastence je a prijde pres novou sekci.
+        # Sloupec pro ni jeste existovat nemusi.
+        if hodnoty.get('hh_sekce'):
+            self.sudo().hh_sekce = hodnoty['hh_sekce']
+            self.sudo()._hh_zaradit_do_sekce()
+
     @api.model
     def _hh_stupen_zdroje(self, zdroj):
         xmlid = self.HH_STUPNE.get(zdroj)
@@ -281,7 +291,13 @@ class CrmLead(models.Model):
         """
         self.ensure_one()
 
-        zdroj = self.hh_zdroj or self._hh_uhodnout_zdroj()
+        # Hada se jen tehdy, kdyz zarazeni neni dane odjinud. Kdyz
+        # formular poslal nazev sekce, hadat se nema z ceho - nazev
+        # "20denní výzva" obsahuje slovo vyzva a karta by k svemu
+        # stitku dostala i stitek tridenni vyzvy.
+        zdroj = self.hh_zdroj
+        if not zdroj and not self.hh_sekce:
+            zdroj = self._hh_uhodnout_zdroj()
         if not zdroj:
             return
 
