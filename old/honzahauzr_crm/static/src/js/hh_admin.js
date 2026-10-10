@@ -47,6 +47,7 @@ class HhAdmin extends Component {
         this.stav = useState({
             obrazovka: kontext.hh_obrazovka || "nastenka",
             tazena: null,
+            cil: null,
             novaSekce: null,
             prejmenovavana: null,
             hlaska: null,
@@ -129,26 +130,69 @@ class HhAdmin extends Component {
         return Math.round((pocet / max) * 100) + "%";
     }
 
-    zacniTahnout(karta, sloupec) {
+    zacniTahnout(karta, sloupec, udalost) {
         this.stav.tazena = { id: karta.id, zeSloupce: sloupec.id };
+        // Bez dataTransfer nekterе prohlizece tazeni vubec nezahaji.
+        if (udalost.dataTransfer) {
+            udalost.dataTransfer.effectAllowed = "move";
+            udalost.dataTransfer.setData("text/plain", String(karta.id));
+        }
     }
 
-    nadSloupcem(udalost) {
+    prestanTahnout() {
+        this.stav.tazena = null;
+        this.stav.cil = null;
+    }
+
+    nadSloupcem(sloupec, udalost) {
         // Bez tohohle prohlizec pusteni vubec nedovoli.
         udalost.preventDefault();
+        if (udalost.dataTransfer) {
+            udalost.dataTransfer.dropEffect = "move";
+        }
+        if (this.stav.tazena && this.stav.cil !== sloupec.id) {
+            this.stav.cil = sloupec.id;
+        }
+    }
+
+    opustilSloupec(sloupec) {
+        if (this.stav.cil === sloupec.id) {
+            this.stav.cil = null;
+        }
     }
 
     async pustNaSloupec(sloupec) {
         const t = this.stav.tazena;
         this.stav.tazena = null;
+        this.stav.cil = null;
         if (!t || t.zeSloupce === sloupec.id) {
             return;
         }
+
+        // Karta se prehodi rovnou tady, jeste pred zapisem. Drive se
+        // cekalo na server a deska se pak nacetla cela znovu - pri
+        // kazdem presunu to bliklo a karta na okamzik zmizela.
+        const zdroj = this.stav.data.find((s) => s.id === t.zeSloupce);
+        const cil = this.stav.data.find((s) => s.id === sloupec.id);
+        if (!zdroj || !cil) {
+            return;
+        }
+        const kde = zdroj.karty.findIndex((k) => k.id === t.id);
+        if (kde < 0) {
+            return;
+        }
+        const karta = zdroj.karty[kde];
+        zdroj.karty.splice(kde, 1);
+        zdroj.celkem -= 1;
+        cil.karty.unshift(karta);
+        cil.celkem += 1;
+
         // Bezny zapis, at plati stejna pravidla jako doted: presun
         // do sloupce spusti e-maily navazane na jeho stitky.
         await this.orm.write("crm.lead", [t.id], { stage_id: sloupec.id });
+        // Jen cisla nahore. Celou desku uz nacitat netreba, na
+        // obrazovce sedi spravne.
         this.stav.cisla = await this.orm.call("hh.admin", "hh_cisla", []);
-        await this.nacti();
     }
 
     // ------------------------------------------------------------------

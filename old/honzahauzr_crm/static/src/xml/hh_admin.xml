@@ -76,7 +76,9 @@
                 <div class="hhn-deska">
                     <t t-foreach="stav.data" t-as="sloupec" t-key="sloupec.id">
                         <div class="hhn-sloupec"
-                             t-on-dragover="nadSloupcem"
+                             t-att-class="{ 'hhn-sloupec--cil': stav.cil === sloupec.id }"
+                             t-on-dragover="(ev) => this.nadSloupcem(sloupec, ev)"
+                             t-on-dragleave="() => this.opustilSloupec(sloupec)"
                              t-on-drop="() => this.pustNaSloupec(sloupec)">
                             <header class="hhn-sloupec__hlava">
                                 <t t-if="stav.prejmenovavana and stav.prejmenovavana.id === sloupec.id">
@@ -102,7 +104,9 @@
                             <div class="hhn-sloupec__karty">
                                 <t t-foreach="sloupec.karty" t-as="karta" t-key="karta.id">
                                     <article class="hhn-karta" draggable="true"
-                                             t-on-dragstart="() => this.zacniTahnout(karta, sloupec)"
+                                             t-att-class="{ 'hhn-karta--tazena': stav.tazena and stav.tazena.id === karta.id }"
+                                             t-on-dragstart="(ev) => this.zacniTahnout(karta, sloupec, ev)"
+                                             t-on-dragend="prestanTahnout"
                                              t-on-click="() => this.otevriLead(karta.id)">
                                         <h3 class="hhn-karta__nazev" t-esc="karta.name"/>
                                         <p class="hhn-karta__kdo" t-if="karta.contact_name"

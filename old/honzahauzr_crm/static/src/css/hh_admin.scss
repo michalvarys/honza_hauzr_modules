@@ -695,3 +695,39 @@
     color: inherit;
     cursor: pointer;
 }
+
+
+/* --- plynule prehazovani ----------------------------------
+   Sloupce jsou stejne vysoke a karty v nich zabiraji zbytek
+   mista. Driv byl sloupec vysoky jen jak jeho obsah, takze
+   pustit kartu slo jen na uzky prouzek nahore. */
+
+.hhn-deska {
+    align-items: stretch;
+    min-height: 460px;
+}
+
+.hhn-sloupec {
+    display: flex;
+    flex-direction: column;
+    transition: background 0.12s, border-color 0.12s;
+}
+
+.hhn-sloupec__karty {
+    flex: 1 1 auto;
+}
+
+/* Sloupec pod kurzorem da o sobe vedet, at je poznat, kam
+   karta spadne. */
+.hhn-sloupec--cil {
+    background: #fff;
+    border-color: var(--hha-bronze);
+}
+
+.hhn-karta {
+    transition: opacity 0.12s, border-color 0.12s;
+}
+
+.hhn-karta--tazena {
+    opacity: 0.4;
+}
