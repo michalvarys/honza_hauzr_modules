@@ -26,6 +26,10 @@
     min-height: 100%;
     max-height: 100%;
     overflow-y: auto;
+    /* Vodorovne posouvani patri desce se sloupci, ne cele obrazovce.
+       Pri overflow-y: auto si prohlizec dopocita i overflow-x: auto
+       sam a posuvnik pak visel uplne dole pod vsim. */
+    overflow-x: hidden;
     padding: 0 0 48px;
     background: var(--hha-cream);
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -730,4 +734,48 @@
 
 .hhn-karta--tazena {
     opacity: 0.4;
+}
+
+/* Posuvnik desky je tenky a sedi hned pod sloupci, ne pod celou
+   obrazovkou. */
+.hhn-deska {
+    scrollbar-width: thin;
+    padding-bottom: 10px;
+}
+
+.hhn-deska::-webkit-scrollbar {
+    height: 10px;
+}
+
+.hhn-deska::-webkit-scrollbar-thumb {
+    background: var(--hha-sand);
+    border-radius: 5px;
+}
+
+.hhn-deska::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Karty se posouvaji uvnitr sloupce, ne celou obrazovkou.
+   Bez toho deska narostla pod spodni hranu okna a vodorovny
+   posuvnik pod sloupci zustal mimo obrazovku - clovek by k nemu
+   musel nejdriv srolovat dolu. */
+.hhn-sloupec__karty {
+    max-height: calc(100vh - 330px);
+    min-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.hhn-sloupec__karty::-webkit-scrollbar {
+    width: 8px;
+}
+
+.hhn-sloupec__karty::-webkit-scrollbar-thumb {
+    background: var(--hha-sand);
+    border-radius: 4px;
+}
+
+.hhn-deska {
+    min-height: 0;
 }
