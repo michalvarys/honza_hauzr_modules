@@ -58,6 +58,18 @@
                 </group>
                 <separator string="Text zprávy"/>
                 <!--
+                    Galerii predloh ukazuje editor jen u prazdne zpravy.
+                    Jina cesta, jak predlohu vymenit, neni - tlacitko
+                    proto telo vyprazdni a galerie se objevi.
+                -->
+                <div class="mb-2" invisible="not body_arch">
+                    <button name="action_hh_zmenit_sablonu" type="object"
+                            class="btn btn-secondary btn-sm"
+                            confirm="Tím se smaže text téhle zprávy a vybereš předlohu znovu. Pokračovat?">
+                        Změnit předlohu
+                    </button>
+                </div>
+                <!--
                     Editor z Email Marketingu: bloky, obrazky a hotove
                     predlohy. Volba inline-field rika, kam ulozit verzi
                     se styly prepsanymi do znacek - ta se pak posila.

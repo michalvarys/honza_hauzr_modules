@@ -80,6 +80,25 @@ class HhMailSablona(models.Model):
              'přihodit tenhle štítek a odejde všechno, co pod něj spadá.',
     )
 
+    def action_hh_zmenit_sablonu(self):
+        """Vyprazdni telo, aby sel vybrat jiny vzhled.
+
+        Galerii predloh ukazuje editor z Email Marketingu jen tehdy,
+        kdyz je zprava prazdna - jina cesta, jak uz zvolenou predlohu
+        vymenit, v nem neni.
+
+        Maze se i preklad. Obycejny zapis prepise jen zakladni jazyk
+        a v ceske administraci by se dal ukazoval puvodni text, takze
+        by se galerie neobjevila.
+        """
+        self.ensure_one()
+        jazyky = [l.code for l in self.env['res.lang'].sudo().search([('active', '=', True)])]
+        self.write({'body_arch': False, 'body_html': False})
+        for pole in ('body_arch', 'body_html'):
+            self.update_field_translations(pole, {k: '' for k in jazyky})
+        # Formular se musi nacist znovu, jinak editor drzi stary obsah.
+        return {'type': 'ir.actions.client', 'tag': 'reload'}
+
     @api.model
     def _hh_vsechny_stitky(self, stitky, domena):
         return self.env['hh.mail.stitek'].search([], order='name')
