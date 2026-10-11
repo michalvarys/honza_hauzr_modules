@@ -2,7 +2,7 @@ from . import hh_mail_sablona
 from . import crm_lead
 from . import crm_lead_vyzva
 from . import crm_lead_sekce
-from . import crm_lead_prodejni
+from . import crm_lead_maily
 from . import crm_stage
 from . import hh_termin
 from . import res_config_settings

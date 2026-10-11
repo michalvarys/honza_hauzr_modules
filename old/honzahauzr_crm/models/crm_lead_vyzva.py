@@ -17,6 +17,8 @@ import secrets
 
 from datetime import timedelta
 
+from markupsafe import Markup
+
 from odoo import api, fields, models
 from odoo.http import request
 
@@ -283,6 +285,16 @@ class CrmLeadVyzva(models.Model):
         if not prijemce:
             return
 
+        # Kdo se odhlasil, uz nechce ani dalsi dily vyzvy. Poslat mu
+        # je proto, ze jde o "provozni" radu, by bylo obejiti jeho
+        # rozhodnuti.
+        zadrz = self._hh_zadrz_emailu()
+        if zadrz:
+            _logger.info(
+                'Honza Hauzr CRM: den %s pro %s neodesel - %s.',
+                cislo, prijemce, zadrz)
+            return
+
         self._hh_zajistit_klic()
 
         jmeno = (self.contact_name or '').strip()
@@ -320,6 +332,7 @@ class CrmLeadVyzva(models.Model):
             ),
         }
         predmet, telo = texty[cislo]
+        telo = Markup(telo) + self._hh_paticka_emailu()
 
         try:
             # Kdyz uz zprava k tomuhle dni lezi ve fronte po nepovedenem

@@ -1,18 +1,24 @@
 # -*- coding: utf-8 -*-
-"""Prodejní řada e-mailů po dokončení výzvy.
+"""Patička, odhlášení a zádrže před odesláním.
 
-Běžná řada u sloupce posílá, dokud je karta ve sloupci. U prodejní
-řady to nestačí: nabídka se nesmí poslat člověku, který už si hovor
-domluvil, program koupil, odhlásil se nebo Honzovi osobně odepsal.
+Dvě vrstvy, které platí různě široko.
 
-Řada se proto u štítku označí jako prodejní a před každým odesláním
-se projde několik zádrží. Některé řadu ukončí (odhlášení, domluvený
-hovor), jiné ji jen pozastaví (osobní odpověď, zavřené rezervace) -
-a jakmile důvod pomine, pokračuje se prvním neodeslaným e-mailem.
-Zameškané zprávy se nedoposílají: odesílač si u každého člověka
-pamatuje, co už odešlo, a každou zprávu pošle jen jednou.
+**Patička s odhlášením je v každém e-mailu, který jde zákazníkovi.**
+Nejen u nabídek - i u zpráv ze tří dnů výzvy a u potvrzení hovoru.
+Kdo nechce nic, musí mít možnost to zastavit v e-mailu, který zrovna
+drží v ruce, a ne hledat, ve které zprávě ten odkaz byl. Jediné, kde
+patička není, jsou upozornění pro Honzu - ta nejdou zákazníkovi.
 
-Ostatních řad se to netýká. Bez přepínače u štítku se nic nemění.
+Z odhlášení plyne **univerzální zádrž**: komu jsme přestali psát,
+tomu nejde nic, ani provozní řada.
+
+**Prodejní řada má zádrží víc.** Nabídka se nesmí poslat člověku,
+který už si hovor domluvil nebo Honzovi osobně odepsal. Řada se
+proto u štítku označí jako prodejní; některé zádrže ji ukončí
+(odhlášení, domluvený hovor), jiné jen pozastaví (osobní odpověď,
+zavřené rezervace). Jakmile důvod pomine, pokračuje se prvním
+neodeslaným e-mailem - zameškané se nedoposílají, protože odesílač
+si u každého člověka pamatuje, co už odešlo.
 """
 
 import logging
@@ -26,8 +32,7 @@ _logger = logging.getLogger(__name__)
 
 # Patička a skrytý náhledový text se do zprávy vkládají až při
 # odeslání, ne do textu v editoru. Honza tak nemá co omylem smazat
-# a u každé prodejní zprávy je identifikace odesílatele i odhlášení
-# jistě.
+# a pod každou zprávou je identifikace odesílatele i odhlášení jistě.
 PATICKA = (
     '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
     'width="100%%" style="background-color:#f4efe6;margin:0;padding:0;">'
@@ -38,12 +43,17 @@ PATICKA = (
     'style="padding:16px 22px 0 22px;font-family:Helvetica,Arial,sans-serif;'
     'font-size:12px;line-height:1.7;color:#a89681;">'
     '%(odesilatel)s<br/>'
-    'Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy '
-    'Z autopilota zpět do života.<br/>'
+    'Tenhle e-mail ti přišel, protože %(duvod)s.<br/>'
     '<a href="%(odhlaseni)s" style="color:#8c8276;text-decoration:underline;">'
-    'Odhlásit se z těchto e-mailů</a>'
+    'Nechceš ode mě další e-maily? Odhlas se.</a>'
     '</td></tr></table></td></tr></table>'
 )
+
+# Proc clovek zpravu dostal. Mel by to poznat i ten, kdo si uz
+# nepamatuje, kde nam adresu nechal - jinak oznaci zpravu jako spam
+# a poskodi tim dorucovani vsem ostatnim.
+DUVOD_VYZVA = 'ses přihlásil do bezplatné výzvy Z autopilota zpět do života'
+DUVOD_HOVOR = 'sis u mě domluvil úvodní hovor'
 
 # Schránky ukazují ve výpisu kus textu hned za předmětem. Když se
 # nedoplní, vezmou si první slova ze zprávy - u nás popisek loga.
@@ -123,6 +133,27 @@ class CrmLeadProdejni(models.Model):
             self._hh_zaklad_vyzvy().rstrip('/'),
             self._hh_zajistit_odhlasovaci_klic())
 
+    def _hh_paticka_emailu(self, duvod=None):
+        """Patička pod každou zprávu, která jde zákazníkovi.
+
+        Identifikace odesílatele, proč zprávu dostal, a odkaz na
+        odhlášení. Skládá se až při odeslání, takže ji nejde omylem
+        smazat v editoru ani zapomenout v nově psané zprávě.
+        """
+        self.ensure_one()
+
+        nazev = (self.company_id.name
+                 or self.env.company.name or 'Honza Hauzr')
+        adresa = (self.company_id.street or self.env.company.street or '')
+        odesilatel = (Markup('%s &#183; %s') % (nazev, adresa)
+                      if adresa else Markup('%s') % nazev)
+
+        return Markup(PATICKA) % {
+            'odesilatel': odesilatel,
+            'duvod': duvod or DUVOD_VYZVA,
+            'odhlaseni': self._hh_odkaz_odhlaseni(),
+        }
+
     # ------------------------------------------------------------------
     # zadrze pred odeslanim
     # ------------------------------------------------------------------
@@ -156,20 +187,35 @@ class CrmLeadProdejni(models.Model):
             return True
         return str(hodnota).strip().lower() not in ('false', '0', 'off')
 
-    def _hh_prodejni_zadrz(self):
-        """Vrátí důvod, proč prodejní zprávu neposlat, nebo prázdno."""
+    def _hh_zadrz_emailu(self):
+        """Platí pro každou zprávu: komu jsme přestali psát, tomu nepíšeme.
+
+        Netýká se jen nabídek. Kdo klikne na odhlášení ve zprávě ze
+        třídenní výzvy, nechce další díly - poslat mu je proto, že
+        jde o "provozní" řadu, by bylo obejití jeho rozhodnutí.
+        """
         self.ensure_one()
 
         if self.hh_odhlaseno:
             return 'odhlášen'
-        if self.hh_serie_pozastavena:
-            return 'pozastaveno kvůli osobní odpovědi'
 
         prijemce = (self.email_from or self.partner_id.email or '').strip().lower()
         if prijemce and self.env['mail.blacklist'].sudo().search_count(
                 [('email', '=', prijemce), ('active', '=', True)]):
             return 'adresa je na seznamu zablokovaných'
 
+        return ''
+
+    def _hh_prodejni_zadrz(self):
+        """Vrátí důvod, proč prodejní zprávu neposlat, nebo prázdno."""
+        self.ensure_one()
+
+        duvod = self._hh_zadrz_emailu()
+        if duvod:
+            return duvod
+
+        if self.hh_serie_pozastavena:
+            return 'pozastaveno kvůli osobní odpovědi'
         if self._hh_ma_hovor():
             return 'má domluvený hovor'
         if not self._hh_rezervace_otevrene():
@@ -178,14 +224,14 @@ class CrmLeadProdejni(models.Model):
         return ''
 
     def _hh_poslat_zpravu(self, zprava):
-        """U prodejní řady se před odesláním ověří, že má smysl."""
-        if zprava.stitek_id.prodejni:
-            duvod = self._hh_prodejni_zadrz()
-            if duvod:
-                _logger.info(
-                    'Honza Hauzr CRM: prodejni zprava "%s" pro %s neodesla - %s.',
-                    zprava.name, self.email_from or self.id, duvod)
-                return False
+        """Před odesláním se ověří, že zpráva má komu a proč jít."""
+        duvod = (self._hh_prodejni_zadrz() if zprava.stitek_id.prodejni
+                 else self._hh_zadrz_emailu())
+        if duvod:
+            _logger.info(
+                'Honza Hauzr CRM: zprava "%s" pro %s neodesla - %s.',
+                zprava.name, self.email_from or self.id, duvod)
+            return False
         return super()._hh_poslat_zpravu(zprava)
 
     # ------------------------------------------------------------------
@@ -193,15 +239,13 @@ class CrmLeadProdejni(models.Model):
     # ------------------------------------------------------------------
 
     def _hh_telo_zpravy(self, sablona_mailu):
-        """Prodejní zprávu obalí náhledovým textem a patičkou.
+        """Každou zprávu z řady obalí náhledovým textem a patičkou.
 
         Pole Html vrací Markup. Ten při spojení s obyčejným řetězcem
         druhou stranu zaescapuje - bez obalení by se patička do
         zprávy vypsala jako zdrojový kód místo textu.
         """
         telo = super()._hh_telo_zpravy(sablona_mailu)
-        if not sablona_mailu.stitek_id.prodejni:
-            return telo
 
         nahled = (sablona_mailu.preheader or '').strip()
         if nahled:
@@ -210,16 +254,7 @@ class CrmLeadProdejni(models.Model):
             telo = Markup(NAHLED) % {
                 'text': nahled, 'vypln': Markup(VYPLN)} + telo
 
-        nazev = (self.company_id.name
-                 or self.env.company.name or 'Honza Hauzr')
-        adresa = (self.company_id.street or self.env.company.street or '')
-        odesilatel = (Markup('%s &#183; %s') % (nazev, adresa)
-                      if adresa else Markup('%s') % nazev)
-
-        return telo + Markup(PATICKA) % {
-            'odesilatel': odesilatel,
-            'odhlaseni': self._hh_odkaz_odhlaseni(),
-        }
+        return telo + self._hh_paticka_emailu()
 
     # ------------------------------------------------------------------
     # vstup do rady

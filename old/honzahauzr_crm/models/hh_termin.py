@@ -5,9 +5,13 @@ from datetime import datetime, timedelta
 
 import pytz
 
+from markupsafe import Markup
+
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
+
+from .crm_lead_maily import DUVOD_HOVOR
 
 _logger = logging.getLogger(__name__)
 
@@ -314,7 +318,8 @@ class HhTermin(models.Model):
         telo.append('<p>Kdyby se ti nový čas nehodil, napiš mi a domluvíme jiný.</p>')
         telo.append('<p>Honza Hauzr</p>')
 
-        self._hh_poslat(prijemce, 'Úvodní hovor se přesunul', ''.join(telo))
+        self._hh_poslat(prijemce, 'Úvodní hovor se přesunul', ''.join(telo),
+                        zakaznikovi=True)
 
     # ------------------------------------------------------------------
     # rezervace z webu
@@ -471,7 +476,8 @@ class HhTermin(models.Model):
             int(round((self.delka or 0) * 60)),
             ('<p><a href="%s">Zrušit termín</a></p>' % odkaz) if odkaz else '',
         )
-        self._hh_poslat(self.email, 'Úvodní hovor je domluvený', telo)
+        self._hh_poslat(self.email, 'Úvodní hovor je domluvený', telo,
+                        zakaznikovi=True)
 
     def _hh_upozornit_honzu(self):
         self.ensure_one()
@@ -494,12 +500,41 @@ class HhTermin(models.Model):
         self._hh_poslat(adresa, 'Nová rezervace úvodního hovoru', telo,
                         odpovedet=self.email)
 
-    def _hh_poslat(self, prijemce, predmet, telo, odpovedet=None):
+    def _hh_lead_pro_paticku(self):
+        """Karta, ze ktere se vezme odkaz na odhlaseni.
+
+        U rezervace z webu je navazana rovnou. Kdyz termin zapsal
+        nekdo rucne, zkusi se jeste najit podle adresy - at ma
+        clovek odhlaseni i tehdy.
+        """
+        self.ensure_one()
+        if self.lead_id:
+            return self.lead_id
+        adresa = (self.email or '').strip()
+        if not adresa:
+            return self.env['crm.lead'].browse()
+        return self.env['crm.lead'].sudo().search(
+            [('email_from', '=ilike', adresa)], limit=1)
+
+    def _hh_poslat(self, prijemce, predmet, telo, odpovedet=None,
+                   zakaznikovi=False):
         """Odeslani nesmi nikdy shodit rezervaci - proto to try/except.
 
         Kdyz posta nevyjde, zapise se to do logu; termin uz je zabrany
         a v CRM vidi Honza vsechno i bez e-mailu.
+
+        zakaznikovi=True pripoji paticku s identifikaci odesilatele
+        a odhlasenim. U upozorneni pro Honzu se nepripojuje - ta
+        zakaznikovi nejdou.
         """
+        if zakaznikovi:
+            lead = self._hh_lead_pro_paticku()
+            if lead:
+                telo = Markup(telo) + lead._hh_paticka_emailu(DUVOD_HOVOR)
+            else:
+                _logger.warning(
+                    'Honza Hauzr: k terminu %s neznam kartu, e-mail jde '
+                    'bez odhlasovaciho odkazu.', self.id)
         try:
             self.env['mail.mail'].sudo().create({
                 'subject': predmet,
