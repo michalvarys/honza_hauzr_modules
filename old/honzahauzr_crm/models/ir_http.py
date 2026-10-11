@@ -28,6 +28,12 @@ _logger = logging.getLogger(__name__)
 # Znacka, kterou nese obal videa v kazdem dni.
 ZNACKA = 'data-hhd-video'
 
+# Blok, ktery se ukaze az po odemceni daneho dne. Zatim ho nese
+# gratulace s tlacitkem na rezervaci hovoru pod tretim videem.
+# Nevyrizuje se skryvanim ve stylech: to by slo obejit a clovek by
+# si mohl domluvit hovor driv, nez vyzvu vubec videl.
+ZNACKA_PO = 'data-hhd-az-po-dni'
+
 ZAMEK_IKONA = (
     '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"'
     ' stroke="currentColor" stroke-width="1.8" stroke-linecap="round"'
@@ -135,7 +141,8 @@ class IrHttp(models.AbstractModel):
             return
 
         data = getattr(response, 'data', None)
-        if not data or ZNACKA.encode() not in data:
+        if not data or (ZNACKA.encode() not in data
+                        and ZNACKA_PO.encode() not in data):
             return
 
         volba = request.env['crm.lead']._hh_nahled()
@@ -163,10 +170,28 @@ class IrHttp(models.AbstractModel):
 
         strom = html.fromstring(data.decode('utf-8'))
         obaly = strom.xpath('//*[@%s]' % ZNACKA)
-        if not obaly:
+        pozdeji = strom.xpath('//*[@%s]' % ZNACKA_PO)
+        if not obaly and not pozdeji:
             return
 
         zmeneno = False
+
+        # Bloky, ktere se maji ukazat az po odemceni daneho dne, se
+        # ze stranky rovnou odstrani. Zadny zamek misto nich nestoji:
+        # do te doby o nich clovek nema vedet.
+        for blok in pozdeji:
+            try:
+                cislo = int(blok.get(ZNACKA_PO))
+            except (TypeError, ValueError):
+                continue
+            den = stav.get(cislo)
+            if den and den.get('odemceno'):
+                continue
+            rodic = blok.getparent()
+            if rodic is not None:
+                rodic.remove(blok)
+                zmeneno = True
+
         for obal in obaly:
             try:
                 cislo = int(obal.get(ZNACKA))

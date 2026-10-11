@@ -198,13 +198,23 @@
 
             <!-- Misto kalendare jen tlacitko. Kalendar ma vlastni
                  stranku /uvodni-hovor, takze stoji na jednom miste
-                 a da se upravit v editoru jako kterakoliv jina. -->
-            <section class="hhd-pozvani o_cc o_colored_level" data-name="Pozvání na hovor">
+                 a da se upravit v editoru jako kterakoliv jina.
+
+                 data-hhd-az-po-dni="3": cely blok se do stranky
+                 dostane az tehdy, kdyz ma clovek odemceny treti den.
+                 Vyrizuje ho server (models/ir_http.py), ne styly -
+                 schovavani pres CSS by slo obejit a clovek by si
+                 mohl domluvit hovor driv, nez vyzvu vubec videl.
+                 Honza ho v editoru vidi porad, jinak by ho nemel
+                 jak upravit. -->
+            <section class="hhd-pozvani o_cc o_colored_level"
+                     data-name="Gratulace a hovor" data-hhd-az-po-dni="3">
                 <div class="container">
-                    <h2 class="hhd-pozvani__nadpis">Chceš na výzvu navázat?</h2>
+                    <h2 class="hhd-pozvani__nadpis">Gratuluju k dokončení 3denní výzvy!</h2>
                     <p class="hhd-pozvani__text">
-                        Půl hodiny o tom, co ti z výzvy vyšlo a co s tím dál.
-                        Nezávazně a bez tlaku.
+                        Máš za sebou tři dny a první krok. Pojď si o tom
+                        popovídat — půl hodiny o tom, co ti z výzvy vyšlo
+                        a co s tím dál. Nezávazně a bez tlaku.
                     </p>
                     <a class="hhd-pozvani__tlacitko" href="/uvodni-hovor">Rezervuj si hovor</a>
                 </div>
