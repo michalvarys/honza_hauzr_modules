@@ -37,12 +37,18 @@ class HhMailStitek(models.Model):
 
     prodejni = fields.Boolean(
         string='Prodejní řada',
-        help='Nabídka, ne provozní zpráva. Před každým odesláním se '
-             'pak navíc ověří, že ji má smysl posílat: komu je '
-             'domluvený hovor, kdo se odhlásil nebo komu Honza '
-             'osobně odepsal, tomu nic dalšího samo neodejde.\n\n'
-             'Do takové zprávy se taky sám doplní náhledový text '
-             'a patička s identifikací odesílatele a odhlášením.',
+        help='Nabídka, ne provozní zpráva. U takové se před každým '
+             'odesláním navíc ověří, jestli to má ještě smysl:\n\n'
+             '• kdo má domluvený hovor, další nabídku nedostane\n'
+             '• zaškrtnuté „Pozastavit prodejní e-maily“ na kartě '
+             'řadu zastaví, dokud to nevyřídíš\n'
+             '• vypnuté „Rezervace jsou otevřené“ v nastavení ji '
+             'pozastaví celou, ať nikomu nechodí pozvánka na '
+             'zavřený kalendář\n\n'
+             'Provozních řad (dny výzvy, uvítání, potvrzení '
+             'rezervace) se to netýká — ty musí dojít vždycky. '
+             'Odhlášení platí pro všechny bez ohledu na tenhle '
+             'přepínač.',
     )
 
     mail_ids = fields.One2many(
