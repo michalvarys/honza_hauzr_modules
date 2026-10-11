@@ -21,6 +21,31 @@ class ResConfigSettings(models.TransientModel):
     )
 
     # ------------------------------------------------------------------
+    # prodejni rada po vyzve
+    # ------------------------------------------------------------------
+
+    hh_odkaz_rezervace = fields.Char(
+        string='Tlačítka v prodejních e-mailech vedou na',
+        config_parameter='honzahauzr_crm.odkaz_rezervace',
+        help='Jedna adresa, na kterou míří všechna tlačítka v řadě '
+             'po výzvě. Když pole necháte prázdné, vezme se '
+             '/rezervace na webu výzvy.\n\n'
+             'Měřicí parametry (utm_...) si každá zpráva doplňuje '
+             'sama, aby šlo poznat, ze kterého e-mailu kdo přišel.',
+    )
+
+    hh_rezervace_otevrene = fields.Boolean(
+        string='Rezervace hovorů jsou otevřené',
+        config_parameter='honzahauzr_crm.rezervace_otevrene',
+        default=True,
+        help='Když běh zrovna neotevíráte, vypněte. Prodejní e-maily '
+             'se tím pozastaví a nikomu neodejde pozvánka na zavřený '
+             'kalendář.\n\n'
+             'Po zapnutí se pokračuje prvním neodeslaným e-mailem; '
+             'zameškané se nedoposílají.',
+    )
+
+    # ------------------------------------------------------------------
     # rozvrh terminu na uvodni hovor
     # ------------------------------------------------------------------
     #

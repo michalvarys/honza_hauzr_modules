@@ -55,6 +55,9 @@
                 </group>
                 <group>
                     <field name="predmet" placeholder="Co uvidí příjemce v poště"/>
+                    <field name="preheader"
+                           placeholder="Řádek, který schránka ukáže za předmětem"
+                           invisible="not stitek_id"/>
                 </group>
                 <separator string="Text zprávy"/>
                 <!--
@@ -145,6 +148,7 @@
         <list string="Řady e-mailů" editable="bottom">
             <field name="name" string="Název řady"/>
             <field name="mail_count" string="Odesílaných e-mailů"/>
+            <field name="prodejni" string="Prodejní" widget="boolean_toggle"/>
             <field name="color" widget="color_picker" optional="show"/>
         </list>
     </field>

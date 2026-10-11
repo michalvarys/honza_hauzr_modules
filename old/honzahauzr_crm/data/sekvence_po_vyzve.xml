@@ -1,0 +1,1340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     PRODEJNÍ ŘADA PO DOKONČENÍ TŘÍDENNÍ VÝZVY
+
+     Sedm navazujících e-mailů pro lidi, kteří výzvu dokončili, ale
+     nemají domluvený hovor ani koupený program. Cílem je rezervace
+     úvodního hovoru - přes ten se teď do Tvého tahu vstupuje.
+
+     Texty jsou doslova ze zadání od Honzy (verze 1.1, 11. 10. 2026).
+     Skládá je nastroje/sekvence-po-vyzve.js; tenhle soubor se
+     needituje ručně, přegeneruje se.
+
+     noupdate="1" schválně: při prvním nasazení se řada založí, dál
+     si ji Honza upravuje v editoru a upgrade mu to nepřepíše.
+
+     Den 0 je potvrzené dokončení výzvy, ne registrace. Odpočet běží
+     od chvíle, kdy karta vstoupí do tohohle sloupce, a tam ji
+     posune až účastníkovo potvrzení na stránce výzvy.
+     ================================================================= -->
+
+<data noupdate="1">
+
+    <record id="hh_stitek_po_vyzve" model="hh.mail.stitek">
+        <field name="name">Po výzvě · Tvůj tah</field>
+        <field name="prodejni" eval="True"/>
+        <field name="color">3</field>
+    </record>
+
+    <record id="hh_stupen_po_vyzve" model="crm.stage">
+        <field name="name">Po výzvě · Tvůj tah</field>
+        <field name="sequence">3</field>
+        <field name="hh_stitek_ids" eval="[(4, ref('hh_stitek_po_vyzve'))]"/>
+    </record>
+
+    <record id="hh_stitek_karty_po_vyzve" model="crm.tag">
+        <field name="name">Po výzvě · Tvůj tah</field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_1" model="hh.mail.sablona">
+        <field name="name">1 · Co uděláš s tím, co sis uvědomil</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">1</field>
+        <field name="predmet">Co z výzvy zůstane, až zavřeš notebook?</field>
+        <field name="preheader">Vrať se k jedné věci, kterou už nechceš přehlížet.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co z výzvy zůstane, až zavřeš notebook?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">ve výzvě jsme prošli tři kroky: podívat se pravdivě na svůj život, vytvořit jeden malý důkaz a všimnout si rozhodnutí, které za tebe zatím dělá autopilot.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Teď přijde obyčejný den. Práce, zprávy, povinnosti. A to, co ti při sledování dávalo smysl, může zase ustoupit do pozadí.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se dnes vrátit k jedné věci:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Třeba si vyhradíš čas, který pořád dáváš ostatním. Otevřeš odkládaný rozhovor. Nebo dodržíš svoje minimum, přestože dnešek není ideální.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš na výzvu navázat s vedením, připravil jsem <strong>Tvůj tah</strong>. Během 40 dní půjdeme od pojmenování současné situace přes vlastní hranice a pravidla až ke konkrétnímu směru na dalších 90 dní.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prvním krokem je společný hovor. Probereme, co teď řešíš a jestli ti s tím program může pomoct.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co z výzvy zůstane, až zavřeš notebook?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">ve výzvě jsme prošli tři kroky: podívat se pravdivě na svůj život, vytvořit jeden malý důkaz a všimnout si rozhodnutí, které za tebe zatím dělá autopilot.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Teď přijde obyčejný den. Práce, zprávy, povinnosti. A to, co ti při sledování dávalo smysl, může zase ustoupit do pozadí.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se dnes vrátit k jedné věci:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Třeba si vyhradíš čas, který pořád dáváš ostatním. Otevřeš odkládaný rozhovor. Nebo dodržíš svoje minimum, přestože dnešek není ideální.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš na výzvu navázat s vedením, připravil jsem <strong>Tvůj tah</strong>. Během 40 dní půjdeme od pojmenování současné situace přes vlastní hranice a pravidla až ke konkrétnímu směru na dalších 90 dní.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prvním krokem je společný hovor. Probereme, co teď řešíš a jestli ti s tím program může pomoct.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_2" model="hh.mail.sablona">
+        <field name="name">2 · Nemám žádný velký problém</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">3</field>
+        <field name="predmet">„Já ale nemám žádný velký problém.“</field>
+        <field name="preheader">Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">„Já ale nemám žádný velký problém.“</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">práce nějak funguje. Máš kde bydlet. Možná máš vztah, rodinu a zvenku docela normální život.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A tak si říkáš, jestli vůbec máš důvod něco řešit.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jenže vedle toho třeba už měsíce nemáš čas na sebe. V důležitých věcech automaticky ustupuješ. Nebo pokračuješ směrem, který sis vlastně nikdy sám nevybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Vybav si jednu situaci z posledního týdne, kdy jsi řekl „to je v pohodě“, ale uvnitř ti to úplně v pohodě nebylo.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co bys v té situaci potřeboval říct nebo udělat jinak?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">I takové věci mají v Tvém tahu místo. Učíš se přesněji poznat, co potřebuješ, dát tomu slova a postupně podle toho jednat.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš čekat, až za tebe rozhodne krize.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli chceš zjistit, zda je program vhodný právě pro tebe, můžeme to probrat.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">„Já ale nemám žádný velký problém.“</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">práce nějak funguje. Máš kde bydlet. Možná máš vztah, rodinu a zvenku docela normální život.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A tak si říkáš, jestli vůbec máš důvod něco řešit.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jenže vedle toho třeba už měsíce nemáš čas na sebe. V důležitých věcech automaticky ustupuješ. Nebo pokračuješ směrem, který sis vlastně nikdy sám nevybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Vybav si jednu situaci z posledního týdne, kdy jsi řekl „to je v pohodě“, ale uvnitř ti to úplně v pohodě nebylo.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co bys v té situaci potřeboval říct nebo udělat jinak?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">I takové věci mají v Tvém tahu místo. Učíš se přesněji poznat, co potřebuješ, dát tomu slova a postupně podle toho jednat.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš čekat, až za tebe rozhodne krize.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli chceš zjistit, zda je program vhodný právě pro tebe, můžeme to probrat.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_3" model="hh.mail.sablona">
+        <field name="name">3 · Strach z nedokončení</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">5</field>
+        <field name="predmet">Co když zase začnu a nedokončím?</field>
+        <field name="preheader">Jak v programu funguje podpora, když se zasekneš.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co když zase začnu a nedokončím?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">možná se nebojíš začít. Bojíš se, že za týden zase přestaneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pár dní se držíš. Pak přijde náročnější den, vynecháš a v hlavě naskočí: „Tak zase nic.“</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">U kouření jsem tenhle návrat ke starému návyku zažil opakovaně. Musel jsem se učit vracet, aniž bych každé uklouznutí bral jako důkaz, že všechno předtím bylo k ničemu.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Proto má Tvůj tah vedle lekcí také <strong>průběžnou podporu</strong>.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Víš, co máš dělat dál. Když se zasekneš, můžeš položit otázku. Během programu máme tři společná živá setkání. A když uvidím dva až tři dny bez pohybu, soukromě se ti ozvu.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš před ostatními vysvětlovat svoje osobní věci. Potřebujeme zjistit, co ti brání pokračovat a jaký další krok je reálný.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Dokončení za tebe nikdo nezařídí. Ale na hledání cesty zpátky nemusíš být sám.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli tě právě strach z dalšího nedokončeného pokusu brzdí, pojďme ho na hovoru probrat konkrétně.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co když zase začnu a nedokončím?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">možná se nebojíš začít. Bojíš se, že za týden zase přestaneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pár dní se držíš. Pak přijde náročnější den, vynecháš a v hlavě naskočí: „Tak zase nic.“</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">U kouření jsem tenhle návrat ke starému návyku zažil opakovaně. Musel jsem se učit vracet, aniž bych každé uklouznutí bral jako důkaz, že všechno předtím bylo k ničemu.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Proto má Tvůj tah vedle lekcí také <strong>průběžnou podporu</strong>.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Víš, co máš dělat dál. Když se zasekneš, můžeš položit otázku. Během programu máme tři společná živá setkání. A když uvidím dva až tři dny bez pohybu, soukromě se ti ozvu.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš před ostatními vysvětlovat svoje osobní věci. Potřebujeme zjistit, co ti brání pokračovat a jaký další krok je reálný.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Dokončení za tebe nikdo nezařídí. Ale na hledání cesty zpátky nemusíš být sám.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli tě právě strach z dalšího nedokončeného pokusu brzdí, pojďme ho na hovoru probrat konkrétně.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_4" model="hh.mail.sablona">
+        <field name="name">4 · Nemusíš předem znát celý směr</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">7</field>
+        <field name="predmet">Nemusíš vědět, co chceš dělat dalších dvacet let</field>
+        <field name="preheader">Na úvodní hovor můžeš přijít i bez hotového cíle.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">dlouho jsem věděl, že nechci pokračovat stejným způsobem v práci. Jenže pokaždé, když jsem připustil změnu, naskočila mi celá lavina otázek.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chtěl jsem mít jasno v celém dalším životě. Výsledkem bylo, že jsem často neudělal vůbec nic.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pomohlo mi začít tím, co už jsem věděl: co dál nechci a co potřebuju začít dělat jinak.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">To je důležité i pro vstup do Tvého tahu. Nemusíš na hovor přicházet s hotovým cílem. Klidně můžeš říct: „Vím, že takhle nechci pokračovat, ale nevím, co místo toho.“</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V programu budeme postupně hledat, co je pro tebe důležité, kde se přizpůsobuješ proti sobě a čemu chceš dát prostor. Z toho vznikne jedna konkrétní priorita na dalších 90 dní a první kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Probrat svůj další krok na hovoru</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">dlouho jsem věděl, že nechci pokračovat stejným způsobem v práci. Jenže pokaždé, když jsem připustil změnu, naskočila mi celá lavina otázek.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chtěl jsem mít jasno v celém dalším životě. Výsledkem bylo, že jsem často neudělal vůbec nic.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pomohlo mi začít tím, co už jsem věděl: co dál nechci a co potřebuju začít dělat jinak.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">To je důležité i pro vstup do Tvého tahu. Nemusíš na hovor přicházet s hotovým cílem. Klidně můžeš říct: „Vím, že takhle nechci pokračovat, ale nevím, co místo toho.“</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V programu budeme postupně hledat, co je pro tebe důležité, kde se přizpůsobuješ proti sobě a čemu chceš dát prostor. Z toho vznikne jedna konkrétní priorita na dalších 90 dní a první kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Probrat svůj další krok na hovoru</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_5" model="hh.mail.sablona">
+        <field name="name">5 · Reálná časová náročnost</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">9</field>
+        <field name="predmet">Vejde se Tvůj tah do normálního života?</field>
+        <field name="preheader">Poctivě o čase, který budeš potřebovat.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Vejde se Tvůj tah do normálního života?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">pokud máš práci, vztah a další povinnosti, otázka času je úplně na místě.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chci ti proto říct konkrétně, s čím počítat.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah trvá 40 dní. Některé hlubší pracovní dny můžou zabrat 45&#8211;60 minut, někdy i víc. Vedle nich jsou kratší reflexní dny a čtyři skutečné volné dny.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V závěru šest dní používáš svůj plán v běžném životě. Samotné zaznamenání zkušenosti zabere přibližně 5&#8211;10 minut denně; čas na zvolenou akci záleží na tom, co sis vybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">K tomu patří tři společná živá setkání.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prostor si tedy vyhradit potřebuješ. Nemusíš ale čtyřicet dní po sobě zvládat stejně náročnou lekci.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se podívat na svůj příští týden.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud si nejsi jistý, jestli je to ve tvé současné situaci reálné, probereme to předem. Hovor tě k nákupu nezavazuje.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Vejde se Tvůj tah do normálního života?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">pokud máš práci, vztah a další povinnosti, otázka času je úplně na místě.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chci ti proto říct konkrétně, s čím počítat.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah trvá 40 dní. Některé hlubší pracovní dny můžou zabrat 45&#8211;60 minut, někdy i víc. Vedle nich jsou kratší reflexní dny a čtyři skutečné volné dny.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V závěru šest dní používáš svůj plán v běžném životě. Samotné zaznamenání zkušenosti zabere přibližně 5&#8211;10 minut denně; čas na zvolenou akci záleží na tom, co sis vybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">K tomu patří tři společná živá setkání.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prostor si tedy vyhradit potřebuješ. Nemusíš ale čtyřicet dní po sobě zvládat stejně náročnou lekci.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se podívat na svůj příští týden.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud si nejsi jistý, jestli je to ve tvé současné situaci reálné, probereme to předem. Hovor tě k nákupu nezavazuje.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_6" model="hh.mail.sablona">
+        <field name="name">6 · Cena, vedení a garance</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">12</field>
+        <field name="predmet">Za co v Tvém tahu platíš 19 990 Kč</field>
+        <field name="preheader">Co dostaneš a za jakých podmínek ti vrátím peníze.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">19&#160;990&#160;Kč je částka, u které dává smysl vědět, co přesně kupuješ a proč zrovna ode mě.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah vychází i z mojí zkušenosti s životem, který navenek fungoval, ale ve kterém jsem postupně přestával vidět vlastní směr. Prošel jsem dvěma koučovacími výcviky a dál se vzdělávám. Při práci s tebou propojuju otázky, strukturu a konkrétní kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V ceně máš 40denní postup, 11 hlavních videí, fyzický workbook, tři společná živá setkání a průběžnou podporu. Víš, kde začít, máš kam zachytit vlastní odpovědi a koho se zeptat, když se zasekneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Postupně si připravíš svoje pravidla, hranice a konkrétní 90denní prioritu. Na konci svůj plán šest dní zkoušíš v běžném životě a vyhodnotíš, co potřebuje upravit.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A za svou částí stojím i garancí.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
+              <tr>
+                <td style="padding:20px 20px 4px 20px;border:1px solid #e2dacb;">
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Když projdeš celý 40denní program, uděláš všechny povinné úkoly včetně práce ve workbooku a závěrečné praxe a zúčastníš se finálního vyhodnocení na společném hovoru nebo v domluveném náhradním termínu, platí jednoduchý příslib:</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Pokud ti ani potom program nepřinese žádné nové uvědomění, jasnější orientaci ve vlastní situaci ani konkrétní posun, <strong>vrátím ti celou zaplacenou cenu</strong>. Osobní odpovědi nemusíš sdílet před skupinou.</p>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Na úvodním hovoru probereme, jestli je právě tohle vhodná cesta pro to, co řešíš. Když mi program pro tvoji situaci nebude dávat smysl, řeknu ti to.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">19&#160;990&#160;Kč je částka, u které dává smysl vědět, co přesně kupuješ a proč zrovna ode mě.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah vychází i z mojí zkušenosti s životem, který navenek fungoval, ale ve kterém jsem postupně přestával vidět vlastní směr. Prošel jsem dvěma koučovacími výcviky a dál se vzdělávám. Při práci s tebou propojuju otázky, strukturu a konkrétní kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V ceně máš 40denní postup, 11 hlavních videí, fyzický workbook, tři společná živá setkání a průběžnou podporu. Víš, kde začít, máš kam zachytit vlastní odpovědi a koho se zeptat, když se zasekneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Postupně si připravíš svoje pravidla, hranice a konkrétní 90denní prioritu. Na konci svůj plán šest dní zkoušíš v běžném životě a vyhodnotíš, co potřebuje upravit.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A za svou částí stojím i garancí.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
+              <tr>
+                <td style="padding:20px 20px 4px 20px;border:1px solid #e2dacb;">
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Když projdeš celý 40denní program, uděláš všechny povinné úkoly včetně práce ve workbooku a závěrečné praxe a zúčastníš se finálního vyhodnocení na společném hovoru nebo v domluveném náhradním termínu, platí jednoduchý příslib:</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Pokud ti ani potom program nepřinese žádné nové uvědomění, jasnější orientaci ve vlastní situaci ani konkrétní posun, <strong>vrátím ti celou zaplacenou cenu</strong>. Osobní odpovědi nemusíš sdílet před skupinou.</p>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Na úvodním hovoru probereme, jestli je právě tohle vhodná cesta pro to, co řešíš. Když mi program pro tvoji situaci nebude dávat smysl, řeknu ti to.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+    <record id="hh_mail_po_vyzve_7" model="hh.mail.sablona">
+        <field name="name">7 · Závěrečné pozvání k hovoru</field>
+        <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
+        <field name="po_dnech">15</field>
+        <field name="predmet">Chceš na výzvu navázat?</field>
+        <field name="preheader">Poslední e-mail téhle série a prostor pro tvoje rozhodnutí.</field>
+        <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
+             potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
+             takže se řetězec uloží tak, jak je. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Chceš na výzvu navázat?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">v posledních e-mailech jsem ti ukázal, jak můžeš na výzvu navázat v Tvém tahu. Tímhle tuhle sérii uzavírám.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Možná teď pokračuješ sám a první kroky ti fungují. Možná na program nemáš prostor. Nebo tě zajímá, ale zůstává jedna otázka, kvůli které ses zatím neozval.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš pokračovat se mnou, dalším krokem je úvodní hovor.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Probereme, co teď řešíš, co chceš mít jinak a jestli je pro tebe 40denní program vhodný. Když to bude dávat smysl oběma, domluvíme další postup.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Ať se rozhodneš jakkoliv, vrať se ještě k jedné věci z výzvy:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Odpověď může být malá. Důležité je, aby se dostala i do běžného dne.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+</div>]]></field>
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 10px;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+
+        <!-- hlavicka: logo a jmeno -->
+        <tr>
+          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
+                       alt="Vlastní režie" width="190" height="35"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                </td>
+                <td align="right" valign="middle"
+                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                  Honza Hauzr
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:30px 22px 8px 22px;">
+            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Chceš na výzvu navázat?</h1>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">v posledních e-mailech jsem ti ukázal, jak můžeš na výzvu navázat v Tvém tahu. Tímhle tuhle sérii uzavírám.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Možná teď pokračuješ sám a první kroky ti fungují. Možná na program nemáš prostor. Nebo tě zajímá, ale zůstává jedna otázka, kvůli které ses zatím neozval.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš pokračovat se mnou, dalším krokem je úvodní hovor.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Probereme, co teď řešíš, co chceš mít jinak a jestli je pro tebe 40denní program vhodný. Když to bude dávat smysl oběma, domluvíme další postup.</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Ať se rozhodneš jakkoliv, vrať se ještě k jedné věci z výzvy:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+              <tr>
+                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Odpověď může být malá. Důležité je, aby se dostala i do běžného dne.</p>
+          </td>
+        </tr>
+
+        <!-- jedina vyzva k akci -->
+        <tr>
+          <td align="center" style="padding:14px 22px 10px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                  <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07"
+                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
+        <tr>
+          <td align="center" style="padding:4px 22px 26px 22px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
+              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
+              <a href="{{ object.hh_odkaz_rezervace }}?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07" style="color:#5d554b;">{{ object.hh_odkaz_rezervace }}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- podpis -->
+        <tr>
+          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
+            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
+              <strong>Honza</strong>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>]]></field>
+    </record>
+
+</data>
+
+<!-- Srovnání pořadí schválně mimo blok s noupdate: tam se funkce
+     při upgradu přeskakují a sloupec by zůstal viset na stejném
+     čísle jako Rezervace. Tady se pustí pokaždé - je spočítaná tak,
+     aby podruhé už nic nezměnila. -->
+<data>
+    <function model="crm.stage" name="_hh_srovnat_poradi"/>
+</data>
+
+</odoo>

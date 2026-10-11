@@ -78,6 +78,47 @@ class CrmStage(models.Model):
         bez._hh_zajistit_vlastni_stitek()
         return bez.mapped('name')
 
+    @api.model
+    def _hh_srovnat_poradi(self):
+        """Srovna poradi sloupcu na nastence podle cesty zakaznika.
+
+        Novy sloupec vznika na konci rady - to je spravne u sekce,
+        kterou si Honza zalozi sam, protoze nikdo nevi, kam patri.
+        U "Po výzvě" to ale vime: stoji mezi vyzvou a rezervaci.
+
+        Rovna se to podle jmen, ne podle cisel, a jen u sloupcu, ktere
+        tu rozpoznam. Co neznam, zustava za nimi v poradi, v jakem to
+        bylo. Da se to pustit opakovane - podruhe uz nic nezmeni.
+
+        Na poradi zalezi i jinde nez na nastence: karta se posouva jen
+        dopredu, a to se pozna prave podle cisla sloupce.
+        """
+        rada = [
+            'Chci odebírat',
+            '3denní výzva',
+            'Po výzvě · Tvůj tah',
+            'Rezervace',
+            'Placené',
+        ]
+
+        vsechny = self.sudo().search([])
+        znama, zbytek = [], []
+        for nazev in rada:
+            stupen = vsechny.filtered(
+                lambda s, n=nazev: (s.name or '').strip().lower() == n.lower())
+            if stupen:
+                znama.append(stupen[0])
+        for stupen in vsechny.sorted(lambda s: (s.sequence, s.id)):
+            if stupen not in znama:
+                zbytek.append(stupen)
+
+        zmeneno = 0
+        for poradi, stupen in enumerate(znama + zbytek, start=1):
+            if stupen.sequence != poradi:
+                stupen.sequence = poradi
+                zmeneno += 1
+        return zmeneno
+
     def hh_maily_k_odeslani(self):
         """Zapnute zpravy vsech rad sloupce, serazene podle odstupu."""
         self.ensure_one()

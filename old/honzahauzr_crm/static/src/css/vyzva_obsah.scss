@@ -287,6 +287,47 @@
     color: #a3352b;
 }
 
+/* Potvrzeni dokonceni vyzvy. Stoji pod tretim dnem a oddeluje se
+   od nej linkou - je to jina vec nez lekce, ne dalsi den.
+
+   Dokud skript panel nenaplni, je prazdny; proto se odsazeni vesi
+   az na vnitrni hlasku, aby za poslednim dnem nezustala mezera
+   u lidi, kterym se panel neukazuje. */
+.hhd .hhd-hotovo:not(:empty) {
+    margin-top: 34px;
+    padding-top: 30px;
+    border-top: 1px solid var(--hhd-line);
+}
+
+.hhd .hhd-hotovo .hhd-hlaska {
+    margin-bottom: 0;
+}
+
+.hhd .hhd-hotovo__tlacitko {
+    margin-top: 14px;
+    padding: 10px 22px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--hhd-bronze);
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.hhd .hhd-hotovo__tlacitko:hover:not(:disabled) {
+    background: var(--hhd-bronze-light);
+}
+
+.hhd .hhd-hotovo__tlacitko:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
 
 /* ===== ODSAZENI SEKCE S DNY =====
 

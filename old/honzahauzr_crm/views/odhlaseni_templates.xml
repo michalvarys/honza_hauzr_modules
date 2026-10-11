@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     STRÁNKA PO ODHLÁŠENÍ
+
+     Krátká a bez výčitek. Kdo se odhlašuje, nemá chuť číst nabídku -
+     a snaha ho na téhle stránce přesvědčovat je nejkratší cesta
+     k označení zprávy jako spam.
+
+     Běžná stránka webu s hlavičkou a patičkou, aby bylo poznat,
+     odkud je.
+     ================================================================= -->
+
+<template id="hh_odhlaseni_hotovo" name="Odhlášeno z e-mailů">
+    <t t-call="website.layout">
+        <div id="wrap" class="oe_structure">
+            <section class="s_text_block pt80 pb80">
+                <div class="container" style="max-width:620px;">
+
+                    <t t-if="nalezen">
+                        <h1 style="margin:0 0 18px 0;">Odhlášeno</h1>
+                        <p class="lead" style="margin:0 0 10px 0;">
+                            Víc ti už nenapíšu.
+                            <t t-if="adresa">
+                                Adresu <strong t-esc="adresa"/> jsem
+                                z rozesílání vyřadil.
+                            </t>
+                        </p>
+                        <p class="text-muted" style="margin:0;">
+                            Kdyby ses chtěl někdy vrátit, stačí se znovu
+                            přihlásit na webu.
+                        </p>
+                    </t>
+
+                    <t t-else="">
+                        <h1 style="margin:0 0 18px 0;">Tenhle odkaz už neplatí</h1>
+                        <p class="lead" style="margin:0;">
+                            Nejspíš jsi už odhlášený, nebo se odkaz cestou
+                            poštou rozlomil na dva řádky. Napiš mi a vyřeším
+                            to za tebe.
+                        </p>
+                    </t>
+
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+</odoo>

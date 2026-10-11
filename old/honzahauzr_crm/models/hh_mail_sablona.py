@@ -21,6 +21,16 @@ class HhMailStitek(models.Model):
     name = fields.Char(string='Název', required=True, translate=True)
     color = fields.Integer(string='Barva')
 
+    prodejni = fields.Boolean(
+        string='Prodejní řada',
+        help='Nabídka, ne provozní zpráva. Před každým odesláním se '
+             'pak navíc ověří, že ji má smysl posílat: komu je '
+             'domluvený hovor, kdo se odhlásil nebo komu Honza '
+             'osobně odepsal, tomu nic dalšího samo neodejde.\n\n'
+             'Do takové zprávy se taky sám doplní náhledový text '
+             'a patička s identifikací odesílatele a odhlášením.',
+    )
+
     mail_ids = fields.One2many(
         'hh.mail.sablona', 'stitek_id', string='E-maily')
     mail_count = fields.Integer(
@@ -125,6 +135,15 @@ class HhMailSablona(models.Model):
         required=True,
         translate=True,
         help='Co uvidí příjemce v poště jako předmět zprávy.',
+    )
+    preheader = fields.Char(
+        string='Náhledový text',
+        translate=True,
+        help='Řádek, který schránka ukáže ve výpisu hned za '
+             'předmětem. Když se nevyplní, vezme si schránka první '
+             'slova ze zprávy - u nás popisek loga.\n\n'
+             'Do zprávy se nevkládá viditelně, doplní se sám při '
+             'odeslání. Zatím jen u prodejních řad.',
     )
     # Dve pole na jeden text, stejne jako to ma Email Marketing.
     # V telo_arch se zprava sklada - jsou v nem bloky, tridy a styly

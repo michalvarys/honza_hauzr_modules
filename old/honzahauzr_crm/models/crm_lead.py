@@ -677,6 +677,20 @@ class CrmLead(models.Model):
                 'Honza Hauzr CRM: rozeslano %s zprav z rad sloupcu.', odeslano)
         return True
 
+    def _hh_telo_zpravy(self, sablona_mailu):
+        """Text zpravy tak, jak pujde do posty.
+
+        Posila se verze se styly prepsanymi do znacek, kterou vyrobil
+        editor. Kdyz zprava vznikla jinudy a ta verze chybi, vezme se
+        rovnou text z editoru.
+
+        Samostatna metoda schvalne: prodejni rada si sem pridava
+        nahledovy text a paticku s odhlasenim, aniz by se tim menilo
+        to, co ma Honza ulozene v editoru.
+        """
+        self.ensure_one()
+        return sablona_mailu.body_html or sablona_mailu.body_arch or ''
+
     def _hh_poslat_email_stupne(self, stupen, prijemce, sablona_mailu):
         try:
             sablona = self.env['mail.render.mixin'].sudo()
@@ -684,11 +698,8 @@ class CrmLead(models.Model):
                 sablona_mailu.predmet or '', 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]
-            # Posila se verze se styly prepsanymi do znacek, kterou
-            # vyrobil editor. Kdyz zprava vznikla jinudy a ta verze
-            # chybi, vezme se rovnou text z editoru.
             telo = sablona._render_template(
-                sablona_mailu.body_html or sablona_mailu.body_arch or '',
+                self._hh_telo_zpravy(sablona_mailu),
                 'crm.lead', [self.id],
                 engine='inline_template',
             )[self.id]

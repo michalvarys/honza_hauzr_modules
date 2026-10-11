@@ -81,6 +81,16 @@
                    help="Osobní odkaz, který tomuhle člověku chodí
                          v e-mailech. Klepnutím se otevře přesně to,
                          co pod ním právě vidí."/>
+            <!-- Prodejni rada po vyzve. Datum dokonceni je jen pro
+                 cteni: zapisuje ho potvrzeni na strance vyzvy, ne
+                 Honza. Oba prepinace naopak obsluhuje rucne, kdyz
+                 mu clovek osobne odepise. -->
+            <field name="hh_vyzva_dokoncena" readonly="1"
+                   invisible="not hh_vyzva_dokoncena"/>
+            <field name="hh_serie_pozastavena"
+                   invisible="not hh_vyzva_dokoncena"/>
+            <field name="hh_odhlaseno" readonly="1"
+                   invisible="not hh_odhlaseno"/>
         </xpath>
     </field>
 </record>

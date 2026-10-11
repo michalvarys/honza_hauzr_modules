@@ -1,0 +1,261 @@
+# -*- coding: utf-8 -*-
+"""Prodejní řada e-mailů po dokončení výzvy.
+
+Běžná řada u sloupce posílá, dokud je karta ve sloupci. U prodejní
+řady to nestačí: nabídka se nesmí poslat člověku, který už si hovor
+domluvil, program koupil, odhlásil se nebo Honzovi osobně odepsal.
+
+Řada se proto u štítku označí jako prodejní a před každým odesláním
+se projde několik zádrží. Některé řadu ukončí (odhlášení, domluvený
+hovor), jiné ji jen pozastaví (osobní odpověď, zavřené rezervace) -
+a jakmile důvod pomine, pokračuje se prvním neodeslaným e-mailem.
+Zameškané zprávy se nedoposílají: odesílač si u každého člověka
+pamatuje, co už odešlo, a každou zprávu pošle jen jednou.
+
+Ostatních řad se to netýká. Bez přepínače u štítku se nic nemění.
+"""
+
+import logging
+import secrets
+
+from markupsafe import Markup
+
+from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
+
+# Patička a skrytý náhledový text se do zprávy vkládají až při
+# odeslání, ne do textu v editoru. Honza tak nemá co omylem smazat
+# a u každé prodejní zprávy je identifikace odesílatele i odhlášení
+# jistě.
+PATICKA = (
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" style="background-color:#f4efe6;margin:0;padding:0;">'
+    '<tr><td align="center" style="padding:0 10px 30px 10px;">'
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" style="width:100%%;max-width:600px;">'
+    '<tr><td align="center" '
+    'style="padding:16px 22px 0 22px;font-family:Helvetica,Arial,sans-serif;'
+    'font-size:12px;line-height:1.7;color:#a89681;">'
+    '%(odesilatel)s<br/>'
+    'Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy '
+    'Z autopilota zpět do života.<br/>'
+    '<a href="%(odhlaseni)s" style="color:#8c8276;text-decoration:underline;">'
+    'Odhlásit se z těchto e-mailů</a>'
+    '</td></tr></table></td></tr></table>'
+)
+
+# Schránky ukazují ve výpisu kus textu hned za předmětem. Když se
+# nedoplní, vezmou si první slova ze zprávy - u nás popisek loga.
+# Náhledový text je proto skrytý blok úplně na začátku, doplněný
+# neviditelnými znaky, aby za něj schránka nenatáhla nic dalšího.
+NAHLED = (
+    '<div style="display:none;max-height:0;overflow:hidden;'
+    'mso-hide:all;font-size:1px;line-height:1px;color:#ffffff;'
+    'opacity:0;">%(text)s%(vypln)s</div>'
+)
+VYPLN = '&#847;&#160;' * 60
+
+
+class CrmLeadProdejni(models.Model):
+    _inherit = 'crm.lead'
+
+    hh_vyzva_dokoncena = fields.Datetime(
+        string='Výzva dokončena',
+        copy=False,
+        help='Okamžik, kdy účastník sám potvrdil, že výzvu dokončil. '
+             'Od něj běží odpočet prodejní řady.\n\n'
+             'Schválně se nebere zhlédnutí videa ani otevření '
+             'e-mailu - ani jedno dokončení nedokládá.',
+    )
+
+    hh_serie_pozastavena = fields.Boolean(
+        string='Pozastavit prodejní e-maily',
+        copy=False,
+        help='Zaškrtni, když ti člověk osobně odepsal a řešíš to s ním. '
+             'Řada se zastaví a nic dalšího mu samo neodejde.\n\n'
+             'Až to vyřídíš, odškrtni - pokračuje se prvním '
+             'neodeslaným e-mailem, zameškané se nedoposílají.',
+    )
+
+    hh_odhlaseno = fields.Boolean(
+        string='Odhlášen z e-mailů',
+        copy=False,
+        help='Nastaví se samo, když člověk klikne na odhlášení '
+             'v patičce. Prodejní e-maily mu pak už nechodí.',
+    )
+
+    hh_odhlaseni_klic = fields.Char(
+        string='Klíč pro odhlášení',
+        copy=False,
+        index=True,
+        help='Náhodný řetězec v odkazu na odhlášení. Bez něj by '
+             'stačilo hádat čísla a odhlásit cizího člověka.',
+    )
+
+    hh_odkaz_rezervace = fields.Char(
+        string='Odkaz na rezervaci',
+        compute='_compute_hh_odkaz_rezervace',
+        help='Adresa, kam vedou tlačítka v prodejních e-mailech. '
+             'V textu se píše jako {{ object.hh_odkaz_rezervace }}.',
+    )
+
+    def _compute_hh_odkaz_rezervace(self):
+        param = self.env['ir.config_parameter'].sudo()
+        nastaveny = (param.get_param('honzahauzr_crm.odkaz_rezervace') or '').strip()
+        for lead in self:
+            lead.hh_odkaz_rezervace = nastaveny or (
+                lead._hh_zaklad_vyzvy().rstrip('/') + '/rezervace')
+
+    # ------------------------------------------------------------------
+    # odhlaseni
+    # ------------------------------------------------------------------
+
+    def _hh_zajistit_odhlasovaci_klic(self):
+        self.ensure_one()
+        if not self.sudo().hh_odhlaseni_klic:
+            self.sudo().hh_odhlaseni_klic = secrets.token_urlsafe(16)
+        return self.sudo().hh_odhlaseni_klic
+
+    def _hh_odkaz_odhlaseni(self):
+        self.ensure_one()
+        return '%s/maily/odhlasit/%s' % (
+            self._hh_zaklad_vyzvy().rstrip('/'),
+            self._hh_zajistit_odhlasovaci_klic())
+
+    # ------------------------------------------------------------------
+    # zadrze pred odeslanim
+    # ------------------------------------------------------------------
+
+    def _hh_ma_hovor(self):
+        """Domluvený hovor.
+
+        Hledá se i tehdy, když karta ve sloupci zůstala - termín se
+        dá zapsat ručně a na přesun sloupce se spoléhat nedá.
+        """
+        self.ensure_one()
+        return bool(self.env['hh.termin'].sudo().search_count([
+            ('lead_id', '=', self.id),
+            ('stav', '=', 'rezervovany'),
+        ]))
+
+    @api.model
+    def _hh_rezervace_otevrene(self):
+        """Dá se vůbec hovor domluvit?
+
+        Posílat nabídku s tlačítkem na zavřený kalendář je horší než
+        neposlat nic - člověk klikne, nenajde termín a podruhé už
+        neklikne.
+
+        Nenastaveno znamená otevřeno. Jinak by se po nasazení
+        přestalo posílat, aniž by o tom kdokoli věděl.
+        """
+        hodnota = self.env['ir.config_parameter'].sudo().get_param(
+            'honzahauzr_crm.rezervace_otevrene')
+        if hodnota in (None, False, ''):
+            return True
+        return str(hodnota).strip().lower() not in ('false', '0', 'off')
+
+    def _hh_prodejni_zadrz(self):
+        """Vrátí důvod, proč prodejní zprávu neposlat, nebo prázdno."""
+        self.ensure_one()
+
+        if self.hh_odhlaseno:
+            return 'odhlášen'
+        if self.hh_serie_pozastavena:
+            return 'pozastaveno kvůli osobní odpovědi'
+
+        prijemce = (self.email_from or self.partner_id.email or '').strip().lower()
+        if prijemce and self.env['mail.blacklist'].sudo().search_count(
+                [('email', '=', prijemce), ('active', '=', True)]):
+            return 'adresa je na seznamu zablokovaných'
+
+        if self._hh_ma_hovor():
+            return 'má domluvený hovor'
+        if not self._hh_rezervace_otevrene():
+            return 'rezervace jsou zavřené'
+
+        return ''
+
+    def _hh_poslat_zpravu(self, zprava):
+        """U prodejní řady se před odesláním ověří, že má smysl."""
+        if zprava.stitek_id.prodejni:
+            duvod = self._hh_prodejni_zadrz()
+            if duvod:
+                _logger.info(
+                    'Honza Hauzr CRM: prodejni zprava "%s" pro %s neodesla - %s.',
+                    zprava.name, self.email_from or self.id, duvod)
+                return False
+        return super()._hh_poslat_zpravu(zprava)
+
+    # ------------------------------------------------------------------
+    # nahledovy text a paticka
+    # ------------------------------------------------------------------
+
+    def _hh_telo_zpravy(self, sablona_mailu):
+        """Prodejní zprávu obalí náhledovým textem a patičkou.
+
+        Pole Html vrací Markup. Ten při spojení s obyčejným řetězcem
+        druhou stranu zaescapuje - bez obalení by se patička do
+        zprávy vypsala jako zdrojový kód místo textu.
+        """
+        telo = super()._hh_telo_zpravy(sablona_mailu)
+        if not sablona_mailu.stitek_id.prodejni:
+            return telo
+
+        nahled = (sablona_mailu.preheader or '').strip()
+        if nahled:
+            # Markup % escapuje dosazované hodnoty, takže Honzův text
+            # projde bezpečně, a výplň z entit zůstane výplní.
+            telo = Markup(NAHLED) % {
+                'text': nahled, 'vypln': Markup(VYPLN)} + telo
+
+        nazev = (self.company_id.name
+                 or self.env.company.name or 'Honza Hauzr')
+        adresa = (self.company_id.street or self.env.company.street or '')
+        odesilatel = (Markup('%s &#183; %s') % (nazev, adresa)
+                      if adresa else Markup('%s') % nazev)
+
+        return telo + Markup(PATICKA) % {
+            'odesilatel': odesilatel,
+            'odhlaseni': self._hh_odkaz_odhlaseni(),
+        }
+
+    # ------------------------------------------------------------------
+    # vstup do rady
+    # ------------------------------------------------------------------
+
+    @api.model
+    def _hh_sekce_po_vyzve(self):
+        return self.env.ref(
+            'honzahauzr_crm.hh_stupen_po_vyzve', raise_if_not_found=False)
+
+    def _hh_vyzva_dokoncil(self):
+        """Účastník potvrdil dokončení výzvy - zařadí se do prodejní řady.
+
+        Zařazuje se jen jednou a jen tehdy, když ještě nemá domluvený
+        hovor. Kdo hovor absolvoval, patří do osobního doprovázení,
+        ne do automatické nabídky.
+        """
+        self.ensure_one()
+
+        if not self.hh_vyzva_dokoncena:
+            self.sudo().hh_vyzva_dokoncena = fields.Datetime.now()
+
+        stupen = self._hh_sekce_po_vyzve()
+        if not stupen:
+            return False
+        if self.stage_id == stupen:
+            return False
+        # Radu uz jednou dostal - opakovana registrace do vyzvy ji
+        # nespusti podruhe.
+        if stupen in self.hh_odeslane_stupne_ids:
+            return False
+        # Kdo je dal (rezervace, placene), se nevraci zpatky.
+        if self.stage_id and self.stage_id.sequence > stupen.sequence:
+            return False
+        if self.hh_odhlaseno or self._hh_ma_hovor():
+            return False
+
+        self.sudo().write({'stage_id': stupen.id})
+        return True
