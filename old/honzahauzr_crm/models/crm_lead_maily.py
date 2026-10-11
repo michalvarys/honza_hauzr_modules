@@ -55,6 +55,14 @@ PATICKA = (
 DUVOD_VYZVA = 'ses přihlásil do bezplatné výzvy Z autopilota zpět do života'
 DUVOD_HOVOR = 'sis u mě domluvil úvodní hovor'
 
+# Podle tohohle se pozná, jestli patička ve zprávě už je. Dvě
+# podoby: v šabloně stojí zástupný text, v hotové zprávě už adresa.
+ZNACKY_ODHLASENI = ('hh_odkaz_odhlaseni', 'maily/odhlasit')
+
+
+def ma_odhlaseni(telo):
+    return any(z in (telo or '') for z in ZNACKY_ODHLASENI)
+
 # Schránky ukazují ve výpisu kus textu hned za předmětem. Když se
 # nedoplní, vezmou si první slova ze zprávy - u nás popisek loga.
 # Náhledový text je proto skrytý blok úplně na začátku, doplněný
@@ -93,6 +101,33 @@ class CrmLeadProdejni(models.Model):
         help='Náhodný řetězec v odkazu na odhlášení. Bez něj by '
              'stačilo hádat čísla a odhlásit cizího člověka.',
     )
+
+    hh_odkaz_odhlaseni = fields.Char(
+        string='Odkaz na odhlášení',
+        compute='_compute_hh_odkaz_odhlaseni',
+        help='Osobní odkaz, kterým se tenhle člověk odhlásí. '
+             'V textu zprávy se píše jako '
+             '{{ object.hh_odkaz_odhlaseni }}.',
+    )
+    hh_paticka_odesilatel = fields.Char(
+        string='Odesílatel do patičky',
+        compute='_compute_hh_paticka_odesilatel',
+        help='Název firmy a adresa tak, jak se tisknou do patičky. '
+             'V textu zprávy se píše jako '
+             '{{ object.hh_paticka_odesilatel }}.',
+    )
+
+    def _compute_hh_odkaz_odhlaseni(self):
+        for lead in self:
+            lead.hh_odkaz_odhlaseni = lead._hh_odkaz_odhlaseni()
+
+    def _compute_hh_paticka_odesilatel(self):
+        for lead in self:
+            nazev = (lead.company_id.name
+                     or lead.env.company.name or 'Honza Hauzr')
+            adresa = (lead.company_id.street or lead.env.company.street or '')
+            lead.hh_paticka_odesilatel = (
+                '%s · %s' % (nazev, adresa) if adresa else nazev)
 
     hh_odkaz_rezervace = fields.Char(
         string='Odkaz na rezervaci',
@@ -245,7 +280,13 @@ class CrmLeadProdejni(models.Model):
             telo = Markup(NAHLED) % {
                 'text': nahled, 'vypln': Markup(VYPLN)} + telo
 
-        return telo + self._hh_paticka_emailu()
+        # Patička je u zpráv rovnou v textu, aby ji Honza viděl
+        # v editoru. Tohle je pojistka pro případ, že ji smaže nebo
+        # že napíše zprávu novou: bez odhlášení nesmí odejít nic.
+        if not ma_odhlaseni(telo):
+            telo = telo + self._hh_paticka_emailu()
+
+        return telo
 
     # ------------------------------------------------------------------
     # sloupec Odhlaseno

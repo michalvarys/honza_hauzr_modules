@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from odoo import api, fields, models, tools
+
+_logger = logging.getLogger(__name__)
 
 # Editor z Email Marketingu hleda tuhle kostru. Bez ni bere zpravu
 # jako prazdnou a misto textu nabidne galerii predloh.
@@ -122,6 +126,146 @@ class HhMailSablona(models.Model):
     @api.model
     def _hh_vsechny_stitky(self, stitky, domena):
         return self.env['hh.mail.stitek'].search([], order='name')
+
+    def _hh_text_pro(self, lead=None):
+        """Text zprávy v jazyce, ve kterém opravdu něco je.
+
+        Text i předmět jsou překládaná pole. Zprávu ale nepíše nikdo
+        v angličtině - Honza ji napíše česky a anglická verze zůstane
+        prázdná. Hodinová úloha přitom běží v základním jazyce, takže
+        by si sáhla právě pro to prázdno a odeslala prázdný e-mail.
+        Stalo se to u uvítací zprávy Dne 1, která má 20 tisíc znaků
+        v češtině a v angličtině nic.
+
+        Bere se proto první jazyk, ve kterém text opravdu je: jazyk
+        příjemce, pak jazyk firmy, pak zbytek.
+        """
+        self.ensure_one()
+
+        poradi = []
+        if lead is not None and lead.partner_id.lang:
+            poradi.append(lead.partner_id.lang)
+        poradi.append(self.env.company.partner_id.lang)
+        poradi.append(self.env.lang)
+        poradi += [l.code for l in self.env['res.lang'].sudo().search(
+            [('active', '=', True)])]
+
+        videne = set()
+        for jazyk in [j for j in poradi if j]:
+            if jazyk in videne:
+                continue
+            videne.add(jazyk)
+            zprava = self.with_context(lang=jazyk)
+            # Posila se verze se styly prepsanymi do znacek, kterou
+            # vyrobil editor. Kdyz chybi, vezme se text z editoru.
+            for pole in ('body_html', 'body_arch'):
+                text = zprava[pole]
+                if text and text.strip():
+                    return text
+        return ''
+
+    @api.model
+    def _hh_srovnat_sablony(self):
+        """Doplní do zpráv patičku a vyhodí záložní odkaz pod tlačítkem.
+
+        **Patička** se dřív skládala až při odesílání, takže ji Honza
+        v editoru neviděl a nemohl si ověřit, že tam je. Teď stojí
+        rovnou v textu zprávy. Odesílač ji přidává dál, ale jen když
+        ve zprávě chybí - pojistka pro nově psané zprávy.
+
+        **Záložní odkaz** pod tlačítkem začínal větou "Kdyby tlačítko
+        nefungovalo". Tlačítko je obyčejný odkaz v tabulce a vykreslí
+        ho i Outlook; ta věta jen podkopávala důvěru v něco, co
+        funguje. Jedna výzva k akci ostatně odpovídá i zadání.
+
+        Pouští se při každém upgradu a dělá jen to, co ještě není
+        udělané - dá se to spustit opakovaně.
+        """
+        from .crm_lead_maily import PATICKA, DUVOD_VYZVA, ma_odhlaseni
+
+        paticka = PATICKA % {
+            'odesilatel': '{{ object.hh_paticka_odesilatel }}',
+            'duvod': DUVOD_VYZVA,
+            'odhlaseni': '{{ object.hh_odkaz_odhlaseni }}',
+        }
+
+        jazyky = [l.code for l in self.env['res.lang'].sudo().search(
+            [('active', '=', True)])]
+        doplneno, oriznuto = 0, 0
+
+        for zprava in self.sudo().with_context(active_test=False).search([]):
+            for pole in ('body_html', 'body_arch'):
+                nove = {}
+                for jazyk in jazyky:
+                    # Cte se po jazycich prez kontext, ne pres
+                    # get_field_translations: ten vraci u prekladaneho
+                    # pole zdrojovy termin, a kde je zakladni jazyk
+                    # prazdny, vratil by prazdno a zprava by se
+                    # preskocila.
+                    # str() je nutne: pole Html vraci Markup a ten by
+                    # pri spojeni s obycejnym retezcem druhou stranu
+                    # zaescapoval - paticka by se do zpravy vypsala
+                    # jako zdrojovy kod misto odkazu.
+                    text = str(zprava.with_context(lang=jazyk)[pole] or '')
+                    if not text:
+                        continue
+                    puvodni = text
+                    text = self._hh_bez_escapovane_paticky(text)
+                    text = self._hh_bez_zalozniho_odkazu(text)
+                    if text != puvodni:
+                        oriznuto += 1
+                    if not ma_odhlaseni(text):
+                        text = text + paticka
+                        doplneno += 1
+                    if text != puvodni:
+                        nove[jazyk] = text
+                if nove:
+                    # Jen preklady, zadny write na pole: ten by
+                    # u zpravy s prazdnym zakladnim jazykem prepsal
+                    # ceskou verzi prazdnem.
+                    zprava.update_field_translations(pole, nove)
+
+        if doplneno or oriznuto:
+            _logger.info(
+                'Honza Hauzr CRM: paticka doplnena %sx, zalozni odkaz '
+                'odstranen %sx.', doplneno, oriznuto)
+        return doplneno, oriznuto
+
+    @api.model
+    def _hh_bez_escapovane_paticky(self, text):
+        """Uklid po patickce, ktera se ulozila jako zdrojovy kod.
+
+        Pole Html vraci Markup a ten pri spojeni s obycejnym
+        retezcem druhou stranu zaescapuje. Nez se to chytlo, stihla
+        se takova paticka ulozit - ve zprave by se misto odkazu
+        vypsaly znacky. Pozna se podle escapovaneho zacatku tabulky,
+        za kterym nekde dal lezi zastupny text odhlaseni.
+        """
+        ZACATEK = '&lt;table role=&#34;presentation&#34;'
+        i = text.find(ZACATEK)
+        if i == -1 or 'hh_odkaz_odhlaseni' not in text[i:]:
+            return text
+        return text[:i]
+
+    @api.model
+    def _hh_bez_zalozniho_odkazu(self, text):
+        """Vyhodi radek tabulky se zalozním odkazem pod tlacitkem.
+
+        Pracuje nad retezcem, ne nad rozebranym HTML: pretazeni
+        dokumentu pres parser by prepsalo cely zbytek zpravy
+        a u Honzovy predlohy z galerie to nestoji za riziko.
+        Nasi sablony maji ten odkaz v jednom <tr>, takze se najde
+        veta a odstrani se radek, ve kterem lezi.
+        """
+        VETA = 'Kdyby tlačítko nefungovalo'
+        while VETA in text:
+            i = text.find(VETA)
+            zacatek = text.rfind('<tr', 0, i)
+            konec = text.find('</tr>', i)
+            if zacatek == -1 or konec == -1:
+                break
+            text = text[:zacatek] + text[konec + len('</tr>'):]
+        return text
 
     @api.model
     def _hh_doplnit_den3(self):

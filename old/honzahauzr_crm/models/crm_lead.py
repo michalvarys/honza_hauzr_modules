@@ -701,16 +701,15 @@ class CrmLead(models.Model):
     def _hh_telo_zpravy(self, sablona_mailu):
         """Text zpravy tak, jak pujde do posty.
 
-        Posila se verze se styly prepsanymi do znacek, kterou vyrobil
-        editor. Kdyz zprava vznikla jinudy a ta verze chybi, vezme se
-        rovnou text z editoru.
+        Vyber jazyka resi _hh_text_pro - bez nej by se u zpravy
+        napsane jen cesky odeslalo prazdno.
 
-        Samostatna metoda schvalne: prodejni rada si sem pridava
-        nahledovy text a paticku s odhlasenim, aniz by se tim menilo
-        to, co ma Honza ulozene v editoru.
+        Samostatna metoda schvalne: rada si sem pridava nahledovy
+        text a paticku s odhlasenim, aniz by se tim menilo to, co ma
+        Honza ulozene v editoru.
         """
         self.ensure_one()
-        return sablona_mailu.body_html or sablona_mailu.body_arch or ''
+        return sablona_mailu._hh_text_pro(self)
 
     def _hh_poslat_email_stupne(self, stupen, prijemce, sablona_mailu):
         try:

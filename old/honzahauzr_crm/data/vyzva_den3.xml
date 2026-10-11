@@ -21,6 +21,8 @@
 
 <data>
     <function model="hh.mail.sablona" name="_hh_doplnit_den3"/>
+    <!-- Až po založení třetího dne, ať patičku dostane i on. -->
+    <function model="hh.mail.sablona" name="_hh_srovnat_sablony"/>
 </data>
 
 </odoo>
