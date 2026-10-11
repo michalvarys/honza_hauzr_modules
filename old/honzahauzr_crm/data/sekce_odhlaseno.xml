@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     SLOUPEC ODHLÁŠENO
+
+     Kdo klikne na odhlášení v patičce, přistane tady. Honza tak na
+     nástěnce vidí, komu se přestalo psát, a nemusí to hledat po
+     kartách.
+
+     Stojí na konci řady schválně. Karta se posouvá jen dopředu
+     a tohle je konečná - kdo se odhlásil, nemá se sám od sebe
+     vrátit mezi lidi, kterým chodí e-maily. Zpátky ho může přetáhnout
+     jen Honza.
+
+     Řada e-mailů u sloupce vznikne (dostává ji každý sloupec), ale
+     zůstane prázdná. I kdyby do ní někdo omylem napsal, neodejde
+     nic: odhlášení je zádrž, která platí pro všechny řady.
+     ================================================================= -->
+
+<data noupdate="1">
+
+    <record id="hh_stupen_odhlaseno" model="crm.stage">
+        <field name="name">Odhlášeno</field>
+        <!-- Vysoké číslo jen pro případ, že by srovnání pořadí
+             neproběhlo; jinak ho přepíše _hh_srovnat_poradi. -->
+        <field name="sequence">90</field>
+    </record>
+
+</data>
+</odoo>

@@ -257,6 +257,42 @@ class CrmLeadProdejni(models.Model):
         return telo + self._hh_paticka_emailu()
 
     # ------------------------------------------------------------------
+    # sloupec Odhlaseno
+    # ------------------------------------------------------------------
+
+    @api.model
+    def _hh_sekce_odhlaseno(self):
+        return self.env.ref(
+            'honzahauzr_crm.hh_stupen_odhlaseno', raise_if_not_found=False)
+
+    def _hh_do_sloupce_odhlaseno(self):
+        """Odhlášené karty přesune na nástěnce do sloupce Odhlášeno.
+
+        Honza tak vidí rovnou na nástěnce, komu se přestalo psát,
+        a nemusí to hledat po kartách.
+        """
+        stupen = self._hh_sekce_odhlaseno()
+        if not stupen:
+            return
+        k_presunu = self.filtered(lambda l: l.stage_id != stupen)
+        if k_presunu:
+            k_presunu.sudo().write({'stage_id': stupen.id})
+
+    def write(self, vals):
+        """Zaškrtnuté odhlášení kartu rovnou přesune.
+
+        Visí to na poli, ne na odhlašovací stránce, takže to platí
+        i když přepínač zaškrtne Honza ručně - třeba po telefonu.
+
+        Zacyklit se to nemůže: přesun zapisuje jen stage_id, a na to
+        se tahle větev neváže.
+        """
+        vysledek = super().write(vals)
+        if vals.get('hh_odhlaseno'):
+            self._hh_do_sloupce_odhlaseno()
+        return vysledek
+
+    # ------------------------------------------------------------------
     # vstup do rady
     # ------------------------------------------------------------------
 

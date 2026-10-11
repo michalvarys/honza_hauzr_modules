@@ -100,20 +100,27 @@ class CrmStage(models.Model):
             'Rezervace',
             'Placené',
         ]
+        # Odhlaseni je konecna, patri uplne na konec - i za sloupce,
+        # ktere si Honza zalozil sam.
+        POSLEDNI = 'Odhlášeno'
 
         vsechny = self.sudo().search([])
-        znama, zbytek = [], []
-        for nazev in rada:
-            stupen = vsechny.filtered(
+
+        def podle_jmena(nazev):
+            najde = vsechny.filtered(
                 lambda s, n=nazev: (s.name or '').strip().lower() == n.lower())
-            if stupen:
-                znama.append(stupen[0])
-        for stupen in vsechny.sorted(lambda s: (s.sequence, s.id)):
-            if stupen not in znama:
-                zbytek.append(stupen)
+            return najde[0] if najde else None
+
+        znama = [s for s in (podle_jmena(n) for n in rada) if s]
+        konecna = podle_jmena(POSLEDNI)
+        pevne = znama + ([konecna] if konecna else [])
+
+        zbytek = [s for s in vsechny.sorted(lambda s: (s.sequence, s.id))
+                  if s not in pevne]
 
         zmeneno = 0
-        for poradi, stupen in enumerate(znama + zbytek, start=1):
+        for poradi, stupen in enumerate(
+                znama + zbytek + ([konecna] if konecna else []), start=1):
             if stupen.sequence != poradi:
                 stupen.sequence = poradi
                 zmeneno += 1
