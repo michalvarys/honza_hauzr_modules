@@ -81,14 +81,11 @@
                    help="Osobní odkaz, který tomuhle člověku chodí
                          v e-mailech. Klepnutím se otevře přesně to,
                          co pod ním právě vidí."/>
-            <!-- Prodejni rada po vyzve. Datum dokonceni je jen pro
-                 cteni: zapisuje ho potvrzeni na strance vyzvy, ne
-                 Honza. Oba prepinace naopak obsluhuje rucne, kdyz
-                 mu clovek osobne odepise. -->
-            <field name="hh_vyzva_dokoncena" readonly="1"
-                   invisible="not hh_vyzva_dokoncena"/>
-            <field name="hh_serie_pozastavena"
-                   invisible="not hh_vyzva_dokoncena"/>
+            <!-- Prodejni rada po vyzve. Pozastaveni zaskrtava Honza
+                 rucne, kdyz mu clovek osobne odepise; odhlaseni se
+                 nastavuje samo z paticky e-mailu, proto je jen
+                 pro cteni. -->
+            <field name="hh_serie_pozastavena"/>
             <field name="hh_odhlaseno" readonly="1"
                    invisible="not hh_odhlaseno"/>
             <!-- Kolik z videi clovek videl. Jeden radek, at karta

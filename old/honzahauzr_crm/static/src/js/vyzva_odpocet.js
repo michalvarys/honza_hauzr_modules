@@ -90,77 +90,8 @@ publicWidget.registry.hhVyzvaDny = publicWidget.Widget.extend({
             this._spustOdpocet(zamek);
         }
 
-        this._vykresliHotovo(stav);
     },
 
-    // ------------------------------------------------------------------
-    // potvrzeni dokonceni
-    // ------------------------------------------------------------------
-
-    /**
-     * Otazka "dokoncil jsi vyzvu?" pod tretim dnem.
-     *
-     * Je to jedina spolehliva evidence dokonceni, kterou mame.
-     * Zhlednuti videa nic nedokazuje - clovek muze pustit a odejit -
-     * a podle toho se nesmi rozjet navazna rada e-mailu.
-     *
-     * Ukazuje se az tehdy, kdyz je treti den odemceny a vime, kdo
-     * se diva. Komu to nepatri, nevidi nic; neni to ani vyzva k akci,
-     * ani dalsi zamek.
-     */
-    _vykresliHotovo(stav) {
-        const misto = this.el.querySelector("[data-hhd-hotovo]");
-        if (!misto) {
-            return;
-        }
-
-        const dny = stav.dny || [];
-        const treti = dny[dny.length - 1];
-        if (!stav.zname || !treti || !treti.odemceno) {
-            misto.innerHTML = "";
-            return;
-        }
-
-        misto.innerHTML =
-            '<div class="hhd-hlaska">' +
-            "<p><b>Prošel jsi všechny tři dny?</b></p>" +
-            '<p class="hhd-micro">Dej mi vědět a navážu na to, co ti z výzvy ' +
-            "vyšlo. Jinak ti sem nic dalšího posílat nebudu.</p>" +
-            '<button type="button" class="hhd-hotovo__tlacitko">' +
-            "Výzvu mám hotovou</button></div>";
-
-        const tlacitko = misto.querySelector(".hhd-hotovo__tlacitko");
-        tlacitko.addEventListener("click", () => this._potvrd(misto, tlacitko));
-    },
-
-    async _potvrd(misto, tlacitko) {
-        // Dvoji kliknuti by poslalo dva pozadavky. Server se sice
-        // ubrani (potvrzuje se jednou), ale clovek by mezitim koukal
-        // na tlacitko, ktere nic nedela.
-        tlacitko.disabled = true;
-        tlacitko.textContent = "Ukládám…";
-
-        try {
-            const klic = new URLSearchParams(window.location.search).get("k");
-            const odpoved = await rpc(
-                "/zpet-do-zivota/vyzva/dokonceno", klic ? { k: klic } : {});
-            if (!odpoved.potvrzeno) {
-                throw new Error("nepotvrzeno");
-            }
-            misto.innerHTML =
-                '<div class="hhd-hlaska"><p><b>Díky, mám to.</b></p>' +
-                '<p class="hhd-micro">Ozvu se ti zítra s tím, jak na výzvu ' +
-                "navázat.</p></div>";
-        } catch (chyba) {
-            tlacitko.disabled = false;
-            tlacitko.textContent = "Výzvu mám hotovou";
-            const hlaska = document.createElement("p");
-            hlaska.className = "hhd-chyba";
-            hlaska.textContent =
-                "Nepovedlo se to uložit. Zkus to prosím znovu.";
-            misto.querySelector(".hhd-hlaska").appendChild(hlaska);
-        }
-    },
 
     _selhalo() {
         const obnova = this.el.querySelector("[data-hhd-obnova]");

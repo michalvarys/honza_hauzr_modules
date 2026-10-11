@@ -32,6 +32,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/website_form_data.xml',
         'data/sekce_doplneni.xml',
         'data/sekce_odhlaseno.xml',
+        'data/vyzva_den3.xml',
         'data/sekvence_po_vyzve.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',

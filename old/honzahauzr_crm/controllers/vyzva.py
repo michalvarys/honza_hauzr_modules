@@ -101,32 +101,6 @@ class HhVyzva(http.Controller):
             return {'zapsano': False}
         return {'zapsano': True}
 
-    @http.route(CIL + '/dokonceno', type='json', auth='public', website=True)
-    def dokonceno(self, k=None, **kw):
-        """Ucastnik potvrdil, ze vyzvu dokoncil.
-
-        Tohle je jedina spolehliva evidence dokonceni, kterou mame.
-        Zhlednuti videa ani otevreni e-mailu nic nedokladaji - clovek
-        muze video pustit a odejit - a odeslani posledni lekce uz
-        vubec. Proto se Honza na konci treti lekce zepta a teprve
-        potvrzeni spusti navaznou radu e-mailu.
-
-        Potvrzuje se jednou. Druhe kliknuti uz jen rekne, ze to mame.
-        """
-        lead = request.env['crm.lead']._hh_vyzva_ucastnik(k or None)
-        if not lead:
-            return {'zname': False, 'potvrzeno': False}
-
-        # Treti den musi byt odemceny, jinak by si slo dokonceni
-        # odkliknout hned po prihlaseni a prodejni rada by zacala
-        # chodit cloveku, ktery vyzvu ani nevidel.
-        dny = lead.hh_vyzva_stav()
-        if not dny or not dny[-1].get('odemceno'):
-            return {'zname': True, 'potvrzeno': False, 'brzy': True}
-
-        lead.sudo()._hh_vyzva_dokoncil()
-        return {'zname': True, 'potvrzeno': True}
-
     @http.route(CIL + '/nahled', type='http', auth='public',
                 website=True, sitemap=False)
     def nahled(self, strana=None, **kw):

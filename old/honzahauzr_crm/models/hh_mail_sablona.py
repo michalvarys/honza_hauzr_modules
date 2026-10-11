@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
+
+# Editor z Email Marketingu hleda tuhle kostru. Bez ni bere zpravu
+# jako prazdnou a misto textu nabidne galerii predloh.
+KOSTRA_EDITORU = """<div class="o_layout oe_styling_vr">
+  <div class="container o_mail_wrapper o_mail_wrapper_td">
+    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+%s
+    </div>
+  </div>
+</div>"""
 
 
 class HhMailStitek(models.Model):
@@ -112,6 +122,53 @@ class HhMailSablona(models.Model):
     @api.model
     def _hh_vsechny_stitky(self, stitky, domena):
         return self.env['hh.mail.stitek'].search([], order='name')
+
+    @api.model
+    def _hh_doplnit_den3(self):
+        """Doplní do řady třídenní výzvy chybějící zprávu ke třetímu dni.
+
+        Dny 1 a 2 v řadě byly, třetí ne - původní mechanismus, který
+        ho měl natvrdo v kódu, je vypnutý. Člověk tedy dostal "Den 2
+        je odemčený" a pak ticho, přestože se mu třetí den po
+        48 hodinách na stránce odemkl.
+
+        Pouští se při každém upgradu, ale zakládá jen jednou: když
+        u řady nějaká zpráva s odstupem dvou dnů už je, nechá se být.
+        Honza si text může přepsat a tohle mu ho nepřepíše zpátky.
+        """
+        Stitek = self.env['hh.mail.stitek'].sudo()
+        stitek = Stitek.search([('name', '=ilike', '3denní výzva')], limit=1)
+        if not stitek:
+            return False
+
+        if self.sudo().with_context(active_test=False).search_count([
+                ('stitek_id', '=', stitek.id), ('po_dnech', '=', 2)]):
+            return False
+
+        # Bez 'rb' a rucniho dekodovani by se soubor precetl
+        # v kodovani systemu a ceska diakritika by se rozsypala.
+        with tools.file_open(
+                'honzahauzr_crm/data/mail_vyzva_den3.html',
+                mode='rb') as soubor:
+            telo = soubor.read().decode('utf-8')
+
+        zprava = self.sudo().create({
+            'name': 'vyzva den 3',
+            'stitek_id': stitek.id,
+            'po_dnech': 2,
+            'predmet': 'Den 3 je odemčený',
+            'body_html': telo,
+            'body_arch': KOSTRA_EDITORU % telo,
+        })
+        # Prekladana pole: obycejny zapis plni jen zakladni jazyk
+        # a ceska administrace by ukazovala prazdnou zpravu.
+        jazyky = [l.code for l in self.env['res.lang'].sudo().search(
+            [('active', '=', True)])]
+        for pole, hodnota in (('body_html', telo),
+                              ('body_arch', KOSTRA_EDITORU % telo)):
+            zprava.update_field_translations(
+                pole, {k: hodnota for k in jazyky})
+        return zprava.id
     po_dnech = fields.Integer(
         string='Po (dnech)',
         default=1,

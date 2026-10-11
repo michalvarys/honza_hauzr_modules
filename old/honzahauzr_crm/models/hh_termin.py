@@ -409,11 +409,18 @@ class HhTermin(models.Model):
 
         Novou prilezitost sem tahat nemusime, ta do sloupce spadne uz
         pri zalozeni podle zdroje 'rezervace'.
+
+        Sloupec se hleda pres _hh_stupen_zdroje, ne primo pres XML id.
+        Pod crm.stage_lead3 totiz v nasi databazi nic neni - sloupec
+        Rezervace vznikl v administraci a zadne XML id nema. Primy
+        odkaz proto vracel prazdno a karta zustavala viset ve vyzve,
+        aniz by to cokoliv ohlasilo. _hh_stupen_zdroje si sloupec
+        najde, a kdyz chybi uplne, zalozi ho i se stitky.
         """
         if not lead:
             return
 
-        stupen = self.env.ref('crm.stage_lead3', raise_if_not_found=False)
+        stupen = lead._hh_stupen_zdroje('rezervace')
         if not stupen or lead.stage_id == stupen:
             return
 

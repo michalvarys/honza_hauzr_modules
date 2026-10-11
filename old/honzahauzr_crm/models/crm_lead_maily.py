@@ -70,15 +70,6 @@ VYPLN = '&#847;&#160;' * 60
 class CrmLeadProdejni(models.Model):
     _inherit = 'crm.lead'
 
-    hh_vyzva_dokoncena = fields.Datetime(
-        string='Výzva dokončena',
-        copy=False,
-        help='Okamžik, kdy účastník sám potvrdil, že výzvu dokončil. '
-             'Od něj běží odpočet prodejní řady.\n\n'
-             'Schválně se nebere zhlédnutí videa ani otevření '
-             'e-mailu - ani jedno dokončení nedokládá.',
-    )
-
     hh_serie_pozastavena = fields.Boolean(
         string='Pozastavit prodejní e-maily',
         copy=False,
@@ -291,42 +282,3 @@ class CrmLeadProdejni(models.Model):
         if vals.get('hh_odhlaseno'):
             self._hh_do_sloupce_odhlaseno()
         return vysledek
-
-    # ------------------------------------------------------------------
-    # vstup do rady
-    # ------------------------------------------------------------------
-
-    @api.model
-    def _hh_sekce_po_vyzve(self):
-        return self.env.ref(
-            'honzahauzr_crm.hh_stupen_po_vyzve', raise_if_not_found=False)
-
-    def _hh_vyzva_dokoncil(self):
-        """Účastník potvrdil dokončení výzvy - zařadí se do prodejní řady.
-
-        Zařazuje se jen jednou a jen tehdy, když ještě nemá domluvený
-        hovor. Kdo hovor absolvoval, patří do osobního doprovázení,
-        ne do automatické nabídky.
-        """
-        self.ensure_one()
-
-        if not self.hh_vyzva_dokoncena:
-            self.sudo().hh_vyzva_dokoncena = fields.Datetime.now()
-
-        stupen = self._hh_sekce_po_vyzve()
-        if not stupen:
-            return False
-        if self.stage_id == stupen:
-            return False
-        # Radu uz jednou dostal - opakovana registrace do vyzvy ji
-        # nespusti podruhe.
-        if stupen in self.hh_odeslane_stupne_ids:
-            return False
-        # Kdo je dal (rezervace, placene), se nevraci zpatky.
-        if self.stage_id and self.stage_id.sequence > stupen.sequence:
-            return False
-        if self.hh_odhlaseno or self._hh_ma_hovor():
-            return False
-
-        self.sudo().write({'stage_id': stupen.id})
-        return True

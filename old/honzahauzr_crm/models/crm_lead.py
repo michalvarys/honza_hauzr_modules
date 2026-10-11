@@ -142,6 +142,16 @@ class CrmLead(models.Model):
         'rezervace': 'crm.stage_lead3',
     }
 
+    # Jmena, pod kterymi uz sloupec muze na nastence byt. Sahne se po
+    # nich, kdyz XML id nic nevrati - sloupce zalozene v administraci
+    # zadne nemaji. Prvni v poradi je vzdy popis ze seznamu zdroju,
+    # tohle jsou dalsi varianty.
+    HH_NAZVY_STUPNU = {
+        'newsletter': ['Chci odebírat'],
+        'vyzva': ['3denní výzva'],
+        'rezervace': ['Rezervace'],
+    }
+
     @api.model_create_multi
     def create(self, vals_list):
         # Kdo uz v boardu je, nedostane druhou kartu. Misto zalozeni
@@ -260,6 +270,17 @@ class CrmLead(models.Model):
         popis = dict(self._fields['hh_zdroj'].selection).get(zdroj)
         if not popis:
             return self.env['crm.stage']
+
+        # Nez se zalozi novy sloupec, zkusi se najit ten, ktery uz
+        # tuhle roli plni pod jinym jmenem. Bez toho vznikla vedle
+        # sloupce "Rezervace" jeste "Rezervace hovoru" - dva sloupce
+        # na totez a lide rozhozeni mezi ne.
+        Stage = self.env['crm.stage'].sudo()
+        for nazev in [popis] + self.HH_NAZVY_STUPNU.get(zdroj, []):
+            najdeny = Stage.search([('name', '=ilike', nazev)], limit=1)
+            if najdeny:
+                return najdeny
+
         return self._hh_zajistit_sekci(popis)
 
     def _hh_zaradit_do_stupne(self):

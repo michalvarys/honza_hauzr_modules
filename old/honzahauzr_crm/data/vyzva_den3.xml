@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     TŘETÍ DEN VÝZVY DO ŘADY E-MAILŮ
+
+     V řadě byly jen dny 1 a 2. Třetí chyběl: původní mechanismus,
+     který ho měl natvrdo v kódu, je vypnutý. Člověk tedy dostal
+     "Den 2 je odemčený" a pak ticho, přestože se mu třetí den po
+     48 hodinách na stránce odemkl.
+
+     Zakládá se funkcí, ne záznamem. Štítek ani sloupec třídenní
+     výzvy nejsou data modulu - vznikly v administraci a nemají
+     xmlid, takže se na ně nedá odkázat. Funkce si je najde podle
+     názvu a když je nenajde, mlčky nic neudělá; záznam s odkazem
+     na neexistující štítek by shodil celou instalaci.
+
+     Mimo blok s noupdate schválně: tam se funkce při upgradu
+     přeskakují. Tahle se pustí pokaždé, ale zakládá jen jednou.
+     ================================================================= -->
+
+<data>
+    <function model="hh.mail.sablona" name="_hh_doplnit_den3"/>
+</data>
+
+</odoo>

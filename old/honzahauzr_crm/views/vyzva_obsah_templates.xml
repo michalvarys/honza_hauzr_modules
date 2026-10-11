@@ -88,13 +88,6 @@
                 </div>
             </div>
 
-            <!-- Potvrzeni dokonceni vyzvy. Zustava skryte, dokud
-                 skript nezjisti, ze clovek ma treti den odemceny -
-                 jinak by slo dokonceni odkliknout hned po prihlaseni.
-                 data-oe-protected drzi editor stranou od vykresleneho
-                 obsahu. -->
-            <div class="hhd-dyn hhd-hotovo" data-hhd-hotovo="1"
-                 data-oe-protected="true" contenteditable="false"/>
         </div>
     </section>
 </template>
@@ -200,13 +193,6 @@
                         </div>
                     </div>
 
-                    <!-- Potvrzeni dokonceni vyzvy. Zustava skryte, dokud
-                         skript nezjisti, ze clovek ma treti den odemceny -
-                         jinak by slo dokonceni odkliknout hned po prihlaseni.
-                         data-oe-protected drzi editor stranou od vykresleneho
-                         obsahu. -->
-                    <div class="hhd-dyn hhd-hotovo" data-hhd-hotovo="1"
-                         data-oe-protected="true" contenteditable="false"/>
                 </div>
             </section>
 
