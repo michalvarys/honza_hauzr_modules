@@ -37,6 +37,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # zalozene. Driv to bylo obracene a sedm novych zprav na
         # cerstve databazi zustalo bez odhlaseni.
         'data/sekvence_po_vyzve.xml',
+        'data/predlohy_dalsi.xml',
         'data/vyzva_den3.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',

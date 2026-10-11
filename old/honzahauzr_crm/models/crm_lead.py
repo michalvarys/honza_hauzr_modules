@@ -740,7 +740,17 @@ class CrmLead(models.Model):
                 'res_id': self.id,
                 'auto_delete': False,
             })
-            posta.send()
+            # Odeslani zvlast: jakmile zprava lezi ve fronte, je
+            # hotovo. Kdyz se zrovna nepovede odejit (vypadek posty),
+            # Odoo ji posle pozdeji samo - a volajici to nesmi brat
+            # jako "neodeslano" a zkouset to jinou cestou. Prave tak
+            # chodilo potvrzeni rezervace dvakrat.
+            try:
+                posta.send()
+            except Exception as chyba:
+                _logger.warning(
+                    'Honza Hauzr CRM: zprava "%s" je ve fronte, ale '
+                    'odeslani se nepovedlo: %s', sablona_mailu.name, chyba)
             return True
         except Exception as chyba:
             # E-mail nesmi nikdy shodit presun karty - kdyz se neodesle,

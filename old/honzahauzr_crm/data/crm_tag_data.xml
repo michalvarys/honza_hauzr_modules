@@ -58,5 +58,15 @@
     <field name="color">6</field>
 </record>
 
+<!--
+    Cervena: na nastence ma byt na prvni pohled videt, ze si clovek
+    hovor zrusil. Stitek zustava i po nove rezervaci - je to zaznam
+    o tom, co se stalo, ne stav.
+-->
+<record id="tag_zruseny_hovor" model="crm.tag">
+    <field name="name">Zrušil hovor</field>
+    <field name="color">1</field>
+</record>
+
 </data>
 </odoo>

@@ -437,6 +437,7 @@ class HhTermin(models.Model):
 
         jmeno = self.jmeno
         kdy = self._hh_cas(self.zacatek)
+        lead = self.lead_id
 
         self.write({
             'stav': 'volny',
@@ -447,6 +448,8 @@ class HhTermin(models.Model):
             'partner_id': False,
             'zrusovaci_klic': False,
         })
+
+        self._hh_oznacit_zruseni(lead, kdy)
 
         adresa = self.env['ir.config_parameter'].sudo().get_param(
             'honzahauzr_crm.notify_email')
@@ -459,14 +462,54 @@ class HhTermin(models.Model):
             )
         return True
 
+    def _hh_oznacit_zruseni(self, lead, kdy):
+        """Na kartě má být vidět, že si člověk hovor zrušil.
+
+        Červený štítek, protože na nástěnce se čtou karty očima, ne
+        po jedné: mezi desítkami karet je barva jediné, co se pozná
+        na první pohled. K tomu zápis do historie karty - ten řekne
+        i kdy a který termín to byl, což ze štítku nevyčteš.
+
+        Termín se tím neuvolňuje ani nevrací; to už udělal volající.
+        """
+        if not lead:
+            return
+
+        stitek = self.env.ref('honzahauzr_crm.tag_zruseny_hovor',
+                              raise_if_not_found=False)
+        if stitek and stitek not in lead.tag_ids:
+            lead.sudo().tag_ids = [(4, stitek.id)]
+
+        lead.sudo().message_post(
+            body='Zrušil(a) úvodní hovor na %s. Termín je zase volný.' % kdy)
+
     # ------------------------------------------------------------------
     # e-maily
     # ------------------------------------------------------------------
 
     def _hh_potvrdit(self):
+        """Potvrzeni rezervace zakaznikovi.
+
+        Nejdriv se zkusi predloha z knihovny - tu si Honza muze
+        prepsat v editoru jako kterakoliv jinou zpravu. Datum a cas
+        si bere z karty ({{ object.hh_termin_kdy }}), a protoze se
+        posila az odtud, je uz termin ulozeny a pole vyplnena.
+
+        Kdyz predloha chybi nebo je vypnuta, odejde zabudovana
+        zprava nize. Rezervace nesmi zustat bez potvrzeni.
+        """
         self.ensure_one()
         if not self.email:
             return
+
+        predloha = self._hh_predloha_potvrzeni()
+        lead = self._hh_lead_pro_paticku()
+        if predloha and lead:
+            lead.invalidate_recordset(
+                ['hh_termin_kdy', 'hh_termin_delka', 'hh_termin_zruseni'])
+            if lead._hh_poslat_email_stupne(
+                    lead.stage_id, self.email, predloha):
+                return
 
         odkaz = self._hh_odkaz_na_zruseni()
         telo = (
@@ -506,6 +549,20 @@ class HhTermin(models.Model):
 
         self._hh_poslat(adresa, 'Nová rezervace úvodního hovoru', telo,
                         odpovedet=self.email)
+
+    def _hh_predloha_potvrzeni(self):
+        """Předloha potvrzení z knihovny, když tam nějaká je.
+
+        Štítek Potvrzení rezervace schválně nepatří žádnému sloupci:
+        zpráva se neposílá při přesunu karty, ale až odtud, kdy je
+        termín uložený. Při přesunu by v ní chybělo datum i čas -
+        karta se do sloupce Rezervace posouvá dřív, než se termín
+        zapíše.
+        """
+        return self.env['hh.mail.sablona'].sudo().search([
+            ('stitek_id.name', '=ilike', 'Potvrzení rezervace'),
+            ('zapnuto', '=', True),
+        ], order='po_dnech, id', limit=1)
 
     def _hh_lead_pro_paticku(self):
         """Karta, ze ktere se vezme odkaz na odhlaseni.
