@@ -59,6 +59,9 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'views/vyzva_obsah_templates.xml',
         'views/odhlaseni_templates.xml',
         'views/res_config_settings_views.xml',
+        # Uplne nakonec: srovnani nabidek pod aplikaci Honza Admin
+        # saha i na polozky z hh_termin_views.xml.
+        'data/presun_menu.xml',
     ],
     # Styl a skript rezervacni stranky. Oboji je zanorene pod .hhr,
     # takze i kdyz se to nacita pro celou instanci, na cizi weby to

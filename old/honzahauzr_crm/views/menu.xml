@@ -1,21 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<!-- =================================================================
+     VLASTNÍ APLIKACE "HONZA ADMIN"
+
+     Všechno, co jsme pro Honzu naprogramovali, sedělo rozstrkané
+     v CRM: termíny hovorů a nastavení v horní liště vedle Prodeje,
+     přehledy schované mezi Výkazy Odoo. Honza musel vědět, že se to
+     hledá v CRM, a mezi cizími položkami to zanikalo.
+
+     Teď je to samostatná dlaždice v nabídce aplikací. CRM zůstává
+     tím, čím je - nástěnka s příležitostmi; sem patří věci okolo:
+     hovory, e-maily, přehledy, nastavení.
+
+     Kořenová položka má stejná práva jako CRM (prodejce / vedoucí
+     prodeje). Bez nich by se aplikace ukázala každému vnitřnímu
+     uživateli, protože kořenové nabídky se jinak nefiltrují.
+     ================================================================= -->
+<menuitem id="menu_hh_admin"
+          name="Honza Admin"
+          web_icon="honzahauzr_crm,static/description/icon.png"
+          groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"
+          sequence="6"/>
+
 <!--
-    Jedna polozka v horni liste, zbytek pod ni.
-
-    Drive sedelo "Nastaveni sloupcu" primo v liste vedle Prodeje
-    a Vykazu. S knihovnou e-mailu a stitky by tam stala vedle sebe
-    uz ctyri vlastni polozka a lista by se tim rozjela. Rozbalovaci
-    nabidka je drzi pod sebou, stejne jako to ma Odoo u Prodeje.
-
-    Terminy hovoru zustavaji samostatne - to neni nastaveni, ale
-    kalendar, do ktereho Honza chodi kazdy den.
+    Termíny hovorů jsou první položka a zároveň to, co se otevře po
+    kliknutí na dlaždici. Je to obrazovka, do které Honza chodí
+    každý den. Samotná nabídka je v hh_termin_views.xml u akcí,
+    na které odkazuje.
 -->
+
+<!-- =================================================================
+     E-MAILY
+
+     Knihovna zpráv a řady, ve kterých chodí. Dřív to sedělo pod
+     "Nastavení", ale nastavení to není - texty se tu píšou a mění
+     pořád, stejně jako se v CRM píšou nabídky.
+     ================================================================= -->
+<menuitem id="menu_hh_maily"
+          name="E-maily"
+          parent="menu_hh_admin"
+          sequence="20"/>
+
+<menuitem id="menu_hh_mail_sablona"
+          name="Knihovna e-mailů"
+          parent="menu_hh_maily"
+          action="action_hh_mail_sablona"
+          sequence="10"/>
+
+<menuitem id="menu_hh_mail_stitek"
+          name="Řady e-mailů"
+          parent="menu_hh_maily"
+          action="action_hh_mail_stitek"
+          sequence="20"/>
+
+<!-- =================================================================
+     VÝKAZY
+
+     Čísla, na která se Honza chodí dívat. Nic se tu nenastavuje.
+     ================================================================= -->
+<menuitem id="menu_hh_vykazy"
+          name="Výkazy"
+          parent="menu_hh_admin"
+          sequence="30"/>
+
+<menuitem id="menu_hh_vyzva_sledovani"
+          name="Zhlédnutí videí"
+          parent="menu_hh_vykazy"
+          action="action_hh_vyzva_sledovani"
+          sequence="10"/>
+
+<menuitem id="menu_hh_zdroje"
+          name="Odkud lidé chodí"
+          parent="menu_hh_vykazy"
+          action="action_crm_lead_zdroje"
+          sequence="20"/>
+
+<menuitem id="menu_hh_web_klik"
+          name="Kam lidé klikají"
+          parent="menu_hh_vykazy"
+          action="action_hh_web_klik"
+          sequence="30"/>
+
+<!-- =================================================================
+     NASTAVENÍ
+
+     Věci, které se jednou nastaví a pak se na ně nesahá.
+
+     "Rozvrh a e-maily" míří na nastavení CRM - tam sedí rozvrh
+     hovorů, otevírání rezervací a adresa pro upozornění z webu.
+     Stránka zůstává tam, kde ji má Odoo; tohle je jen zkratka,
+     ať se k ní nemusí přes Konfiguraci.
+     ================================================================= -->
 <menuitem id="menu_hh_nastaveni"
           name="Nastavení"
-          parent="crm.crm_menu_root"
-          sequence="30"/>
+          parent="menu_hh_admin"
+          sequence="40"/>
 
 <menuitem id="menu_stupne_crm"
           name="Sloupce nástěnky"
@@ -23,39 +103,16 @@
           action="action_stupne_crm"
           sequence="10"/>
 
-<menuitem id="menu_hh_mail_sablona"
-          name="Knihovna e-mailů"
+<menuitem id="menu_hh_nastaveni_crm"
+          name="Rozvrh a e-maily"
           parent="menu_hh_nastaveni"
-          action="action_hh_mail_sablona"
+          action="crm.crm_config_settings_action"
           sequence="20"/>
 
-<menuitem id="menu_hh_mail_stitek"
-          name="Řady e-mailů"
-          parent="menu_hh_nastaveni"
-          action="action_hh_mail_stitek"
-          sequence="30"/>
-
 <!--
-    Zhlednuti videi patri do Vykazu, ne do Nastaveni. Neni to nic,
-    co by se nastavovalo - je to cislo, na ktere se Honza chodi
-    divat, a hleda ho tam, kde ma Odoo ostatni prehledy.
+    Rodiče na už běžící databázi dorovná funkce v
+    data/presun_menu.xml. Je až na konci manifestu, protože v tu
+    chvíli už musí existovat i nabídky z hh_termin_views.xml.
 -->
-<menuitem id="menu_hh_vyzva_sledovani"
-          name="Zhlédnutí videí"
-          parent="crm.crm_menu_report"
-          action="action_hh_vyzva_sledovani"
-          sequence="40"/>
-
-<menuitem id="menu_hh_zdroje"
-          name="Odkud lidé chodí"
-          parent="crm.crm_menu_report"
-          action="action_crm_lead_zdroje"
-          sequence="41"/>
-
-<menuitem id="menu_hh_web_klik"
-          name="Kam lidé klikají"
-          parent="crm.crm_menu_report"
-          action="action_hh_web_klik"
-          sequence="42"/>
 
 </odoo>

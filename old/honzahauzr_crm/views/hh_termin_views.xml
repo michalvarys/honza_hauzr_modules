@@ -203,9 +203,9 @@
 <data noupdate="1">
     <menuitem id="hh_termin_menu"
               name="Termíny hovorů"
-              parent="crm.crm_menu_root"
+              parent="menu_hh_admin"
               action="hh_terminy_kalendar_action"
-              sequence="31"/>
+              sequence="10"/>
 </data>
 
 <!-- =================================================================

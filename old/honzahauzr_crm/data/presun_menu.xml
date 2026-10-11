@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Přesun nabídek pod aplikaci "Honza Admin".
+
+    Na čisté databázi nedělá nic - rodiče sedí už z XML. Smysl má
+    tam, kde modul běžel dřív: část nabídek má v ir.model.data
+    příznak noupdate, takže by jim nový rodič z XML neprošel a
+    zůstaly by viset v CRM.
+
+    Soubor je v manifestu úplně poslední. Dřív by funkce běžela
+    v době, kdy ještě nejsou založené nabídky z hh_termin_views.xml.
+
+    Obyčejný <data> blok, ne noupdate - uvnitř noupdate se
+    <function> při aktualizaci přeskakuje.
+-->
+<function model="ir.ui.menu" name="_hh_prestehovat_do_admina"/>
+
+</odoo>
