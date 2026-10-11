@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Přestavba knihovny e-mailů z tabulek do bloků editoru.
+
+    Zprávy, které zakládá modul, sedí v datových souborech
+    s noupdate="1": jednou se založí a upgrade už na ně nesáhne,
+    aby Honzovi nepřepsal, co si v nich upravil. Jenže právě teď se
+    mění jejich podoba — z jedné velké tabulky, kde šlo přepsat jen
+    text, na bloky, které jdou vybrat, posunout, smazat a prokládat
+    jinými.
+
+    Tahle funkce proto staré zprávy i s odkazem na modul smaže.
+    Datové soubory o kus dál v témže upgradu založí nové, už
+    v blocích. Zpráv, které bloky mají, se to netýká.
+
+    Musí běžet PŘED sekvence_po_vyzve.xml a predlohy_dalsi.xml,
+    jinak by smazala právě založené záznamy.
+-->
+<data>
+    <function model="hh.mail.sablona" name="_hh_zahodit_tabulkove_predlohy"/>
+</data>
+
+</odoo>

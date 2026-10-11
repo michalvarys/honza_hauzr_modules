@@ -35,80 +35,64 @@
         <field name="po_dnech">0</field>
         <field name="predmet">Díky za přihlášení — a jedna věc na začátek</field>
         <field name="preheader">Tři dny, tři videa, tři konkrétní kroky. Zdarma.</field>
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
-  <div class="container o_mail_wrapper o_mail_wrapper_td">
-    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
-  <tr>
-    <td align="center" style="padding:24px 10px;">
-
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
-
-        <!-- hlavicka: logo a jmeno -->
-        <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-              <tr>
-                <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
-                       alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
-                </td>
-                <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
-                  Honza Hauzr
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- obsah -->
-        <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Vlastní režie</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Díky, že čteš.</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">budu ti sem posílat to, co sám považuju za užitečné &#8212; žádné novinky ze světa a žádné rozesílky každý týden.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení: <strong>bezplatnou třídenní výzvu</strong>. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Stačí na to dvacet minut denně. Klidně dneska večer.</p>
-          </td>
-        </tr>
-
-        <!-- jedina vyzva k akci -->
-        <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
-                  <a href="/zpet-do-zivota"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Vstoupit do výzvy zdarma</a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td align="center" style="padding:6px 22px 24px 22px;">
-            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">Je zdarma a nic tím nekupuješ.</p>
-          </td>
-        </tr>
-
-        <!-- podpis -->
-        <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-              <strong>Honza</strong>
-            </p>
-          </td>
-        </tr>
-
-      </table>
-
-    </td>
-  </tr>
-</table>
+        <!-- body_arch je podoba pro editor (bloky), body_html to,
+             co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+<style id="design-element">
+.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
+.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
+.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
+.o_mail_wrapper .hh-tmave { color: #23211d; }
+.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
+.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
+.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
+.o_mail_wrapper .hh-ramecek p { color: #23211d; }
+.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
+.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+</style>
+  <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
+    <div class="row">
+      <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
+          <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-4" style="text-align:right;">
+                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <p class="hh-eyebrow">Vlastní režie</p>
+            <h1>Díky, že čteš.</h1>
+            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+            <p>budu ti sem posílat to, co sám považuju za užitečné &#8212; žádné novinky ze světa a žádné rozesílky každý týden.</p>
+            <p>Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení: <strong>bezplatnou třídenní výzvu</strong>. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
+            <p>Stačí na to dvacet minut denně. Klidně dneska večer.</p>
+          </div>
+        </div>
+        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
+          <div class="container">
+            <a href="/zpet-do-zivota" role="button" class="btn btn-primary">Vstoupit do výzvy zdarma</a>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
+          <div class="container s_allow_columns">
+            <p class="hh-drobne">Je zdarma a nic tím nekupuješ.</p>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <p class="hh-tmave"><strong>Honza</strong></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>]]></field>
@@ -124,8 +108,7 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
-                       alt="Vlastní režie" width="190" height="35"
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
                        style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
                 </td>
                 <td align="right" valign="middle"
@@ -191,88 +174,76 @@
         <field name="po_dnech">0</field>
         <field name="predmet">Úvodní hovor je domluvený</field>
         <field name="preheader">Tady je termín, na kterém jsme se domluvili.</field>
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_styling_vr">
-  <div class="container o_mail_wrapper o_mail_wrapper_td">
-    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
-  <tr>
-    <td align="center" style="padding:24px 10px;">
-
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
-
-        <!-- hlavicka: logo a jmeno -->
-        <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-              <tr>
-                <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
-                       alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
-                </td>
-                <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
-                  Honza Hauzr
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- obsah -->
-        <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Úvodní hovor</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Termín máme domluvený.</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
-              <tr>
-                <td style="padding:20px 22px;border:1px solid #e2dacb;">
-                  <p style="margin:0 0 8px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#23211d;"><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
-                  <p style="margin:0 0 8px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#23211d;"><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
-                </td>
-              </tr>
-            </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat &#8212; stačí, že si na to vyhradíš klid.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Tlačítkem níž si termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
-          </td>
-        </tr>
-
-        <!-- jedina vyzva k akci -->
-        <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
-                  <a href="{{ object.hh_termin_zruseni }}"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Zrušit termín</a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td align="center" style="padding:6px 22px 24px 22px;">
-            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">Tlačítko použij jen tehdy, když opravdu nemůžeš.</p>
-          </td>
-        </tr>
-
-        <!-- podpis -->
-        <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-              <strong>Honza</strong>
-            </p>
-          </td>
-        </tr>
-
-      </table>
-
-    </td>
-  </tr>
-</table>
+        <!-- body_arch je podoba pro editor (bloky), body_html to,
+             co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+<style id="design-element">
+.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
+.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
+.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
+.o_mail_wrapper .hh-tmave { color: #23211d; }
+.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
+.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
+.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
+.o_mail_wrapper .hh-ramecek p { color: #23211d; }
+.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
+.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+</style>
+  <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
+    <div class="row">
+      <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
+          <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-4" style="text-align:right;">
+                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <p class="hh-eyebrow">Úvodní hovor</p>
+            <h1>Termín máme domluvený.</h1>
+            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+            <p>rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
+          </div>
+        </div>
+        <div class="s_mail_alert o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <div class="hh-ramecek">
+              <p><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
+              <p><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <p>Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat &#8212; stačí, že si na to vyhradíš klid.</p>
+            <p>Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Tlačítkem níž si termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
+          </div>
+        </div>
+        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
+          <div class="container">
+            <a href="{{ object.hh_termin_zruseni }}" role="button" class="btn btn-primary">Zrušit termín</a>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
+          <div class="container s_allow_columns">
+            <p class="hh-drobne">Tlačítko použij jen tehdy, když opravdu nemůžeš.</p>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
+          <div class="container s_allow_columns">
+            <p class="hh-tmave"><strong>Honza</strong></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>]]></field>
@@ -288,8 +259,7 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
-                       alt="Vlastní režie" width="190" height="35"
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
                        style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
                 </td>
                 <td align="right" valign="middle"
@@ -310,9 +280,9 @@
             <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
               <tr>
-                <td style="padding:20px 22px;border:1px solid #e2dacb;">
-                  <p style="margin:0 0 8px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#23211d;"><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
-                  <p style="margin:0 0 8px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#23211d;"><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
+                <td style="padding:20px 22px 4px 22px;border:1px solid #e2dacb;">
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
+            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
                 </td>
               </tr>
             </table>

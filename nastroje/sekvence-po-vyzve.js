@@ -4,10 +4,8 @@
  * (Tvůj tah, verze 1.1, 11. 10. 2026). Tenhle skript z nich skládá
  * HTML v naší šabloně a vyrábí datový soubor modulu.
  *
- * Vzhled vychází z nastroje/mail-den1.html: tabulky, styly přímo
- * u značek, šířka 100 % se stropem 600 px, odsazení 22 px. Outlook
- * nezná flexbox ani styly v hlavičce a pevných 600 px přeteče
- * telefon.
+ * Vzhled i obě podoby zprávy (bloky pro editor, tabulky pro poštu)
+ * dodává nastroje/mail-bloky.js.
  *
  * Co se do textu nepíše:
  *   - "[ODKAZ NA REZERVACI]" - z toho je tlačítko
@@ -24,14 +22,11 @@ const KOREN = path.join(__dirname, "..");
 const CIL = path.join(KOREN, "old/honzahauzr_crm/data/sekvence_po_vyzve.xml");
 
 /* ---------------------------------------------------------------- */
-/* barvy a stavebnice                                               */
+/* stavebnice                                                       */
 /* ---------------------------------------------------------------- */
 
-const KREM = "#f4efe6";
-const GRAFIT = "#23211d";
-const INKOUST = "#5d554b";
-const LINKA = "#e2dacb";
-const SVETLA = "#a89681";
+const { P, OTAZKA, RAMECEK, GRAFIT, bloky, tabulky } =
+    require("./mail-bloky.js");
 
 /* Adresa stranky s kalendarem. Je pro vsechny stejna, takze tu
    stoji primo - zadny zastupny text. Relativni zamerne: pri
@@ -46,113 +41,8 @@ function cil(cislo) {
     return ODKAZ + "?" + KAMPAN + "email_" + poradi;
 }
 
-const P = (t, barva) =>
-    `            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:${barva || INKOUST};">${t}</p>`;
-
-/* Otázka k zamyšlení. Svislá linka vlevo, jako má web u claimu -
-   v textu se tím oddělí od výkladu a čte se jako vlastní úkol. */
-const OTAZKA = (t) =>
-    `            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
-              <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid ${GRAFIT};font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:${GRAFIT};font-weight:bold;">${t}</td>
-              </tr>
-            </table>`;
-
-/* Rámeček na garanci: delší pasáž s podmínkami, kterou je potřeba
-   odlišit od běžného odstavce, ať se v ní dá vyznat. */
-const RAMECEK = (odstavce) =>
-    `            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:${KREM};">
-              <tr>
-                <td style="padding:20px 20px 4px 20px;border:1px solid ${LINKA};">
-${odstavce.map((o) => P(o, GRAFIT)).join("\n")}
-                </td>
-              </tr>
-            </table>`;
-
 /* ---------------------------------------------------------------- */
-/* celá zpráva                                                      */
-/* ---------------------------------------------------------------- */
-
-function zprava({ cislo, eyebrow, nadpis, telo, tlacitko }) {
-    const adresa = cil(cislo);
-
-    return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${KREM};margin:0;padding:0;">
-  <tr>
-    <td align="center" style="padding:24px 10px;">
-
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid ${LINKA};">
-
-        <!-- hlavicka: logo a jmeno -->
-        <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid ${LINKA};">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-              <tr>
-                <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png"
-                       alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
-                </td>
-                <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:${INKOUST};">
-                  Honza Hauzr
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- obsah -->
-        <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:${SVETLA};">${eyebrow}</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:${GRAFIT};">${nadpis}</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:${GRAFIT};">{{ object.hh_osloveni }}</p>
-${telo}
-          </td>
-        </tr>
-
-        <!-- jedina vyzva k akci -->
-        <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td align="center" bgcolor="${GRAFIT}" style="background-color:${GRAFIT};">
-                  <a href="${adresa}"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">${tlacitko}</a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- zachrana, kdyz schranka tlacitko nevykresli -->
-        <tr>
-          <td align="center" style="padding:4px 22px 26px 22px;">
-            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">
-              Kdyby tlačítko nefungovalo, otevři tenhle odkaz:<br/>
-              <a href="${adresa}" style="color:${INKOUST};">${ODKAZ}</a>
-            </p>
-          </td>
-        </tr>
-
-        <!-- podpis -->
-        <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid ${LINKA};">
-            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:${GRAFIT};">
-              <strong>Honza</strong>
-            </p>
-          </td>
-        </tr>
-
-      </table>
-
-    </td>
-  </tr>
-</table>`;
-}
-
-/* ---------------------------------------------------------------- */
-/* texty ze zadani                                                  */
+/* texty ze zadání                                                  */
 /* ---------------------------------------------------------------- */
 
 const EYEBROW = "Tvůj tah &#183; po výzvě";
@@ -298,31 +188,18 @@ const MAILY = [
 /* kostra pro editor                                                */
 /* ---------------------------------------------------------------- */
 
-/* Editor z Email Marketingu hleda kostru o_layout + oe_structure.
-   Bez ni bere zpravu jako prazdnou a misto textu nabidne galerii
-   predloh. Viz skill mail-sablona. */
-function proEditor(telo) {
-    return `<div class="o_layout oe_styling_vr">
-  <div class="container o_mail_wrapper o_mail_wrapper_td">
-    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
-${telo}
-    </div>
-  </div>
-</div>`;
-}
-
 /* ---------------------------------------------------------------- */
-/* zapis datoveho souboru                                           */
+/* zápis datového souboru                                           */
 /* ---------------------------------------------------------------- */
 
 const zaznamy = MAILY.map((m) => {
-    const telo = zprava({
-        cislo: m.cislo,
+    const spolecne = {
         eyebrow: EYEBROW,
         nadpis: m.nadpis,
-        telo: m.telo.join("\n"),
+        telo: m.telo,
         tlacitko: m.tlacitko,
-    });
+        odkaz: cil(m.cislo),
+    };
     return `    <record id="hh_mail_po_vyzve_${m.cislo}" model="hh.mail.sablona">
         <field name="name">${m.nazev}</field>
         <field name="stitek_id" ref="hh_stitek_po_vyzve"/>
@@ -331,9 +208,12 @@ const zaznamy = MAILY.map((m) => {
         <field name="preheader">${m.preheader}</field>
         <!-- Bez type="html": ta podoba chce ve schématu skutečné XML
              potomky, zatímco my text vkládáme jako CDATA. Pole je Html,
-             takže se řetězec uloží tak, jak je. -->
-        <field name="body_arch"><![CDATA[${proEditor(telo)}]]></field>
-        <field name="body_html"><![CDATA[${telo}]]></field>
+             takže se řetězec uloží tak, jak je.
+
+             body_arch je podoba pro editor (bloky), body_html to,
+             co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
+        <field name="body_arch"><![CDATA[${bloky(spolecne)}]]></field>
+        <field name="body_html"><![CDATA[${tabulky(spolecne)}]]></field>
     </record>`;
 }).join("\n\n");
 

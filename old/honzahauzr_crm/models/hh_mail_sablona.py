@@ -1,19 +1,60 @@
 # -*- coding: utf-8 -*-
+import json
 import logging
 
 from odoo import api, fields, models, tools
 
 _logger = logging.getLogger(__name__)
 
-# Editor z Email Marketingu hleda tuhle kostru. Bez ni bere zpravu
-# jako prazdnou a misto textu nabidne galerii predloh.
-KOSTRA_EDITORU = """<div class="o_layout oe_styling_vr">
-  <div class="container o_mail_wrapper o_mail_wrapper_td">
-    <div class="col o_mail_no_options o_mail_wrapper_td oe_structure o_editable">
+# Obal, ktery kolem zpravy stavi editor z Email Marketingu, kdyz se
+# vybere predloha. Drzime se jeho tvaru do pismene - jinak bere
+# zpravu jako prazdnou a misto textu nabidne galerii predloh.
+#
+# Podstatne je .oe_structure: je to jedine misto, kam jde pustit
+# blok, a volby bloku (posunout, duplikovat, smazat) dostane jen
+# <div> primo pod ni. Proto se zpravy skladaji z bloku
+# o_mail_snippet_general, ne z jedne velke tabulky jako driv -
+# tehdy sel prepsat jen text a nic vic.
+#
+# Totez stavi nastroje/mail-bloky.js; tady je kvuli zpravam, ktere
+# zaklada modul sam.
+STYLY_EDITORU = """<style id="design-element">
+.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
+.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
+.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
+.o_mail_wrapper .hh-tmave { color: #23211d; }
+.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
+.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
+.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
+.o_mail_wrapper .hh-ramecek p { color: #23211d; }
+.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
+.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+</style>"""
+
+KOSTRA_EDITORU = """<div class="o_layout oe_unremovable oe_unmovable bg-200 \
+oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" \
+data-name="Mailing">
+""" + STYLY_EDITORU + """
+  <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
+    <div class="row">
+      <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
 %s
+      </div>
     </div>
   </div>
 </div>"""
+
+# Konec editovatelne casti kostry. Paticka se vklada sem, ne na
+# uplny konec retezce - za timhle uz je jen obal a blok by se
+# ocitl mimo misto, kam editor pousti snippety.
+KONEC_OBSAHU = '      </div>\n    </div>\n  </div>\n</div>'
+
+
+def ma_bloky(text):
+    """Pozna zpravu prestavenou do bloku editoru."""
+    return 'o_mail_snippet_general' in (text or '')
 
 
 class HhMailStitek(models.Model):
@@ -187,13 +228,16 @@ class HhMailSablona(models.Model):
         Pouští se při každém upgradu a dělá jen to, co ještě není
         udělané - dá se to spustit opakovaně.
         """
-        from .crm_lead_maily import PATICKA, DUVOD_VYZVA, ma_odhlaseni
+        from .crm_lead_maily import (
+            PATICKA, PATICKA_BLOK, DUVOD_VYZVA, ma_odhlaseni)
 
-        paticka = PATICKA % {
+        udaje = {
             'odesilatel': '{{ object.hh_paticka_odesilatel }}',
             'duvod': DUVOD_VYZVA,
             'odhlaseni': '{{ object.hh_odkaz_odhlaseni }}',
         }
+        paticka = PATICKA % udaje
+        paticka_blok = PATICKA_BLOK % udaje
 
         jazyky = [l.code for l in self.env['res.lang'].sudo().search(
             [('active', '=', True)])]
@@ -232,7 +276,8 @@ class HhMailSablona(models.Model):
                     if text != puvodni:
                         oriznuto += 1
                     if not ma_odhlaseni(text):
-                        text = text + paticka
+                        text = self._hh_s_patickou(
+                            text, paticka, paticka_blok)
                         doplneno += 1
                     if text != puvodni:
                         nove[jazyk] = text
@@ -247,6 +292,24 @@ class HhMailSablona(models.Model):
                 'Honza Hauzr CRM: paticka doplnena %sx, zalozni odkaz '
                 'odstranen %sx.', doplneno, oriznuto)
         return doplneno, oriznuto
+
+    @api.model
+    def _hh_s_patickou(self, text, paticka, paticka_blok):
+        """Přidá patičku tam, kam v dané podobě zprávy patří.
+
+        Zpráva složená z bloků ji dostane jako další blok dovnitř
+        editovatelné části. Kdyby se přilepila na konec řetězce,
+        skončila by až za obalem - mimo místo, kam editor pouští
+        bloky, takže by s ní nešlo hnout a v náhledu by visela pod
+        kartou.
+
+        Zpráva v tabulkách (to, co odchází do pošty) ji dostane na
+        konec, jak to bylo odjakživa.
+        """
+        if ma_bloky(text) and KONEC_OBSAHU in text:
+            return text.replace(
+                KONEC_OBSAHU, paticka_blok + '\n' + KONEC_OBSAHU, 1)
+        return text + paticka
 
     @api.model
     def _hh_bez_escapovane_paticky(self, text):
@@ -316,50 +379,108 @@ class HhMailSablona(models.Model):
         return self.env['hh.mail.stitek'].browse()
 
     @api.model
-    def _hh_doplnit_den3(self):
-        """Doplní do řady třídenní výzvy chybějící zprávu ke třetímu dni.
+    def _hh_dny_vyzvy(self):
+        """Srovná tři zprávy třídenní výzvy podle data/vyzva_dny.json.
 
-        Dny 1 a 2 v řadě byly, třetí ne - původní mechanismus, který
-        ho měl natvrdo v kódu, je vypnutý. Člověk tedy dostal "Den 2
-        je odemčený" a pak ticho, přestože se mu třetí den po
-        48 hodinách na stránce odemkl.
+        Dělá dvě věci, obě tak, aby šly pustit opakovaně:
 
-        Pouští se při každém upgradu, ale zakládá jen jednou: když
-        u řady nějaká zpráva s odstupem dvou dnů už je, nechá se být.
-        Honza si text může přepsat a tohle mu ho nepřepíše zpátky.
+        * **Chybějící den doplní.** Třetí den v řadě dřív nebyl -
+          člověk dostal "Den 2 je odemčený" a pak ticho, přestože se
+          mu třetí den po 48 hodinách na stránce odemkl.
+
+        * **Zprávu psanou v tabulkách přestaví do bloků.** Tabulka
+          šla v editoru jen přepsat; blok jde vybrat, posunout,
+          smazat a dát mezi bloky jiný. Text zůstává slovo od slova
+          stejný, mění se jen obal.
+
+        Čeho se nedotkne: názvu, předmětu ani náhledového řádku -
+        ty si Honza přepsal nebo ještě přepíše. A zprávy, která už
+        z bloků složená je: tam už si editoval obsah on.
         """
         stitek = self._hh_stitek_vyzvy()
         if not stitek:
             return False
 
-        if self.sudo().with_context(active_test=False).search_count([
-                ('stitek_id', '=', stitek.id), ('po_dnech', '=', 2)]):
-            return False
-
         # Bez 'rb' a rucniho dekodovani by se soubor precetl
         # v kodovani systemu a ceska diakritika by se rozsypala.
         with tools.file_open(
-                'honzahauzr_crm/data/mail_vyzva_den3.html',
-                mode='rb') as soubor:
-            telo = soubor.read().decode('utf-8')
+                'honzahauzr_crm/data/vyzva_dny.json', mode='rb') as soubor:
+            dny = json.loads(soubor.read().decode('utf-8'))
 
-        zprava = self.sudo().create({
-            'name': 'vyzva den 3',
-            'stitek_id': stitek.id,
-            'po_dnech': 2,
-            'predmet': 'Den 3 je odemčený',
-            'body_html': telo,
-            'body_arch': KOSTRA_EDITORU % telo,
-        })
-        # Prekladana pole: obycejny zapis plni jen zakladni jazyk
-        # a ceska administrace by ukazovala prazdnou zpravu.
         jazyky = [l.code for l in self.env['res.lang'].sudo().search(
             [('active', '=', True)])]
-        for pole, hodnota in (('body_html', telo),
-                              ('body_arch', KOSTRA_EDITORU % telo)):
-            zprava.update_field_translations(
-                pole, {k: hodnota for k in jazyky})
-        return zprava.id
+        zalozeno, prestaveno = 0, 0
+
+        for den in dny:
+            zprava = self.sudo().with_context(active_test=False).search([
+                ('stitek_id', '=', stitek.id),
+                ('po_dnech', '=', den['po_dnech']),
+            ], limit=1)
+
+            if not zprava:
+                zprava = self.sudo().create({
+                    'name': den['nazev'],
+                    'stitek_id': stitek.id,
+                    'po_dnech': den['po_dnech'],
+                    'predmet': den['predmet'],
+                    'preheader': den['preheader'],
+                })
+                zalozeno += 1
+            elif ma_bloky(str(zprava.body_arch or '')):
+                continue
+            else:
+                prestaveno += 1
+
+            # Prekladana pole: obycejny zapis plni jen zakladni jazyk
+            # a ceska administrace by ukazovala prazdnou zpravu.
+            for pole in ('body_arch', 'body_html'):
+                zprava.update_field_translations(
+                    pole, {k: den[pole] for k in jazyky})
+
+        if zalozeno or prestaveno:
+            _logger.info(
+                'Honza Hauzr CRM: dny vyzvy - zalozeno %s, prestaveno '
+                'do bloku %s.', zalozeno, prestaveno)
+        return zalozeno, prestaveno
+
+    @api.model
+    def _hh_zahodit_tabulkove_predlohy(self):
+        """Zahodí zprávy z modulu, které jsou ještě psané v tabulkách.
+
+        Řadu po výzvě i obě další předlohy zakládá modul z datových
+        souborů, a ty mají noupdate="1" - jednou se založí a upgrade
+        už na ně nesáhne. Jenže právě teď se mění jejich podoba
+        z tabulek na bloky, a to by jim takhle neprošlo.
+
+        Proto se stará zpráva i s odkazem na modul smaže a datový
+        soubor ji o kousek dál v témže upgradu založí znovu, už
+        v nové podobě.
+
+        Smaže jen to, co ještě bloky nemá - zprávy, které už jsou
+        přestavené (a tedy i ty, do kterých Honza sáhl v editoru),
+        nechává být. Pouští se před datovými soubory, jinak by
+        mazala právě založené záznamy.
+        """
+        zaznamy = self.env['ir.model.data'].sudo().search([
+            ('module', '=', 'honzahauzr_crm'),
+            ('model', '=', 'hh.mail.sablona'),
+        ])
+        smazano = 0
+        for zaznam in zaznamy:
+            zprava = self.sudo().with_context(active_test=False).browse(
+                zaznam.res_id).exists()
+            if not zprava:
+                continue
+            if ma_bloky(str(zprava.body_arch or '')):
+                continue
+            _logger.info(
+                'Honza Hauzr CRM: zpravu "%s" zakladam znovu v blocich.',
+                zprava.name)
+            zprava.unlink()
+            zaznam.unlink()
+            smazano += 1
+        return smazano
+
     po_dnech = fields.Integer(
         string='Po (dnech)',
         default=1,

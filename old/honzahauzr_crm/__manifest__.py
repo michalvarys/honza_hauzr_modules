@@ -32,12 +32,16 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/website_form_data.xml',
         'data/sekce_doplneni.xml',
         'data/sekce_odhlaseno.xml',
-        # Az za radou po vyzve: srovnani sablon uvnitr doplnuje
+        # Pred obema datovymi soubory se zpravami: zahodi ty, ktere
+        # jsou jeste psane v tabulkach, aby se o kousek niz zalozily
+        # znovu v blocich editoru.
+        'data/predlohy_do_bloku.xml',
+        'data/sekvence_po_vyzve.xml',
+        'data/predlohy_dalsi.xml',
+        # Az za obema: dny vyzvy i srovnani sablon uvnitr doplnuji
         # paticku, takze musi bezet, kdyz uz jsou vsechny zpravy
         # zalozene. Driv to bylo obracene a sedm novych zprav na
         # cerstve databazi zustalo bez odhlaseni.
-        'data/sekvence_po_vyzve.xml',
-        'data/predlohy_dalsi.xml',
         'data/vyzva_den3.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',

@@ -49,6 +49,23 @@ PATICKA = (
     '</td></tr></table></td></tr></table>'
 )
 
+# Tataz paticka, ale jako blok pro editor. Zprava se v knihovne
+# sklada z bloku Odoo (viz KOSTRA_EDITORU v hh_mail_sablona.py) -
+# tabulka mezi nimi by sla jen prepsat, ne vybrat, posunout nebo
+# smazat, a Honza by na ni v editoru narazil jako na cizi teleso.
+PATICKA_BLOK = (
+    '        <div class="s_text_block o_mail_snippet_general hh-linka-nad '
+    'pt16 pb16" style="padding-left:15px;padding-right:15px;'
+    'text-align:center;">\n'
+    '          <div class="container s_allow_columns">\n'
+    '            <p class="hh-drobne">%(odesilatel)s<br/>'
+    'Tenhle e-mail ti přišel, protože %(duvod)s.<br/>'
+    '<a href="%(odhlaseni)s" style="text-decoration:underline;">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a></p>\n'
+    '          </div>\n'
+    '        </div>'
+)
+
 # Proc clovek zpravu dostal. Mel by to poznat i ten, kdo si uz
 # nepamatuje, kde nam adresu nechal - jinak oznaci zpravu jako spam
 # a poskodi tim dorucovani vsem ostatnim.
