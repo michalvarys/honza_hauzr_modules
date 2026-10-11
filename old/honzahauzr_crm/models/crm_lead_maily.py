@@ -136,12 +136,31 @@ class CrmLeadProdejni(models.Model):
              'V textu se píše jako {{ object.hh_odkaz_rezervace }}.',
     )
 
+    ODKAZ_HOVORU = '/uvodni-hovor'
+
+    @api.model
+    def _hh_vychozi_odkaz_hovoru(self):
+        """Nasměruje tlačítka na stránku s kalendářem, když nic není.
+
+        Zapisuje jen do prázdného - co si Honza v nastavení zvolí,
+        se nepřepisuje.
+        """
+        param = self.env['ir.config_parameter'].sudo()
+        if (param.get_param('honzahauzr_crm.odkaz_rezervace') or '').strip():
+            return False
+        param.set_param('honzahauzr_crm.odkaz_rezervace', self.ODKAZ_HOVORU)
+        return True
+
     def _compute_hh_odkaz_rezervace(self):
         param = self.env['ir.config_parameter'].sudo()
         nastaveny = (param.get_param('honzahauzr_crm.odkaz_rezervace') or '').strip()
         for lead in self:
-            lead.hh_odkaz_rezervace = nastaveny or (
-                lead._hh_zaklad_vyzvy().rstrip('/') + '/rezervace')
+            adresa = nastaveny or self.ODKAZ_HOVORU
+            # Relativni adresu doplnime na uplnou. V e-mailu by sama
+            # o sobe nikam nevedla - posta nema vuci cemu ji doplnit.
+            if adresa.startswith('/'):
+                adresa = lead._hh_zaklad_vyzvy().rstrip('/') + adresa
+            lead.hh_odkaz_rezervace = adresa
 
     # ------------------------------------------------------------------
     # odhlaseni

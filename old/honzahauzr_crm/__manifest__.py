@@ -53,6 +53,8 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # Snippet az za sablonami - registrace do panelu odkazuje
         # na sablonu snippetu, takze uz musi existovat.
         'views/rezervace_snippet.xml',
+        # Az za snippetem rezervace - stranka pouziva tentyz blok.
+        'views/stranka_hovor.xml',
         'views/vyzva_obsah_templates.xml',
         'views/odhlaseni_templates.xml',
         'views/res_config_settings_views.xml',

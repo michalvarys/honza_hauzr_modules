@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     SAMOSTATNÁ STRÁNKA S KALENDÁŘEM PRO ŘADU PO VÝZVĚ
+
+     Sedm e-mailů po výzvě dosud mířilo na /rezervace. Ta adresa ale
+     není stránka, je to routa v kódu - nedá se otevřít v editoru,
+     takže by se text nad kalendářem nedal přepsat, a nemá s výzvou
+     nic společného.
+
+     Tahle stránka je obyčejná website.page: Honza ji může celou
+     upravit, přetáhnout do ní další bloky nebo kalendář posunout.
+
+     Kalendář je tu bez zámku na den výzvy. Záměr: kdo sem přišel
+     z e-mailu, má výzvu za sebou a termín si má vybrat hned.
+     Na stránce výzvy zámek zůstává.
+
+     Adresa je /uvodni-hovor, ne /rezervace - ta zůstává, jak byla,
+     aby se nerozbily starší odkazy.
+     ================================================================= -->
+
+<data noupdate="1">
+
+<template id="stranka_hovor_obsah" name="Úvodní hovor">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Úvodní hovor</t>
+
+        <!-- Trida hhd kvuli promennym barev, hhn kvuli blokum
+             tematu - bez ni by kazdy pretazeny blok zustal bez
+             stylu. Stejne to ma stranka vyzvy. -->
+        <div id="wrap" class="oe_structure oe_empty hhd hhn">
+
+            <section class="hhd-hlava o_cc o_colored_level" data-name="Hovor — hlavička">
+                <div class="container">
+                    <span class="hhd-znacka">Vlastní režie</span>
+                    <h1 class="hhd-h1">Úvodní hovor</h1>
+                    <p class="hhd-lead">
+                        Půl hodiny o tom, co ti z výzvy vyšlo a co s tím dál.
+                    </p>
+                </div>
+            </section>
+
+            <section class="hhd-obsah o_cc o_colored_level" data-name="Hovor — o čem to bude">
+                <div class="container">
+                    <p class="hhd-text">
+                        Není to prodejní hovor. Projdeme, kde jsi teď a co
+                        tě brzdí, a já ti řeknu, jestli ti s tím Tvůj tah
+                        pomůže — nebo jestli ti bude k ničemu. Když mi to
+                        pro tvoji situaci nebude dávat smysl, řeknu ti to.
+                    </p>
+                    <p class="hhd-micro">
+                        Nemusíš přijít s hotovým cílem. Stačí, že víš, že
+                        takhle dál nechceš.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bez data-hhr-odemkne-den: kalendar je otevreny
+                 komukoliv, kdo sem dojde z e-mailu. -->
+            <section class="s_hh_rezervace hhr hhr--snippet o_cc o_colored_level"
+                     data-name="Rezervace hovoru">
+                <div class="container">
+                    <div class="hhr-snippet__hlava">
+                        <h2 class="hhr-h1">Vyber si čas</h2>
+                        <p class="hhr-lead">
+                            Termín ti potvrdím e-mailem. Když se ti to
+                            nakonec nehodí, zrušíš ho jedním kliknutím.
+                        </p>
+                    </div>
+
+                    <!-- Sem skript vlozi dny a hodiny; do stranky se
+                         neuklada nic. data-oe-protected drzi editor
+                         stranou od vykresleneho obsahu. -->
+                    <div class="hhr-blok" data-hhr-blok="1"
+                         data-oe-protected="true" contenteditable="false">
+                        <div class="hhr-dny hhr-dny--kostra"><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/></div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </t>
+</template>
+
+<record id="stranka_hovor_page" model="website.page">
+    <field name="name">Úvodní hovor</field>
+    <field name="url">/uvodni-hovor</field>
+    <field name="view_id" ref="stranka_hovor_obsah"/>
+    <!-- Z vyhledavacu ven: je to stranka pro lidi s odkazem
+         z e-mailu, ne vstupni brana z Googlu. -->
+    <field name="website_indexed" eval="False"/>
+    <field name="is_published" eval="True"/>
+</record>
+
+</data>
+
+<!-- Mimo blok s noupdate schvalne: tam se funkce pri upgradu
+     preskakuji a na uz nainstalovanem webu by se parametr nenastavil.
+     Tahle se pousti pokazde, ale zapisuje jen do prazdneho - co si
+     Honza nastavi, zustava. -->
+<data>
+    <function model="crm.lead" name="_hh_vychozi_odkaz_hovoru"/>
+</data>
+
+</odoo>
