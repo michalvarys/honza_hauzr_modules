@@ -212,6 +212,11 @@ class HhMailSablona(models.Model):
                     puvodni = text
                     text = self._hh_bez_escapovane_paticky(text)
                     text = self._hh_bez_zalozniho_odkazu(text)
+                    # Adresa kalendare je pro vsechny stejna, takze
+                    # zastupny text nema co resit - v editoru jen
+                    # zakryval, kam tlacitko vede.
+                    text = text.replace(
+                        '{{ object.hh_odkaz_rezervace }}', '/uvodni-hovor')
                     if text != puvodni:
                         oriznuto += 1
                     if not ma_odhlaseni(text):

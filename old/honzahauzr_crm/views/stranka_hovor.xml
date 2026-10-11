@@ -95,12 +95,5 @@
 
 </data>
 
-<!-- Mimo blok s noupdate schvalne: tam se funkce pri upgradu
-     preskakuji a na uz nainstalovanem webu by se parametr nenastavil.
-     Tahle se pousti pokazde, ale zapisuje jen do prazdneho - co si
-     Honza nastavi, zustava. -->
-<data>
-    <function model="crm.lead" name="_hh_vychozi_odkaz_hovoru"/>
-</data>
 
 </odoo>

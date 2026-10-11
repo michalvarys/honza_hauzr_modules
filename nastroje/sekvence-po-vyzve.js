@@ -33,7 +33,11 @@ const INKOUST = "#5d554b";
 const LINKA = "#e2dacb";
 const SVETLA = "#a89681";
 
-const ODKAZ = "{{ object.hh_odkaz_rezervace }}";
+/* Adresa stranky s kalendarem. Je pro vsechny stejna, takze tu
+   stoji primo - zadny zastupny text. Relativni zamerne: pri
+   odeslani ji Odoo doplni na uplnou podle domeny, ze ktere
+   clovek prisel, takze jeden text funguje na obou webech. */
+const ODKAZ = "/uvodni-hovor";
 const KAMPAN = "utm_source=email&amp;utm_medium=email" +
     "&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=";
 

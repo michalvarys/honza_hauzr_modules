@@ -29,11 +29,6 @@
                 bez ohledu na to.
             -->
             <block title="E-maily po výzvě" name="hh_po_vyzve">
-                <setting string="Tlačítka vedou na"
-                         help="Jedna adresa pro všechna tlačítka v řadě po výzvě. Prázdné pole = /rezervace na webu výzvy. Měřicí parametry si každá zpráva doplní sama.">
-                    <field name="hh_odkaz_rezervace"
-                           placeholder="https://vlastni-rezie.cz/rezervace"/>
-                </setting>
                 <setting string="Rezervace jsou otevřené"
                          help="Když zrovna neotevíráš běh, vypni. Prodejní e-maily se pozastaví, ať nikomu nechodí pozvánka na zavřený kalendář. Po zapnutí se pokračuje prvním neodeslaným; zameškané se nedoposílají.">
                     <field name="hh_rezervace_otevrene" widget="boolean_toggle"/>
