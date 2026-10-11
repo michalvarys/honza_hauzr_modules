@@ -125,7 +125,10 @@ const ODBER = zprava({
         P("Stačí na to dvacet minut denně. Klidně dneska večer."),
     ].join("\n"),
     tlacitko: "Vstoupit do výzvy zdarma",
-    odkaz: "{{ object.hh_vyzva_zaklad }}/zpet-do-zivota",
+    // Adresa vyzvy je pro vsechny stejna, takze tu stoji primo.
+    // Relativni zamerne: pri odeslani ji Odoo doplni na uplnou podle
+    // domeny, ze ktere clovek prisel.
+    odkaz: "/zpet-do-zivota",
     pod: "Je zdarma a nic tím nekupuješ.",
 });
 

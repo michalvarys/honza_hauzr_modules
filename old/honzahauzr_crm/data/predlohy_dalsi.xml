@@ -81,7 +81,7 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
-                  <a href="{{ object.hh_vyzva_zaklad }}/zpet-do-zivota"
+                  <a href="/zpet-do-zivota"
                      style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Vstoupit do výzvy zdarma</a>
                 </td>
               </tr>
@@ -155,7 +155,7 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
-                  <a href="{{ object.hh_vyzva_zaklad }}/zpet-do-zivota"
+                  <a href="/zpet-do-zivota"
                      style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Vstoupit do výzvy zdarma</a>
                 </td>
               </tr>
