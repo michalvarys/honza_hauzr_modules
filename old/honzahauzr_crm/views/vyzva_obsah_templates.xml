@@ -196,25 +196,17 @@
                 </div>
             </section>
 
-            <!-- Kalendar je tu videt od zacatku, ale vybrat cas jde az
-                 spolu s tretim dnem vyzvy - rika to data-hhr-odemkne-den.
-                 Samotna znacka nic nezamyka, jen urcuje, na ktery den se
-                 server zepta; rozhoduje az on. -->
-            <section class="s_hh_rezervace hhr hhr--snippet o_cc o_colored_level" data-name="Rezervace hovoru" data-hhr-odemkne-den="3">
+            <!-- Misto kalendare jen tlacitko. Kalendar ma vlastni
+                 stranku /uvodni-hovor, takze stoji na jednom miste
+                 a da se upravit v editoru jako kterakoliv jina. -->
+            <section class="hhd-pozvani o_cc o_colored_level" data-name="Pozvání na hovor">
                 <div class="container">
-                    <div class="hhr-snippet__hlava">
-                        <h2 class="hhr-h1">Vyber si čas na úvodní hovor</h2>
-                        <p class="hhr-lead">
-                            Nezávazný hovor o tom, co ti z výzvy vyšlo a co dává smysl dál.
-                        </p>
-                    </div>
-
-                    <!-- Sem skript vlozi dny a hodiny. data-oe-protected drzi
-                         editor stranou, at se do obsahu nedostane kurzor
-                         a nejde ho omylem prepsat. -->
-                    <div class="hhr-blok" data-hhr-blok="1" data-oe-protected="true" contenteditable="false">
-                        <div class="hhr-dny hhr-dny--kostra"><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/><div class="hhr-kostra"/></div>
-                    </div>
+                    <h2 class="hhd-pozvani__nadpis">Chceš na výzvu navázat?</h2>
+                    <p class="hhd-pozvani__text">
+                        Půl hodiny o tom, co ti z výzvy vyšlo a co s tím dál.
+                        Nezávazně a bez tlaku.
+                    </p>
+                    <a class="hhd-pozvani__tlacitko" href="/uvodni-hovor">Rezervuj si hovor</a>
                 </div>
             </section>
         </div>

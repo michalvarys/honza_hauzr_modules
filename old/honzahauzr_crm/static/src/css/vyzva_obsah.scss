@@ -431,3 +431,43 @@ section.s_hh_vyzva_dny {
         max-width: none;
     }
 }
+
+/* Pozvání na hovor pod třetím dnem. Kalendář má vlastní stránku,
+   tady stačí jedna výzva k akci — a pod ní se stránka přirozeně
+   uzavírá, takže sekce stojí na světlém podkladu a má vzduch. */
+.hhd .hhd-pozvani {
+    padding: clamp(44px, 5vw, 72px) 0 clamp(50px, 6vw, 84px);
+    border-top: 1px solid var(--hhd-line);
+    text-align: center;
+}
+
+.hhd .hhd-pozvani__nadpis {
+    margin: 0 0 12px 0;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.2;
+}
+
+.hhd .hhd-pozvani__text {
+    max-width: 480px;
+    margin: 0 auto 28px auto;
+    color: var(--hhd-ink-soft);
+}
+
+.hhd .hhd-pozvani__tlacitko {
+    display: inline-block;
+    padding: 15px 34px;
+    border-radius: 3px;
+    background: var(--hhd-bronze);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.hhd .hhd-pozvani__tlacitko:hover {
+    background: var(--hhd-bronze-light);
+    color: #fff;
+}
