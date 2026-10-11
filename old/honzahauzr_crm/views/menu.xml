@@ -30,7 +30,7 @@
           sequence="20"/>
 
 <menuitem id="menu_hh_mail_stitek"
-          name="Štítky e-mailů"
+          name="Řady e-mailů"
           parent="menu_hh_nastaveni"
           action="action_hh_mail_stitek"
           sequence="30"/>

@@ -147,25 +147,31 @@
     <field name="arch" type="xml">
         <list string="Řady e-mailů" editable="bottom">
             <field name="name" string="Název řady"/>
-            <field name="mail_count" string="Odesílaných e-mailů"/>
-            <field name="prodejni" string="Prodejní" widget="boolean_toggle"/>
-            <field name="color" widget="color_picker" optional="show"/>
+            <field name="mail_count" string="Zpráv"/>
+            <field name="prodejni" string="Je to nabídka" widget="boolean_toggle"/>
+            <field name="color" string="Barva na nástěnce" widget="color_picker" optional="show"/>
         </list>
     </field>
 </record>
 
 <record id="action_hh_mail_stitek" model="ir.actions.act_window">
-    <field name="name">Štítky e-mailů</field>
+    <field name="name">Řady e-mailů</field>
     <field name="res_model">hh.mail.stitek</field>
     <field name="view_mode">list</field>
     <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-            Zatím tu není žádný štítek
+            Zatím tu není žádná řada
         </p>
         <p>
-            Štítek drží pohromadě jednu řadu zpráv – třeba „Třídenní
-            výzva“. U sloupce pak přihodíš štítek a odejde všechno,
-            co pod něj patří.
+            Jedna řádka = jedna řada e-mailů, tedy sada zpráv, které
+            po sobě odejdou jednomu člověku. Řadu má u sebe každý
+            sloupec nástěnky: jakmile tam karta přijde, začnou
+            chodit zprávy z jeho řady.
+        </p>
+        <p>
+            Samotné texty zpráv píšeš v <b>Knihovně e-mailů</b>.
+            Tady jen vidíš, kolik jich která řada má, a označuješ,
+            která z nich je nabídka.
         </p>
     </field>
 </record>
