@@ -269,6 +269,48 @@ class CrmLeadProdejni(models.Model):
         if k_presunu:
             k_presunu.sudo().write({'stage_id': stupen.id})
 
+    def _hh_zrusit_odhlaseni(self):
+        """Nové přihlášení z webu odhlášení ruší a řada jede od začátku.
+
+        Bez tohohle byl člověk, který se jednou odhlásil, navždycky
+        hluchý: formulář sice odeslal, karta se našla ta jeho - ale
+        s odhlášením na ní mu nic neodešlo a nikomu se to nehlásilo.
+        Přitom vyplněný formulář je jasný souhlas.
+
+        Maže se i paměť odeslaného. "Jede znovu od začátku" znamená,
+        že mu řada projde celá, ne že naváže tam, kde tenkrát
+        přestal.
+        """
+        self.ensure_one()
+        if not self.hh_odhlaseno:
+            return False
+
+        adresa = (self.email_from or self.partner_id.email or '').strip()
+        if adresa:
+            self.env['mail.blacklist'].sudo()._remove(adresa)
+
+        self.sudo().write({
+            'hh_odhlaseno': False,
+            'hh_serie_pozastavena': False,
+            'hh_odeslane_stupne_ids': [(5, 0, 0)],
+            'hh_odeslane_maily_ids': [(5, 0, 0)],
+        })
+        return True
+
+    def _hh_prijmout_dalsi_krok(self, hodnoty):
+        """Opakované přihlášení: nejdřív ho pustit z bloku, pak zařadit."""
+        self.ensure_one()
+
+        if self._hh_zrusit_odhlaseni():
+            # Odhlášeno je poslední sloupec v řadě a karta se posouvá
+            # jen dopředu - odtud by ji nic nevytáhlo. Uvolní se tedy
+            # ze sloupce a správný jí vzápětí přiřadí zařazení podle
+            # zdroje formuláře.
+            if self.stage_id == self._hh_sekce_odhlaseno():
+                self.sudo().stage_id = False
+
+        return super()._hh_prijmout_dalsi_krok(hodnoty)
+
     def write(self, vals):
         """Zaškrtnuté odhlášení kartu rovnou přesune.
 
