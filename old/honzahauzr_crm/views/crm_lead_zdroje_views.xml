@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     ODKUD LIDÉ CHODÍ
+
+     Vestavěné výkazy Odoo na tohle neodpovídají: Prognóza prodejů
+     počítá s částkou a datem uzavření, které u sebe nevedeme,
+     a Aktivity s naplánovanými úkoly, které nikdo nezakládá.
+     Příležitosti a Prospekty data mají, jenže je to obecný výkaz
+     přes dvacet polí a odpověď se v něm hledá.
+
+     Tenhle se ptá na jednu věc: odkud člověk přišel a kam to u něj
+     došlo. Koláč ukáže podíly, křížová tabulka rozpad po sloupcích
+     nástěnky.
+     ================================================================= -->
+
+<record id="view_crm_lead_zdroje_graph" model="ir.ui.view">
+    <field name="name">crm.lead.zdroje.graph</field>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+        <!-- Koláč, protože otázka zní "kolik procent", ne "kolik kusů".
+             Na pruhy nebo čáru se dá v pohledu přepnout nahoře. -->
+        <graph string="Odkud lidé chodí" type="pie" sample="1">
+            <field name="hh_zdroj"/>
+        </graph>
+    </field>
+</record>
+
+<record id="view_crm_lead_zdroje_pivot" model="ir.ui.view">
+    <field name="name">crm.lead.zdroje.pivot</field>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+        <!-- Řádky zdroj, sloupce stupeň: hned je vidět, který zdroj
+             dotáhne lidi k hovoru a který skončí u odběru novinek. -->
+        <pivot string="Odkud lidé chodí" sample="1">
+            <field name="hh_zdroj" type="row"/>
+            <field name="stage_id" type="col"/>
+        </pivot>
+    </field>
+</record>
+
+<record id="view_crm_lead_zdroje_list" model="ir.ui.view">
+    <field name="name">crm.lead.zdroje.list</field>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+        <list string="Odkud lidé chodí" create="false" default_order="create_date desc">
+            <field name="create_date" string="Přišel"/>
+            <field name="contact_name" string="Jméno"/>
+            <field name="email_from" string="E-mail"/>
+            <field name="hh_zdroj" string="Odkud"/>
+            <field name="hh_sekce" string="Sekce" optional="show"/>
+            <field name="hh_web" string="Web" optional="hide"/>
+            <field name="stage_id" string="Sloupec"/>
+            <field name="hh_videa_souhrn" string="Videa výzvy" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="action_crm_lead_zdroje" model="ir.actions.act_window">
+    <field name="name">Odkud lidé chodí</field>
+    <field name="res_model">crm.lead</field>
+    <field name="view_mode">graph,pivot,list</field>
+    <field name="domain">[]</field>
+    <field name="context">{'search_default_hh_zdroj_group': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiley_face">Zatím nikdo nepřišel.</p>
+        <p>Jakmile někdo odešle formulář na webu, uvidíš tu, odkud
+           přišel a kam se dostal.</p>
+    </field>
+</record>
+
+<!-- Pohledy se akci priradi vycetem, jinak by si Odoo vzalo obecny
+     seznam prilezitosti a nas by ignorovalo. -->
+<record id="action_crm_lead_zdroje_graph" model="ir.actions.act_window.view">
+    <field name="sequence">1</field>
+    <field name="view_mode">graph</field>
+    <field name="view_id" ref="view_crm_lead_zdroje_graph"/>
+    <field name="act_window_id" ref="action_crm_lead_zdroje"/>
+</record>
+
+<record id="action_crm_lead_zdroje_pivot" model="ir.actions.act_window.view">
+    <field name="sequence">2</field>
+    <field name="view_mode">pivot</field>
+    <field name="view_id" ref="view_crm_lead_zdroje_pivot"/>
+    <field name="act_window_id" ref="action_crm_lead_zdroje"/>
+</record>
+
+<record id="action_crm_lead_zdroje_list" model="ir.actions.act_window.view">
+    <field name="sequence">3</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_crm_lead_zdroje_list"/>
+    <field name="act_window_id" ref="action_crm_lead_zdroje"/>
+</record>
+
+</odoo>

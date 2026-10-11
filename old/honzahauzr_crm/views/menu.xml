@@ -46,4 +46,16 @@
           action="action_hh_vyzva_sledovani"
           sequence="40"/>
 
+<menuitem id="menu_hh_zdroje"
+          name="Odkud lidé chodí"
+          parent="crm.crm_menu_report"
+          action="action_crm_lead_zdroje"
+          sequence="41"/>
+
+<menuitem id="menu_hh_web_klik"
+          name="Kam lidé klikají"
+          parent="crm.crm_menu_report"
+          action="action_hh_web_klik"
+          sequence="42"/>
+
 </odoo>

@@ -7,3 +7,5 @@ access_hh_mail_sablona_prodej,hh.mail.sablona prodej,model_hh_mail_sablona,sales
 access_hh_mail_sablona_vedouci,hh.mail.sablona vedouci,model_hh_mail_sablona,sales_team.group_sale_manager,1,1,1,1
 access_hh_vyzva_sledovani_prodej,hh.vyzva.sledovani prodej,model_hh_vyzva_sledovani,sales_team.group_sale_salesman,1,0,0,0
 access_hh_vyzva_sledovani_vedouci,hh.vyzva.sledovani vedouci,model_hh_vyzva_sledovani,sales_team.group_sale_manager,1,1,1,1
+access_hh_web_klik_prodej,hh.web.klik prodej,model_hh_web_klik,sales_team.group_sale_salesman,1,0,0,0
+access_hh_web_klik_vedouci,hh.web.klik vedouci,model_hh_web_klik,sales_team.group_sale_manager,1,1,1,1

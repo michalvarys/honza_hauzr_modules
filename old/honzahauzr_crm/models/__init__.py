@@ -5,6 +5,7 @@ from . import crm_lead_sekce
 from . import crm_lead_maily
 from . import crm_stage
 from . import hh_vyzva_sledovani
+from . import hh_web_klik
 from . import hh_termin
 from . import res_config_settings
 from . import website

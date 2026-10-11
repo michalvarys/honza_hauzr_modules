@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     KAM LIDÉ KLIKAJÍ
+
+     Seřazené od nejmačkanějšího dolů - první pohled má odpovědět
+     na "co funguje", ne nutit k hledání. Seskupení po stránkách je
+     ve filtrech, ne natvrdo: většinou se Honza ptá na jednu
+     konkrétní stránku.
+     ================================================================= -->
+
+<record id="view_hh_web_klik_list" model="ir.ui.view">
+    <field name="name">hh.web.klik.list</field>
+    <field name="model">hh.web.klik</field>
+    <field name="arch" type="xml">
+        <list string="Kam lidé klikají" create="false" edit="false"
+              default_order="pocet desc">
+            <field name="stranka"/>
+            <field name="popis" string="Na co klikl"/>
+            <field name="pocet" string="Kliknutí" sum="Celkem"/>
+            <field name="cil" string="Kam to vede" optional="show"/>
+            <field name="naposledy" string="Naposledy" optional="show"/>
+            <field name="poprve" string="Poprvé" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="view_hh_web_klik_graph" model="ir.ui.view">
+    <field name="name">hh.web.klik.graph</field>
+    <field name="model">hh.web.klik</field>
+    <field name="arch" type="xml">
+        <graph string="Kam lidé klikají" type="bar" sample="1">
+            <field name="popis"/>
+            <field name="pocet" type="measure"/>
+        </graph>
+    </field>
+</record>
+
+<record id="view_hh_web_klik_search" model="ir.ui.view">
+    <field name="name">hh.web.klik.search</field>
+    <field name="model">hh.web.klik</field>
+    <field name="arch" type="xml">
+        <search string="Kam lidé klikají">
+            <field name="popis"/>
+            <field name="stranka"/>
+            <field name="cil"/>
+            <group expand="1" string="Seskupit podle">
+                <filter string="Stránka" name="podle_stranky"
+                        context="{'group_by': 'stranka'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="action_hh_web_klik" model="ir.actions.act_window">
+    <field name="name">Kam lidé klikají</field>
+    <field name="res_model">hh.web.klik</field>
+    <field name="view_mode">list,graph</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiley_face">Zatím nikdo neklikl.</p>
+        <p>Jakmile někdo na webu zmáčkne tlačítko nebo odkaz, objeví
+           se tu. Vlastní kliknutí se nepočítají — jen návštěvníci.</p>
+    </field>
+</record>
+
+</odoo>
