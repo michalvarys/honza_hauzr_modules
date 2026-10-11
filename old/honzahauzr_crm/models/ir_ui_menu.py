@@ -12,24 +12,27 @@ _logger = logging.getLogger(__name__)
 # ir.model.data priznak noupdate a rodic ani poradi z XML by se na
 # ne neuplatnily.
 KAM_PATRI = {
+    'menu_hh_nastenka': ('menu_hh_admin', 5),
     'hh_termin_menu': ('menu_hh_admin', 10),
-    'menu_hh_maily': ('menu_hh_admin', 20),
     'menu_hh_vykazy': ('menu_hh_admin', 30),
     'menu_hh_nastaveni': ('menu_hh_admin', 40),
 
     'hh_termin_menu_kalendar': ('hh_termin_menu', 10),
     'hh_termin_menu_rezervace': ('hh_termin_menu', 20),
 
-    'menu_hh_mail_sablona': ('menu_hh_maily', 10),
-    'menu_hh_mail_stitek': ('menu_hh_maily', 20),
-
     'menu_hh_vyzva_sledovani': ('menu_hh_vykazy', 10),
     'menu_hh_zdroje': ('menu_hh_vykazy', 20),
     'menu_hh_web_klik': ('menu_hh_vykazy', 30),
 
     'menu_stupne_crm': ('menu_hh_nastaveni', 10),
-    'menu_hh_nastaveni_crm': ('menu_hh_nastaveni', 20),
+    'menu_hh_mail_sablona': ('menu_hh_nastaveni', 20),
+    'menu_hh_mail_stitek': ('menu_hh_nastaveni', 30),
 }
+
+# Nabidky z kratkeho mezikroku, kdy e-maily mely vlastni sekci a
+# v Nastaveni byla zkratka na nastaveni CRM. Honza chtel rozlozeni
+# presne takove, jake bylo v CRM, takze obe pryc.
+ZRUSENE = ['menu_hh_maily', 'menu_hh_nastaveni_crm']
 
 # Korenova nabidka z davno vraceneho pokusu o vlastni administraci
 # (commit 598de3c, vraceno v f2c508b). Zaznam v databazi prezil,
@@ -81,9 +84,25 @@ class IrUiMenu(models.Model):
         self._hh_uklidit_zbytek()
 
     def _hh_uklidit_zbytek(self):
-        zbytek = self._hh_nase(ZBYTEK_PO_POKUSU)
-        if not zbytek:
-            return
-        _logger.info('Mazu zbylou dlazdici "%s" po vracene administraci.',
-                     zbytek.name)
-        zbytek.unlink()
+        """Smaze nabidky, ktere uz v rozlozeni nemaji co delat.
+
+        Odstraneni polozky z XML ji z databaze samo nesmaze, takze
+        by v nabidce visela dal - prazdna, nebo s akci, ktera uz
+        nikam nevede.
+        """
+        pryc = [ZBYTEK_PO_POKUSU] + ZRUSENE
+        for nazev in pryc:
+            nabidka = self._hh_nase(nazev)
+            if not nabidka:
+                continue
+            if nabidka.child_id:
+                # Pojistka: mazani nabidky vezme s sebou i to, co pod
+                # ni visi. Deti uz mely byt prestehovane o kus vys,
+                # a kdyz nejsou, je lepsi nechat nabidku byt nez
+                # nekam zahodit polozku, na kterou se kliká.
+                _logger.warning(
+                    'Nabidku "%s" nemazu, porad pod ni neco visi: %s',
+                    nabidka.name, nabidka.child_id.mapped('name'))
+                continue
+            _logger.info('Mazu nabidku "%s" (%s).', nabidka.name, nazev)
+            nabidka.unlink()
