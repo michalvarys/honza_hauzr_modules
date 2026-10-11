@@ -120,9 +120,9 @@
         <section class="s_vr_pravidla section rules" id="vlastni-pravidla">
           <div class="wrap rules-grid">
             <div class="rules-copy">
-              <div class="eyebrow">Hranice a respekt k sobě</div>
+              <div class="eyebrow">Samostatný program</div>
               <h2>Vlastní pravidla</h2>
-              <p class="rules-claim">Říct NE. A stát si za tím.</p>
+              <p class="rules-claim">Pevnější hranice. Větší respekt k sobě.</p>
               <p class="lead muted">Říkáš ANO, i když chceš říct NE? Připravujeme praktický program, ve kterém si ujasníš vlastní potřeby a hranice, naučíš se je sdělit a stát si za nimi i ve chvíli, kdy druhý nesouhlasí.</p>
               <!-- Stitek, ne tlacitko: span bez odkazu, nic klikaciho. -->
               <span class="rules-stitek"><i></i>Připravujeme</span>
