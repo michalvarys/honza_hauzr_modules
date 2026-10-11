@@ -8,10 +8,17 @@
    i vlastní barvy a nemůže se poprat se zbytkem webu, který jede
    na tmavém designu Honzy Hauzra.
 
-   Písmo Manrope se v původním souboru tahalo přes @import přímo
-   odsud. V Odoo to nefunguje spolehlivě - @import musí být první
-   v souboru, jenže ve svazku je stylů víc a náš skončí uprostřed.
-   Načítá se proto zvlášť, záznamem v data/ir_asset.xml.
+   Písmo Manrope se v původním souboru tahalo pravidlem import přímo
+   odsud. V Odoo to nefunguje spolehlivě - takové pravidlo musí být
+   první v souboru, jenže ve svazku je stylů víc a náš skončí
+   uprostřed. Načítá se proto zvlášť, záznamem v data/ir_asset.xml.
+
+   Zavináč před slovem import tady schválně není ani v komentáři.
+   Odoo při skládání svazku takové pravidlo hledá a obaluje ho
+   komentářem; tenhle komentář by tím předčasně skončil a jeho
+   konec by vytekl do selektoru pod ním. Pravidlo s barvami by
+   pak bylo neplatné, prohlížeč by ho zahodil a celá stránka by
+   přišla o --graphite, --cream i písmo.
    =================================================================== */
 
 
