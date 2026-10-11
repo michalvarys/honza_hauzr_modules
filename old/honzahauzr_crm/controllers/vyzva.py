@@ -70,6 +70,37 @@ class HhVyzva(http.Controller):
             'dny': lead.hh_vyzva_stav(),
         }
 
+    @http.route(CIL + '/sledovani', type='json', auth='public', website=True)
+    def sledovani(self, k=None, den=None, sekund=None, delka=None,
+                  spustil=False, **kw):
+        """Postup v přehrávači. Hlásí ho stránka, když video běží.
+
+        Zapisuje se jen u dnů, které má člověk opravdu odemčené -
+        jinak by si šlo poslat postup u zamčeného dne a Honza by
+        v přehledu viděl, že ho někdo viděl dřív, než mohl.
+
+        Mlčí i při chybě: statistika nesmí ničím rušit přehrávání.
+        """
+        lead = request.env['crm.lead']._hh_vyzva_ucastnik(k or None)
+        if not lead or str(den) not in ('1', '2', '3'):
+            return {'zapsano': False}
+
+        dny = {str(d['cislo']): d for d in lead.hh_vyzva_stav()}
+        if not dny.get(str(den), {}).get('odemceno'):
+            return {'zapsano': False}
+
+        try:
+            request.env['hh.vyzva.sledovani'].sudo()._hh_zapsat(
+                lead, str(den),
+                sekund=int(sekund or 0), delka=int(delka or 0),
+                spustil=bool(spustil))
+        except Exception as chyba:
+            _logger.warning(
+                'Honza Hauzr CRM: sledovani dne %s se nezapsalo: %s',
+                den, chyba)
+            return {'zapsano': False}
+        return {'zapsano': True}
+
     @http.route(CIL + '/dokonceno', type='json', auth='public', website=True)
     def dokonceno(self, k=None, **kw):
         """Ucastnik potvrdil, ze vyzvu dokoncil.

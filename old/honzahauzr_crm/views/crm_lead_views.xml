@@ -91,6 +91,15 @@
                    invisible="not hh_vyzva_dokoncena"/>
             <field name="hh_odhlaseno" readonly="1"
                    invisible="not hh_odhlaseno"/>
+            <!-- Kolik z videi clovek videl. Jeden radek, at karta
+                 nenaroste - podrobnosti jsou ve Vykazech. Skryva se,
+                 dokud nic nepustil; prazdne "1. – 2. – 3. –" by na
+                 karte jen zabiralo misto. -->
+            <field name="hh_sledovani_ids" invisible="1"/>
+            <field name="hh_videa_souhrn" readonly="1" string="Videa výzvy"
+                   invisible="not hh_sledovani_ids"
+                   help="Kolik procent videa má člověk za sebou u každého
+                         ze tří dnů. Fajfka = dokoukal."/>
         </xpath>
     </field>
 </record>

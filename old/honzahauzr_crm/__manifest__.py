@@ -37,6 +37,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'views/hh_mail_sablona_views.xml',
         'views/mail_tema.xml',
         'views/crm_stage_views.xml',
+        'views/hh_vyzva_sledovani_views.xml',
         # Menu az za akcemi - polozky na ne odkazuji.
         'views/menu.xml',
         'views/crm_lead_views.xml',
@@ -59,6 +60,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
             'honzahauzr_crm/static/src/js/rezervace.js',
             'honzahauzr_crm/static/src/js/rezervace_snippet.js',
             'honzahauzr_crm/static/src/js/vyzva_odpocet.js',
+            'honzahauzr_crm/static/src/js/vyzva_sledovani.js',
         ],
         # Strop pro editor textu e-mailu, aby dialog sloupce nerostl
         # s delkou zpravy. Visi na vlastni tride, takze na nic jineho

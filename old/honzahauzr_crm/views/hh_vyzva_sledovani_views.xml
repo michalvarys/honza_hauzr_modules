@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     SLEDOVÁNÍ VIDEÍ VÝZVY
+
+     Odpovídá na to, co Honza chce vědět: kdo video pustil, kam se
+     dostal a jestli došel i na další dny.
+
+     Seznam je seskupený po dnech - tak je hned vidět, kolik lidí
+     z prvního dne vůbec došlo na druhý a třetí. Čísla se nedají
+     upravovat, píše je stránka výzvy.
+     ================================================================= -->
+
+<record id="view_hh_vyzva_sledovani_list" model="ir.ui.view">
+    <field name="name">hh.vyzva.sledovani.list</field>
+    <field name="model">hh.vyzva.sledovani</field>
+    <field name="arch" type="xml">
+        <list string="Sledování videí" create="false" edit="false"
+              default_order="den, procento desc">
+            <field name="den"/>
+            <field name="lead_id" string="Člověk"/>
+            <field name="spusteno" string="Spustil" optional="show"/>
+            <!-- Pruh misto holeho cisla: v seznamu dvaceti radku jde
+                 tak poznat na prvni pohled, kdo dojel a kdo odpadl
+                 po minute. -->
+            <field name="procento" widget="progressbar" string="Zhlédnuto"/>
+            <field name="dokoukano" string="Dokoukal" widget="boolean_toggle"
+                   readonly="1"/>
+            <field name="nejdale" string="Nejdál (s)" optional="hide"/>
+            <field name="delka" string="Délka (s)" optional="hide"/>
+            <field name="otevreno" string="Otevřel" optional="hide"/>
+            <field name="naposledy" string="Naposledy" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="view_hh_vyzva_sledovani_search" model="ir.ui.view">
+    <field name="name">hh.vyzva.sledovani.search</field>
+    <field name="model">hh.vyzva.sledovani</field>
+    <field name="arch" type="xml">
+        <search string="Sledování videí">
+            <field name="lead_id"/>
+            <filter string="Dokoukali" name="dokoukali"
+                    domain="[('dokoukano', '=', True)]"/>
+            <filter string="Nedokoukali" name="nedokoukali"
+                    domain="[('dokoukano', '=', False)]"/>
+            <separator/>
+            <!-- Kdo stranku otevrel a video nepustil. Prave tihle
+                 lide jsou duvod, proc se statistika delala. -->
+            <filter string="Nepustili vůbec" name="nepustili"
+                    domain="[('spusteno', '=', False)]"/>
+            <group expand="1" string="Seskupit podle">
+                <filter string="Den" name="podle_dne"
+                        context="{'group_by': 'den'}"/>
+                <filter string="Dokoukal" name="podle_dokoukani"
+                        context="{'group_by': 'dokoukano'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<!-- Koláč by u tří dnů nic nepřidal; graf sloupci ukáže rovnou to,
+     na co se Honza ptá: kolik lidí každý den zvládlo. -->
+<record id="view_hh_vyzva_sledovani_graph" model="ir.ui.view">
+    <field name="name">hh.vyzva.sledovani.graph</field>
+    <field name="model">hh.vyzva.sledovani</field>
+    <field name="arch" type="xml">
+        <graph string="Zhlédnutí videí" type="bar" sample="1">
+            <field name="den"/>
+            <field name="procento" type="measure"/>
+        </graph>
+    </field>
+</record>
+
+<record id="action_hh_vyzva_sledovani" model="ir.actions.act_window">
+    <field name="name">Zhlédnutí videí</field>
+    <field name="res_model">hh.vyzva.sledovani</field>
+    <field name="view_mode">list,graph</field>
+    <field name="context">{'search_default_podle_dne': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiley_face">Zatím nikdo nic nepustil.</p>
+        <p>Jakmile někdo otevře video výzvy, objeví se tu, kam až
+           se v něm dostal.</p>
+    </field>
+</record>
+
+</odoo>

@@ -35,4 +35,15 @@
           action="action_hh_mail_stitek"
           sequence="30"/>
 
+<!--
+    Zhlednuti videi patri do Vykazu, ne do Nastaveni. Neni to nic,
+    co by se nastavovalo - je to cislo, na ktere se Honza chodi
+    divat, a hleda ho tam, kde ma Odoo ostatni prehledy.
+-->
+<menuitem id="menu_hh_vyzva_sledovani"
+          name="Zhlédnutí videí"
+          parent="crm.crm_menu_report"
+          action="action_hh_vyzva_sledovani"
+          sequence="40"/>
+
 </odoo>
