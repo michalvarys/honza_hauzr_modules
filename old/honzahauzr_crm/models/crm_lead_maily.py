@@ -338,6 +338,24 @@ class CrmLeadProdejni(models.Model):
         })
         return True
 
+    def _hh_vratit_se(self):
+        """Rozmyslel si odhlášení - zpátky do řady, od začátku.
+
+        Karta visí ve sloupci Odhlášeno a ten je poslední, takže by
+        ji dopředu nic neposunulo. Vrací se do sloupce, ze kterého
+        člověk původně přišel; tím se mu řada rozjede znovu.
+        """
+        self.ensure_one()
+
+        vratil_se = self._hh_zrusit_odhlaseni()
+        if self.stage_id != self._hh_sekce_odhlaseno():
+            return vratil_se
+
+        stupen = self._hh_stupen_zdroje(self.hh_zdroj or 'vyzva')
+        if stupen:
+            self.sudo().write({'stage_id': stupen.id})
+        return True
+
     def _hh_prijmout_dalsi_krok(self, hodnoty):
         """Opakované přihlášení: nejdřív ho pustit z bloku, pak zařadit."""
         self.ensure_one()

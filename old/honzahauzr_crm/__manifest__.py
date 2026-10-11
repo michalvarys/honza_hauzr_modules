@@ -62,6 +62,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'web.assets_frontend': [
             'honzahauzr_crm/static/src/css/rezervace.scss',
             'honzahauzr_crm/static/src/css/vyzva_obsah.scss',
+            'honzahauzr_crm/static/src/css/odhlaseni.scss',
             'honzahauzr_crm/static/src/js/rezervace.js',
             'honzahauzr_crm/static/src/js/rezervace_snippet.js',
             'honzahauzr_crm/static/src/js/vyzva_odpocet.js',

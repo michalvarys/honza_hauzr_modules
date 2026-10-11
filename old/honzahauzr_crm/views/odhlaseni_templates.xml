@@ -4,38 +4,100 @@
 <!-- =================================================================
      STRÁNKA PO ODHLÁŠENÍ
 
-     Krátká a bez výčitek. Kdo se odhlašuje, nemá chuť číst nabídku -
-     a snaha ho na téhle stránce přesvědčovat je nejkratší cesta
-     k označení zprávy jako spam.
+     Nejdřív potvrzení, že se odhlášení povedlo - zelená fajfka
+     a jasná věta. Teprve pod tím Honzovým hlasem jedna otázka
+     a cesta zpátky.
 
-     Běžná stránka webu s hlavičkou a patičkou, aby bylo poznat,
-     odkud je.
+     Fajfka je kreslená přímo ve stránce, ne obrázek: načte se
+     i při pomalém připojení a nemá co chybět.
+
+     Návrat je tlačítko ve formuláři, ne odkaz. Odkaz si firemní
+     antispam sám proklikne a člověka by přihlásil zpátky, aniž by
+     o tom věděl - stejná past, kvůli které se hlídá i odhlašovací
+     odkaz.
      ================================================================= -->
 
 <template id="hh_odhlaseni_hotovo" name="Odhlášeno z e-mailů">
     <t t-call="website.layout">
         <div id="wrap" class="oe_structure">
-            <section class="s_text_block pt80 pb80">
-                <div class="container" style="max-width:620px;">
+            <section class="s_text_block pt72 pb72">
+                <div class="container" style="max-width:640px;">
 
-                    <t t-if="nalezen">
-                        <h1 style="margin:0 0 18px 0;">Odhlášeno</h1>
-                        <p class="lead" style="margin:0 0 10px 0;">
-                            Víc ti už nenapíšu.
+                    <t t-if="vraceno">
+                        <div class="hho-znak hho-znak--zpet">
+                            <svg viewBox="0 0 24 24" width="30" height="30"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="2.4" stroke-linecap="round"
+                                 stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 12a9 9 0 1 0 3-6.7"/>
+                                <polyline points="3 4 3 10 9 10"/>
+                            </svg>
+                        </div>
+                        <h1 class="hho-nadpis">Vítej zpátky.</h1>
+                        <p class="hho-lead">
+                            Máš to zase zapnuté. Píšu ti znovu od začátku,
+                            ať ti nic neuteče.
+                        </p>
+                    </t>
+
+                    <t t-elif="nalezen">
+                        <div class="hho-znak hho-znak--hotovo">
+                            <svg viewBox="0 0 24 24" width="30" height="30"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="3" stroke-linecap="round"
+                                 stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="4 12.5 9.5 18 20 6.5"/>
+                            </svg>
+                        </div>
+
+                        <h1 class="hho-nadpis">Odhlášeno</h1>
+                        <p class="hho-lead">
+                            Hotovo, už tě otravovat nebudu.
                             <t t-if="adresa">
                                 Adresu <strong t-esc="adresa"/> jsem
                                 z rozesílání vyřadil.
                             </t>
                         </p>
-                        <p class="text-muted" style="margin:0;">
-                            Kdyby ses chtěl někdy vrátit, stačí se znovu
-                            přihlásit na webu.
-                        </p>
+
+                        <!-- Honzovym hlasem: zadne vycitky a zadne
+                             presvedcovani, jen jedna otazka. Kdo se
+                             odhlasuje, nema chut cist nabidku - a snaha
+                             ho tady premlouvat je nejkratsi cesta
+                             k oznaceni zpravy jako spam. -->
+                        <div class="hho-vzkaz">
+                            <p>
+                                Jen jedna věc, než zavřeš okno.
+                            </p>
+                            <p>
+                                Odhlásit se je snadné. Těžší je přiznat si,
+                                že ty e-maily nebyly to, co vadilo —
+                                že jen připomínaly něco, do čeho se ti
+                                zrovna nechce.
+                            </p>
+                            <p>
+                                Jestli ti prostě chodilo moc pošty, je to
+                                v pořádku a nic ti nevyčítám. Ale jestli jsi
+                                klikl proto, abys měl na chvíli klid od sebe
+                                sama, tak ten klid nevydrží. To znám.
+                            </p>
+                            <p class="hho-podpis">Honza</p>
+                        </div>
+
+                        <t t-if="klic">
+                            <form method="post" class="hho-zpet"
+                                  t-attf-action="/maily/odhlasit/{{ klic }}/zpet">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <button type="submit" class="hho-tlacitko">
+                                    Rozmyslel jsem si to, posílej dál
+                                </button>
+                            </form>
+                        </t>
                     </t>
 
                     <t t-else="">
-                        <h1 style="margin:0 0 18px 0;">Tenhle odkaz už neplatí</h1>
-                        <p class="lead" style="margin:0;">
+                        <h1 class="hho-nadpis">Tenhle odkaz už neplatí</h1>
+                        <p class="hho-lead">
                             Nejspíš jsi už odhlášený, nebo se odkaz cestou
                             poštou rozlomil na dva řádky. Napiš mi a vyřeším
                             to za tebe.
