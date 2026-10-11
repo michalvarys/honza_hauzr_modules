@@ -268,6 +268,37 @@ class HhMailSablona(models.Model):
         return text
 
     @api.model
+    def _hh_stitek_vyzvy(self):
+        """Řada e-mailů třídenní výzvy, ať se jmenuje jakkoliv.
+
+        Na lokále je štítek "3denní výzva", na devu "3 denni vyzva".
+        Hledat ho podle přesného názvu proto nestačí - tam by se
+        třetí den tiše nedoplnil a nikdo by se to nedozvěděl.
+
+        Jde se přes sloupec: ten se na obou místech jmenuje stejně
+        a svou řadu si drží. Když ani tak nic, zkusí se štítek podle
+        názvu bez diakritiky a mezer.
+        """
+        def klic(text):
+            prevod = {'á': 'a', 'č': 'c', 'ď': 'd', 'é': 'e', 'ě': 'e',
+                      'í': 'i', 'ň': 'n', 'ó': 'o', 'ř': 'r', 'š': 's',
+                      'ť': 't', 'ú': 'u', 'ů': 'u', 'ý': 'y', 'ž': 'z'}
+            return ''.join(
+                prevod.get(z, z) for z in (text or '').lower() if z != ' ')
+
+        HLEDANE = klic('3denní výzva')
+
+        for stupen in self.env['crm.stage'].sudo().search([]):
+            if klic(stupen.name) == HLEDANE and stupen.hh_stitek_ids:
+                return stupen.hh_stitek_ids[0]
+
+        for stitek in self.env['hh.mail.stitek'].sudo().search([]):
+            if klic(stitek.name) == HLEDANE:
+                return stitek
+
+        return self.env['hh.mail.stitek'].browse()
+
+    @api.model
     def _hh_doplnit_den3(self):
         """Doplní do řady třídenní výzvy chybějící zprávu ke třetímu dni.
 
@@ -280,8 +311,7 @@ class HhMailSablona(models.Model):
         u řady nějaká zpráva s odstupem dvou dnů už je, nechá se být.
         Honza si text může přepsat a tohle mu ho nepřepíše zpátky.
         """
-        Stitek = self.env['hh.mail.stitek'].sudo()
-        stitek = Stitek.search([('name', '=ilike', '3denní výzva')], limit=1)
+        stitek = self._hh_stitek_vyzvy()
         if not stitek:
             return False
 

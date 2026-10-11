@@ -32,8 +32,12 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/website_form_data.xml',
         'data/sekce_doplneni.xml',
         'data/sekce_odhlaseno.xml',
-        'data/vyzva_den3.xml',
+        # Az za radou po vyzve: srovnani sablon uvnitr doplnuje
+        # paticku, takze musi bezet, kdyz uz jsou vsechny zpravy
+        # zalozene. Driv to bylo obracene a sedm novych zprav na
+        # cerstve databazi zustalo bez odhlaseni.
         'data/sekvence_po_vyzve.xml',
+        'data/vyzva_den3.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
         'views/mail_tema.xml',
