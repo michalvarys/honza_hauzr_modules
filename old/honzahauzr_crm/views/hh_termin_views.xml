@@ -208,4 +208,89 @@
               sequence="31"/>
 </data>
 
+<!-- =================================================================
+     PŘEHLED DOMLUVENÝCH HOVORŮ
+
+     Kalendář ukazuje celý rozvrh včetně volných a přeškrtnutých
+     časů. Na otázku "kdo se mi kdy objednal" se v něm ale hledá:
+     zabrané termíny jsou pár barevných bodů mezi desítkami volných.
+
+     Tenhle seznam ukazuje jen domluvené hovory, od nejbližšího,
+     se jménem, kontaktem a poznámkou od zákazníka na jednom řádku.
+     ================================================================= -->
+
+<record id="hh_termin_view_rezervace_list" model="ir.ui.view">
+    <field name="name">hh.termin.rezervace.list</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <list string="Rezervace" create="false" default_order="zacatek">
+            <field name="zacatek" string="Kdy"/>
+            <field name="jmeno" string="Jméno"/>
+            <field name="email" string="E-mail"/>
+            <field name="telefon" string="Telefon" optional="show"/>
+            <field name="poznamka" string="Poznámka od zákazníka" optional="show"/>
+            <field name="lead_id" string="Karta v CRM" optional="show"/>
+            <field name="delka" string="Délka (h)" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="hh_termin_view_rezervace_search" model="ir.ui.view">
+    <field name="name">hh.termin.rezervace.search</field>
+    <field name="model">hh.termin</field>
+    <field name="arch" type="xml">
+        <search string="Rezervace">
+            <field name="jmeno"/>
+            <field name="email"/>
+            <field name="telefon"/>
+            <!-- Vychozi filtr: co teprve bude. Minule hovory se
+                 zobrazi odskrtnutim, nikam nemizi. -->
+            <filter string="Nadcházející" name="nadchazejici"
+                    domain="[('zacatek', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+            <filter string="Proběhlé" name="probehle"
+                    domain="[('zacatek', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+            <group expand="0" string="Seskupit podle">
+                <filter string="Den" name="podle_dne"
+                        context="{'group_by': 'zacatek:day'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="hh_termin_action_rezervace" model="ir.actions.act_window">
+    <field name="name">Rezervace</field>
+    <field name="res_model">hh.termin</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('stav', '=', 'rezervovany')]</field>
+    <field name="context">{'search_default_nadchazejici': 1}</field>
+    <field name="search_view_id" ref="hh_termin_view_rezervace_search"/>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiley_face">Zatím si nikdo hovor nedomluvil.</p>
+        <p>Jakmile si někdo na webu vybere termín, objeví se tu
+           i s kontaktem.</p>
+    </field>
+</record>
+
+<record id="hh_termin_action_rezervace_list" model="ir.actions.act_window.view">
+    <field name="sequence">1</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="hh_termin_view_rezervace_list"/>
+    <field name="act_window_id" ref="hh_termin_action_rezervace"/>
+</record>
+
+<!-- Polozky pod "Terminy hovoru". Rodic uz akci ma, ale s detmi se
+     v nabidce rozbali a jeho vlastni akce by nebyla kam kliknout -
+     proto je kalendar jako prvni dite. -->
+<menuitem id="hh_termin_menu_kalendar"
+          name="Kalendář"
+          parent="hh_termin_menu"
+          action="hh_terminy_kalendar_action"
+          sequence="10"/>
+
+<menuitem id="hh_termin_menu_rezervace"
+          name="Rezervace"
+          parent="hh_termin_menu"
+          action="hh_termin_action_rezervace"
+          sequence="20"/>
+
 </odoo>
