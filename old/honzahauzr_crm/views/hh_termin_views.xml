@@ -230,6 +230,13 @@
             <field name="telefon" string="Telefon" optional="show"/>
             <field name="poznamka" string="Poznámka od zákazníka" optional="show"/>
             <field name="lead_id" string="Karta v CRM" optional="show"/>
+            <!-- Stav jako barevný odznak, stejně jako barva karty na
+                 nástěnce: zeleně odeslaný odkaz, červeně zrušený
+                 hovor. Bez něj by se musela každá rezervace
+                 rozklikávat. -->
+            <field name="hh_stav_hovoru" string="Stav" widget="badge"
+                   decoration-success="hh_stav_hovoru == 'odeslano'"
+                   decoration-danger="hh_stav_hovoru == 'zruseno'"/>
             <field name="delka" string="Délka (h)" optional="hide"/>
         </list>
     </field>

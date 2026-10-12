@@ -20,6 +20,12 @@
         řady a chodila by s prázdným tlačítkem.
     -->
     <function model="crm.lead" name="_hh_oznacit_meet_jako_rucni"/>
+    <!--
+        Uklid po kartach, ktere nekdo smazal driv, nez se to zacalo
+        hlidat. Zustal po nich obsazeny termin bez karty: na nastence
+        neni, ale kalendar ho drzi zabrany.
+    -->
+    <function model="crm.lead" name="_hh_uvolnit_osirele_terminy"/>
 </data>
 
 </odoo>

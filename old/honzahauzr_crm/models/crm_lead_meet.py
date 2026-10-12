@@ -73,9 +73,18 @@ class CrmLeadMeet(models.Model):
     hh_stav_barva = fields.Char(
         string='Barva karty',
         compute='_compute_hh_stav_barva',
+        store=True,
         help='Podle čeho se karta na nástěnce obarví. Zelená = '
              'odkaz na hovor odešel, červená = člověk si hovor '
              'zrušil.',
+    )
+    hh_dolu_na_nastence = fields.Boolean(
+        string='Patří na konec sloupce',
+        compute='_compute_hh_stav_barva',
+        store=True,
+        help='Zrušené hovory se řadí pod ostatní karty - jsou '
+             'vyřízené a nahoře by zabíraly místo těm, se kterými '
+             'se ještě něco děje.',
     )
 
     @api.depends('hh_meet_odeslano', 'tag_ids')
@@ -98,6 +107,7 @@ class CrmLeadMeet(models.Model):
                 lead.hh_stav_barva = 'zelena'
             else:
                 lead.hh_stav_barva = ''
+            lead.hh_dolu_na_nastence = lead.hh_stav_barva == 'cervena'
 
     def action_hh_poslat_meet(self):
         """Pošle člověku odkaz na hovor.

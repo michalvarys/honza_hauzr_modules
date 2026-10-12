@@ -113,6 +113,31 @@ const MEET = {
     ],
 };
 
+/* Zrušení hovoru Honzou. Posílá ji tlačítko Zrušit rezervaci
+   v kalendáři, ne řada - zákazník se to jinak nedozví a bude
+   v domluvený čas čekat. Když hovor ruší sám přes odkaz v potvrzení,
+   tahle zpráva mu nechodí; to by mu oznamovalo, co právě udělal. */
+const ZRUSENI = {
+    eyebrow: "Hovor se ruší",
+    fajfka: false,
+    nadpis: "Náš hovor musím zrušit.",
+    podnadpis: "Omlouvám se za komplikace",
+    telo: [
+        rezervace.P("bohužel ti musím zrušit termín, na kterém jsme se domluvili:"),
+        rezervace.TERMIN({
+            kdy: "{{ object.hh_termin_kdy or 'původní termín' }}",
+            udaje: [],
+        }),
+        rezervace.P("Nic se neděje, jen si prosím vyber jiný čas. V kalendáři vidíš všechny, které mám volné."),
+        rezervace.TLACITKO({
+            text: "Vybrat nový termín",
+            odkaz: "{{ object.hh_odkaz_rezervace }}",
+            pod: "Trvá to minutu a potvrzení ti přijde hned.",
+        }),
+        rezervace.P("Kdyby ti žádný z nabízených časů nevyhovoval, napiš mi a domluvíme se napřímo."),
+    ],
+};
+
 const PREDLOHY = [
     {
         klic: "odber",
@@ -141,6 +166,17 @@ const PREDLOHY = [
         zprava: MEET,
         vzhled: rezervace,
         // Rada ji preskoci, odchazi tlacitkem z karty.
+        rucni: true,
+    },
+    {
+        klic: "zruseni",
+        stitek: "Rezervace",
+        nazev: "Zrušení hovoru (posílám já)",
+        predmet: "Musím zrušit náš hovor",
+        preheader: "Vyber si prosím jiný termín.",
+        zprava: ZRUSENI,
+        vzhled: rezervace,
+        // Posila ji tlacitko Zrusit rezervaci v kalendari.
         rucni: true,
     },
 ];

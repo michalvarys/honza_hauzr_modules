@@ -1074,10 +1074,54 @@ class HhTermin(models.Model):
 
     @api.model
     def hh_zrusit_rucne(self, termin_id):
-        """Vrati rezervovany termin zpatky mezi volne."""
+        """Vrátí rezervovaný termín zpátky mezi volné.
+
+        Na kartě se to pozná stejně jako když hovor zruší zákazník:
+        červený štítek a zápis do historie. Jinak by hovor zmizel
+        z kalendáře, ale karta by na nástěnce vypadala dál, jako by
+        se nic nestalo.
+        """
         termin = self.browse(termin_id)
         termin.check_access('write')
-        termin.write({
+        kdy = termin._hh_cas(termin.zacatek)
+        termin._hh_ohlasit_zruseni()
+        termin._hh_oznacit_zruseni(termin.lead_id, kdy)
+        termin._hh_uvolnit()
+        return True
+
+    def _hh_ohlasit_zruseni(self):
+        """Dá zákazníkovi vědět, že hovor nebude.
+
+        Bez téhle zprávy by v domluvený čas čekal u počítače. Posílá
+        se jen při zrušení z kalendáře; když si hovor ruší sám přes
+        odkaz v potvrzení, oznamovalo by mu to, co právě udělal.
+
+        Text je v knihovně jako každý jiný, takže si ho Honza může
+        přepsat. Když zpráva chybí nebo je vypnutá, zrušení proběhne
+        dál - termín se uvolnit musí tak jako tak.
+        """
+        self.ensure_one()
+        lead = self.lead_id
+        prijemce = self.email or (lead.email_from if lead else '')
+        if not lead or not prijemce:
+            return False
+
+        zprava = self.env.ref('honzahauzr_crm.hh_predloha_zruseni',
+                              raise_if_not_found=False)
+        if not zprava or not zprava.zapnuto:
+            return False
+
+        return lead.sudo()._hh_poslat_email_stupne(
+            lead.stage_id, prijemce, zprava)
+
+    def _hh_uvolnit(self):
+        """Smaze z terminu udaje o cloveku a vrati ho mezi volne.
+
+        Jedno misto pro dve cesty: rucni zruseni z kalendare a uklid
+        po smazane karte. Driv to byly dva stejne zapisy vedle sebe
+        a jeden by se pri zmene snadno zapomnel.
+        """
+        return self.write({
             'stav': 'volny',
             'jmeno': False,
             'email': False,
@@ -1087,4 +1131,36 @@ class HhTermin(models.Model):
             'partner_id': False,
             'zrusovaci_klic': False,
         })
-        return True
+
+
+class HhTerminStav(models.Model):
+    """Stav hovoru pro přehled rezervací.
+
+    Na nástěnce se stav pozná podle barvy karty. V přehledu rezervací
+    karty nejsou, takže by Honza musel každou rezervaci rozklikávat,
+    aby zjistil, jestli už odkaz na hovor odešel - proto tenhle
+    sloupec.
+    """
+
+    _inherit = 'hh.termin'
+
+    hh_stav_hovoru = fields.Selection(
+        [('odeslano', 'Odkaz poslán'), ('zruseno', 'Zrušeno')],
+        string='Stav',
+        compute='_compute_hh_stav_hovoru',
+        help='Odkaz poslán = člověku už odešel odkaz na Google Meet. '
+             'Zrušeno = hovor si zrušil.',
+    )
+
+    @api.depends('lead_id', 'lead_id.hh_meet_odeslano', 'lead_id.tag_ids')
+    def _compute_hh_stav_hovoru(self):
+        zruseny = self.env.ref('honzahauzr_crm.tag_zruseny_hovor',
+                               raise_if_not_found=False)
+        for termin in self:
+            lead = termin.lead_id
+            if lead and zruseny and zruseny in lead.tag_ids:
+                termin.hh_stav_hovoru = 'zruseno'
+            elif lead and lead.hh_meet_odeslano:
+                termin.hh_stav_hovoru = 'odeslano'
+            else:
+                termin.hh_stav_hovoru = False

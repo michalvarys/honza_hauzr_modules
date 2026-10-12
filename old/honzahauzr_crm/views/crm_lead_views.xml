@@ -15,6 +15,11 @@
     <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='tag_ids']" position="after">
+            <div t-if="record.hh_termin_kdy.value"
+                 class="o_hh_hovor fw-bold small">
+                <i class="fa fa-phone me-1" role="img" aria-label="Hovor"/>
+                <field name="hh_termin_kdy"/>
+            </div>
             <div class="o_hh_prislo text-muted small">
                 <i class="fa fa-clock-o me-1" role="img" aria-label="Přišlo"/>
                 <field name="create_date"/>
@@ -29,8 +34,23 @@
              obarvi pres :has() - viz static/src/css/nastenka.scss.
 
              Hodnotu pocita hh_stav_barva, viz models/crm_lead_meet.py. -->
+        <!-- Pole jen k nacteni, vykresluje se nize v karte. Uvnitr
+             <templates> by se vypsalo samo o sobe a termin by na
+             karte stal dvakrat. -->
         <xpath expr="//templates" position="before">
             <field name="hh_stav_barva"/>
+            <field name="hh_termin_kdy"/>
+        </xpath>
+        <!-- Poradi karet ve sloupci:
+             1. zrusene hovory az na konec - jsou vyrizene,
+             2. pak podle terminu hovoru, nejblizsi nahore,
+             3. kdo hovor nema, radi se od nejnovejsi karty.
+
+             Datum vzniku karty na poradi nestaci: ve sloupci
+             Rezervace je podstatne, kdy se vola, ne kdy se clovek
+             prihlasil. -->
+        <xpath expr="//kanban" position="attributes">
+            <attribute name="default_order">hh_dolu_na_nastence asc, hh_hovor_kdy asc, id desc</attribute>
         </xpath>
         <xpath expr="//t[@t-name='card']" position="inside">
             <span t-if="record.hh_stav_barva.raw_value"
