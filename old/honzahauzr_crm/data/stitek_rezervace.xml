@@ -13,6 +13,13 @@
 -->
 <data>
     <function model="hh.mail.sablona" name="_hh_zrusit_stitek_potvrzeni"/>
+    <!--
+        Zpráva s odkazem na hovor nesmí odejít řadou - odchází
+        tlačítkem z karty, až Honza odkaz vloží. V databázi, kde
+        vznikla dřív než ten příznak, by zůstala jako běžná zpráva
+        řady a chodila by s prázdným tlačítkem.
+    -->
+    <function model="crm.lead" name="_hh_oznacit_meet_jako_rucni"/>
 </data>
 
 </odoo>

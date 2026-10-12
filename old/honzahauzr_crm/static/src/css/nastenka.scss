@@ -1,0 +1,36 @@
+/* Barva karty na nástěnce podle stavu domluveného hovoru.
+ *
+ * Ve sloupci Rezervace stojí karty pod sebou a liší se jen jménem.
+ * Barva řekne stav dřív, než se karta otevře: zelená = odkaz na
+ * hovor odešel, červená = člověk si hovor zrušil. Karta bez značky
+ * zůstává bílá jako kdekoliv jinde.
+ *
+ * Proč přes :has() a ne třídou na kartě: v kanbanu Odoo 18 je
+ * <t t-name="card"> šablona, ne prvek, takže atributy na ní se
+ * nikam nepropíšou. Značka se tedy vloží dovnitř karty a pozadí
+ * se obarví podle ní.
+ *
+ * Tón je světlý schválně. Odoo na kartách používá barevné proužky
+ * a odznaky a sytá plocha by je přebila; takhle se stav pozná
+ * z odstupu a text zůstane čitelný.
+ */
+
+.o_kanban_record .o_hh_stav {
+    display: none;
+}
+
+/* Selektor je dlouhý schválně. Odoo barví kartu pravidlem
+   .o_kanban_renderer .o_kanban_record:not(…):not(…) a kratší zápis
+   by prohrál na specifičnosti; !important by zase přebil i stavy,
+   které si Odoo kreslí samo (vybraná karta, táhnutí). */
+.o_kanban_renderer .o_kanban_record:not(.o_legacy_kanban_record):not(.o_kanban_ghost) {
+    &:has(.o_hh_stav_zelena) {
+        background-color: #eaf5ec;
+        box-shadow: inset 3px 0 0 #35694a;
+    }
+
+    &:has(.o_hh_stav_cervena) {
+        background-color: #fbecec;
+        box-shadow: inset 3px 0 0 #a33a3a;
+    }
+}

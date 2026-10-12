@@ -110,6 +110,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # v Odoo nedosahne.
         'web.assets_backend': [
             'honzahauzr_crm/static/src/css/stupen.scss',
+            'honzahauzr_crm/static/src/css/nastenka.scss',
             'honzahauzr_crm/static/src/css/terminy_kalendar.scss',
             'honzahauzr_crm/static/src/js/terminy_kalendar.js',
             'honzahauzr_crm/static/src/xml/terminy_kalendar.xml',

@@ -64,6 +64,11 @@ const TERMIN = ({ kdy, udaje }) => ({ typ: "termin", kdy, udaje: udaje || [] });
 /* Co si má člověk nachystat. Číslo, tučný začátek, zbytek věty. */
 const KROKY = (kroky) => ({ typ: "kroky", kroky });
 
+/* Plné tlačítko na střed. Na rozdíl od toho ve zrušení je to hlavní
+   akce zprávy, takže je plné, ne jen obtažené. */
+const TLACITKO = ({ text, odkaz, pod }) =>
+    ({ typ: "tlacitko", text, odkaz, pod });
+
 /* Rámeček se zrušením: věta, obtažené tlačítko, drobná poznámka. */
 const ZRUSENI = ({ text, tlacitko, odkaz, pod }) =>
     ({ typ: "zruseni", text, tlacitko, odkaz, pod });
@@ -117,7 +122,7 @@ ${vnitrek}
 /* Hlavicka je tmavy pas: logo, jmeno, odznak a nadpis v nem.
    Logo je obrazek, ne vysazeny text - jen tak ho jde v editoru
    vymenit dvojklikem za jiny. */
-function blokHlavicka(eyebrow, nadpis, podnadpis) {
+function blokHlavicka(eyebrow, nadpis, podnadpis, fajfka = true) {
     return `        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hhr-hlava pt24 pb8">
           <div class="container" style="${BOKY}">
             <div class="row">
@@ -137,7 +142,7 @@ function blokHlavicka(eyebrow, nadpis, podnadpis) {
         </div>
         <div class="s_title o_mail_snippet_general hhr-hlava pt8 pb40">
           <div class="container s_allow_columns" style="${BOKY}text-align:center;">
-            <p><span class="hhr-odznak">&#10003;&#160; ${eyebrow}</span></p>
+            <p><span class="hhr-odznak">${fajfka ? "&#10003;&#160; " : ""}${eyebrow}</span></p>
             <h1 class="hhr-nadpis">${nadpis}</h1>${podnadpis ? `
             <p class="hhr-podnadpis">${podnadpis}</p>` : ""}
           </div>
@@ -186,6 +191,15 @@ ${radky}
         </div>`;
 }
 
+function blokTlacitko(kus) {
+    return `        <div class="s_call_to_action o_mail_snippet_general pt24 pb8">
+          <div class="container" style="${BOKY}text-align:center;">
+            <p><a href="${kus.odkaz}" role="button" class="btn btn-primary">${kus.text}</a></p>${kus.pod ? `
+            <p class="hhr-pod">${kus.pod}</p>` : ""}
+          </div>
+        </div>`;
+}
+
 function blokZruseni(kus) {
     return `        <div class="s_call_to_action o_mail_snippet_general pt24 pb8">
           <div class="container" style="${BOKY}">
@@ -220,6 +234,8 @@ function blokyTelo(telo) {
             kusy.push(blokTermin(kus));
         } else if (kus.typ === "kroky") {
             kusy.push(blokKroky(kus));
+        } else if (kus.typ === "tlacitko") {
+            kusy.push(blokTlacitko(kus));
         } else if (kus.typ === "zruseni") {
             kusy.push(blokZruseni(kus));
         } else {
@@ -275,8 +291,9 @@ ${obsah}
 </div>`;
 }
 
-function bloky({ eyebrow, nadpis, podnadpis, telo, podpis, osloveni = true }) {
-    const kusy = [blokHlavicka(eyebrow, nadpis, podnadpis)];
+function bloky({ eyebrow, nadpis, podnadpis, telo, podpis, osloveni = true,
+                 fajfka = true }) {
+    const kusy = [blokHlavicka(eyebrow, nadpis, podnadpis, fajfka)];
 
     if (osloveni) {
         kusy.push(blok("s_text_block pt32 pb0",
@@ -333,6 +350,23 @@ ${radky}
             </table>`;
 }
 
+function tabulkyTlacitko(kus) {
+    return `            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 8px 0;">
+              <tr>
+                <td align="center">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" bgcolor="${BRONZ}" style="background-color:${BRONZ};border-radius:3px;">
+                        <a href="${kus.odkaz}" style="display:inline-block;padding:17px 36px;font-family:${PISMO};font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">${kus.text}</a>
+                      </td>
+                    </tr>
+                  </table>${kus.pod ? `
+                  <div style="margin-top:14px;font-family:${PISMO};font-size:12.5px;line-height:19px;color:${SEDA};">${kus.pod}</div>` : ""}
+                </td>
+              </tr>
+            </table>`;
+}
+
 function tabulkyZruseni(kus) {
     return `            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${PISEK}" style="margin:14px 0 8px 0;background-color:${PISEK};">
               <tr>
@@ -359,6 +393,7 @@ function tabulkyTelo(telo) {
         }
         if (kus.typ === "termin") return tabulkyTermin(kus);
         if (kus.typ === "kroky") return tabulkyKroky(kus);
+        if (kus.typ === "tlacitko") return tabulkyTlacitko(kus);
         if (kus.typ === "zruseni") return tabulkyZruseni(kus);
         const radky = kus.odstavce || kus.radky || [kus.t];
         return `            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BILA}" style="margin:4px 0 22px 0;background-color:${BILA};border:1px solid ${LINKA};border-left:6px solid ${BRONZ};">
@@ -370,7 +405,7 @@ ${radky.map((r) => tP(r, GRAFIT)).join("\n")}
 }
 
 function tabulky({ eyebrow, nadpis, podnadpis, telo, podpis,
-                   osloveni = true }) {
+                   osloveni = true, fajfka = true }) {
     return `<!-- hh-vzhled:rezervace -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="${PISEK}" style="background-color:${PISEK};margin:0;padding:0;">
   <tr>
@@ -409,7 +444,7 @@ function tabulky({ eyebrow, nadpis, podnadpis, telo, podpis,
           <td align="center" bgcolor="${GRAFIT}" style="padding:24px 48px 42px 48px;background-color:${GRAFIT};">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td bgcolor="${ZELENA}" style="padding:7px 14px;border-radius:999px;font-family:${PISMO};font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;">&#10003;&#160; ${eyebrow}</td>
+                <td bgcolor="${ZELENA}" style="padding:7px 14px;border-radius:999px;font-family:${PISMO};font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;">${fajfka ? "&#10003;&#160; " : ""}${eyebrow}</td>
               </tr>
             </table>
             <h1 style="margin:18px 0 0 0;font-family:${SERIF};font-size:36px;line-height:42px;font-weight:700;letter-spacing:-0.3px;color:${KREM};">${nadpis}</h1>${podnadpis ? `
@@ -454,5 +489,6 @@ ${tabulkyTelo(telo)}
 module.exports = {
     P, OTAZKA, RAMECEK, UDAJE, PANEL, TERMIN, KROKY, ZRUSENI,
     bloky, tabulky, kostra, paticka, STYLY,
+    TLACITKO,
     PISEK, GRAFIT,
 };

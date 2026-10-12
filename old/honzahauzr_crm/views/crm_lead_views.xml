@@ -20,6 +20,22 @@
                 <field name="create_date"/>
             </div>
         </xpath>
+        <!-- Barva karty podle stavu hovoru. Zelena = odkaz na hovor
+             odesel, cervena = clovek si hovor zrusil.
+
+             Trida nejde dat na kartu samotnou: <t t-name="card"> je
+             sablona, ne prvek, a atributy na ni se nikam nepropisi.
+             Proto se dovnitr vlozi neviditelna znacka a pozadi se
+             obarvi pres :has() - viz static/src/css/nastenka.scss.
+
+             Hodnotu pocita hh_stav_barva, viz models/crm_lead_meet.py. -->
+        <xpath expr="//templates" position="before">
+            <field name="hh_stav_barva"/>
+        </xpath>
+        <xpath expr="//t[@t-name='card']" position="inside">
+            <span t-if="record.hh_stav_barva.raw_value"
+                  t-attf-class="o_hh_stav o_hh_stav_{{ record.hh_stav_barva.raw_value }}"/>
+        </xpath>
     </field>
 </record>
 
@@ -111,6 +127,30 @@
                    help="Instagram, Facebook, TikTok, Google… Pozná se
                          z adresy, kterou člověk přišel, nebo z webu,
                          ze kterého na nás kliknul."/>
+            <!-- Odkaz na hovor. Ukazuje se jen u toho, kdo ma termin
+                 domluveny - u ostatnich by to bylo policko, ktere
+                 nema co delat. -->
+            <field name="hh_termin_kdy" invisible="1"/>
+            <field name="hh_meet_odeslano" invisible="1"/>
+            <label for="hh_meet_odkaz" string="Odkaz na hovor"
+                   invisible="not hh_termin_kdy"/>
+            <div class="o_row" invisible="not hh_termin_kdy">
+                <field name="hh_meet_odkaz" nolabel="1"
+                       placeholder="https://meet.google.com/..."
+                       class="oe_inline"/>
+                <button name="action_hh_poslat_meet" type="object"
+                        class="btn btn-danger ms-2"
+                        string="Odeslat"
+                        invisible="not hh_meet_odkaz"
+                        confirm="Odejde zpráva s tlačítkem na tenhle odkaz. Poslat?"
+                        help="Pošle člověku zprávu, ve které tlačítko vede na tenhle odkaz."/>
+                <span class="text-muted ms-2"
+                      invisible="not hh_meet_odeslano">
+                    odesláno <field name="hh_meet_odeslano"
+                                    widget="date" nolabel="1"
+                                    class="oe_inline"/>
+                </span>
+            </div>
         </xpath>
 
         <!-- Na co ten člověk koukal. Souhrn nahoře odpoví na "došel

@@ -62,14 +62,14 @@ const REZERVACE = {
             kdy: "{{ object.hh_termin_kdy }}",
             udaje: [
                 ["Jak dlouho", "{{ object.hh_termin_delka }}"],
-                ["Forma", "Telefonát, volám já"],
+                ["Forma", "Videohovor přes Google Meet"],
             ],
         }),
-        rezervace.P("Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat. Stačí, že si na to vyhradíš klid."),
+        rezervace.P("Potkáme se přes Google Meet. Odkaz na hovor ti pošlu samostatným e-mailem před termínem, připojíš se jedním kliknutím. Nemusíš se nijak připravovat. Stačí, že si na to vyhradíš klid."),
         rezervace.KROKY([
             ["Klidné místo.", "Najdi si chvíli, kdy tě nikdo neruší."],
             ["Papír po ruce.", "Hodí se, co sis zapsal během výzvy."],
-            ["Telefon u sebe.", "Zavolám ti přesně v domluvený čas."],
+            ["Odkaz z e-mailu.", "Přijde ti před hovorem, tak ho měj po ruce."],
         ]),
         rezervace.ZRUSENI({
             text: "Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Termín zrušíš sám a uvolníš ho někomu dalšímu.",
@@ -83,6 +83,35 @@ const REZERVACE = {
 };
 
 /* ---------------------------------------------------------------- */
+
+/* Odkaz na hovor. Posílá ji Honza tlačítkem z karty, ne řada:
+   schůzka v Google Meetu vzniká až těsně před hovorem a žádný
+   odstup ve dnech by ji netrefil. Do tlačítka se odkaz doplní
+   z karty, viz models/crm_lead_meet.py. */
+const MEET = {
+    eyebrow: "Odkaz na hovor",
+    // Fajfka patri k potvrzeni rezervace, tady by hlasila neco,
+    // co se zrovna nestalo.
+    fajfka: false,
+    nadpis: "Tady je odkaz na náš hovor.",
+    podnadpis: "Stačí na něj v domluvený čas kliknout",
+    telo: [
+        rezervace.P("blíží se náš termín, tak posílám odkaz, kterým se připojíš:"),
+        rezervace.TERMIN({
+            kdy: "{{ object.hh_termin_kdy }}",
+            udaje: [
+                ["Jak dlouho", "{{ object.hh_termin_delka }}"],
+                ["Kde", "Google Meet"],
+            ],
+        }),
+        rezervace.TLACITKO({
+            text: "Připojit se k hovoru",
+            odkaz: "{{ object.hh_meet_odkaz }}",
+            pod: "Odkaz funguje v prohlížeči, nic se nemusí instalovat.",
+        }),
+        rezervace.P("Kdyby tlačítko nešlo otevřít, zkus stránku načíst znovu nebo mi napiš. Připojit se jde z počítače i z telefonu."),
+    ],
+};
 
 const PREDLOHY = [
     {
@@ -103,12 +132,24 @@ const PREDLOHY = [
         zprava: REZERVACE,
         vzhled: rezervace,
     },
+    {
+        klic: "meet",
+        stitek: "Rezervace",
+        nazev: "Odkaz na hovor (posílám ručně)",
+        predmet: "Odkaz na náš hovor",
+        preheader: "Připojíš se jedním kliknutím.",
+        zprava: MEET,
+        vzhled: rezervace,
+        // Rada ji preskoci, odchazi tlacitkem z karty.
+        rucni: true,
+    },
 ];
 
 const zaznamy = PREDLOHY.map((p) => `    <record id="hh_predloha_${p.klic}" model="hh.mail.sablona">
         <field name="name">${p.nazev}</field>
         <field name="stitek_id" search="[('name', '=ilike', '${p.stitek}')]"/>
-        <field name="po_dnech">0</field>
+        <field name="po_dnech">0</field>${p.rucni ? `
+        <field name="rucni" eval="True"/>` : ""}
         <field name="predmet">${p.predmet}</field>
         <field name="preheader">${p.preheader}</field>
         <!-- body_arch je podoba pro editor (bloky), body_html to,

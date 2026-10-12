@@ -304,13 +304,19 @@ class CrmStage(models.Model):
         return zmeneno
 
     def hh_maily_k_odeslani(self):
-        """Zapnute zpravy vsech rad sloupce, serazene podle odstupu."""
+        """Zapnute zpravy vsech rad sloupce, serazene podle odstupu.
+
+        Zpravy oznacene "Posilam rucne" se vynechavaji - ty odchazeji
+        tlacitkem z karty, ne podle odstupu. Kdyby je rada posilala
+        taky, odesel by odkaz na hovor driv, nez ho Honza vubec zada.
+        """
         self.ensure_one()
         if not self.hh_stitek_ids:
             return self.env['hh.mail.sablona']
         return self.env['hh.mail.sablona'].search([
             ('stitek_id', 'in', self.hh_stitek_ids.ids),
             ('zapnuto', '=', True),
+            ('rucni', '=', False),
         ], order='po_dnech, id')
 
     def action_hh_maily(self):

@@ -637,6 +637,13 @@ class HhMailSablona(models.Model):
              'Hodí se, když ji chceš dočasně vynechat a nechtěl bys '
              'ji psát znovu.',
     )
+    rucni = fields.Boolean(
+        string='Posílám ručně',
+        default=False,
+        help='Zpráva nečeká na odstup ve dnech a sama neodejde. '
+             'Posílá se tlačítkem z karty člověka - jako odkaz na '
+             'Google Meet, který se dá napsat až těsně před hovorem.',
+    )
 
     predmet = fields.Char(
         string='Předmět',
