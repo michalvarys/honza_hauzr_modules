@@ -20,7 +20,6 @@ NASTENKA = (
     'Po výzvě · Tvůj tah',
     'Rezervace',
     'Placené',
-    '40denní výzva',
     'Odhlášeno',
 )
 
@@ -133,6 +132,9 @@ class CrmStage(models.Model):
         prejmenovano = 0
         if poprve:
             prejmenovano = self._hh_prejmenovat_vychozi()
+        # Bez ohledu na to, jestli skladame poprve: nazev mohl
+        # zustat prelozeny jen do jednoho jazyka.
+        srovnano = self._hh_srovnat_nazvy_sloupcu()
 
         vsechny = self.sudo().with_context(active_test=False).search([])
 
@@ -156,12 +158,44 @@ class CrmStage(models.Model):
 
         if poprve:
             Parametry.set_param(PARAMETR_HOTOVO, '1')
-        if zalozeno or prejmenovano or pojmenovano:
+        if zalozeno or prejmenovano or pojmenovano or srovnano:
             _logger.info(
                 'Honza Hauzr CRM: nastenka - zalozeno %s, prejmenovano '
-                '%s, odkazu na modul %s.',
-                zalozeno, prejmenovano, pojmenovano)
+                '%s, odkazu na modul %s, nazvu srovnano %s.',
+                zalozeno, prejmenovano, pojmenovano, srovnano)
         return zalozeno, prejmenovano
+
+    @api.model
+    def _hh_srovnat_nazvy_sloupcu(self):
+        """Dorovná název sloupce do všech jazyků.
+
+        Název je překládané pole. Když se sloupec přejmenoval ve
+        chvíli, kdy byla nainstalovaná jen angličtina, zůstal
+        v češtině původní název od Odoo - a Honza, který administraci
+        používá česky, viděl dál "Nové" a "Kvalifikovaný", přestože
+        v databázi stálo "Chci odebírat". Stalo se na devu.
+
+        Dorovná se jen sloupec, který naše jméno v některém jazyce
+        už nese. Co si Honza pojmenoval po svém, zůstává - v žádném
+        jazyce se naše jméno neshoduje, takže se přeskočí.
+
+        Pouští se při každé aktualizaci a podruhé nemá co dělat.
+        """
+        jazyky = [kod for kod, _ in self.env['res.lang'].get_installed()]
+        srovnano = 0
+        for xmlid, cesky in VYCHOZI_ODOO.items():
+            stupen = self.env.ref(xmlid, raise_if_not_found=False)
+            if not stupen:
+                continue
+            nazvy = {jazyk: (stupen.with_context(lang=jazyk).name or '').strip()
+                     for jazyk in jazyky}
+            if cesky not in nazvy.values():
+                continue
+            for jazyk, nazev in nazvy.items():
+                if nazev != cesky:
+                    stupen.sudo().with_context(lang=jazyk).name = cesky
+                    srovnano += 1
+        return srovnano
 
     @api.model
     def _hh_prejmenovat_vychozi(self):
