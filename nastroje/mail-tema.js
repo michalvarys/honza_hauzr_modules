@@ -30,6 +30,7 @@ const CIL = path.join(KOREN, "old/honzahauzr_crm/views/mail_tema.xml");
 const NAVRHY = [
     require("./tema-vlastni-rezie.js"),
     require("./tema-editorial.js"),
+    require("./tema-tmava.js"),
 ];
 
 /* Návrhy, které do galerie dává Odoo. Tři z mass_mailing, zbytek

@@ -37,64 +37,112 @@
         <field name="preheader">Tři dny, tři videa, tři konkrétní kroky. Zdarma.</field>
         <!-- body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#0a0a0f;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #111a26 !important; border: 1px solid #1e2c40; border-radius: 6px; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #bfc3c9; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hht-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 38px; line-height: 44px; font-weight: 700; letter-spacing: -0.4px; color: #ffffff; margin: 14px 0 0 0; }
+.o_mail_wrapper .hht-znacka { font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hht-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #7d8794; margin: 0; }
+.o_mail_wrapper .hht-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2.6px; text-transform: uppercase; color: #6bb5ff; margin: 0; }
+.o_mail_wrapper .hht-prah { width: 48px; height: 2px; background-color: #2aa6ee; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hht-oslo { color: #ffffff; font-weight: 600; }
+.o_mail_wrapper .hht-tmave { color: #ffffff; }
+.o_mail_wrapper .hht-panel { background-color: #0d141e; border: 1px solid #243650; border-radius: 6px; padding: 28px 30px; }
+.o_mail_wrapper .hht-panel .hht-eyebrow { font-size: 10px; letter-spacing: 2.5px; }
+.o_mail_wrapper .hht-panel-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 24px; line-height: 31px; font-weight: 700; color: #ffffff; margin: 10px 0 0 0; }
+.o_mail_wrapper .hht-cislo { font-size: 26px; line-height: 30px; font-weight: 800; color: #6bb5ff; margin: 0; }
+.o_mail_wrapper .hht-popis { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #7d8794; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-panel-text { font-size: 15px; line-height: 25px; color: #bfc3c9; margin: 18px 0 0 0; }
+.o_mail_wrapper .hht-otazka { background-color: #0d141e; border-left: 3px solid #2aa6ee; border-radius: 6px; padding: 28px 30px; }
+.o_mail_wrapper .hht-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #ffffff; margin: 10px 0 0 0; }
+.o_mail_wrapper .hht-pod { font-size: 12.5px; line-height: 19px; color: #7d8794; margin: 14px 0 0 0; }
+.o_mail_wrapper .hht-linka-nad { border-top: 1px solid #1e2c40; }
+.o_mail_wrapper .hht-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #7d8794; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-paticka { background-color: #0a0a0f; border-top: 1px solid #1e2c40; }
+.o_mail_wrapper .hht-paticka p { font-size: 12px; line-height: 19px; color: #7d8794; margin: 0; }
+.o_mail_wrapper .hht-paticka .hht-odesilatel { color: #a9b0b9; }
+.o_mail_wrapper .hht-paticka a { color: #6bb5ff; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #2aa6ee; border-color: #2aa6ee; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 999px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #1e2c40;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hht-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Vlastní režie</p>
-            <h1>Díky, že čteš.</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
-            <p>budu ti sem posílat to, co sám považuju za užitečné &#8212; žádné novinky ze světa a žádné rozesílky každý týden.</p>
-            <p>Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení: <strong>bezplatnou třídenní výzvu</strong>. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hht-eyebrow">Vítej ve Vlastní režii</p>
+            <h1 class="hht-nadpis">Díky, že čteš.</h1>
+            <div class="hht-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hht-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>budu ti sem posílat to, co sám považuju za užitečné. Žádné novinky ze světa a žádné rozesílky každý týden.</p>
+            <p>Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení:</p>
+          </div>
+        </div>
+        <div class="s_mail_alert o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hht-panel">
+              <p class="hht-eyebrow">Bezplatná třídenní výzva</p>
+              <p class="hht-panel-nadpis">Z autopilota zpět do života</p>
+              <div class="row" style="margin-top:18px;">
+              <div class="col-4">
+                <p class="hht-cislo">3</p>
+                <p class="hht-popis">dny</p>
+              </div>
+              <div class="col-4">
+                <p class="hht-cislo">3</p>
+                <p class="hht-popis">krátká videa</p>
+              </div>
+              <div class="col-4">
+                <p class="hht-cislo">20</p>
+                <p class="hht-popis">minut denně</p>
+              </div>
+              </div>
+              <p class="hht-panel-text">U každého videa jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Stačí na to dvacet minut denně. Klidně dneska večer.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/zpet-do-zivota" role="button" class="btn btn-primary">Vstoupit do výzvy zdarma</a>
+            <p class="hht-pod">Je zdarma a nic tím nekupuješ.</p>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
-          <div class="container s_allow_columns">
-            <p class="hh-drobne">Je zdarma a nic tím nekupuješ.</p>
-          </div>
-        </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hht-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hht-podpis">Honza Hauzr</p>
+                <p class="hht-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -103,23 +151,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0a0a0f" style="background-color:#0a0a0f;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#111a26" style="width:100%;max-width:600px;background-color:#111a26;border:1px solid #1e2c40;border-radius:6px;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:26px 48px 22px 48px;border-bottom:1px solid #1e2c40;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#7d8794;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -127,49 +175,79 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:2.6px;text-transform:uppercase;color:#6bb5ff;">Vítej ve Vlastní režii</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:38px;line-height:44px;font-weight:700;letter-spacing:-0.4px;color:#ffffff;">Díky, že čteš.</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#2aa6ee" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Vlastní režie</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Díky, že čteš.</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">budu ti sem posílat to, co sám považuju za užitečné &#8212; žádné novinky ze světa a žádné rozesílky každý týden.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení: <strong>bezplatnou třídenní výzvu</strong>. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Stačí na to dvacet minut denně. Klidně dneska večer.</p>
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#ffffff;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#bfc3c9;">budu ti sem posílat to, co sám považuju za užitečné. Žádné novinky ze světa a žádné rozesílky každý týden.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#bfc3c9;">Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0d141e" style="margin:8px 0 26px 0;background-color:#0d141e;border:1px solid #243650;border-radius:6px;">
+              <tr>
+                <td style="padding:28px 30px;">
+                  <div style="font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#6bb5ff;">Bezplatná třídenní výzva</div>
+                  <div style="margin-top:10px;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:24px;line-height:31px;font-weight:700;color:#ffffff;">Z autopilota zpět do života</div>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:18px;">
+                    <tr>
+                      <td width="33%" valign="top" style="padding-right:8px;font-family:Inter,Arial,sans-serif;">
+                        <div style="font-size:26px;line-height:30px;font-weight:800;color:#6bb5ff;">3</div>
+                        <div style="margin-top:2px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#7d8794;">dny</div>
+                      </td>
+                      <td width="33%" valign="top" style="padding-right:8px;font-family:Inter,Arial,sans-serif;">
+                        <div style="font-size:26px;line-height:30px;font-weight:800;color:#6bb5ff;">3</div>
+                        <div style="margin-top:2px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#7d8794;">krátká videa</div>
+                      </td>
+                      <td width="33%" valign="top" style="padding-right:8px;font-family:Inter,Arial,sans-serif;">
+                        <div style="font-size:26px;line-height:30px;font-weight:800;color:#6bb5ff;">20</div>
+                        <div style="margin-top:2px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#7d8794;">minut denně</div>
+                      </td>
+                    </tr>
+                  </table>
+                  <p style="margin:18px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:15px;line-height:25px;color:#bfc3c9;">U každého videa jedna konkrétní věc, kterou si odneseš do běžného dne.</p>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#bfc3c9;">Stačí na to dvacet minut denně. Klidně dneska večer.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#2aa6ee" style="background-color:#2aa6ee;border-radius:999px;">
                   <a href="/zpet-do-zivota"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Vstoupit do výzvy zdarma</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:999px;">Vstoupit do výzvy zdarma</a>
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td align="center" style="padding:6px 22px 24px 22px;">
-            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">Je zdarma a nic tím nekupuješ.</p>
+            <p style="margin:14px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12.5px;line-height:19px;color:#7d8794;">Je zdarma a nic tím nekupuješ.</p>
           </td>
         </tr>
 
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #1e2c40;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#ffffff;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#7d8794;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>

@@ -75,12 +75,13 @@ def nahled(navrh, sirka, vyska, cesta):
 
     if navrh.get('tmavy_blok'):
         y += 3 * u
-        k.rectangle([x, y, x + sir, y + 17 * u], fill=barva(navrh['grafit']))
+        tmava = barva(navrh.get('blok') or navrh['grafit'])
+        k.rectangle([x, y, x + sir, y + 17 * u], fill=tmava)
         k.rectangle([x, y, x + 1.5 * u, y + 17 * u], fill=barva(navrh['akcent']))
         for i, w in enumerate((0.72, 0.5)):
             k.rectangle([x + 6 * u, y + (5 + i * 6) * u,
                          x + 6 * u + (sir - 12 * u) * w,
-                         y + (8 + i * 6) * u], fill=barva(navrh['karta']))
+                         y + (8 + i * 6) * u], fill=barva(navrh.get('blok_text') or navrh['karta']))
         y += 18 * u
     else:
         k.rectangle([x, y, x + sir * 0.58, y + 3 * u], fill=barva(navrh['sede']))
@@ -106,7 +107,7 @@ def nahled(navrh, sirka, vyska, cesta):
     if navrh.get('tmava_paticka'):
         ph = 13 * u
         k.rectangle([okraj + 1, V - okraj - ph, S - okraj - 1, V - okraj - 1],
-                    fill=barva(navrh['grafit']))
+                    fill=barva(navrh.get('paticka') or navrh['grafit']))
 
     o.resize((sirka, vyska), Image.LANCZOS).save(cesta)
 
@@ -117,6 +118,14 @@ NAVRHY = {
         'grafit': '#23211d', 'akcent': '#a89681', 'sede': '#ded9d1',
         'tlacitko': '#23211d', 'znacka': 'VLASTNÍ REŽIE',
         'eyebrow': 'DEN 1 · VÝZVA', 'serif': False,
+    },
+    'tema_tmava': {
+        'stranka': '#0a0a0f', 'karta': '#111a26', 'linka': '#1e2c40',
+        'grafit': '#ffffff', 'akcent': '#6bb5ff', 'sede': '#2a3647',
+        'tlacitko': '#2aa6ee', 'znacka': 'VLASTNÍ REŽIE',
+        'eyebrow': 'VÍTEJ VE VLASTNÍ REŽII', 'serif': True,
+        'prah': True, 'tmavy_blok': True, 'tmava_paticka': True,
+        'blok': '#0d141e', 'blok_text': '#6bb5ff', 'paticka': '#0a0a0f',
     },
     'tema_editorial': {
         'stranka': '#efe7d8', 'karta': '#f4efe6', 'linka': '#e3d9c8',

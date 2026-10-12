@@ -19,17 +19,31 @@ const path = require("path");
 const KOREN = path.join(__dirname, "..");
 const CIL = path.join(KOREN, "old/honzahauzr_crm/data/predlohy_dalsi.xml");
 
+/* Kazda z tech dvou zprav ma svuj vzhled:
+     Chci odebirat  tmava podoba v barvach webu Honza Hauzr
+     Rezervace      puvodni svetla - potvrzeni hovoru je provozni
+                    zprava, ne pozvanka, a tmave pozadi by se k ni
+                    nehodilo
+   Rozhrani obou stavebnic je stejne, takze se to da prehodit
+   jednim radkem. */
 const { P, UDAJE, bloky, tabulky } = require("./mail-bloky.js");
+const tmava = require("./mail-bloky-tmava.js");
 
 /* ---------------------------------------------------------------- */
 
 const ODBER = {
-    eyebrow: "Vlastní režie",
+    eyebrow: "Vítej ve Vlastní režii",
     nadpis: "Díky, že čteš.",
     telo: [
-        P("budu ti sem posílat to, co sám považuju za užitečné &#8212; žádné novinky ze světa a žádné rozesílky každý týden."),
-        P("Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení: <strong>bezplatnou třídenní výzvu</strong>. Tři dny, tři krátká videa a u každého jedna konkrétní věc, kterou si odneseš do běžného dne."),
-        P("Stačí na to dvacet minut denně. Klidně dneska večer."),
+        tmava.P("budu ti sem posílat to, co sám považuju za užitečné. Žádné novinky ze světa a žádné rozesílky každý týden."),
+        tmava.P("Než přijde první, mám pro tebe jednu věc, která ti dá víc než čtení:"),
+        tmava.PANEL({
+            eyebrow: "Bezplatná třídenní výzva",
+            nadpis: "Z autopilota zpět do života",
+            cisla: [["3", "dny"], ["3", "krátká videa"], ["20", "minut denně"]],
+            text: "U každého videa jedna konkrétní věc, kterou si odneseš do běžného dne.",
+        }),
+        tmava.P("Stačí na to dvacet minut denně. Klidně dneska večer."),
     ],
     tlacitko: "Vstoupit do výzvy zdarma",
     // Adresa vyzvy je pro vsechny stejna, takze tu stoji primo.
@@ -66,6 +80,7 @@ const PREDLOHY = [
         predmet: "Díky za přihlášení — a jedna věc na začátek",
         preheader: "Tři dny, tři videa, tři konkrétní kroky. Zdarma.",
         zprava: ODBER,
+        vzhled: tmava,
     },
     {
         klic: "rezervace",
@@ -85,8 +100,8 @@ const zaznamy = PREDLOHY.map((p) => `    <record id="hh_predloha_${p.klic}" mode
         <field name="preheader">${p.preheader}</field>
         <!-- body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[${bloky(p.zprava)}]]></field>
-        <field name="body_html"><![CDATA[${tabulky(p.zprava)}]]></field>
+        <field name="body_arch"><![CDATA[${(p.vzhled || { bloky, tabulky }).bloky(p.zprava)}]]></field>
+        <field name="body_html"><![CDATA[${(p.vzhled || { bloky, tabulky }).tabulky(p.zprava)}]]></field>
     </record>`).join("\n\n");
 
 const xml = `<?xml version="1.0" encoding="utf-8"?>

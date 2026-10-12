@@ -48,6 +48,17 @@ const RAMECEK = (odstavce) => ({ typ: "ramecek", odstavce });
 /* Rámeček na údaje k zapamatování - datum a čas hovoru. */
 const UDAJE = (radky) => ({ typ: "udaje", radky });
 
+/* Zvýrazněný panel: eyebrow, nadpis, pár čísel vedle sebe a věta
+   pod nimi. Nese nabídku uvnitř zprávy - třídenní výzvu
+   v uvítacím e-mailu. Čísla se píšou jako [["3", "dny"], ...].
+
+   Vzhled, který s čísly umí, je zatím jen tmavý
+   (nastroje/mail-bloky-tmava.js). Ostatní ho vykreslí jako
+   obyčejný rámeček - nic se tím nerozbije, jen to nebude tak
+   výrazné. */
+const PANEL = ({ eyebrow, nadpis, cisla, text }) =>
+    ({ typ: "panel", eyebrow, nadpis, cisla: cisla || [], text });
+
 /* ---------------------------------------------------------------- */
 /* podoba pro editor: Odoo bloky                                    */
 /* ---------------------------------------------------------------- */
@@ -113,6 +124,18 @@ function blokHlavicka() {
             </div>
           </div>
         </div>`;
+}
+
+/* Panel bez vlastniho vykresleni: cisla se slozi do vety, at se
+   obsah neztrati. */
+function panelRadky(kus) {
+    const radky = [];
+    if (kus.nadpis) radky.push("<strong>" + kus.nadpis + "</strong>");
+    if (kus.cisla && kus.cisla.length) {
+        radky.push(kus.cisla.map(([c, popis]) => c + " " + popis).join(" &#183; "));
+    }
+    if (kus.text) radky.push(kus.text);
+    return radky;
 }
 
 function blokyTelo(telo, uvod) {
@@ -242,7 +265,7 @@ function tabulkyTelo(telo) {
               </tr>
             </table>`;
         }
-        const radky = kus.odstavce || kus.radky;
+        const radky = kus.odstavce || kus.radky || panelRadky(kus);
         return `            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:${KREM};">
               <tr>
                 <td style="padding:20px 22px 4px 22px;border:1px solid ${LINKA};">
@@ -336,6 +359,6 @@ ${pod ? `
 
 module.exports = {
     KREM, GRAFIT, INKOUST, LINKA, SVETLA, SEDA, LOGO,
-    P, OTAZKA, RAMECEK, UDAJE,
+    P, OTAZKA, RAMECEK, UDAJE, PANEL,
     bloky, tabulky, kostra, paticka, STYLY,
 };

@@ -189,6 +189,124 @@
           </div>
         </div>
         </div>
+
+        <div data-name="hh_tmava"
+             title="Honza Hauzr — tmavá"
+             data-layout-styles="background-color:#0a0a0f;"
+             data-img="/honzahauzr_crm/static/src/img/tema_tmava">
+<style id="design-element">
+.o_mail_wrapper_td { background-color: #111a26 !important; border: 1px solid #1e2c40; border-radius: 6px; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #bfc3c9; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hht-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 38px; line-height: 44px; font-weight: 700; letter-spacing: -0.4px; color: #ffffff; margin: 14px 0 0 0; }
+.o_mail_wrapper .hht-znacka { font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hht-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #7d8794; margin: 0; }
+.o_mail_wrapper .hht-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2.6px; text-transform: uppercase; color: #6bb5ff; margin: 0; }
+.o_mail_wrapper .hht-prah { width: 48px; height: 2px; background-color: #2aa6ee; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hht-oslo { color: #ffffff; font-weight: 600; }
+.o_mail_wrapper .hht-tmave { color: #ffffff; }
+.o_mail_wrapper .hht-panel { background-color: #0d141e; border: 1px solid #243650; border-radius: 6px; padding: 28px 30px; }
+.o_mail_wrapper .hht-panel .hht-eyebrow { font-size: 10px; letter-spacing: 2.5px; }
+.o_mail_wrapper .hht-panel-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 24px; line-height: 31px; font-weight: 700; color: #ffffff; margin: 10px 0 0 0; }
+.o_mail_wrapper .hht-cislo { font-size: 26px; line-height: 30px; font-weight: 800; color: #6bb5ff; margin: 0; }
+.o_mail_wrapper .hht-popis { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #7d8794; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-panel-text { font-size: 15px; line-height: 25px; color: #bfc3c9; margin: 18px 0 0 0; }
+.o_mail_wrapper .hht-otazka { background-color: #0d141e; border-left: 3px solid #2aa6ee; border-radius: 6px; padding: 28px 30px; }
+.o_mail_wrapper .hht-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #ffffff; margin: 10px 0 0 0; }
+.o_mail_wrapper .hht-pod { font-size: 12.5px; line-height: 19px; color: #7d8794; margin: 14px 0 0 0; }
+.o_mail_wrapper .hht-linka-nad { border-top: 1px solid #1e2c40; }
+.o_mail_wrapper .hht-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #7d8794; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-paticka { background-color: #0a0a0f; border-top: 1px solid #1e2c40; }
+.o_mail_wrapper .hht-paticka p { font-size: 12px; line-height: 19px; color: #7d8794; margin: 0; }
+.o_mail_wrapper .hht-paticka .hht-odesilatel { color: #a9b0b9; }
+.o_mail_wrapper .hht-paticka a { color: #6bb5ff; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #2aa6ee; border-color: #2aa6ee; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 999px; }
+</style>
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #1e2c40;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-7">
+                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-5" style="text-align:right;">
+                <p class="hht-jmeno">Honza Hauzr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hht-eyebrow">Vítej ve Vlastní režii</p>
+            <h1 class="hht-nadpis">Nadpis zprávy</h1>
+            <div class="hht-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hht-oslo">&#123;&#123; object.hh_osloveni &#125;&#125;</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>tenhle odstavec přepiš. Pod ním můžeš další bloky přidávat, posouvat i mazat — přetáhni si je z panelu vpravo.</p>
+          </div>
+        </div>
+        <div class="s_mail_alert o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hht-panel">
+              <p class="hht-eyebrow">Zvýrazněný panel</p>
+              <p class="hht-panel-nadpis">Sem patří nabídka</p>
+              <div class="row" style="margin-top:18px;">
+              <div class="col-4">
+                <p class="hht-cislo">3</p>
+                <p class="hht-popis">dny</p>
+              </div>
+              <div class="col-4">
+                <p class="hht-cislo">3</p>
+                <p class="hht-popis">krátká videa</p>
+              </div>
+              <div class="col-4">
+                <p class="hht-cislo">20</p>
+                <p class="hht-popis">minut denně</p>
+              </div>
+              </div>
+              <p class="hht-panel-text">Věta pod čísly. Celý panel jde smazat jako kterýkoliv jiný blok.</p>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>Tlačítko níž má zatím prázdný odkaz — klikni na něj a v liště nahoře mu adresu doplň.</p>
+          </div>
+        </div>
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <a href="#" role="button" class="btn btn-primary">Text tlačítka</a>
+            <p class="hht-pod">Drobná poznámka pod tlačítkem.</p>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hht-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-2">
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-10">
+                <p class="hht-podpis">Honza Hauzr</p>
+                <p class="hht-role">Mentor pro muže &#183; Vlastní režie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hht-paticka pt24 pb24">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <p class="hht-odesilatel">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;</p>
+            <p style="margin-top:8px;">Tenhle e-mail ti přišel, protože ses přihlásil k odběru e-mailů od Honzy Hauzra.</p>
+            <p style="margin-top:10px;"><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
+          </div>
+        </div>
+        </div>
     </xpath>
 </template>
 
