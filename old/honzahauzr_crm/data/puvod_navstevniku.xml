@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Srovnání názvů v seznamech Zdroj a Kanál.
+
+    Hledání záznamu v Odoo nerozlišuje velikost písmen, takže jednou
+    založený "instagram" si své malé i drží napořád — i když bychom
+    ho dnes zakládali jako "Instagram". V koláči by pak stály vedle
+    sebe dva Instagramy.
+
+    Mimo blok s noupdate schválně: tam se funkce při upgradu
+    přeskakují. Tahle se pustí pokaždé a je spočítaná tak, aby
+    podruhé už nic nezměnila.
+-->
+<data>
+    <function model="utm.mixin" name="_hh_srovnat_nazvy_puvodu"/>
+</data>
+
+</odoo>

@@ -24,6 +24,11 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'mass_mailing',
         'crm',
         'website',
+        # Formulare na webu zakladaji prilezitosti pres nej. Je
+        # v zavislostech kvuli poradi nacitani: bez toho se nase
+        # uprava website_form_input_filter nemusi dostat na radu
+        # a puvod navstevnika by prebil obecny kanal "Website".
+        'website_crm',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -43,6 +48,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # zalozene. Driv to bylo obracene a sedm novych zprav na
         # cerstve databazi zustalo bez odhlaseni.
         'data/vyzva_den3.xml',
+        'data/puvod_navstevniku.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
         'views/mail_tema.xml',

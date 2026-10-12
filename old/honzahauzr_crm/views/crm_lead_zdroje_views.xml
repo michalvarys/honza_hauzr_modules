@@ -4,15 +4,25 @@
 <!-- =================================================================
      ODKUD LIDÉ CHODÍ
 
+     Jedna otázka: ze kterého kanálu k nám člověk přišel — Google,
+     Instagram, Facebook, TikTok, YouTube — a kam to u něj došlo.
+
      Vestavěné výkazy Odoo na tohle neodpovídají: Prognóza prodejů
      počítá s částkou a datem uzavření, které u sebe nevedeme,
      a Aktivity s naplánovanými úkoly, které nikdo nezakládá.
      Příležitosti a Prospekty data mají, jenže je to obecný výkaz
      přes dvacet polí a odpověď se v něm hledá.
 
-     Tenhle se ptá na jednu věc: odkud člověk přišel a kam to u něj
-     došlo. Koláč ukáže podíly, křížová tabulka rozpad po sloupcích
-     nástěnky.
+     Zdroj / Kanál / Kampaň jsou pole Odoo (utm.mixin). Plní se samy,
+     viz models/crm_lead_puvod.py:
+
+       Zdroj   odkud člověk přišel (Instagram, Google, …)
+       Kanál   jakou cestou (social, organic, referral, email, cpc)
+       Kampaň  která akce, když je odkaz otagovaný
+
+     Vedle toho zůstává "Formulář" (hh_zdroj) — kterým formulářem na
+     webu se přihlásil. To je jiná otázka a v seznamu i v seskupení
+     se na ni dá přepnout.
      ================================================================= -->
 
 <record id="view_crm_lead_zdroje_graph" model="ir.ui.view">
@@ -22,7 +32,7 @@
         <!-- Koláč, protože otázka zní "kolik procent", ne "kolik kusů".
              Na pruhy nebo čáru se dá v pohledu přepnout nahoře. -->
         <graph string="Odkud lidé chodí" type="pie" sample="1">
-            <field name="hh_zdroj"/>
+            <field name="source_id"/>
         </graph>
     </field>
 </record>
@@ -34,7 +44,7 @@
         <!-- Řádky zdroj, sloupce stupeň: hned je vidět, který zdroj
              dotáhne lidi k hovoru a který skončí u odběru novinek. -->
         <pivot string="Odkud lidé chodí" sample="1">
-            <field name="hh_zdroj" type="row"/>
+            <field name="source_id" type="row"/>
             <field name="stage_id" type="col"/>
         </pivot>
     </field>
@@ -47,13 +57,49 @@
         <list string="Odkud lidé chodí" create="false" default_order="create_date desc">
             <field name="create_date" string="Přišel"/>
             <field name="contact_name" string="Jméno"/>
-            <field name="email_from" string="E-mail"/>
-            <field name="hh_zdroj" string="Odkud"/>
-            <field name="hh_sekce" string="Sekce" optional="show"/>
+            <field name="email_from" string="E-mail" optional="show"/>
+            <field name="source_id" string="Odkud"/>
+            <field name="medium_id" string="Kanál" optional="show"/>
+            <field name="campaign_id" string="Kampaň" optional="hide"/>
+            <field name="hh_zdroj" string="Formulář" optional="show"/>
+            <field name="hh_sekce" string="Sekce" optional="hide"/>
             <field name="hh_web" string="Web" optional="hide"/>
             <field name="stage_id" string="Sloupec"/>
-            <field name="hh_videa_souhrn" string="Videa výzvy" optional="show"/>
+            <field name="hh_videa_souhrn" string="Videa výzvy" optional="hide"/>
         </list>
+    </field>
+</record>
+
+<record id="view_crm_lead_zdroje_search" model="ir.ui.view">
+    <field name="name">crm.lead.zdroje.search</field>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+        <search string="Odkud lidé chodí">
+            <field name="source_id" string="Odkud"/>
+            <field name="medium_id" string="Kanál"/>
+            <field name="campaign_id" string="Kampaň"/>
+            <field name="contact_name" string="Jméno"/>
+            <filter name="hh_bez_zdroje" string="Bez zdroje"
+                    domain="[('source_id', '=', False)]"
+                    help="Lidé, u kterých se nepodařilo poznat, odkud přišli — třeba zadali adresu rovnou do prohlížeče."/>
+            <separator/>
+            <filter name="hh_tento_mesic" string="Tenhle měsíc"
+                    domain="[('create_date', '&gt;=', (context_today().replace(day=1)).strftime('%Y-%m-%d'))]"/>
+            <group expand="1" string="Seskupit podle">
+                <filter name="hh_podle_zdroje" string="Odkud"
+                        context="{'group_by': 'source_id'}"/>
+                <filter name="hh_podle_kanalu" string="Kanál"
+                        context="{'group_by': 'medium_id'}"/>
+                <filter name="hh_podle_kampane" string="Kampaň"
+                        context="{'group_by': 'campaign_id'}"/>
+                <filter name="hh_podle_formulare" string="Formulář"
+                        context="{'group_by': 'hh_zdroj'}"/>
+                <filter name="hh_podle_sloupce" string="Sloupec nástěnky"
+                        context="{'group_by': 'stage_id'}"/>
+                <filter name="hh_podle_mesice" string="Měsíc příchodu"
+                        context="{'group_by': 'create_date:month'}"/>
+            </group>
+        </search>
     </field>
 </record>
 
@@ -62,11 +108,21 @@
     <field name="res_model">crm.lead</field>
     <field name="view_mode">graph,pivot,list</field>
     <field name="domain">[]</field>
-    <field name="context">{'search_default_hh_zdroj_group': 1}</field>
+    <field name="search_view_id" ref="view_crm_lead_zdroje_search"/>
+    <field name="context">{'search_default_hh_podle_zdroje': 1}</field>
     <field name="help" type="html">
-        <p class="o_view_nocontent_smiley_face">Zatím nikdo nepřišel.</p>
-        <p>Jakmile někdo odešle formulář na webu, uvidíš tu, odkud
-           přišel a kam se dostal.</p>
+        <p class="o_view_nocontent_smiling_face">Zatím nikdo nepřišel.</p>
+        <p>
+            Jakmile někdo odešle formulář na webu, uvidíš tu, odkud
+            přišel — jestli z Instagramu, z Googlu, z odkazu v e-mailu
+            — a kam se dostal.
+        </p>
+        <p>
+            Poznáváme to dvěma způsoby. Když je odkaz otagovaný
+            (<code>?utm_source=instagram</code>), bere se zdroj
+            z&#160;něj. Když otagovaný není, pozná se z toho, ze
+            kterého webu člověk přišel.
+        </p>
     </field>
 </record>
 

@@ -59,6 +59,9 @@ class IrHttp(models.AbstractModel):
         odbocka = cls._hh_admin_patri_jinam()
         if odbocka is not None:
             return odbocka
+        # Odkud navstevnik prisel - do relace, at to prezije i cookie
+        # listu. Vysvetleni je v crm_lead_puvod.py.
+        cls._hh_zapamatovat_puvod()
         return super()._dispatch(endpoint)
 
     @classmethod
