@@ -229,14 +229,7 @@
 </style>
         <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #1e2c40;">
           <div class="container" style="padding-left:48px;padding-right:48px;">
-            <div class="row">
-              <div class="col-7">
-                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
-              </div>
-              <div class="col-5" style="text-align:right;">
-                <p class="hht-jmeno">Honza Hauzr</p>
-              </div>
-            </div>
+            <img src="/honzahauzr_crm/static/src/img/hh-logo-tmava.png" alt="Honza Hauzr" width="150" style="width:150px;height:auto;" class="img-fluid"/>
           </div>
         </div>
         <div class="s_title pt40 pb0 o_mail_snippet_general">

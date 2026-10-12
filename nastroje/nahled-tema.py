@@ -122,7 +122,7 @@ NAVRHY = {
     'tema_tmava': {
         'stranka': '#0a0a0f', 'karta': '#111a26', 'linka': '#1e2c40',
         'grafit': '#ffffff', 'akcent': '#6bb5ff', 'sede': '#2a3647',
-        'tlacitko': '#2aa6ee', 'znacka': 'VLASTNÍ REŽIE',
+        'tlacitko': '#2aa6ee', 'znacka': 'HONZA HAUZR',
         'eyebrow': 'VÍTEJ VE VLASTNÍ REŽII', 'serif': True,
         'prah': True, 'tmavy_blok': True, 'tmava_paticka': True,
         'blok': '#0d141e', 'blok_text': '#6bb5ff', 'paticka': '#0a0a0f',

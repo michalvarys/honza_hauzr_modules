@@ -38,7 +38,10 @@ const SEDA_SVETLA = "#a9b0b9";
 const MODRA = "#2aa6ee";
 const MODRA_SVETLA = "#6bb5ff";
 
-const LOGO = "/honzahauzr_crm/static/src/img/vr-logo-tmava.png";
+/* Logo Honzy Hauzra, ne Vlastni rezie: tahle podoba patri ke
+   strankam honzahauzr.cz, odkud chodi prihlaseni k odberu.
+   Modre na pruhlednem pozadi, takze sedne na kazdou tmavou kartu. */
+const LOGO = "/honzahauzr_crm/static/src/img/hh-logo-tmava.png";
 const ZNAK = "/honzahauzr_crm/static/src/img/hh-znak-email.png";
 
 const PODPIS = "Honza Hauzr";
@@ -90,17 +93,13 @@ ${vnitrek}
         </div>`;
 
 /* Logo je obrazek, ne vysazeny text - jen tak ho jde v editoru
-   vymenit dvojklikem za jiny. Verze pro tmave pozadi. */
+   vymenit dvojklikem za jiny.
+
+   Jmeno vedle loga uz tu neni: nese ho samo logo a stalo by tam
+   podruhe. */
 const HLAVICKA = `        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid ${LINKA};">
           <div class="container" style="${BOKY}">
-            <div class="row">
-              <div class="col-7">
-                <img src="${LOGO}" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
-              </div>
-              <div class="col-5" style="text-align:right;">
-                <p class="hht-jmeno">Honza Hauzr</p>
-              </div>
-            </div>
+            <img src="${LOGO}" alt="Honza Hauzr" width="150" style="width:150px;height:auto;" class="img-fluid"/>
           </div>
         </div>`;
 
@@ -304,18 +303,14 @@ function tabulky({ eyebrow, nadpis, telo, tlacitko, odkaz, pod, podpis,
 
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="${KARTA}" style="width:100%;max-width:600px;background-color:${KARTA};border:1px solid ${LINKA};border-radius:6px;">
 
-        <!-- hlavicka: logo a jmeno -->
+        <!-- hlavicka: logo Honzy Hauzra -->
         <tr>
           <td style="padding:26px 48px 22px 48px;border-bottom:1px solid ${LINKA};">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="${LOGO}" alt="Vlastní režie" width="170" height="32"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
-                </td>
-                <td align="right" valign="middle"
-                    style="font-family:${PISMO};font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:${SEDA};">
-                  Honza Hauzr
+                  <img src="${LOGO}" alt="Honza Hauzr" width="150" height="90"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:150px;height:90px;"/>
                 </td>
               </tr>
             </table>

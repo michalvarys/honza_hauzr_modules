@@ -74,14 +74,7 @@
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
         <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #1e2c40;">
           <div class="container" style="padding-left:48px;padding-right:48px;">
-            <div class="row">
-              <div class="col-7">
-                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
-              </div>
-              <div class="col-5" style="text-align:right;">
-                <p class="hht-jmeno">Honza Hauzr</p>
-              </div>
-            </div>
+            <img src="/honzahauzr_crm/static/src/img/hh-logo-tmava.png" alt="Honza Hauzr" width="150" style="width:150px;height:auto;" class="img-fluid"/>
           </div>
         </div>
         <div class="s_title pt40 pb0 o_mail_snippet_general">
@@ -159,18 +152,14 @@
 
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#111a26" style="width:100%;max-width:600px;background-color:#111a26;border:1px solid #1e2c40;border-radius:6px;">
 
-        <!-- hlavicka: logo a jmeno -->
+        <!-- hlavicka: logo Honzy Hauzra -->
         <tr>
           <td style="padding:26px 48px 22px 48px;border-bottom:1px solid #1e2c40;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="170" height="32"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
-                </td>
-                <td align="right" valign="middle"
-                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c9d1da;">
-                  Honza Hauzr
+                  <img src="/honzahauzr_crm/static/src/img/hh-logo-tmava.png" alt="Honza Hauzr" width="150" height="90"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:150px;height:90px;"/>
                 </td>
               </tr>
             </table>
