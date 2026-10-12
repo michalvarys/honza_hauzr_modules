@@ -35,30 +35,10 @@
     }
 }
 
-/* Odkaz na hovor na kartě člověka: pole a tlačítko Odeslat vedle
- * sebe. Bez omezené šířky se pole roztáhne přes celou kartu
- * a tlačítko skončí až u pravého okraje, daleko od něj.
+/* Odkaz na hovor na kartě člověka. Tlačítko Odeslat stojí pod
+ * polem: vedle něj se o místo pralo s dlouhým odkazem a oboje se
+ * překrývalo.
  */
-.o_hh_meet {
-    .o_field_widget {
-        flex: 0 1 auto;
-        width: auto;
-    }
-
-    .o_field_widget input {
-        // Odkaz na Meet ma kolem 36 znaku, tolik se sem vejde.
-        width: 17rem;
-        // Kde to prohlizec umi, se pole smrskne na to, co je v nem,
-        // a tlacitko stoji tesne za textem. Jinak plati sirka vyse.
-        // Dolni mez je kvuli prazdnemu poli, aby do nej slo trefit
-        // mysi; horni kvuli dlouhemu odkazu, at nevytlaci tlacitko
-        // z obrazovky.
-        field-sizing: content;
-        min-width: 12rem;
-        max-width: 24rem;
-    }
-
-    .btn {
-        flex: none;
-    }
+.o_hh_meet .o_field_widget input {
+    max-width: 24rem;
 }
