@@ -1,7 +1,8 @@
 /* Další dvě předlohy do knihovny e-mailů:
  *
  *   Chci odebírat  — uvítací zpráva s tlačítkem do třídenní výzvy
- *   Rezervace      — potvrzení domluveného hovoru s datem a časem
+ *   Rezervace      — potvrzení domluveného hovoru s datem a časem,
+ *                    do řady u stejnojmenného sloupce nástěnky
  *
  * Vzhled i obě podoby zprávy (bloky pro editor, tabulky pro poštu)
  * dodává nastroje/mail-bloky.js — stejně jako u řady po výzvě.
@@ -68,23 +69,13 @@ const PREDLOHY = [
     },
     {
         klic: "rezervace",
-        stitek: "Potvrzení rezervace",
+        stitek: "Rezervace",
         nazev: "Potvrzení domluveného hovoru",
         predmet: "Úvodní hovor je domluvený",
         preheader: "Tady je termín, na kterém jsme se domluvili.",
         zprava: REZERVACE,
     },
 ];
-
-/* Stitek Potvrzeni rezervace zamerne nepatri zadnemu sloupci:
-   zprava se neposila pri presunu karty, ale az kdyz je termin
-   ulozeny - jinak by v ni chybelo datum a cas. Odesila ji
-   _hh_potvrdit v hh_termin.py. V knihovne je videt a da se
-   upravit jako kterakoliv jina. */
-const STITEK_POTVRZENI = `    <record id="hh_stitek_potvrzeni_rezervace" model="hh.mail.stitek">
-        <field name="name">Potvrzení rezervace</field>
-        <field name="color">4</field>
-    </record>`;
 
 const zaznamy = PREDLOHY.map((p) => `    <record id="hh_predloha_${p.klic}" model="hh.mail.sablona">
         <field name="name">${p.nazev}</field>
@@ -111,9 +102,13 @@ const xml = `<?xml version="1.0" encoding="utf-8"?>
      Obě mají odstup nula, takže odejdou ve chvíli, kdy karta do
      sloupce vstoupí.
 
-     Potvrzení rezervace zabudované v kódu se v takovém případě
-     přeskočí, aby zpráva nepřišla dvakrát — zůstává ale jako
-     pojistka, kdyby předlohu někdo smazal nebo vypnul.
+     Potvrzení patří do řady u sloupce Rezervace, stejně jako
+     u každého jiného sloupce: Honza si ho může přepsat, vypnout
+     nebo k němu přidat další zprávy. Odesílá se až po uložení
+     termínu, takže datum i čas v něm sedí.
+
+     Zabudované potvrzení v kódu zůstává jako pojistka pro případ,
+     že v té řadě žádná zapnutá zpráva s odstupem nula nebude.
 
      Skládá je nastroje/predlohy-dalsi.js; tenhle soubor se needituje
      ručně, přegeneruje se.
@@ -124,7 +119,6 @@ const xml = `<?xml version="1.0" encoding="utf-8"?>
 
 <data noupdate="1">
 
-${STITEK_POTVRZENI}
 
 ${zaznamy}
 

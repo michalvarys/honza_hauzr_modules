@@ -43,6 +43,9 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/predlohy_do_bloku.xml',
         'data/sekvence_po_vyzve.xml',
         'data/predlohy_dalsi.xml',
+        # Az za predlohami: presouva zpravu mezi radami, ktere
+        # obe musi uz existovat.
+        'data/stitek_rezervace.xml',
         # Az za obema: dny vyzvy i srovnani sablon uvnitr doplnuji
         # paticku, takze musi bezet, kdyz uz jsou vsechny zpravy
         # zalozene. Driv to bylo obracene a sedm novych zprav na

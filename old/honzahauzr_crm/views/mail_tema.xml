@@ -78,6 +78,11 @@
             <p class="hh-tmave"><strong>Honza</strong></p>
           </div>
         </div>
+        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
+          <div class="container s_allow_columns">
+            <p class="hh-drobne">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;<br/>Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy Z autopilota zpět do života.<br/><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;" style="text-decoration:underline;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
+          </div>
+        </div>
         </div>
     </xpath>
 </template>

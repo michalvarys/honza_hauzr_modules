@@ -444,6 +444,44 @@ class HhMailSablona(models.Model):
         return zalozeno, prestaveno
 
     @api.model
+    def _hh_zrusit_stitek_potvrzeni(self):
+        """Přesune potvrzení rezervace do řady u sloupce Rezervace.
+
+        Dřív mělo vlastní řadu "Potvrzení rezervace", která schválně
+        nepatřila žádnému sloupci - posílalo se mimo nástěnku, až
+        když byl termín uložený. Honza chce mít všechno ovladatelné
+        z nástěnky, takže zpráva sedí v řadě u sloupce Rezervace
+        jako každá jiná; pořadí při rezervaci se přehodilo tak, aby
+        v ní datum nechybělo (viz hh_termin.rezervovat).
+
+        Pouští se při každém upgradu a podruhé už nic nezmění.
+        """
+        Stitek = self.env['hh.mail.stitek'].sudo()
+        stary = Stitek.search([('name', '=ilike', 'Potvrzení rezervace')],
+                              limit=1)
+        if not stary:
+            return False
+
+        novy = Stitek.search([('name', '=ilike', 'Rezervace')], limit=1)
+        if not novy:
+            # Sloupec Rezervace zatim nikdo nezalozil. Radeji nechat
+            # zpravu tam, kde je, nez ji poslat do prazdna.
+            _logger.warning(
+                'Honza Hauzr CRM: rada "Rezervace" neexistuje, '
+                'potvrzeni rezervace zustava u puvodni rady.')
+            return False
+
+        zpravy = self.sudo().with_context(active_test=False).search(
+            [('stitek_id', '=', stary.id)])
+        if zpravy:
+            zpravy.write({'stitek_id': novy.id})
+        stary.unlink()
+        _logger.info(
+            'Honza Hauzr CRM: potvrzeni rezervace (%s zprav) presunuto '
+            'do rady Rezervace, stara rada zrusena.', len(zpravy))
+        return len(zpravy)
+
+    @api.model
     def _hh_zahodit_tabulkove_predlohy(self):
         """Zahodí zprávy z modulu, které jsou ještě psané v tabulkách.
 

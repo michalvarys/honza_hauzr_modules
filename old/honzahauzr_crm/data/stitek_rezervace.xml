@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Přesun potvrzení rezervace do řady u sloupce Rezervace.
+
+    Dřív mělo vlastní řadu bez sloupce. Honza chce mít všechno
+    ovladatelné z nástěnky, takže zpráva patří do řady u sloupce
+    Rezervace jako každá jiná.
+
+    Mimo blok s noupdate schválně: tam se funkce při upgradu
+    přeskakují. Tahle se pustí pokaždé a podruhé už nic nezmění.
+-->
+<data>
+    <function model="hh.mail.sablona" name="_hh_zrusit_stitek_potvrzeni"/>
+</data>
+
+</odoo>

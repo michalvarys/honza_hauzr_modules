@@ -21,7 +21,7 @@ const path = require("path");
 const KOREN = path.join(__dirname, "..");
 const CIL = path.join(KOREN, "old/honzahauzr_crm/views/mail_tema.xml");
 
-const { P, bloky, KREM } = require("./mail-bloky.js");
+const { P, bloky, paticka, KREM } = require("./mail-bloky.js");
 
 const UKAZKA = bloky({
     eyebrow: "Vlastní režie",
@@ -34,12 +34,21 @@ const UKAZKA = bloky({
     odkaz: "#",
 });
 
+/* Patička s odhlášením. Do hotových zpráv ji doplňuje modul, ale
+   nová zpráva z galerie ji musí mít hned - jinak by si Honza
+   napsal text, odeslal a odhlášení by v něm chybělo. */
+/* Úplně na konec obsahu, pod podpis - tam, kam ji dává i modul
+   (KONEC_OBSAHU v hh_mail_sablona.py). */
+const KONEC_OBSAHU = "      </div>\n    </div>\n  </div>\n</div>";
+const S_PATICKOU = UKAZKA.replace(
+    KONEC_OBSAHU, paticka() + "\n" + KONEC_OBSAHU);
+
 /* Celá kostra i s obalem; z galerie se bere jen vnitřek. Editor si
    obal (o_layout, container, .oe_structure) staví sám a dvakrát ho
    tam nechceme. */
-const ZACATEK = UKAZKA.indexOf("<style");
-const KONEC = UKAZKA.lastIndexOf("      </div>");
-const VNITREK = UKAZKA.slice(ZACATEK, KONEC).replace(
+const ZACATEK = S_PATICKOU.indexOf("<style");
+const KONEC = S_PATICKOU.lastIndexOf("      </div>");
+const VNITREK = S_PATICKOU.slice(ZACATEK, KONEC).replace(
     /\n      <div class="col o_mail_no_options[^\n]*\n/, "\n")
     .replace(/\n  <div class="container o_mail_wrapper[^\n]*\n/, "\n")
     .replace(/\n    <div class="row">\n/, "\n");

@@ -605,6 +605,12 @@ class CrmLead(models.Model):
         """
         self.ensure_one()
 
+        # Rezervace hovoru si radu zahaji sama, az ma ulozeny termin.
+        # Kdyby se spustila tady, odesla by potvrzovaci zprava driv,
+        # nez je kam zapsat datum a cas - viz hh_termin.rezervovat.
+        if self.env.context.get('hh_bez_rady'):
+            return
+
         stupen = self.stage_id
         if not stupen:
             return

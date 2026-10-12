@@ -11,9 +11,13 @@
      Obě mají odstup nula, takže odejdou ve chvíli, kdy karta do
      sloupce vstoupí.
 
-     Potvrzení rezervace zabudované v kódu se v takovém případě
-     přeskočí, aby zpráva nepřišla dvakrát — zůstává ale jako
-     pojistka, kdyby předlohu někdo smazal nebo vypnul.
+     Potvrzení patří do řady u sloupce Rezervace, stejně jako
+     u každého jiného sloupce: Honza si ho může přepsat, vypnout
+     nebo k němu přidat další zprávy. Odesílá se až po uložení
+     termínu, takže datum i čas v něm sedí.
+
+     Zabudované potvrzení v kódu zůstává jako pojistka pro případ,
+     že v té řadě žádná zapnutá zpráva s odstupem nula nebude.
 
      Skládá je nastroje/predlohy-dalsi.js; tenhle soubor se needituje
      ručně, přegeneruje se.
@@ -24,10 +28,6 @@
 
 <data noupdate="1">
 
-    <record id="hh_stitek_potvrzeni_rezervace" model="hh.mail.stitek">
-        <field name="name">Potvrzení rezervace</field>
-        <field name="color">4</field>
-    </record>
 
     <record id="hh_predloha_odber" model="hh.mail.sablona">
         <field name="name">Uvítání a pozvánka do výzvy</field>
@@ -170,7 +170,7 @@
 
     <record id="hh_predloha_rezervace" model="hh.mail.sablona">
         <field name="name">Potvrzení domluveného hovoru</field>
-        <field name="stitek_id" search="[('name', '=ilike', 'Potvrzení rezervace')]"/>
+        <field name="stitek_id" search="[('name', '=ilike', 'Rezervace')]"/>
         <field name="po_dnech">0</field>
         <field name="predmet">Úvodní hovor je domluvený</field>
         <field name="preheader">Tady je termín, na kterém jsme se domluvili.</field>

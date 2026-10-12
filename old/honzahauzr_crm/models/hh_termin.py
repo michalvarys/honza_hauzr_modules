@@ -345,7 +345,10 @@ class HhTermin(models.Model):
         if not radek or radek[0] != 'volny':
             return False
 
-        lead = self._hh_najit_lead(jmeno, email, telefon, poznamka)
+        # hh_bez_rady: rada u sloupce se zahaji az nize, kdyz bude
+        # termin ulozeny. Jinak by potvrzeni odeslo bez data a casu.
+        lead = self.with_context(hh_bez_rady=True)._hh_najit_lead(
+            jmeno, email, telefon, poznamka)
 
         self.write({
             'stav': 'rezervovany',
@@ -357,6 +360,18 @@ class HhTermin(models.Model):
             'partner_id': lead.partner_id.id if lead and lead.partner_id else False,
             'zrusovaci_klic': self._hh_novy_klic(),
         })
+
+        # Teprve ted je termin ulozeny a navazany na kartu, takze
+        # {{ object.hh_termin_kdy }} ma co vyplnit. Az v tuhle chvili
+        # se spusti rada u sloupce Rezervace - do ni patri i potvrzeni
+        # rezervace. Pri hledani karty vys byla rada odlozena
+        # (hh_bez_rady), prave kvuli tomuhle poradi.
+        if lead:
+            lead.invalidate_recordset(
+                ['hh_termin_kdy', 'hh_termin_delka', 'hh_termin_zruseni'])
+            # Odlozeni se musi sundat: karta si ho nese z hledani
+            # vys a s nim by se rada nespustila ani tady.
+            lead.sudo().with_context(hh_bez_rady=False)._hh_ohlasit_stupen()
 
         self._hh_potvrdit()
         self._hh_upozornit_honzu()
@@ -488,28 +503,23 @@ class HhTermin(models.Model):
     # ------------------------------------------------------------------
 
     def _hh_potvrdit(self):
-        """Potvrzeni rezervace zakaznikovi.
+        """Záloha pro případ, že v řadě u sloupce žádná zpráva není.
 
-        Nejdriv se zkusi predloha z knihovny - tu si Honza muze
-        prepsat v editoru jako kterakoliv jinou zpravu. Datum a cas
-        si bere z karty ({{ object.hh_termin_kdy }}), a protoze se
-        posila az odtud, je uz termin ulozeny a pole vyplnena.
+        Potvrzení rezervace posílá řada e-mailů u sloupce Rezervace,
+        stejně jako u každého jiného sloupce nástěnky - Honza si ho
+        tam může přepsat, vypnout nebo přidat další zprávy. Spouští
+        se až po uložení termínu, takže datum a čas v něm sedí.
 
-        Kdyz predloha chybi nebo je vypnuta, odejde zabudovana
-        zprava nize. Rezervace nesmi zustat bez potvrzeni.
+        Když ale v té řadě žádná zapnutá zpráva není (nebo ji někdo
+        smaže), odejde zabudovaná zpráva níže. Rezervace nesmí
+        zůstat bez potvrzení.
         """
         self.ensure_one()
         if not self.email:
             return
 
-        predloha = self._hh_predloha_potvrzeni()
-        lead = self._hh_lead_pro_paticku()
-        if predloha and lead:
-            lead.invalidate_recordset(
-                ['hh_termin_kdy', 'hh_termin_delka', 'hh_termin_zruseni'])
-            if lead._hh_poslat_email_stupne(
-                    lead.stage_id, self.email, predloha):
-                return
+        if self._hh_rada_potvrdila():
+            return
 
         odkaz = self._hh_odkaz_na_zruseni()
         telo = (
@@ -550,19 +560,23 @@ class HhTermin(models.Model):
         self._hh_poslat(adresa, 'Nová rezervace úvodního hovoru', telo,
                         odpovedet=self.email)
 
-    def _hh_predloha_potvrzeni(self):
-        """Předloha potvrzení z knihovny, když tam nějaká je.
+    def _hh_rada_potvrdila(self):
+        """Poslala řada u sloupce potvrzení sama?
 
-        Štítek Potvrzení rezervace schválně nepatří žádnému sloupci:
-        zpráva se neposílá při přesunu karty, ale až odtud, kdy je
-        termín uložený. Při přesunu by v ní chybělo datum i čas -
-        karta se do sloupce Rezervace posouvá dřív, než se termín
-        zapíše.
+        Hledá se zpráva s odstupem nula - ta odchází ve chvíli, kdy
+        karta do sloupce vstoupí, a to je právě potvrzení rezervace.
+        Zprávy s odstupem (připomínka den předem) potvrzení
+        nenahrazují.
         """
-        return self.env['hh.mail.sablona'].sudo().search([
-            ('stitek_id.name', '=ilike', 'Potvrzení rezervace'),
+        self.ensure_one()
+        lead = self.lead_id
+        if not lead or not lead.stage_id:
+            return False
+        return bool(self.env['hh.mail.sablona'].sudo().search_count([
+            ('stitek_id', 'in', lead.stage_id.hh_stitek_ids.ids),
+            ('po_dnech', '=', 0),
             ('zapnuto', '=', True),
-        ], order='po_dnech, id', limit=1)
+        ]))
 
     def _hh_lead_pro_paticku(self):
         """Karta, ze ktere se vezme odkaz na odhlaseni.

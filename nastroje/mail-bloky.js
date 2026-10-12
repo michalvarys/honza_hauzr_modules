@@ -174,9 +174,25 @@ function blokDrobne(text) {
                 "padding-left:15px;padding-right:15px;text-align:center;");
 }
 
-/* Hlavička, obsah, jedna výzva k akci, podpis. Patičku s odhlášením
-   doplňuje modul (hh.mail.sablona._hh_srovnat_sablony), ať je
-   u všech zpráv stejná a nedá se z ní vypadnout. */
+/* Patička s odhlášením.
+
+   Do hotových zpráv ji doplňuje modul sám
+   (hh.mail.sablona._hh_srovnat_sablony podle PATICKA_BLOK
+   v crm_lead_maily.py), ať je u všech stejná a nedá se z ní
+   vypadnout. Tady stojí podruhé kvůli návrhu v galerii: nová
+   zpráva ji musí mít hned, ne až po nějakém srovnání.
+
+   Obě podoby musí zůstat stejné - kdyby se rozešly, srovnání by
+   u nové zprávy našlo odhlášení a druhou patičku už nepřidalo. */
+function paticka() {
+    return `        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
+          <div class="container s_allow_columns">
+            <p class="hh-drobne">{{ object.hh_paticka_odesilatel }}<br/>Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy Z autopilota zpět do života.<br/><a href="{{ object.hh_odkaz_odhlaseni }}" style="text-decoration:underline;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
+          </div>
+        </div>`;
+}
+
+/* Hlavička, obsah, jedna výzva k akci, podpis. */
 function bloky({ eyebrow, nadpis, telo, tlacitko, odkaz, pod, podpis,
                  osloveni = true }) {
     const kusy = [blokHlavicka()];
@@ -302,5 +318,5 @@ ${pod ? `
 module.exports = {
     KREM, GRAFIT, INKOUST, LINKA, SVETLA, SEDA, LOGO,
     P, OTAZKA, RAMECEK, UDAJE,
-    bloky, tabulky, kostra, STYLY,
+    bloky, tabulky, kostra, paticka, STYLY,
 };
