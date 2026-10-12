@@ -46,7 +46,8 @@ const ROLE = "Mentor pro muže &#183; Vlastní režie";
 const STYLY = `<style id="design-element">
 .o_mail_wrapper_td { background-color: ${KREM_KARTA} !important; border: 1px solid ${LINKA}; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: ${INKOUST}; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: ${INKOUST}; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: ${GRAFIT}; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: ${TAUPE}; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: ${BRONZ}; margin: 0; }

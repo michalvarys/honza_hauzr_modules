@@ -66,6 +66,91 @@ PATICKA_BLOK = (
     '        </div>'
 )
 
+# Tataz paticka v krémové (editorial) a tmavé podobě. Vzhledy maji
+# ruzne pozadi a v kazdem musi byt odkaz na odhlaseni videt - ve
+# svetle patice je odkaz bez barvy, takze by na tmave karte zustal
+# Bootstrapove fialovy a splynul.
+#
+# Ktera se pouzije, se pozna podle predpony trid ve zprave; vybira
+# to hh.mail.sablona._hh_s_patickou.
+PATICKA_BLOK_EDITORIAL = (
+    '        <div class="s_text_block o_mail_snippet_general hhe-paticka '
+    'pt24 pb24">\n'
+    '          <div class="container" style="padding-left:48px;'
+    'padding-right:48px;text-align:center;">\n'
+    '            <p class="hhe-odesilatel">%(odesilatel)s</p>\n'
+    '            <p style="margin-top:8px;">Tenhle e-mail ti přišel, '
+    'protože %(duvod)s.</p>\n'
+    '            <p style="margin-top:10px;"><a href="%(odhlaseni)s">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a></p>\n'
+    '          </div>\n'
+    '        </div>'
+)
+
+PATICKA_BLOK_TMAVA = (
+    '        <div class="s_text_block o_mail_snippet_general hht-paticka '
+    'pt24 pb24">\n'
+    '          <div class="container" style="padding-left:48px;'
+    'padding-right:48px;text-align:center;">\n'
+    '            <p class="hht-odesilatel">%(odesilatel)s</p>\n'
+    '            <p style="margin-top:8px;">Tenhle e-mail ti přišel, '
+    'protože %(duvod)s.</p>\n'
+    '            <p style="margin-top:10px;"><a href="%(odhlaseni)s">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a></p>\n'
+    '          </div>\n'
+    '        </div>'
+)
+
+# Totez pro podobu, ktera odchazi do posty. Tam zadne tridy
+# neplati, takze barvy stoji primo u znacek.
+PATICKA_EDITORIAL = (
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" style="background-color:#efe7d8;margin:0;padding:0;">'
+    '<tr><td align="center" style="padding:0 12px 32px 12px;">'
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" bgcolor="#23211d" style="width:100%%;max-width:600px;'
+    'background-color:#23211d;">'
+    '<tr><td align="center" '
+    'style="padding:28px 48px 30px 48px;font-family:Inter,Arial,sans-serif;'
+    'font-size:12px;line-height:19px;color:#9c958a;">'
+    '<span style="color:#d6cec1;">%(odesilatel)s</span><br/>'
+    'Tenhle e-mail ti přišel, protože %(duvod)s.<br/>'
+    '<a href="%(odhlaseni)s" style="color:#c08a52;text-decoration:underline;">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a>'
+    '</td></tr></table></td></tr></table>'
+)
+
+PATICKA_TMAVA = (
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" bgcolor="#0a0a0f" style="background-color:#0a0a0f;'
+    'margin:0;padding:0;">'
+    '<tr><td align="center" style="padding:0 12px 32px 12px;">'
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+    'width="100%%" bgcolor="#0a0a0f" style="width:100%%;max-width:600px;'
+    'background-color:#0a0a0f;border:1px solid #1e2c40;border-top:0;'
+    'border-radius:0 0 6px 6px;">'
+    '<tr><td align="center" '
+    'style="padding:28px 48px 30px 48px;font-family:Inter,Arial,sans-serif;'
+    'font-size:12px;line-height:19px;color:#c9d1da;">'
+    '<span style="color:#a9b0b9;">%(odesilatel)s</span><br/>'
+    'Tenhle e-mail ti přišel, protože %(duvod)s.<br/>'
+    '<a href="%(odhlaseni)s" style="color:#6bb5ff;text-decoration:underline;">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a>'
+    '</td></tr></table></td></tr></table>'
+)
+
+# Podle ceho se pozna vzhled zpravy.
+#
+# V podobe pro editor jsou tridy s vlastni predponou, viz
+# nastroje/mail-bloky*.js. V podobe pro postu zadne tridy nejsou -
+# styly stoji primo u znacek - takze se vzhled pozna podle barvy
+# pozadi, kterou zadny jiny nema.
+VZHLEDY = (
+    ('hht-', 'background-color:#111a26', PATICKA_TMAVA, PATICKA_BLOK_TMAVA),
+    ('hhe-', 'background-color:#efe7d8', PATICKA_EDITORIAL,
+     PATICKA_BLOK_EDITORIAL),
+)
+
 # Proc clovek zpravu dostal. Mel by to poznat i ten, kdo si uz
 # nepamatuje, kde nam adresu nechal - jinak oznaci zpravu jako spam
 # a poskodi tim dorucovani vsem ostatnim.

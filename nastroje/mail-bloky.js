@@ -71,7 +71,8 @@ const PANEL = ({ eyebrow, nadpis, cisla, text }) =>
    a bez té váhy navíc by přebily tu naši. */
 const STYLY = `<style id="design-element">
 .o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: ${INKOUST}; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; color: ${INKOUST}; }
 .o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: ${GRAFIT}; margin: 0 0 24px 0; }
 .o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: ${SVETLA}; margin: 0 0 14px 0; }
 .o_mail_wrapper .hh-tmave { color: ${GRAFIT}; }

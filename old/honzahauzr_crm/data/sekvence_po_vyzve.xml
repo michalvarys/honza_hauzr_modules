@@ -54,7 +54,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -258,7 +259,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -466,7 +468,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -654,7 +657,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -858,7 +862,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -1066,7 +1071,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
@@ -1270,7 +1276,8 @@
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }

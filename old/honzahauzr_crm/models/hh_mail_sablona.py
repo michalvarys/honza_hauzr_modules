@@ -20,7 +20,7 @@ _logger = logging.getLogger(__name__)
 # zaklada modul sam.
 STYLY_EDITORU = """<style id="design-element">
 .o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
+.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; color: #5d554b; }
 .o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
 .o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
 .o_mail_wrapper .hh-tmave { color: #23211d; }
@@ -228,16 +228,13 @@ class HhMailSablona(models.Model):
         Pouští se při každém upgradu a dělá jen to, co ještě není
         udělané - dá se to spustit opakovaně.
         """
-        from .crm_lead_maily import (
-            PATICKA, PATICKA_BLOK, DUVOD_VYZVA, ma_odhlaseni)
+        from .crm_lead_maily import DUVOD_VYZVA, ma_odhlaseni
 
         udaje = {
             'odesilatel': '{{ object.hh_paticka_odesilatel }}',
             'duvod': DUVOD_VYZVA,
             'odhlaseni': '{{ object.hh_odkaz_odhlaseni }}',
         }
-        paticka = PATICKA % udaje
-        paticka_blok = PATICKA_BLOK % udaje
 
         jazyky = [l.code for l in self.env['res.lang'].sudo().search(
             [('active', '=', True)])]
@@ -276,8 +273,7 @@ class HhMailSablona(models.Model):
                     if text != puvodni:
                         oriznuto += 1
                     if not ma_odhlaseni(text):
-                        text = self._hh_s_patickou(
-                            text, paticka, paticka_blok)
+                        text = self._hh_s_patickou(text, udaje)
                         doplneno += 1
                     if text != puvodni:
                         nove[jazyk] = text
@@ -294,7 +290,7 @@ class HhMailSablona(models.Model):
         return doplneno, oriznuto
 
     @api.model
-    def _hh_s_patickou(self, text, paticka, paticka_blok):
+    def _hh_s_patickou(self, text, udaje):
         """Přidá patičku tam, kam v dané podobě zprávy patří.
 
         Zpráva složená z bloků ji dostane jako další blok dovnitř
@@ -305,11 +301,24 @@ class HhMailSablona(models.Model):
 
         Zpráva v tabulkách (to, co odchází do pošty) ji dostane na
         konec, jak to bylo odjakživa.
+
+        Podoba patičky se řídí vzhledem zprávy. Světlá patička na
+        tmavé kartě vypadá jako omyl a hlavně v ní není vidět odkaz
+        na odhlášení - zůstal by Bootstrapově fialový a splynul by
+        s pozadím.
         """
+        from .crm_lead_maily import PATICKA, PATICKA_BLOK, VZHLEDY
+
+        tabulka, blok = PATICKA, PATICKA_BLOK
+        for znacka, znacka_tabulky, t, b in VZHLEDY:
+            if znacka in text or znacka_tabulky in text:
+                tabulka, blok = t, b
+                break
+
         if ma_bloky(text) and KONEC_OBSAHU in text:
             return text.replace(
-                KONEC_OBSAHU, paticka_blok + '\n' + KONEC_OBSAHU, 1)
-        return text + paticka
+                KONEC_OBSAHU, (blok % udaje) + '\n' + KONEC_OBSAHU, 1)
+        return text + (tabulka % udaje)
 
     @api.model
     def _hh_bez_escapovane_paticky(self, text):

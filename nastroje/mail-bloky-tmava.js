@@ -32,8 +32,8 @@ const PANEL_POZADI = "#0d141e";
 const LINKA = "#1e2c40";
 const LINKA_PANEL = "#243650";
 const BILA = "#ffffff";
-const TEXT = "#bfc3c9";
-const SEDA = "#7d8794";
+const TEXT = "#ffffff";
+const SEDA = "#c9d1da";
 const SEDA_SVETLA = "#a9b0b9";
 const MODRA = "#2aa6ee";
 const MODRA_SVETLA = "#6bb5ff";
@@ -51,7 +51,9 @@ const ROLE = "Mentor pro muže &#183; Vlastní režie";
 const STYLY = `<style id="design-element">
 .o_mail_wrapper_td { background-color: ${KARTA} !important; border: 1px solid ${LINKA}; border-radius: 6px; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: ${TEXT}; }
-.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+/* Barva musi byt primo na p. Bez toho ji prebije Bootstrap
+   (#212529) a text je na tmave karte skoro cerny. */
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: ${BILA}; }
 .o_mail_wrapper h1.hht-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 38px; line-height: 44px; font-weight: 700; letter-spacing: -0.4px; color: ${BILA}; margin: 14px 0 0 0; }
 .o_mail_wrapper .hht-znacka { font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: ${BILA}; margin: 0; }
 .o_mail_wrapper .hht-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: ${SEDA}; margin: 0; }
@@ -64,7 +66,7 @@ const STYLY = `<style id="design-element">
 .o_mail_wrapper .hht-panel-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 24px; line-height: 31px; font-weight: 700; color: ${BILA}; margin: 10px 0 0 0; }
 .o_mail_wrapper .hht-cislo { font-size: 26px; line-height: 30px; font-weight: 800; color: ${MODRA_SVETLA}; margin: 0; }
 .o_mail_wrapper .hht-popis { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: ${SEDA}; margin: 2px 0 0 0; }
-.o_mail_wrapper .hht-panel-text { font-size: 15px; line-height: 25px; color: ${TEXT}; margin: 18px 0 0 0; }
+.o_mail_wrapper .hht-panel-text { font-size: 15px; line-height: 25px; color: ${BILA}; margin: 18px 0 0 0; }
 .o_mail_wrapper .hht-otazka { background-color: ${PANEL_POZADI}; border-left: 3px solid ${MODRA}; border-radius: 6px; padding: 28px 30px; }
 .o_mail_wrapper .hht-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: ${BILA}; margin: 10px 0 0 0; }
 .o_mail_wrapper .hht-pod { font-size: 12.5px; line-height: 19px; color: ${SEDA}; margin: 14px 0 0 0; }
