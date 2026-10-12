@@ -41,7 +41,11 @@ const SEDA = "#857b6e";
 const ZELENA = "#35694a";
 const KREM_TLUMENY = "#b8b0a3";
 
-const LOGO = "/honzahauzr_crm/static/src/img/vr-logo-tmava.png";
+// Logo je obrazek s zapecenym pozadim, ne pruhledny - tmavy rezim
+// posty by pod pruhlednost podlozil svou barvu a znak by zmizel.
+// Proto ma kazdy vzhled svou kopii v barve sveho pruhu; tahle sedi
+// na grafitovou #23211d.
+const LOGO = "/honzahauzr_crm/static/src/img/vr-logo-rezervace.png";
 const ZNAK = "/honzahauzr_crm/static/src/img/hh-znak-email.png";
 
 const PODPIS = "Těším se, Honza";

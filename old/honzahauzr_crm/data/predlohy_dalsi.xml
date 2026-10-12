@@ -301,7 +301,7 @@
           <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-7">
-                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="150" style="width:150px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/vr-logo-rezervace.png" alt="Vlastní režie" width="150" style="width:150px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-5" style="text-align:right;">
                 <p class="hhr-jmeno">Honza Hauzr</p>
@@ -421,7 +421,7 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="150" height="28"
+                  <img src="/honzahauzr_crm/static/src/img/vr-logo-rezervace.png" alt="Vlastní režie" width="150" height="28"
                        style="display:block;border:0;outline:none;text-decoration:none;width:150px;height:28px;"/>
                 </td>
                 <td align="right" valign="middle"
