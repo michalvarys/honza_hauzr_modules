@@ -37,6 +37,18 @@ const MESICE = [
 ];
 
 /**
+ * "1 hovor", "3 hovory", "5 hovoru" - cestina sklonuje podle poctu.
+ * V kalendari je to jediny text, ktery o rezervaci rekne, takze
+ * spatny tvar by trcel.
+ */
+function pocetHovoru(n) {
+    if (n === 1) {
+        return "1 hovor";
+    }
+    return n < 5 ? `${n} hovory` : `${n} hovorů`;
+}
+
+/**
  * Okno pro rucni zapis, ze si termin nekdo domluvil.
  *
  * Nepouziva formular z Odoo zamerne: potrebuji jen ctyri policka
@@ -271,8 +283,16 @@ export class TerminyKalendar extends Component {
                     vypnuty: !this.rozvrh.dny[den.weekday - 1],
                     volnych: terminy.filter((t) => t.stav === "volny").length,
                     obsazenych: terminy.filter((t) => t.stav === "rezervovany").length,
+                    hovory: pocetHovoru(
+                        terminy.filter((t) => t.stav === "rezervovany").length),
                     preskrtnutych: terminy.filter((t) => t.stav === "zablokovany").length,
                     celkem: terminy.length,
+                    // Jmena do popisku pod mysi. Kdyz uz den trci,
+                    // at se da bez klikani zjistit, s kym to je.
+                    jmena: terminy
+                        .filter((t) => t.stav === "rezervovany")
+                        .map((t) => `${t.cas} ${t.jmeno || "rezervováno"}`)
+                        .join("\n"),
                 });
                 den = den.plus({ days: 1 });
             }

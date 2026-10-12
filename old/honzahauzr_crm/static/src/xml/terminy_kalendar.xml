@@ -17,8 +17,9 @@
                     <button class="hht-tlacitko" t-on-click="() => this.dnes()">Dnes</button>
                     <span class="hht-lista__nadpis" t-esc="nazevMesice"/>
                 </div>
+                <!-- Legenda jen pro tecku. Stitek "1 hovor" se vysvetli
+                     sam, vysvetlivka vedle nej uz jen pridava text. -->
                 <div class="hht-legenda">
-                    <span class="hht-legenda__kus"><span class="hht-tecka hht-tecka--rez"/> rezervovaný</span>
                     <span class="hht-legenda__kus"><span class="hht-tecka hht-tecka--pryc"/> přeškrtnutý</span>
                 </div>
             </t>
@@ -64,7 +65,7 @@
                 <t t-foreach="tydny" t-as="tyden" t-key="tyden[0].klic">
                     <div class="hht-mesic__tyden">
                         <t t-foreach="tyden" t-as="den" t-key="den.klic">
-                            <div t-attf-class="hht-den {{ den.cizi ? 'hht-den--cizi' : '' }} {{ den.dnes ? 'hht-den--dnes' : '' }} {{ den.minulost ? 'hht-den--minulost' : '' }} {{ den.vypnuty ? 'hht-den--vypnuty' : '' }} {{ den.celkem ? 'hht-den--ma' : 'hht-den--prazdny' }}"
+                            <div t-attf-class="hht-den {{ den.cizi ? 'hht-den--cizi' : '' }} {{ den.dnes ? 'hht-den--dnes' : '' }} {{ den.minulost ? 'hht-den--minulost' : '' }} {{ den.vypnuty ? 'hht-den--vypnuty' : '' }} {{ den.celkem ? 'hht-den--ma' : 'hht-den--prazdny' }} {{ den.obsazenych ? 'hht-den--rez' : '' }}"
                                  t-on-click="() => this.otevriDen(den)">
                                 <span class="hht-den__cislo" t-esc="den.cislo"/>
                                 <t t-if="den.celkem">
@@ -72,16 +73,20 @@
                                         <t t-if="den.volnych"><t t-esc="den.volnych"/> volných</t>
                                         <t t-else="">nic volného</t>
                                     </span>
-                                    <span class="hht-den__znacky">
-                                        <t t-if="den.obsazenych">
-                                            <span class="hht-tecka hht-tecka--rez"
-                                                  t-attf-title="{{ den.obsazenych }} rezervovaných"/>
-                                        </t>
-                                        <t t-if="den.preskrtnutych">
+                                    <!-- Domluveny hovor se cte, neluští: tecka u
+                                         cisla se prehlizela. -->
+                                    <t t-if="den.obsazenych">
+                                        <span class="hht-hovory" t-att-title="den.jmena">
+                                            <i class="fa fa-phone"/>
+                                            <t t-esc="den.hovory"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="den.preskrtnutych">
+                                        <span class="hht-den__znacky">
                                             <span class="hht-tecka hht-tecka--pryc"
                                                   t-attf-title="{{ den.preskrtnutych }} přeškrtnutých"/>
-                                        </t>
-                                    </span>
+                                        </span>
+                                    </t>
                                 </t>
                                 <t t-elif="den.minulost and !den.cizi">
                                     <span class="hht-den__vypnuto">proběhlo</span>
