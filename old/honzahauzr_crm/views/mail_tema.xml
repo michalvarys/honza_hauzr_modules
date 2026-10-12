@@ -114,7 +114,7 @@
 .o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
 .o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
-.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
 .o_mail_wrapper .hhe-paticka { background-color: #23211d; }
 .o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
 .o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
@@ -220,7 +220,7 @@
 .o_mail_wrapper .hht-pod { font-size: 12.5px; line-height: 19px; color: #c9d1da; margin: 14px 0 0 0; }
 .o_mail_wrapper .hht-linka-nad { border-top: 1px solid #1e2c40; }
 .o_mail_wrapper .hht-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0; }
-.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #c9d1da; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: #c9d1da; margin: 2px 0 0 0; }
 .o_mail_wrapper .hht-paticka { background-color: #0a0a0f; border-top: 1px solid #1e2c40; }
 .o_mail_wrapper .hht-paticka p { font-size: 12px; line-height: 19px; color: #c9d1da; margin: 0; }
 .o_mail_wrapper .hht-paticka .hht-odesilatel { color: #a9b0b9; }
@@ -300,6 +300,158 @@
           <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <p class="hht-odesilatel">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;</p>
             <p style="margin-top:8px;">Tenhle e-mail ti přišel, protože ses přihlásil k odběru e-mailů od Honzy Hauzra.</p>
+            <p style="margin-top:10px;"><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
+          </div>
+        </div>
+        </div>
+
+        <div data-name="vr_rezervace"
+             title="Vlastní režie — rezervace"
+             data-layout-styles="background-color:#efe7d8;"
+             data-img="/honzahauzr_crm/static/src/img/tema_rezervace">
+<style id="design-element">
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
+.o_mail_wrapper h1.hhr-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 36px; line-height: 42px; font-weight: 700; letter-spacing: -0.3px; color: #f4efe6; margin: 18px 0 0 0; }
+.o_mail_wrapper .hhr-hlava { background-color: #23211d; }
+.o_mail_wrapper .hhr-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhr-odznak { display: inline-block; background-color: #35694a; border-radius: 999px; padding: 7px 14px; font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hhr-podnadpis { font-size: 15px; line-height: 24px; color: #b8b0a3; margin: 12px 0 0 0; }
+.o_mail_wrapper .hhr-prah { height: 4px; background-color: #a06a37; font-size: 0; line-height: 4px; }
+.o_mail_wrapper .hhr-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhr-tmave { color: #23211d; }
+.o_mail_wrapper .hhr-karta { background-color: #ffffff; border: 1px solid #e3d9c8; border-left: 6px solid #a06a37; padding: 24px 26px; }
+.o_mail_wrapper .hhr-stitek { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhr-kdy { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 24px; line-height: 31px; font-weight: 700; color: #23211d; margin: 6px 0 0 0; }
+.o_mail_wrapper .hhr-nadlinka { border-top: 1px solid #efe7d8; padding-top: 16px; margin-top: 18px; }
+.o_mail_wrapper .hhr-popisek { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhr-hodnota { font-size: 15px; line-height: 23px; font-weight: 600; color: #23211d; margin: 5px 0 0 0; }
+.o_mail_wrapper .hhr-cislo { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhr-krok { font-size: 15px; line-height: 24px; color: #5d554b; margin: 0 0 14px 0; }
+.o_mail_wrapper .hhr-zruseni { background-color: #efe7d8; padding: 24px 26px 26px 26px; text-align: center; }
+.o_mail_wrapper .hhr-zruseni p { font-size: 15px; line-height: 24px; margin: 0; }
+.o_mail_wrapper .hhr-pod { font-size: 12px; line-height: 18px; color: #857b6e; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhr-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhr-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhr-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhr-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhr-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhr-paticka .hhr-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhr-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: transparent; border: 1px solid #a06a37; color: #a06a37; font-size: 11.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px 28px; border-radius: 3px; }
+</style>
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hhr-hlava pt24 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-7">
+                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="150" style="width:150px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhr-jmeno">Honza Hauzr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_title o_mail_snippet_general hhr-hlava pt8 pb40">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <p><span class="hhr-odznak">&#10003;&#160; Potvrzeno</span></p>
+            <h1 class="hhr-nadpis">Nadpis zprávy</h1>
+            <p class="hhr-podnadpis">Podnadpis pod ním</p>
+          </div>
+        </div>
+        <div class="s_hr o_mail_snippet_general">
+          <div class="container">
+            <div class="hhr-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt32 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhr-oslo">&#123;&#123; object.hh_osloveni &#125;&#125;</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>tenhle odstavec přepiš. Pod ním můžeš další bloky přidávat, posouvat i mazat — přetáhni si je z panelu vpravo.</p>
+          </div>
+        </div>
+        <div class="s_mail_alert o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hhr-karta">
+              <p class="hhr-stitek">Kdy</p>
+              <p class="hhr-kdy">čtvrtek 15. 10. ve 12:00</p>
+              <div class="row hhr-nadlinka">
+                <div class="col-6">
+                  <p class="hhr-popisek">Jak dlouho</p>
+                  <p class="hhr-hodnota">30 minut</p>
+                </div>
+                <div class="col-6">
+                  <p class="hhr-popisek">Forma</p>
+                  <p class="hhr-hodnota">Telefonát, volám já</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>Odstavec mezi kartou a kroky.</p>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">1</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Klidné místo.</strong> Najdi si chvíli, kdy tě nikdo neruší.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">2</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Papír po ruce.</strong> Hodí se, co sis zapsal během výzvy.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">3</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Telefon u sebe.</strong> Zavolám ti přesně v domluvený čas.</p>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="s_call_to_action o_mail_snippet_general pt24 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hhr-zruseni">
+              <p>Věta, proč a kdy má člověk tlačítko použít.</p>
+              <p style="margin-top:18px;"><a href="#" role="button" class="btn btn-primary">Text tlačítka</a></p>
+              <p class="hhr-pod">Drobná poznámka pod tlačítkem.</p>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general pt24 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-2">
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-10">
+                <p class="hhr-podpis">Těším se, Honza</p>
+                <p class="hhr-role">Mentor pro muže &#183; Vlastní režie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hhr-paticka pt24 pb24">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <p class="hhr-odesilatel">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;</p>
+            <p style="margin-top:8px;">Tenhle e-mail ti přišel, protože sis rezervoval úvodní hovor k programu Tvůj tah.</p>
             <p style="margin-top:10px;"><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
           </div>
         </div>

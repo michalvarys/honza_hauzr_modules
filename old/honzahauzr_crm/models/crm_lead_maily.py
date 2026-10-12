@@ -87,6 +87,20 @@ PATICKA_BLOK_EDITORIAL = (
     '        </div>'
 )
 
+PATICKA_BLOK_REZERVACE = (
+    '        <div class="s_text_block o_mail_snippet_general hhr-paticka '
+    'pt24 pb24">\n'
+    '          <div class="container" style="padding-left:48px;'
+    'padding-right:48px;text-align:center;">\n'
+    '            <p class="hhr-odesilatel">%(odesilatel)s</p>\n'
+    '            <p style="margin-top:8px;">Tenhle e-mail ti přišel, '
+    'protože %(duvod)s.</p>\n'
+    '            <p style="margin-top:10px;"><a href="%(odhlaseni)s">'
+    'Nechceš ode mě další e-maily? Odhlas se.</a></p>\n'
+    '          </div>\n'
+    '        </div>'
+)
+
 PATICKA_BLOK_TMAVA = (
     '        <div class="s_text_block o_mail_snippet_general hht-paticka '
     'pt24 pb24">\n'
@@ -141,15 +155,36 @@ PATICKA_TMAVA = (
 
 # Podle ceho se pozna vzhled zpravy.
 #
-# V podobe pro editor jsou tridy s vlastni predponou, viz
-# nastroje/mail-bloky*.js. V podobe pro postu zadne tridy nejsou -
-# styly stoji primo u znacek - takze se vzhled pozna podle barvy
-# pozadi, kterou zadny jiny nema.
+# Kazdy vzhled nese svou znacku: v podobe pro editor jako tridu na
+# obalu (hh-vzhled-rezervace), v podobe pro postu jako poznamku na
+# zacatku (hh-vzhled:rezervace). Vklada ji generator, viz
+# nastroje/mail-bloky*.js.
+#
+# Driv se vzhled poznaval podle barvy pozadi. Rezervace ma ale
+# stejnou kremovou jako editorial, takze barva uz rozhodnout
+# nedokaze - proto znacka.
+#
+# Rezervace sdili tabulkovou paticku s editorialem, vypada stejne;
+# lisi se jen predpona trid, kterou potrebuje editor.
 VZHLEDY = (
-    ('hht-', 'background-color:#111a26', PATICKA_TMAVA, PATICKA_BLOK_TMAVA),
-    ('hhe-', 'background-color:#efe7d8', PATICKA_EDITORIAL,
-     PATICKA_BLOK_EDITORIAL),
+    ('tmava', 'hht-', PATICKA_TMAVA, PATICKA_BLOK_TMAVA),
+    ('editorial', 'hhe-', PATICKA_EDITORIAL, PATICKA_BLOK_EDITORIAL),
+    ('rezervace', 'hhr-', PATICKA_EDITORIAL, PATICKA_BLOK_REZERVACE),
 )
+
+
+def paticky_vzhledu(text):
+    """Patička (tabulková, bloková) pro vzhled, ve kterém je zpráva.
+
+    Značka na obalu platí jen pro zprávy, které skládáme my.
+    Návrh vybraný z galerie obal nenese - ten kolem něj staví
+    Odoo - takže se vzhled pozná i podle předpony tříd.
+    """
+    for klic, predpona, tabulka, blok in VZHLEDY:
+        znacky = ('hh-vzhled-%s' % klic, 'hh-vzhled:%s' % klic, predpona)
+        if any(z in text for z in znacky):
+            return tabulka, blok
+    return PATICKA, PATICKA_BLOK
 
 # Proc clovek zpravu dostal. Mel by to poznat i ten, kdo si uz
 # nepamatuje, kde nam adresu nechal - jinak oznaci zpravu jako spam

@@ -21,13 +21,12 @@ const CIL = path.join(KOREN, "old/honzahauzr_crm/data/predlohy_dalsi.xml");
 
 /* Kazda z tech dvou zprav ma svuj vzhled:
      Chci odebirat  tmava podoba v barvach webu Honza Hauzr
-     Rezervace      puvodni svetla - potvrzeni hovoru je provozni
-                    zprava, ne pozvanka, a tmave pozadi by se k ni
-                    nehodilo
+     Rezervace      vlastni vzhled s kartou terminu
    Rozhrani obou stavebnic je stejne, takze se to da prehodit
    jednim radkem. */
 const { P, UDAJE, bloky, tabulky } = require("./mail-bloky.js");
 const tmava = require("./mail-bloky-tmava.js");
+const rezervace = require("./mail-bloky-rezervace.js");
 
 /* ---------------------------------------------------------------- */
 
@@ -54,20 +53,33 @@ const ODBER = {
 };
 
 const REZERVACE = {
-    eyebrow: "Úvodní hovor",
+    eyebrow: "Rezervace potvrzena",
     nadpis: "Termín máme domluvený.",
+    podnadpis: "Úvodní hovor k programu Tvůj tah",
     telo: [
-        P("rezervace proběhla v pořádku. Tady je, na čem jsme:"),
-        UDAJE([
-            "<strong>Kdy:</strong> {{ object.hh_termin_kdy }}",
-            "<strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}",
+        rezervace.P("rezervace proběhla v pořádku. Tady je, na čem jsme:"),
+        rezervace.TERMIN({
+            kdy: "{{ object.hh_termin_kdy }}",
+            udaje: [
+                ["Jak dlouho", "{{ object.hh_termin_delka }}"],
+                ["Forma", "Telefonát, volám já"],
+            ],
+        }),
+        rezervace.P("Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat. Stačí, že si na to vyhradíš klid."),
+        rezervace.KROKY([
+            ["Klidné místo.", "Najdi si chvíli, kdy tě nikdo neruší."],
+            ["Papír po ruce.", "Hodí se, co sis zapsal během výzvy."],
+            ["Telefon u sebe.", "Zavolám ti přesně v domluvený čas."],
         ]),
-        P("Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat &#8212; stačí, že si na to vyhradíš klid."),
-        P("Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Tlačítkem níž si termín zrušíš sám a uvolníš ho někomu dalšímu."),
+        rezervace.ZRUSENI({
+            text: "Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Termín zrušíš sám a uvolníš ho někomu dalšímu.",
+            tlacitko: "Zrušit termín",
+            // Osobni odkaz: kazdy termin ma vlastni klic, aby nesel
+            // zrusit cizi.
+            odkaz: "{{ object.hh_termin_zruseni }}",
+            pod: "Tlačítko použij jen tehdy, když opravdu nemůžeš.",
+        }),
     ],
-    tlacitko: "Zrušit termín",
-    odkaz: "{{ object.hh_termin_zruseni }}",
-    pod: "Tlačítko použij jen tehdy, když opravdu nemůžeš.",
 };
 
 /* ---------------------------------------------------------------- */
@@ -89,6 +101,7 @@ const PREDLOHY = [
         predmet: "Úvodní hovor je domluvený",
         preheader: "Tady je termín, na kterém jsme se domluvili.",
         zprava: REZERVACE,
+        vzhled: rezervace,
     },
 ];
 

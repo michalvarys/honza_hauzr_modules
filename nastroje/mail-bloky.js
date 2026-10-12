@@ -93,7 +93,7 @@ const STYLY = `<style id="design-element">
    bloku dostane jen <div> přímo pod ní. Proto je obsah složený
    z divů, ne z jedné velké tabulky jako dřív. */
 function kostra(obsah) {
-    return `<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:${KREM};" data-name="Mailing">
+    return `<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr hh-vzhled-svetla o_mass_mailing_no_theme" style="background-color:${KREM};" data-name="Mailing">
 ${STYLY}
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
@@ -279,7 +279,8 @@ ${radky.map((r) => tP(r, GRAFIT)).join("\n")}
 
 function tabulky({ eyebrow, nadpis, telo, tlacitko, odkaz, pod, podpis,
                    osloveni = true }) {
-    return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${KREM};margin:0;padding:0;">
+    return `<!-- hh-vzhled:svetla -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${KREM};margin:0;padding:0;">
   <tr>
     <td align="center" style="padding:24px 10px;">
 

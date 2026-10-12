@@ -48,9 +48,13 @@ def nahled(navrh, sirka, vyska, cesta):
     def pismo(cesta_pisma, rez, velikost):
         return ImageFont.truetype(cesta_pisma % rez, int(velikost * u))
 
+    if navrh.get('tmava_hlava'):
+        k.rectangle([okraj + 1, okraj + 1, S - okraj - 1, okraj + 26 * u],
+                    fill=barva(navrh['grafit']))
+
     y = okraj + 9 * u
     k.text((x, y), navrh['znacka'], font=pismo(ROBOTO, 'Bold', 5),
-           fill=barva(navrh['grafit']))
+           fill=barva('#f4efe6' if navrh.get('tmava_hlava') else navrh['grafit']))
     y += 11 * u
     k.line([(okraj, y), (S - okraj, y)], fill=barva(navrh['linka']),
            width=max(1, int(u)))
@@ -118,6 +122,14 @@ NAVRHY = {
         'grafit': '#23211d', 'akcent': '#a89681', 'sede': '#ded9d1',
         'tlacitko': '#23211d', 'znacka': 'VLASTNÍ REŽIE',
         'eyebrow': 'DEN 1 · VÝZVA', 'serif': False,
+    },
+    'tema_rezervace': {
+        'stranka': '#efe7d8', 'karta': '#f4efe6', 'linka': '#e3d9c8',
+        'grafit': '#23211d', 'akcent': '#a06a37', 'sede': '#ddd4c4',
+        'tlacitko': '#a06a37', 'znacka': 'VLASTNÍ REŽIE',
+        'eyebrow': 'REZERVACE POTVRZENA', 'serif': True,
+        'prah': True, 'tmavy_blok': True,
+        'blok': '#ffffff', 'blok_text': '#ddd4c4', 'tmava_hlava': True,
     },
     'tema_tmava': {
         'stranka': '#0a0a0f', 'karta': '#111a26', 'linka': '#1e2c40',

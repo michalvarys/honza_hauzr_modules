@@ -31,6 +31,7 @@ const NAVRHY = [
     require("./tema-vlastni-rezie.js"),
     require("./tema-editorial.js"),
     require("./tema-tmava.js"),
+    require("./tema-rezervace.js"),
 ];
 
 /* Návrhy, které do galerie dává Odoo. Tři z mass_mailing, zbytek

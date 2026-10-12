@@ -228,19 +228,27 @@ class HhMailSablona(models.Model):
         Pouští se při každém upgradu a dělá jen to, co ještě není
         udělané - dá se to spustit opakovaně.
         """
-        from .crm_lead_maily import DUVOD_VYZVA, ma_odhlaseni
+        from .crm_lead_maily import DUVOD_HOVOR, DUVOD_VYZVA, ma_odhlaseni
 
-        udaje = {
-            'odesilatel': '{{ object.hh_paticka_odesilatel }}',
-            'duvod': DUVOD_VYZVA,
-            'odhlaseni': '{{ object.hh_odkaz_odhlaseni }}',
-        }
+        def udaje_zpravy(zprava):
+            # Duvod musi sedet na to, co clovek doopravdy udelal.
+            # Komu potvrzujeme hovor, ten se do vyzvy hlasit nemusel
+            # - a kdyz si v paticce precte, ze mu pisem kvuli vyzve,
+            # oznaci zpravu jako spam a poskodi tim dorucovani vsem.
+            stitek = (zprava.stitek_id.name or '').lower()
+            return {
+                'odesilatel': '{{ object.hh_paticka_odesilatel }}',
+                'duvod': (DUVOD_HOVOR if stitek.startswith('rezervace')
+                          else DUVOD_VYZVA),
+                'odhlaseni': '{{ object.hh_odkaz_odhlaseni }}',
+            }
 
         jazyky = [l.code for l in self.env['res.lang'].sudo().search(
             [('active', '=', True)])]
         doplneno, oriznuto = 0, 0
 
         for zprava in self.sudo().with_context(active_test=False).search([]):
+            udaje = udaje_zpravy(zprava)
             for pole in ('body_html', 'body_arch'):
                 nove = {}
                 for jazyk in jazyky:
@@ -258,6 +266,9 @@ class HhMailSablona(models.Model):
                         continue
                     puvodni = text
                     text = self._hh_bez_escapovane_paticky(text)
+                    text = self._hh_bez_cizi_paticky(text)
+                    text = self._hh_spravny_duvod(text, udaje['duvod'])
+                    text = self._hh_radkovani_role(text)
                     text = self._hh_bez_zalozniho_odkazu(text)
                     # Adresy kalendare a vyzvy jsou pro vsechny
                     # stejne, takze zastupny text nema co resit -
@@ -307,18 +318,99 @@ class HhMailSablona(models.Model):
         na odhlášení - zůstal by Bootstrapově fialový a splynul by
         s pozadím.
         """
-        from .crm_lead_maily import PATICKA, PATICKA_BLOK, VZHLEDY
+        from .crm_lead_maily import paticky_vzhledu
 
-        tabulka, blok = PATICKA, PATICKA_BLOK
-        for znacka, znacka_tabulky, t, b in VZHLEDY:
-            if znacka in text or znacka_tabulky in text:
-                tabulka, blok = t, b
-                break
+        tabulka, blok = paticky_vzhledu(text)
 
         if ma_bloky(text) and KONEC_OBSAHU in text:
             return text.replace(
                 KONEC_OBSAHU, (blok % udaje) + '\n' + KONEC_OBSAHU, 1)
         return text + (tabulka % udaje)
+
+    @api.model
+    def _hh_radkovani_role(self, text):
+        """Doplní řádkování řádku pod podpisem.
+
+        "Mentor pro muže · Vlastní režie" se na mobilu zlomí na dva
+        řádky. Bez řádkování je prohlížeč slepí k sobě a verzálky
+        s prostrkáním vypadají jako překlep.
+
+        Zprávy jsou noupdate - Honza si je upravuje - takže se to
+        do už založených nedostane přes datový soubor a musí se
+        doplnit takhle. Pouští se opakovaně, podruhé nenajde nic.
+        """
+        for puvodni, nove in (
+            ('-role { font-size: 12px; letter-spacing: 1px;',
+             '-role { font-size: 12px; letter-spacing: 1px; '
+             'line-height: 19px;'),
+            ('font-size:12px;letter-spacing:1px;text-transform:uppercase;',
+             'font-size:12px;letter-spacing:1px;line-height:19px;'
+             'text-transform:uppercase;'),
+        ):
+            text = text.replace(puvodni, nove)
+        return text
+
+    @api.model
+    def _hh_spravny_duvod(self, text, duvod):
+        """Srovná v patičce důvod, proč zpráva člověku přišla.
+
+        Dřív se do všech zpráv psala výzva, protože jiné nebyly.
+        Potvrzení hovoru ale chodí i tomu, kdo ve výzvě nebyl -
+        a kdo si přečte, že mu píšeme kvůli něčemu, co nedělal,
+        označí zprávu jako spam. Tím zhorší doručování všem
+        ostatním.
+        """
+        from .crm_lead_maily import DUVOD_HOVOR, DUVOD_VYZVA
+
+        for jiny in (DUVOD_VYZVA, DUVOD_HOVOR):
+            if jiny != duvod:
+                text = text.replace('protože %s.' % jiny, 'protože %s.' % duvod)
+        return text
+
+    @api.model
+    def _hh_bez_cizi_paticky(self, text):
+        """Uklid po patickce z jineho vzhledu.
+
+        Nez se vzhled zacal poznavat podle znacky na obalu, hadal
+        se podle barvy pozadi - a rezervace ji ma stejnou jako
+        editorial. Zprave o rezervaci se proto pod jeji vlastni
+        paticku nalepila jeste editorial. Dvakrat odhlaseni pod
+        sebou, navic v cizich barvach.
+
+        Zprava si necha paticku svoji predpony, ostatni jdou pryc.
+        Bezi pri kazde aktualizaci, takze se to spravi i v databazi,
+        kde uz je takova zprava ulozena.
+
+        Rezat do textu se tady neda - blok je <div> a ma v sobe
+        dalsi, takze se jede po stromu dokumentu.
+        """
+        from lxml import html as lxml_html
+
+        from .crm_lead_maily import VZHLEDY
+
+        muj = None
+        for klic, predpona, _t, _b in VZHLEDY:
+            znacky = ("hh-vzhled-%s" % klic, "hh-vzhled:%s" % klic, predpona)
+            if any(z in text for z in znacky):
+                muj = predpona
+                break
+
+        cizi = ["%spaticka" % p for _k, p, _t, _b in VZHLEDY
+                if p != muj]
+        if not any(t in text for t in cizi):
+            return text
+
+        strom = lxml_html.fragment_fromstring(text, create_parent="div")
+        for trida in cizi:
+            for prvek in strom.xpath(
+                    '//div[contains(@class, "%s")]' % trida):
+                prvek.getparent().remove(prvek)
+
+        # fragment_fromstring pribalil vlastni obal, ten zpatky
+        # nepatri - vrati se jen jeho vnitrek.
+        vnitrek = (strom.text or "") + "".join(
+            lxml_html.tostring(d, encoding="unicode") for d in strom)
+        return vnitrek.strip()
 
     @api.model
     def _hh_bez_escapovane_paticky(self, text):

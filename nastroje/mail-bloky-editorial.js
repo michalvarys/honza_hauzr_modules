@@ -62,7 +62,7 @@ const STYLY = `<style id="design-element">
 .o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: ${SEDA}; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-linka-nad { border-top: 1px solid ${LINKA}; }
 .o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: ${GRAFIT}; margin: 0; }
-.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: ${TAUPE}; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: ${TAUPE}; margin: 2px 0 0 0; }
 .o_mail_wrapper .hhe-paticka { background-color: ${GRAFIT}; }
 .o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
 .o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
@@ -177,7 +177,7 @@ function paticka() {
    predloha. Drzime se jeho tvaru do pismene - jinak se zprava
    tvari jako prazdna a misto textu naskoci galerie predloh. */
 function kostra(obsah) {
-    return `<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:${KREM_STRANKA};" data-name="Mailing">
+    return `<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr hh-vzhled-editorial o_mass_mailing_no_theme" style="background-color:${KREM_STRANKA};" data-name="Mailing">
 ${STYLY}
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
@@ -249,7 +249,8 @@ ${radky.map((r) => tP(r, GRAFIT)).join("\n")}
 
 function tabulky({ eyebrow, nadpis, telo, tlacitko, odkaz, pod, podpis,
                    osloveni = true }) {
-    return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${KREM_STRANKA};margin:0;padding:0;">
+    return `<!-- hh-vzhled:editorial -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${KREM_STRANKA};margin:0;padding:0;">
   <tr>
     <td align="center" style="padding:32px 12px;">
 
@@ -318,7 +319,7 @@ ${tlacitko ? `
                 </td>
                 <td valign="middle" style="padding-top:26px;">
                   <p style="margin:0;font-family:${SERIF};font-size:19px;font-weight:700;color:${GRAFIT};">${podpis || PODPIS}</p>
-                  <p style="margin:2px 0 0 0;font-family:${PISMO};font-size:12px;letter-spacing:1px;text-transform:uppercase;color:${TAUPE};">${ROLE}</p>
+                  <p style="margin:2px 0 0 0;font-family:${PISMO};font-size:12px;letter-spacing:1px;line-height:19px;text-transform:uppercase;color:${TAUPE};">${ROLE}</p>
                 </td>
               </tr>
             </table>

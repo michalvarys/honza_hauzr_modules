@@ -37,7 +37,7 @@
         <field name="preheader">Tři dny, tři videa, tři konkrétní kroky. Zdarma.</field>
         <!-- body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#0a0a0f;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr hh-vzhled-tmava o_mass_mailing_no_theme" style="background-color:#0a0a0f;" data-name="Mailing">
 <style id="design-element">
 .o_mail_wrapper_td { background-color: #111a26 !important; border: 1px solid #1e2c40; border-radius: 6px; }
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #ffffff; }
@@ -62,7 +62,7 @@
 .o_mail_wrapper .hht-pod { font-size: 12.5px; line-height: 19px; color: #c9d1da; margin: 14px 0 0 0; }
 .o_mail_wrapper .hht-linka-nad { border-top: 1px solid #1e2c40; }
 .o_mail_wrapper .hht-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0; }
-.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #c9d1da; margin: 2px 0 0 0; }
+.o_mail_wrapper .hht-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: #c9d1da; margin: 2px 0 0 0; }
 .o_mail_wrapper .hht-paticka { background-color: #0a0a0f; border-top: 1px solid #1e2c40; }
 .o_mail_wrapper .hht-paticka p { font-size: 12px; line-height: 19px; color: #c9d1da; margin: 0; }
 .o_mail_wrapper .hht-paticka .hht-odesilatel { color: #a9b0b9; }
@@ -146,7 +146,8 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0a0a0f" style="background-color:#0a0a0f;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<!-- hh-vzhled:tmava -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0a0a0f" style="background-color:#0a0a0f;margin:0;padding:0;">
   <tr>
     <td align="center" style="padding:32px 12px;">
 
@@ -238,7 +239,7 @@
                 </td>
                 <td valign="middle" style="padding-top:26px;">
                   <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#ffffff;">Honza Hauzr</p>
-                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#c9d1da;">Mentor pro muže &#183; Vlastní režie</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;line-height:19px;text-transform:uppercase;color:#c9d1da;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -260,77 +261,145 @@
         <field name="preheader">Tady je termín, na kterém jsme se domluvili.</field>
         <!-- body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr hh-vzhled-rezervace o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-/* Barva musi byt primo na p, jinak ji prebije Bootstrap. */
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; color: #5d554b; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; color: #5d554b; }
+.o_mail_wrapper h1.hhr-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 36px; line-height: 42px; font-weight: 700; letter-spacing: -0.3px; color: #f4efe6; margin: 18px 0 0 0; }
+.o_mail_wrapper .hhr-hlava { background-color: #23211d; }
+.o_mail_wrapper .hhr-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhr-odznak { display: inline-block; background-color: #35694a; border-radius: 999px; padding: 7px 14px; font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; margin: 0; }
+.o_mail_wrapper .hhr-podnadpis { font-size: 15px; line-height: 24px; color: #b8b0a3; margin: 12px 0 0 0; }
+.o_mail_wrapper .hhr-prah { height: 4px; background-color: #a06a37; font-size: 0; line-height: 4px; }
+.o_mail_wrapper .hhr-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhr-tmave { color: #23211d; }
+.o_mail_wrapper .hhr-karta { background-color: #ffffff; border: 1px solid #e3d9c8; border-left: 6px solid #a06a37; padding: 24px 26px; }
+.o_mail_wrapper .hhr-stitek { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhr-kdy { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 24px; line-height: 31px; font-weight: 700; color: #23211d; margin: 6px 0 0 0; }
+.o_mail_wrapper .hhr-nadlinka { border-top: 1px solid #efe7d8; padding-top: 16px; margin-top: 18px; }
+.o_mail_wrapper .hhr-popisek { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhr-hodnota { font-size: 15px; line-height: 23px; font-weight: 600; color: #23211d; margin: 5px 0 0 0; }
+.o_mail_wrapper .hhr-cislo { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhr-krok { font-size: 15px; line-height: 24px; color: #5d554b; margin: 0 0 14px 0; }
+.o_mail_wrapper .hhr-zruseni { background-color: #efe7d8; padding: 24px 26px 26px 26px; text-align: center; }
+.o_mail_wrapper .hhr-zruseni p { font-size: 15px; line-height: 24px; margin: 0; }
+.o_mail_wrapper .hhr-pod { font-size: 12px; line-height: 18px; color: #857b6e; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhr-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhr-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhr-role { font-size: 12px; letter-spacing: 1px; line-height: 19px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhr-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhr-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhr-paticka .hhr-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhr-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: transparent; border: 1px solid #a06a37; color: #a06a37; font-size: 11.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px 28px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hhr-hlava pt24 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="150" style="width:150px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhr-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Úvodní hovor</p>
-            <h1>Termín máme domluvený.</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title o_mail_snippet_general hhr-hlava pt8 pb40">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <p><span class="hhr-odznak">&#10003;&#160; Rezervace potvrzena</span></p>
+            <h1 class="hhr-nadpis">Termín máme domluvený.</h1>
+            <p class="hhr-podnadpis">Úvodní hovor k programu Tvůj tah</p>
+          </div>
+        </div>
+        <div class="s_hr o_mail_snippet_general">
+          <div class="container">
+            <div class="hhr-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt32 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhr-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
           </div>
         </div>
-        <div class="s_mail_alert o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <div class="hh-ramecek">
-              <p><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
-              <p><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
+        <div class="s_mail_alert o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hhr-karta">
+              <p class="hhr-stitek">Kdy</p>
+              <p class="hhr-kdy">{{ object.hh_termin_kdy }}</p>
+              <div class="row hhr-nadlinka">
+                <div class="col-6">
+                  <p class="hhr-popisek">Jak dlouho</p>
+                  <p class="hhr-hodnota">{{ object.hh_termin_delka }}</p>
+                </div>
+                <div class="col-6">
+                  <p class="hhr-popisek">Forma</p>
+                  <p class="hhr-hodnota">Telefonát, volám já</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p>Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat &#8212; stačí, že si na to vyhradíš klid.</p>
-            <p>Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Tlačítkem níž si termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat. Stačí, že si na to vyhradíš klid.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
-            <a href="{{ object.hh_termin_zruseni }}" role="button" class="btn btn-primary">Zrušit termín</a>
+        <div class="s_text_block o_mail_snippet_general pt24 pb0">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">1</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Klidné místo.</strong> Najdi si chvíli, kdy tě nikdo neruší.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">2</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Papír po ruce.</strong> Hodí se, co sis zapsal během výzvy.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <p class="hhr-cislo">3</p>
+                </div>
+                <div class="col-11">
+                  <p class="hhr-krok"><strong class="hhr-tmave">Telefon u sebe.</strong> Zavolám ti přesně v domluvený čas.</p>
+                </div>
+              </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
-          <div class="container s_allow_columns">
-            <p class="hh-drobne">Tlačítko použij jen tehdy, když opravdu nemůžeš.</p>
+        <div class="s_call_to_action o_mail_snippet_general pt24 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="hhr-zruseni">
+              <p>Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
+              <p style="margin-top:18px;"><a href="{{ object.hh_termin_zruseni }}" role="button" class="btn btn-primary">Zrušit termín</a></p>
+              <p class="hhr-pod">Tlačítko použij jen tehdy, když opravdu nemůžeš.</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general pt24 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhr-podpis">Těším se, Honza</p>
+                <p class="hhr-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -339,23 +408,24 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<!-- hh-vzhled:rezervace -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#efe7d8" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#f4efe6" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
-        <!-- hlavicka: logo a jmeno -->
+        <!-- hlavicka: tmavy pas s logem -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td bgcolor="#23211d" style="padding:24px 48px 0 48px;background-color:#23211d;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/honzahauzr_crm/static/src/img/vr-logo-tmava.png" alt="Vlastní režie" width="150" height="28"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:150px;height:28px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -363,57 +433,91 @@
           </td>
         </tr>
 
-        <!-- obsah -->
+        <!-- nadpis v tmavem pasu -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Úvodní hovor</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Termín máme domluvený.</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
-              <tr>
-                <td style="padding:20px 22px 4px 22px;border:1px solid #e2dacb;">
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Kdy:</strong> {{ object.hh_termin_kdy }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Jak dlouho:</strong> {{ object.hh_termin_delka }}</p>
-                </td>
-              </tr>
-            </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat &#8212; stačí, že si na to vyhradíš klid.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Tlačítkem níž si termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
-          </td>
-        </tr>
-
-        <!-- jedina vyzva k akci -->
-        <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" bgcolor="#23211d" style="padding:24px 48px 42px 48px;background-color:#23211d;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
-                  <a href="{{ object.hh_termin_zruseni }}"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Zrušit termín</a>
+                <td bgcolor="#35694a" style="padding:7px 14px;border-radius:999px;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;">&#10003;&#160; Rezervace potvrzena</td>
+              </tr>
+            </table>
+            <h1 style="margin:18px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:36px;line-height:42px;font-weight:700;letter-spacing:-0.3px;color:#f4efe6;">Termín máme domluvený.</h1>
+            <p style="margin:12px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:15px;line-height:24px;color:#b8b0a3;">Úvodní hovor k programu Tvůj tah</p>
+          </td>
+        </tr>
+        <tr><td style="height:4px;background-color:#a06a37;line-height:4px;font-size:0;">&#160;</td></tr>
+
+        <!-- obsah -->
+        <tr>
+          <td style="padding:38px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">rezervace proběhla v pořádku. Tady je, na čem jsme:</p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="margin:4px 0 22px 0;background-color:#ffffff;border:1px solid #e3d9c8;">
+              <tr>
+                <td width="6" bgcolor="#a06a37" style="width:6px;background-color:#a06a37;font-size:0;line-height:0;">&#160;</td>
+                <td style="padding:24px 26px;">
+                  <div style="font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Kdy</div>
+                  <div style="margin-top:6px;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:24px;line-height:31px;font-weight:700;color:#23211d;">{{ object.hh_termin_kdy }}</div>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;border-top:1px solid #efe7d8;">
+                    <tr>
+                      <td width="50%" valign="top" style="padding:16px 12px 0 0;font-family:Inter,Arial,sans-serif;">
+                        <div style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">Jak dlouho</div>
+                        <div style="margin-top:5px;font-size:15px;line-height:23px;font-weight:600;color:#23211d;">{{ object.hh_termin_delka }}</div>
+                      </td>
+                      <td width="50%" valign="top" style="padding:16px 12px 0 0;font-family:Inter,Arial,sans-serif;">
+                        <div style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">Forma</div>
+                        <div style="margin-top:5px;font-size:15px;line-height:23px;font-weight:600;color:#23211d;">Telefonát, volám já</div>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td align="center" style="padding:6px 22px 24px 22px;">
-            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#8c8276;">Tlačítko použij jen tehdy, když opravdu nemůžeš.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Ozvu se ti na spojení, které jsi zadal. Nemusíš se nijak připravovat. Stačí, že si na to vyhradíš klid.</p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 8px 0;">
+                <tr>
+                  <td width="34" valign="top" style="padding:2px 0 14px 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:#a06a37;">1</td>
+                  <td valign="top" style="padding:0 0 14px 0;font-family:Inter,Arial,sans-serif;font-size:15px;line-height:24px;color:#5d554b;"><strong style="color:#23211d;">Klidné místo.</strong> Najdi si chvíli, kdy tě nikdo neruší.</td>
+                </tr>
+                <tr>
+                  <td width="34" valign="top" style="padding:2px 0 14px 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:#a06a37;">2</td>
+                  <td valign="top" style="padding:0 0 14px 0;font-family:Inter,Arial,sans-serif;font-size:15px;line-height:24px;color:#5d554b;"><strong style="color:#23211d;">Papír po ruce.</strong> Hodí se, co sis zapsal během výzvy.</td>
+                </tr>
+                <tr>
+                  <td width="34" valign="top" style="padding:2px 0 14px 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:#a06a37;">3</td>
+                  <td valign="top" style="padding:0 0 14px 0;font-family:Inter,Arial,sans-serif;font-size:15px;line-height:24px;color:#5d554b;"><strong style="color:#23211d;">Telefon u sebe.</strong> Zavolám ti přesně v domluvený čas.</td>
+                </tr>
+            </table>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#efe7d8" style="margin:14px 0 8px 0;background-color:#efe7d8;">
+              <tr>
+                <td align="center" style="padding:24px 26px 26px 26px;font-family:Inter,Arial,sans-serif;">
+                  <p style="margin:0;font-size:15px;line-height:24px;color:#5d554b;">Kdyby ti to nakonec nevyšlo, dej mi prosím vědět předem. Termín zrušíš sám a uvolníš ho někomu dalšímu.</p>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;">
+                    <tr>
+                      <td align="center" style="border:1px solid #a06a37;border-radius:3px;">
+                        <a href="{{ object.hh_termin_zruseni }}" style="display:inline-block;padding:13px 28px;font-family:Inter,Arial,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a06a37;text-decoration:none;border-radius:3px;">Zrušit termín</a>
+                      </td>
+                    </tr>
+                  </table>
+                  <div style="margin-top:10px;font-size:12px;line-height:18px;color:#857b6e;">Tlačítko použij jen tehdy, když opravdu nemůžeš.</div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:16px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Těším se, Honza</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;line-height:19px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
