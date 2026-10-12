@@ -29,6 +29,10 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # uprava website_form_input_filter nemusi dostat na radu
         # a puvod navstevnika by prebil obecny kanal "Website".
         'website_crm',
+        # Dava do galerie editoru jedenact dalsich navrhu. Je
+        # v zavislostech, protoze je z galerie schovavame - bez nej
+        # by se xpath na ne nenaslo a upgrade by spadl.
+        'mass_mailing_themes',
     ],
     'data': [
         'security/ir.model.access.csv',

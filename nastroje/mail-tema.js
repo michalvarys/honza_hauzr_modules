@@ -12,6 +12,9 @@
  * Obsah je schválně obecný — je to začátek nové zprávy, ne kopie
  * některé z těch, co už chodí.
  *
+ * Návrhy, které do galerie dává samo Odoo, se zároveň schovávají.
+ * Honza je nepoužije a hledal by mezi nimi ty svoje.
+ *
  * Spuštění:  node nastroje/mail-tema.js
  */
 
@@ -60,6 +63,20 @@ const zastupne = (t) => t
     .replace(/\{\{/g, "&#123;&#123;")
     .replace(/\}\}/g, "&#125;&#125;");
 
+/* Návrhy, které do galerie dává Odoo. Tři z mass_mailing, zbytek
+   z mass_mailing_themes - proto je ten modul v závislostech:
+   bez něj by se xpath na jeho návrhy nenašlo a upgrade by spadl. */
+const ODOO_NAVRHY = [
+    "basic", "empty", "default",
+    "bignews", "blogging", "coffeebreak", "coupon", "event",
+    "magazine", "newsletter", "promotion", "roadshow1", "roadshow2",
+    "training",
+];
+
+const SCHOVAT = ODOO_NAVRHY.map((nazev) =>
+    `        <xpath expr="//div[@data-name='${nazev}']" position="replace"/>`
+).join("\n");
+
 const xml = `<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
@@ -90,7 +107,7 @@ const xml = `<?xml version="1.0" encoding="utf-8"?>
 
 <template id="theme_vr_vyzva" inherit_id="mass_mailing.email_designer_themes"
           name="Vlastní režie — návrh do galerie">
-    <xpath expr="//div[@data-name='default']" position="after">
+    <xpath expr="." position="inside">
         <div data-name="vr_vyzva"
              title="Vlastní režie"
              data-layout-styles="background-color:${KREM};"
@@ -98,6 +115,24 @@ const xml = `<?xml version="1.0" encoding="utf-8"?>
 ${zastupne(VNITREK.trimEnd())}
         </div>
     </xpath>
+</template>
+
+<!-- ================================================================
+     NÁVRHY ODOO Z GALERIE PRYČ
+
+     Odoo jich tam dává čtrnáct — newsletter, kupón, konference…
+     Honza žádný z nich nepoužije a mezi nimi by hledal ty svoje.
+     Zůstávají jen naše.
+
+     Vrátit se dá kterýkoliv: stačí vyškrtnout jeho jméno ze
+     seznamu ODOO_NAVRHY v nastroje/mail-tema.js a soubor znovu
+     vyrobit.
+     ================================================================ -->
+
+<template id="galerie_bez_navrhu_odoo"
+          inherit_id="mass_mailing.email_designer_themes"
+          name="Galerie bez návrhů Odoo">
+${SCHOVAT}
 </template>
 
 </odoo>

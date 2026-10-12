@@ -28,7 +28,7 @@
 
 <template id="theme_vr_vyzva" inherit_id="mass_mailing.email_designer_themes"
           name="Vlastní režie — návrh do galerie">
-    <xpath expr="//div[@data-name='default']" position="after">
+    <xpath expr="." position="inside">
         <div data-name="vr_vyzva"
              title="Vlastní režie"
              data-layout-styles="background-color:#f4efe6;"
@@ -85,6 +85,37 @@
         </div>
         </div>
     </xpath>
+</template>
+
+<!-- ================================================================
+     NÁVRHY ODOO Z GALERIE PRYČ
+
+     Odoo jich tam dává čtrnáct — newsletter, kupón, konference…
+     Honza žádný z nich nepoužije a mezi nimi by hledal ty svoje.
+     Zůstávají jen naše.
+
+     Vrátit se dá kterýkoliv: stačí vyškrtnout jeho jméno ze
+     seznamu ODOO_NAVRHY v nastroje/mail-tema.js a soubor znovu
+     vyrobit.
+     ================================================================ -->
+
+<template id="galerie_bez_navrhu_odoo"
+          inherit_id="mass_mailing.email_designer_themes"
+          name="Galerie bez návrhů Odoo">
+        <xpath expr="//div[@data-name='basic']" position="replace"/>
+        <xpath expr="//div[@data-name='empty']" position="replace"/>
+        <xpath expr="//div[@data-name='default']" position="replace"/>
+        <xpath expr="//div[@data-name='bignews']" position="replace"/>
+        <xpath expr="//div[@data-name='blogging']" position="replace"/>
+        <xpath expr="//div[@data-name='coffeebreak']" position="replace"/>
+        <xpath expr="//div[@data-name='coupon']" position="replace"/>
+        <xpath expr="//div[@data-name='event']" position="replace"/>
+        <xpath expr="//div[@data-name='magazine']" position="replace"/>
+        <xpath expr="//div[@data-name='newsletter']" position="replace"/>
+        <xpath expr="//div[@data-name='promotion']" position="replace"/>
+        <xpath expr="//div[@data-name='roadshow1']" position="replace"/>
+        <xpath expr="//div[@data-name='roadshow2']" position="replace"/>
+        <xpath expr="//div[@data-name='training']" position="replace"/>
 </template>
 
 </odoo>
