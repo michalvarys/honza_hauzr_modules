@@ -47,6 +47,9 @@ const KREM_TLUMENY = "#b8b0a3";
 // na grafitovou #23211d.
 const LOGO = "/honzahauzr_crm/static/src/img/vr-logo-rezervace.png";
 const ZNAK = "/honzahauzr_crm/static/src/img/hh-znak-email.png";
+// Ilustrace do tmaveho pruhu: telefon a kalendar s fajfkou.
+// Ma stejne pozadi jako pruh, takze na nej navazuje bez svu.
+const HERO = "/honzahauzr_crm/static/src/img/rezervace-hero.png";
 
 const PODPIS = "Těším se, Honza";
 const ROLE = "Mentor pro muže &#183; Vlastní režie";
@@ -125,6 +128,11 @@ function blokHlavicka(eyebrow, nadpis, podnadpis) {
                 <p class="hhr-jmeno">Honza Hauzr</p>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="s_image o_mail_snippet_general hhr-hlava hhr-hero pt8 pb0">
+          <div class="container" style="padding-left:0;padding-right:0;">
+            <img src="${HERO}" alt="" style="width:100%;height:auto;display:block;" class="img-fluid"/>
           </div>
         </div>
         <div class="s_title o_mail_snippet_general hhr-hlava pt8 pb40">
@@ -385,6 +393,14 @@ function tabulky({ eyebrow, nadpis, podnadpis, telo, podpis,
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+
+        <!-- ilustrace: navazuje na pruh, ma stejne pozadi -->
+        <tr>
+          <td align="center" bgcolor="${GRAFIT}" style="padding:8px 0 0 0;background-color:${GRAFIT};">
+            <img src="${HERO}" alt="" width="600"
+                 style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:600px;height:auto;"/>
           </td>
         </tr>
 

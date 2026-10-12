@@ -289,6 +289,11 @@
             </div>
           </div>
         </div>
+        <div class="s_image o_mail_snippet_general hhr-hlava hhr-hero pt8 pb0">
+          <div class="container" style="padding-left:0;padding-right:0;">
+            <img src="/honzahauzr_crm/static/src/img/rezervace-hero.png" alt="" style="width:100%;height:auto;display:block;" class="img-fluid"/>
+          </div>
+        </div>
         <div class="s_title o_mail_snippet_general hhr-hlava pt8 pb40">
           <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;text-align:center;">
             <p><span class="hhr-odznak">&#10003;&#160; Potvrzeno</span></p>
