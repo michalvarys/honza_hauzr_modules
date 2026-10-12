@@ -25,7 +25,6 @@ const { P, bloky, tabulky } = require("./mail-bloky-editorial.js");
 /* Osobní odkaz do výzvy. Tenhle zástupný text zůstává: každý má
    vlastní klíč a otevřou se mu jen dny, které už má odemčené. */
 const ODKAZ = "{{ object.hh_vyzva_odkaz }}";
-const PODPIS = "Držím ti palce,<br/><strong>Honza Hauzr</strong>";
 
 const DNY = [
     {
@@ -84,7 +83,6 @@ const data = DNY.map((d) => {
         tlacitko: d.tlacitko,
         odkaz: ODKAZ,
         pod: d.pod,
-        podpis: PODPIS,
     };
     return {
         po_dnech: d.po_dnech,
