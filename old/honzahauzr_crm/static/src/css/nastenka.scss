@@ -25,12 +25,12 @@
    které si Odoo kreslí samo (vybraná karta, táhnutí). */
 .o_kanban_renderer .o_kanban_record:not(.o_legacy_kanban_record):not(.o_kanban_ghost) {
     &:has(.o_hh_stav_zelena) {
-        background-color: #eaf5ec;
+        background-color: #d4ecd9;
         box-shadow: inset 3px 0 0 #35694a;
     }
 
     &:has(.o_hh_stav_cervena) {
-        background-color: #fbecec;
+        background-color: #f8dcdc;
         box-shadow: inset 3px 0 0 #a33a3a;
     }
 }
