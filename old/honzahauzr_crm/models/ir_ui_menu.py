@@ -21,6 +21,7 @@ KAM_PATRI = {
     'hh_termin_menu_rezervace': ('hh_termin_menu', 20),
 
     'menu_hh_vyzva_sledovani': ('menu_hh_vykazy', 10),
+    'menu_hh_video': ('menu_hh_vykazy', 15),
     'menu_hh_zdroje': ('menu_hh_vykazy', 20),
     'menu_hh_web_klik': ('menu_hh_vykazy', 30),
 

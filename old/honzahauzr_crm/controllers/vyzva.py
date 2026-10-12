@@ -84,6 +84,9 @@ class HhVyzva(http.Controller):
         lead = request.env['crm.lead']._hh_vyzva_ucastnik(k or None)
         if not lead or str(den) not in ('1', '2', '3'):
             return {'zapsano': False}
+        # Od ted uz vime, ciji je relace: dalsi videa na jinych
+        # strankach pujde priradit i bez osobniho odkazu.
+        lead._hh_zapamatovat_cloveka()
 
         dny = {str(d['cislo']): d for d in lead.hh_vyzva_stav()}
         if not dny.get(str(den), {}).get('odemceno'):
@@ -91,9 +94,17 @@ class HhVyzva(http.Controller):
 
         try:
             request.env['hh.vyzva.sledovani'].sudo()._hh_zapsat(
-                lead, str(den),
+                lead, kw.get('video') or ('vyzva-den-%s' % den),
+                den=str(den),
                 sekund=int(sekund or 0), delka=int(delka or 0),
-                spustil=bool(spustil))
+                spustil=bool(spustil),
+                nazev=kw.get('nazev'), stranka=CIL)
+            # Do prehledu "Videa na webu" patri i dny vyzvy. Pocita
+            # se ze zaznamu po lidech, ne z jednotlivych hlaseni -
+            # ta chodi behem prehravani kazdych par vterin.
+            request.env['hh.video'].sudo()._hh_z_osobnich(
+                CIL, kw.get('video') or ('vyzva-den-%s' % den),
+                nazev=kw.get('nazev'), delka=int(delka or 0))
         except Exception as chyba:
             _logger.warning(
                 'Honza Hauzr CRM: sledovani dne %s se nezapsalo: %s',

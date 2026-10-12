@@ -49,12 +49,14 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         # cerstve databazi zustalo bez odhlaseni.
         'data/vyzva_den3.xml',
         'data/puvod_navstevniku.xml',
+        'data/videa_oznaceni.xml',
         'data/ir_cron_data.xml',
         'views/hh_mail_sablona_views.xml',
         'views/mail_tema.xml',
         'views/crm_stage_views.xml',
         'views/hh_vyzva_sledovani_views.xml',
         'views/hh_web_klik_views.xml',
+        'views/hh_video_views.xml',
         'views/crm_lead_zdroje_views.xml',
         # Menu az za akcemi - polozky na ne odkazuji.
         'views/menu.xml',
@@ -86,6 +88,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
             'honzahauzr_crm/static/src/js/vyzva_odpocet.js',
             'honzahauzr_crm/static/src/js/vyzva_sledovani.js',
             'honzahauzr_crm/static/src/js/web_klik.js',
+            'honzahauzr_crm/static/src/js/hh_video.js',
         ],
         # Strop pro editor textu e-mailu, aby dialog sloupce nerostl
         # s delkou zpravy. Visi na vlastni tride, takze na nic jineho

@@ -65,6 +65,12 @@
           action="action_hh_vyzva_sledovani"
           sequence="10"/>
 
+<menuitem id="menu_hh_video"
+          name="Videa na webu"
+          parent="menu_hh_vykazy"
+          action="action_hh_video"
+          sequence="15"/>
+
 <menuitem id="menu_hh_zdroje"
           name="Odkud lidé chodí"
           parent="menu_hh_vykazy"

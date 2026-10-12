@@ -33,6 +33,12 @@ _logger = logging.getLogger(__name__)
 # Pod timhle klicem sedi puvod v relaci navstevnika.
 KLIC_RELACE = 'hh_puvod'
 
+# Pod timhle klicem si relace drzi, ciji je. Diky tomu jde prehrane
+# video priradit konkretnimu cloveku i na strankach, kde zadny
+# osobni odkaz neni - treba kdyz se nekdo prihlasi do vyzvy a pak
+# si projde zbytek webu.
+KLIC_CLOVEKA = 'hh_lead'
+
 POLE = (
     ('utm_source', 'source_id', 'utm.source'),
     ('utm_medium', 'medium_id', 'utm.medium'),
@@ -392,4 +398,33 @@ class CrmLeadPuvod(models.Model):
         # existovalo. Dovyplni se ted.
         if z_relace:
             leady._hh_doplnit_puvod(z_relace)
+        if leady:
+            leady[0]._hh_zapamatovat_cloveka()
         return leady
+
+    def _hh_zapamatovat_cloveka(self):
+        """Poznamená si do relace, čí je.
+
+        Od téhle chvíle se dá přehrané video přiřadit konkrétnímu
+        člověku i na stránkách, kde žádný osobní odkaz není.
+        """
+        if not request or not self:
+            return
+        try:
+            request.session[KLIC_CLOVEKA] = self[0].id
+        except Exception:
+            _logger.exception(
+                'Honza Hauzr CRM: zapamatovani cloveka do relace selhalo.')
+
+    @api.model
+    def _hh_clovek_z_relace(self):
+        """Karta, ke které relace patří, nebo prázdná sada."""
+        if not request:
+            return self.browse()
+        try:
+            cislo = request.session.get(KLIC_CLOVEKA)
+        except Exception:
+            return self.browse()
+        if not cislo:
+            return self.browse()
+        return self.sudo().browse(cislo).exists()

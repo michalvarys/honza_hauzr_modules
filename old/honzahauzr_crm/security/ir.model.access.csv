@@ -9,3 +9,5 @@ access_hh_vyzva_sledovani_prodej,hh.vyzva.sledovani prodej,model_hh_vyzva_sledov
 access_hh_vyzva_sledovani_vedouci,hh.vyzva.sledovani vedouci,model_hh_vyzva_sledovani,sales_team.group_sale_manager,1,1,1,1
 access_hh_web_klik_prodej,hh.web.klik prodej,model_hh_web_klik,sales_team.group_sale_salesman,1,0,0,0
 access_hh_web_klik_vedouci,hh.web.klik vedouci,model_hh_web_klik,sales_team.group_sale_manager,1,1,1,1
+access_hh_video_prodej,hh.video prodej,model_hh_video,sales_team.group_sale_salesman,1,0,0,0
+access_hh_video_vedouci,hh.video vedouci,model_hh_video,sales_team.group_sale_manager,1,1,1,1

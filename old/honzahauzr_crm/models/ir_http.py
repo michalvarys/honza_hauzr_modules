@@ -59,9 +59,6 @@ class IrHttp(models.AbstractModel):
         odbocka = cls._hh_admin_patri_jinam()
         if odbocka is not None:
             return odbocka
-        # Odkud navstevnik prisel - do relace, at to prezije i cookie
-        # listu. Vysvetleni je v crm_lead_puvod.py.
-        cls._hh_zapamatovat_puvod()
         return super()._dispatch(endpoint)
 
     @classmethod
@@ -113,6 +110,14 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _post_dispatch(cls, response):
+        # Odkud navstevnik prisel - do relace, at to prezije i cookie
+        # listu. Vysvetleni je v crm_lead_puvod.py.
+        #
+        # Az tady, ne v _dispatch: bezne stranky webu zadnou routu
+        # nemaji a Odoo je obslouzi mimo nej (_serve_fallback), takze
+        # z _dispatch by se o prichodu na ne nikdo nedozvedel. Sem
+        # chodi kazdy pozadavek - stejne to resi i modul utm.
+        cls._hh_zapamatovat_puvod()
         try:
             cls._hh_vyrizni_zamcena_videa(response)
         except Exception:

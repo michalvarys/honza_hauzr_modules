@@ -112,6 +112,37 @@
                          z adresy, kterou člověk přišel, nebo z webu,
                          ze kterého na nás kliknul."/>
         </xpath>
+
+        <!-- Na co ten člověk koukal. Souhrn nahoře odpoví na "došel
+             výzvou?", tahle záložka na "a co ještě si pustil?" -
+             celý seznam videí i mimo výzvu, s procenty.
+
+             Jako záložka, ne na kartě: u člověka, který si projde
+             půlku webu, by to byl dlouhý seznam a kontakt s e-mailem
+             by se odsunul dolů. -->
+        <xpath expr="//notebook" position="inside">
+            <page string="Videa" name="hh_videa"
+                  invisible="not hh_sledovani_ids">
+                <field name="hh_sledovani_ids" readonly="1" nolabel="1">
+                    <list create="false" edit="false" delete="false"
+                          default_order="den, naposledy desc">
+                        <field name="nazev" string="Video"/>
+                        <field name="den" string="Den výzvy" optional="show"/>
+                        <field name="stranka" string="Na stránce"/>
+                        <field name="spusteno" string="Spustil"/>
+                        <field name="procento" string="Zhlédnuto"
+                               widget="progressbar"/>
+                        <field name="dokoukano" string="Dokoukal"
+                               widget="boolean_toggle" readonly="1"/>
+                        <field name="nejdale" string="Nejdál (s)"
+                               optional="hide"/>
+                        <field name="delka" string="Délka (s)"
+                               optional="hide"/>
+                        <field name="naposledy" string="Naposledy"/>
+                    </list>
+                </field>
+            </page>
+        </xpath>
     </field>
 </record>
 

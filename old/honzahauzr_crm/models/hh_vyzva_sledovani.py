@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Kdo kolik z videa výzvy opravdu viděl.
+"""Kdo kolik z kterého videa opravdu viděl.
 
 Honza potřebuje vědět víc než "poslal jsem mu e-mail". Zajímá ho,
 jestli člověk video vůbec pustil, kam se v něm dostal a jestli ho
 dokoukal - a jestli vůbec došel na druhý a třetí den.
 
-Jeden záznam = jeden člověk a jeden den. Píše do něj stránka výzvy,
-když video běží.
+Jeden záznam = jeden člověk a jedno video. Píše do něj stránka,
+na které video běží - kterákoliv, ne jen výzva. U třídenní výzvy
+je navíc vyplněný den, takže se podle něj dá dál řadit a filtrovat.
+
+Že za přehráváním stojí konkrétní člověk, se pozná z relace: jakmile
+někdo odešle formulář nebo otevře svůj osobní odkaz, drží si ji web
+dál. Kdo se nikdy nepředstavil, zůstává jen v souhrnu za video
+(hh.video) a tady nemá nic.
 
 Co se měří a co ne
 ------------------
@@ -51,9 +57,30 @@ class HhVyzvaSledovani(models.Model):
     )
     den = fields.Selection(
         selection=[('1', 'Den 1'), ('2', 'Den 2'), ('3', 'Den 3')],
-        string='Den',
-        required=True,
+        string='Den výzvy',
         index=True,
+        help='Vyplněné jen u tří videí třídenní výzvy. U ostatních '
+             'videí na webu zůstává prázdné.',
+    )
+
+    # Oznaceni videa. Klic zaznamu: jeden clovek muze mit u jednoho
+    # videa jen jeden radek, at ho pousti kolikrat chce.
+    video = fields.Char(
+        string='Označení videa',
+        index=True,
+        help='Kód videa na YouTube, nebo název souboru u videa '
+             'nahraného přímo na web.\n\n'
+             'Prázdné zůstane jen u záznamů z doby, kdy se '
+             'sledovala pouze tři videa výzvy a označení se '
+             'nevedlo.',
+    )
+    nazev = fields.Char(
+        string='Video',
+        help='Název, jak ho hlásí přehrávač.',
+    )
+    stranka = fields.Char(
+        string='Stránka',
+        help='Kde to video člověk pustil.',
     )
 
     otevreno = fields.Datetime(
@@ -105,16 +132,16 @@ class HhVyzvaSledovani(models.Model):
                 z.procento = 0
             z.dokoukano = z.procento >= DOKOUKANO_OD
 
-    @api.depends('lead_id', 'den', 'procento')
+    @api.depends('lead_id', 'den', 'nazev', 'video', 'procento')
     def _compute_display_name(self):
         for z in self:
-            z.display_name = '%s · den %s · %s %%' % (
-                z.lead_id.contact_name or z.lead_id.email_from or '?',
-                z.den or '?', z.procento)
+            kdo = z.lead_id.contact_name or z.lead_id.email_from or '?'
+            co = ('den %s' % z.den) if z.den else (z.nazev or z.video)
+            z.display_name = '%s · %s · %s %%' % (kdo, co, z.procento)
 
     _sql_constraints = [
-        ('jeden_zaznam_na_den', 'UNIQUE(lead_id, den)',
-         'Sledování se u každého dne vede jen jednou.'),
+        ('jeden_zaznam_na_video', 'UNIQUE(lead_id, video)',
+         'Sledování se u každého videa vede jen jednou.'),
     ]
 
     # ------------------------------------------------------------------
@@ -122,35 +149,67 @@ class HhVyzvaSledovani(models.Model):
     # ------------------------------------------------------------------
 
     @api.model
-    def _hh_zapsat(self, lead, den, sekund=None, delka=None, spustil=False):
+    def _hh_zapsat(self, lead, video, den=None, sekund=None, delka=None,
+                   spustil=False, nazev=None, stranka=None):
         """Založí nebo doplní záznam. Vrací ho.
 
         Volá se z webu u veřejného návštěvníka, proto sudo. Zapisuje
         se jen dopředu: nejdál dosažená vteřina nikdy neklesne, takže
         opakované přehrání ani přetáčení dozadu statistiku nesmaže.
+
+        Klíčem je video, ne den: tentýž člověk může koukat i na videa
+        mimo výzvu a u těch žádný den není.
         """
-        if not lead or den not in ('1', '2', '3'):
+        video = (video or '').strip()[:120]
+        if not lead or not video:
             return self.browse()
 
         ted = fields.Datetime.now()
         zaznam = self.sudo().search(
-            [('lead_id', '=', lead.id), ('den', '=', den)], limit=1)
+            [('lead_id', '=', lead.id), ('video', '=', video)], limit=1)
         if not zaznam:
             zaznam = self.sudo().create({
-                'lead_id': lead.id, 'den': den, 'otevreno': ted})
+                'lead_id': lead.id, 'video': video, 'otevreno': ted})
 
         zapis = {'naposledy': ted}
         if not zaznam.otevreno:
             zapis['otevreno'] = ted
         if spustil and not zaznam.spusteno:
             zapis['spusteno'] = ted
-        if delka and delka > 0:
+        if delka and int(delka) > 0:
             zapis['delka'] = int(delka)
         if sekund and int(sekund) > zaznam.nejdale:
             zapis['nejdale'] = int(sekund)
+        if den in ('1', '2', '3') and zaznam.den != den:
+            zapis['den'] = den
+        if nazev and not zaznam.nazev:
+            zapis['nazev'] = nazev.strip()[:200]
+        if stranka and not zaznam.stranka:
+            zapis['stranka'] = stranka.strip()[:200]
 
         zaznam.sudo().write(zapis)
         return zaznam
+
+
+    @api.model
+    def _hh_doplnit_oznaceni(self):
+        """Doplní označení videa u záznamů z doby, kdy se nevedlo.
+
+        Tehdy se sledovala jen tři videa výzvy a klíčem byl den.
+        Dnes je klíčem video, protože se měří i videa na ostatních
+        stránkách. Starým řádkům se proto dosadí zástupné označení
+        podle dne - číslo je zachované, jen dostane jméno.
+
+        Pouští se při každém upgradu a podruhé už nic nezmění.
+        """
+        stare = self.sudo().search([('video', '=', False)])
+        for zaznam in stare:
+            zaznam.video = 'vyzva-den-%s' % (zaznam.den or '0')
+        if stare:
+            _logger.info(
+                'Honza Hauzr CRM: %s zaznamu sledovani dostalo '
+                'oznaceni videa.', len(stare))
+        return len(stare)
 
 
 class CrmLeadSledovani(models.Model):

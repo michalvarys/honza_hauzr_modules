@@ -2,14 +2,18 @@
 <odoo>
 
 <!-- =================================================================
-     SLEDOVÁNÍ VIDEÍ VÝZVY
+     ZHLÉDNUTÍ VIDEÍ PO LIDECH
 
-     Odpovídá na to, co Honza chce vědět: kdo video pustil, kam se
-     dostal a jestli došel i na další dny.
+     Odpovídá na to, co Honza chce vědět u konkrétního člověka:
+     na která videa koukal, kam se v nich dostal a jestli je
+     dokoukal. Netýká se to jen tří dnů výzvy - sem padne každé
+     video na webu, u kterého se dá poznat, kdo ho pustil.
 
-     Seznam je seskupený po dnech - tak je hned vidět, kolik lidí
-     z prvního dne vůbec došlo na druhý a třetí. Čísla se nedají
-     upravovat, píše je stránka výzvy.
+     Seznam je seskupený po dnech výzvy, tak je hned vidět, kolik
+     lidí z prvního dne vůbec došlo na druhý a třetí. Videa mimo
+     výzvu nemají den vyplněný a sednou do skupiny "Nepřiřazeno".
+
+     Čísla se nedají upravovat, píše je stránka.
      ================================================================= -->
 
 <record id="view_hh_vyzva_sledovani_list" model="ir.ui.view">
@@ -20,6 +24,8 @@
               default_order="den, procento desc">
             <field name="den"/>
             <field name="lead_id" string="Člověk"/>
+            <field name="nazev" string="Video" optional="show"/>
+            <field name="stranka" string="Na stránce" optional="hide"/>
             <field name="spusteno" string="Spustil" optional="show"/>
             <!-- Pruh misto holeho cisla: v seznamu dvaceti radku jde
                  tak poznat na prvni pohled, kdo dojel a kdo odpadl
@@ -41,6 +47,15 @@
     <field name="arch" type="xml">
         <search string="Sledování videí">
             <field name="lead_id"/>
+            <field name="nazev" string="Video"/>
+            <field name="stranka" string="Stránka"/>
+            <filter string="Jen výzva" name="jen_vyzva"
+                    domain="[('den', '!=', False)]"
+                    help="Jen tři videa třídenní výzvy."/>
+            <filter string="Mimo výzvu" name="mimo_vyzvu"
+                    domain="[('den', '=', False)]"
+                    help="Videa na ostatních stránkách webu."/>
+            <separator/>
             <filter string="Dokoukali" name="dokoukali"
                     domain="[('dokoukano', '=', True)]"/>
             <filter string="Nedokoukali" name="nedokoukali"
@@ -53,6 +68,10 @@
             <group expand="1" string="Seskupit podle">
                 <filter string="Den" name="podle_dne"
                         context="{'group_by': 'den'}"/>
+                <filter string="Video" name="podle_videa"
+                        context="{'group_by': 'nazev'}"/>
+                <filter string="Člověk" name="podle_cloveka"
+                        context="{'group_by': 'lead_id'}"/>
                 <filter string="Dokoukal" name="podle_dokoukani"
                         context="{'group_by': 'dokoukano'}"/>
             </group>

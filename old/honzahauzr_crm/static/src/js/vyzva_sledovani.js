@@ -25,6 +25,10 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 import { rpc } from "@web/core/network/rpc";
 
 const CIL = "/zpet-do-zivota/vyzva/sledovani";
+// Do souhrnu za video (Videa na webu) se dny vyzvy dostanou taky,
+// ale dopocita je server ze zaznamu po lidech - viz
+// hh.video._hh_z_osobnich. Odsud se posila jen tohle jedno hlaseni.
+
 
 // Jak casto se hlasi postup u beziciho videa. Deset vterin je
 // kompromis: pri kratsim intervalu by se server ptal zbytecne casto,
@@ -62,6 +66,13 @@ function nactiApi() {
         document.head.appendChild(znacka);
     });
     return apiSlibena;
+}
+
+/** Kod videa z adresy YouTube. Podle nej se pozna totez video. */
+function kodYoutube(adresa) {
+    const shoda = (adresa || "").match(
+        /(?:embed\/|v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    return shoda ? shoda[1] : "";
 }
 
 /**
@@ -103,6 +114,7 @@ publicWidget.registry.hhVyzvaSledovani = publicWidget.Widget.extend({
         this.prehravace = [];
         this.intervaly = [];
         this.nejdale = {};
+        this.kody = {};
 
         try {
             await this._nasad();
@@ -144,6 +156,7 @@ publicWidget.registry.hhVyzvaSledovani = publicWidget.Widget.extend({
                 continue;
             }
             povolRozhrani(ram);
+            this.kody[den] = kodYoutube(ram.getAttribute("src"));
             ramy.push({ den, ram });
         }
         if (!ramy.length) {
@@ -212,13 +225,24 @@ publicWidget.registry.hhVyzvaSledovani = publicWidget.Widget.extend({
         }
         this.nejdale[den] = Math.max(this.nejdale[den] || 0, sekund);
 
+        let nazev = "";
+        try {
+            nazev = (prehravac.getVideoData() || {}).title || "";
+        } catch (chyba) {
+            nazev = "";
+        }
+        const kod = this.kody[den] || ("vyzva-den-" + den);
+
         const klic = new URLSearchParams(window.location.search).get("k");
-        const data = { den, sekund, delka, spustil: !!spustil };
+        const data = {
+            den, sekund, delka, spustil: !!spustil, video: kod, nazev,
+        };
         if (klic) {
             data.k = klic;
         }
         // Zamerne bez await a bez hlaseni chyb: statistika nesmi
         // zdrzet ani prerusit prehravani.
         rpc(CIL, data).catch(() => {});
+
     },
 });

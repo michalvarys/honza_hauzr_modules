@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--
+    Doplnění označení videa u starých záznamů sledování.
+
+    Dřív se měřila jen tři videa třídenní výzvy a klíčem byl den.
+    Dnes je klíčem video, protože se měří i videa na ostatních
+    stránkách — a řádky z té doby by bez označení zůstaly stranou.
+    Číslo se jim zachová, jen dostane jméno.
+
+    Mimo blok s noupdate schválně: tam se funkce při upgradu
+    přeskakují. Tahle se pustí pokaždé a podruhé už nic nezmění.
+-->
+<data>
+    <function model="hh.vyzva.sledovani" name="_hh_doplnit_oznaceni"/>
+</data>
+
+</odoo>
