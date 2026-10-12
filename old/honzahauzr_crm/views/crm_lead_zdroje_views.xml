@@ -59,7 +59,7 @@
             <field name="contact_name" string="Jméno"/>
             <field name="email_from" string="E-mail" optional="show"/>
             <field name="source_id" string="Odkud"/>
-            <field name="medium_id" string="Kanál" optional="show"/>
+            <field name="medium_id" string="Kanál" optional="hide"/>
             <field name="campaign_id" string="Kampaň" optional="hide"/>
             <field name="hh_zdroj" string="Formulář" optional="show"/>
             <field name="hh_sekce" string="Sekce" optional="hide"/>

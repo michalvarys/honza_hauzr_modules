@@ -97,22 +97,20 @@
                    invisible="not hh_sledovani_ids"
                    help="Kolik procent videa má člověk za sebou u každého
                          ze tří dnů. Fajfka = dokoukal."/>
-            <!-- Odkud clovek prisel. Pole jsou Odoo (utm.mixin)
-                 a plni se sama, viz models/crm_lead_puvod.py.
-                 Odoo je v zakladu schovava do zalozky Dalsi info,
-                 kam Honza nechodi - tady jsou rovnou na karte.
-                 Kanal a kampan se ukazou, jen kdyz je co ukazat:
-                 u cloveka z neotagovaneho odkazu by to byly dva
-                 prazdne radky navic. -->
+            <!-- Odkud clovek prisel. Pole je Odoo (utm.mixin)
+                 a plni se samo, viz models/crm_lead_puvod.py.
+                 Odoo ho v zakladu schovava do zalozky Dalsi info,
+                 kam Honza nechodi - tady je rovnou na karte.
+
+                 Kanal a kampan na karte zamerne nejsou: Honza chce
+                 vedet, jestli clovek prisel z Instagramu nebo
+                 z Facebooku, a nic vic. Kdo je potrebuje, najde je
+                 pod "Vice informaci" jako doposud. -->
             <field name="source_id" string="Odkud přišel"
                    options="{'no_create_edit': True}"
-                   help="Instagram, Google, odkaz v e-mailu… Pozná se
+                   help="Instagram, Facebook, TikTok, Google… Pozná se
                          z adresy, kterou člověk přišel, nebo z webu,
                          ze kterého na nás kliknul."/>
-            <field name="medium_id" string="Kanál" readonly="1"
-                   invisible="not medium_id"/>
-            <field name="campaign_id" string="Kampaň" readonly="1"
-                   invisible="not campaign_id"/>
         </xpath>
     </field>
 </record>
