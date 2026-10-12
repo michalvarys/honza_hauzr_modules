@@ -28,7 +28,6 @@ const KOREN = path.join(__dirname, "..");
 const CIL = path.join(KOREN, "old/honzahauzr_crm/views/mail_tema.xml");
 
 const NAVRHY = [
-    require("./tema-vlastni-rezie.js"),
     require("./tema-editorial.js"),
     require("./tema-tmava.js"),
     require("./tema-rezervace.js"),

@@ -117,12 +117,6 @@ def nahled(navrh, sirka, vyska, cesta):
 
 
 NAVRHY = {
-    'tema_vr': {
-        'stranka': '#f4efe6', 'karta': '#ffffff', 'linka': '#e2dacb',
-        'grafit': '#23211d', 'akcent': '#a89681', 'sede': '#ded9d1',
-        'tlacitko': '#23211d', 'znacka': 'VLASTNÍ REŽIE',
-        'eyebrow': 'DEN 1 · VÝZVA', 'serif': False,
-    },
     'tema_rezervace': {
         'stranka': '#efe7d8', 'karta': '#f4efe6', 'linka': '#e3d9c8',
         'grafit': '#23211d', 'akcent': '#a06a37', 'sede': '#ddd4c4',
