@@ -134,7 +134,12 @@
             <field name="hh_meet_odeslano" invisible="1"/>
             <label for="hh_meet_odkaz" string="Odkaz na hovor"
                    invisible="not hh_meet_mozny"/>
-            <div class="o_row" invisible="not hh_meet_mozny">
+            <!-- Tlacitko hned za polem, ne na konci radku. Bez
+                 omezene sirky se pole roztahne pres celou kartu
+                 a tlacitko odskoci az k pravemu okraji - viz
+                 o_hh_meet v static/src/css/nastenka.scss. -->
+            <div class="o_hh_meet d-flex align-items-center flex-wrap"
+                 invisible="not hh_meet_mozny">
                 <field name="hh_meet_odkaz" nolabel="1"
                        placeholder="https://meet.google.com/..."
                        class="oe_inline"/>
@@ -144,7 +149,7 @@
                         invisible="not hh_meet_odkaz"
                         confirm="Odejde zpráva s tlačítkem na tenhle odkaz. Poslat?"
                         help="Pošle člověku zprávu, ve které tlačítko vede na tenhle odkaz."/>
-                <span class="text-muted ms-2"
+                <span class="text-muted small ms-2"
                       invisible="not hh_meet_odeslano">
                     odesláno <field name="hh_meet_odeslano"
                                     widget="date" nolabel="1"
