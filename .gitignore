@@ -8,3 +8,6 @@ __pycache__/
 
 # Videa se do gitu nedavaji - jsou velka a do balicku nepatri.
 videa/
+
+# Docasny nahled e-mailu z testovani
+ukazka-emailu.html
