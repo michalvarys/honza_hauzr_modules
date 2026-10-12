@@ -2,15 +2,32 @@
 <odoo>
 
 <!--
-    Každý sloupec nástěnky dostane svou řadu e-mailů.
+    Nástěnka a řady e-mailů, aby po instalaci stály celé.
 
+    _hh_zajistit_nastenku složí sloupce. Tři z nich jsou na Honzově
+    databázi přejmenované výchozí sloupce Odoo (New, Qualified,
+    Proposition) - přejmenoval je kdysi někdo v administraci, takže
+    na nové instalaci by se jmenovaly po staru a nic by je nenašlo.
+    Hledání řady třídenní výzvy jde podle jména, takže by se zprávy
+    neposlaly vůbec.
+
+    Skládá se jen jednou, pak si nástěnku Honza upravuje sám. Co už
+    existuje, dostane jen odkaz na modul (xmlid), ať se na to dá
+    odkázat z datových souborů.
+
+    _hh_doplnit_stitky pak každému sloupci dá jeho řadu e-mailů.
     V knihovně se zprávy řadí podle štítku a sloupec bez štítku se
-    v ní vůbec neukáže - musel by se pro něj zakládat ručně
-    a pamatovat si, že se jmenuje stejně jako sloupec.
+    v ní vůbec neukáže.
 
-    Pouští se při každém upgradu modulu, takže sloupce přidané
-    později se doplní samy. Co už štítek má, se nechává být.
+    Obojí se pouští při každém upgradu a podruhé už nic nezmění.
 -->
+<function model="crm.stage" name="_hh_zajistit_nastenku"/>
 <function model="crm.stage" name="_hh_doplnit_stitky"/>
+<!--
+    Az nakonec: srovnani poradi v sekvence_po_vyzve.xml bezi driv,
+    nez nastenka vubec stoji, takze by nove zalozene sloupce
+    zustaly v poradi, v jakem nahodou vznikly.
+-->
+<function model="crm.stage" name="_hh_srovnat_poradi"/>
 
 </odoo>

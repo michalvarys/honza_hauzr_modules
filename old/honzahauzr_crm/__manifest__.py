@@ -39,13 +39,21 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'data/crm_tag_data.xml',
         'data/mailing_list_data.xml',
         'data/website_form_data.xml',
-        'data/sekce_doplneni.xml',
         'data/sekce_odhlaseno.xml',
         # Pred obema datovymi soubory se zpravami: zahodi ty, ktere
         # jsou jeste psane v tabulkach, aby se o kousek niz zalozily
         # znovu v blocich editoru.
         'data/predlohy_do_bloku.xml',
         'data/sekvence_po_vyzve.xml',
+        # Az za sloupci, ktere si modul zaklada sam (Odhlaseno,
+        # Po vyzve). Nastenka adoptuje, co uz je, a dodela zbytek;
+        # kdyby bezela driv, zalozila by sloupec Po vyzve sama
+        # i s radou a datovy soubor by pak spadl na duplicitni
+        # nazev rady. Overeno instalaci na ciste databazi.
+        #
+        # Zaroven pred predlohami: ty si radu hledaji podle jmena
+        # ("Chci odebirat", "Rezervace"), takze uz musi existovat.
+        'data/sekce_doplneni.xml',
         'data/predlohy_dalsi.xml',
         # Az za predlohami: presouva zpravu mezi radami, ktere
         # obe musi uz existovat.

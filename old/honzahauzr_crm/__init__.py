@@ -13,22 +13,11 @@ def post_init_hook(env):
     prekladatelnych poli (predmet, telo) se z ciziho datoveho souboru
     neprojevil - prepinac se nastavil, text zustal prazdny.
     """
-    nazvy = {
-        'crm.stage_lead1': 'Chci odebírat',
-        'crm.stage_lead2': '3denní výzva',
-        'crm.stage_lead3': 'Rezervace',
-        'crm.stage_lead4': 'Placené',
-    }
-    # Nazvy jsou prekladatelne - zapisuji se pro kazdy nainstalovany
-    # jazyk, jinak by v tom druhem zustal puvodni anglicky nazev.
-    jazyky = [kod for kod, _ in env['res.lang'].get_installed()]
-
-    for xmlid, cesky in nazvy.items():
-        stupen = env.ref(xmlid, raise_if_not_found=False)
-        if not stupen:
-            continue
-        for jazyk in jazyky:
-            stupen.with_context(lang=jazyk).name = cesky
+    # Prejmenovani vychozich sloupcu Odoo tady drive bylo, ale
+    # hook bezi az za datovymi soubory - do te doby se sloupce
+    # jmenovaly po staru, nic je nenaslo a vedle nich vznikly
+    # duplikaty. Resi to crm.stage._hh_zajistit_nastenku, ktera
+    # sklada celou nastenku na jednom miste.
 
     # Pasmo firmy je zaklad pro cely rozvrh terminu: podle nej se
     # prepocitavaji hodiny z nastaveni na ulozeny cas a v nem se posilaji
