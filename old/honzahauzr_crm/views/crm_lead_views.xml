@@ -130,11 +130,11 @@
             <!-- Odkaz na hovor. Ukazuje se jen u toho, kdo ma termin
                  domluveny - u ostatnich by to bylo policko, ktere
                  nema co delat. -->
-            <field name="hh_termin_kdy" invisible="1"/>
+            <field name="hh_meet_mozny" invisible="1"/>
             <field name="hh_meet_odeslano" invisible="1"/>
             <label for="hh_meet_odkaz" string="Odkaz na hovor"
-                   invisible="not hh_termin_kdy"/>
-            <div class="o_row" invisible="not hh_termin_kdy">
+                   invisible="not hh_meet_mozny"/>
+            <div class="o_row" invisible="not hh_meet_mozny">
                 <field name="hh_meet_odkaz" nolabel="1"
                        placeholder="https://meet.google.com/..."
                        class="oe_inline"/>

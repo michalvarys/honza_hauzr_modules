@@ -44,6 +44,32 @@ class CrmLeadMeet(models.Model):
              'třeba když se schůzka přeloží a odkaz se změní.',
     )
 
+    hh_meet_mozny = fields.Boolean(
+        string='Jde poslat odkaz na hovor',
+        compute='_compute_hh_meet_mozny',
+        help='Podle toho se na kartě ukazuje políčko s odkazem.',
+    )
+
+    @api.depends('stage_id', 'hh_termin_kdy')
+    def _compute_hh_meet_mozny(self):
+        """Komu má smysl posílat odkaz na hovor.
+
+        Nestačí ptát se na termín: na nástěnce končí ve sloupci
+        Rezervace i karty, za kterými žádný termín není - hovor se
+        domluvil mimo web, nebo slot mezitím zmizel. Honza by u nich
+        políčko neviděl, přestože hovor proběhne.
+
+        Proto se bere i sloupec: když se z něj posílá řada, do které
+        ta zpráva patří, políčko je na místě. Podle řady, ne podle
+        jména sloupce - jméno si Honza může přepsat.
+        """
+        zprava = self.env.ref(PREDLOHA, raise_if_not_found=False)
+        stitek = zprava.stitek_id if zprava else False
+        for lead in self:
+            lead.hh_meet_mozny = bool(
+                lead.hh_termin_kdy
+                or (stitek and stitek in lead.stage_id.hh_stitek_ids))
+
     hh_stav_barva = fields.Char(
         string='Barva karty',
         compute='_compute_hh_stav_barva',

@@ -98,9 +98,9 @@ const MEET = {
     telo: [
         rezervace.P("blíží se náš termín, tak posílám odkaz, kterým se připojíš:"),
         rezervace.TERMIN({
-            kdy: "{{ object.hh_termin_kdy }}",
+            kdy: "{{ object.hh_termin_kdy or 'podle domluvy' }}",
             udaje: [
-                ["Jak dlouho", "{{ object.hh_termin_delka }}"],
+                ["Jak dlouho", "{{ object.hh_termin_delka or '45 minut' }}"],
                 ["Kde", "Google Meet"],
             ],
         }),

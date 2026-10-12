@@ -632,11 +632,11 @@
           <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="hhr-karta">
               <p class="hhr-stitek">Kdy</p>
-              <p class="hhr-kdy">{{ object.hh_termin_kdy }}</p>
+              <p class="hhr-kdy">{{ object.hh_termin_kdy or 'podle domluvy' }}</p>
               <div class="row hhr-nadlinka">
                 <div class="col-6">
                   <p class="hhr-popisek">Jak dlouho</p>
-                  <p class="hhr-hodnota">{{ object.hh_termin_delka }}</p>
+                  <p class="hhr-hodnota">{{ object.hh_termin_delka or '45 minut' }}</p>
                 </div>
                 <div class="col-6">
                   <p class="hhr-popisek">Kde</p>
@@ -731,12 +731,12 @@
                 <td width="6" bgcolor="#a06a37" style="width:6px;background-color:#a06a37;font-size:0;line-height:0;">&#160;</td>
                 <td style="padding:24px 26px;">
                   <div style="font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Kdy</div>
-                  <div style="margin-top:6px;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:24px;line-height:31px;font-weight:700;color:#23211d;">{{ object.hh_termin_kdy }}</div>
+                  <div style="margin-top:6px;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:24px;line-height:31px;font-weight:700;color:#23211d;">{{ object.hh_termin_kdy or 'podle domluvy' }}</div>
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;border-top:1px solid #efe7d8;">
                     <tr>
                       <td width="50%" valign="top" style="padding:16px 12px 0 0;font-family:Inter,Arial,sans-serif;">
                         <div style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">Jak dlouho</div>
-                        <div style="margin-top:5px;font-size:15px;line-height:23px;font-weight:600;color:#23211d;">{{ object.hh_termin_delka }}</div>
+                        <div style="margin-top:5px;font-size:15px;line-height:23px;font-weight:600;color:#23211d;">{{ object.hh_termin_delka or '45 minut' }}</div>
                       </td>
                       <td width="50%" valign="top" style="padding:16px 12px 0 0;font-family:Inter,Arial,sans-serif;">
                         <div style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">Kde</div>
