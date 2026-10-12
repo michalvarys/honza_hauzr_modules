@@ -6,6 +6,10 @@
  * smazat a prokládat jinými bloky. Tlačítko je <a class="btn">,
  * takže mu jde přepsat odkaz přes řetízek v liště.
  *
+ * Loga jsou obrázky, ne vysázený text ani kolečko s písmenem:
+ * jen tak je jde v editoru vyměnit dvojklikem za jiný obrázek.
+ * V hlavičce je Vlastní režie, v podpisu modrá značka HH.
+ *
  * Proti podkladu se mění jen obal, ne vzhled:
  *
  *   - hodnoty, které byly v podkladu u každé značky zvlášť, sedí
@@ -51,7 +55,6 @@ const STYLY = `<style id="design-element">
 .o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: ${KREM_KARTA}; margin: 10px 0 0 0; }
 .o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: ${SEDA}; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-linka-nad { border-top: 1px solid ${LINKA}; }
-.o_mail_wrapper .hhe-znak { width: 44px; height: 44px; background-color: ${GRAFIT}; border-radius: 22px; font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: ${BRONZ_SVETLY}; text-align: center; line-height: 44px; }
 .o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: ${GRAFIT}; margin: 0; }
 .o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: ${TAUPE}; margin: 2px 0 0 0; }
 .o_mail_wrapper .hhe-paticka { background-color: ${GRAFIT}; }
@@ -76,7 +79,7 @@ const HLAVICKA = `        <div class="s_header_logo o_mail_block_header_logo o_m
           <div class="container" style="${BOKY}">
             <div class="row">
               <div class="col-7">
-                <p class="hhe-znacka">Vlastní <span>režie</span></p>
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-5" style="text-align:right;">
                 <p class="hhe-jmeno">Honza Hauzr</p>
@@ -115,7 +118,7 @@ const PODPIS = `        <div class="s_text_block o_mail_snippet_general hhe-link
           <div class="container" style="${BOKY}">
             <div class="row">
               <div class="col-2">
-                <p class="hhe-znak">H</p>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
                 <p class="hhe-podpis">Honza</p>

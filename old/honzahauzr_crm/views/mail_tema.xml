@@ -72,8 +72,15 @@
           </div>
         </div>
         <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-tmave"><strong>Honza</strong></p>
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-10">
+                <p class="hh-tmave"><strong>Honza</strong></p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="s_text_block o_mail_snippet_general hh-linka-nad pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
@@ -104,7 +111,6 @@
 .o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
 .o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
-.o_mail_wrapper .hhe-znak { width: 44px; height: 44px; background-color: #23211d; border-radius: 22px; font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: #c08a52; text-align: center; line-height: 44px; }
 .o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
 .o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
 .o_mail_wrapper .hhe-paticka { background-color: #23211d; }
@@ -117,7 +123,7 @@
           <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-7">
-                <p class="hhe-znacka">Vlastní <span>režie</span></p>
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-5" style="text-align:right;">
                 <p class="hhe-jmeno">Honza Hauzr</p>
@@ -162,7 +168,7 @@
           <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <p class="hhe-znak">H</p>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
                 <p class="hhe-podpis">Honza</p>

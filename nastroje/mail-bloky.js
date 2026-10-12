@@ -161,10 +161,21 @@ function blokTlacitko(text, odkaz) {
 
 const PODPIS = "<strong>Honza</strong>";
 
+/* Znacka HH vedle podpisu. Obrazek, ne vysazene pismeno - jen tak
+   ji jde v editoru vymenit dvojklikem za jiny obrazek. */
+const ZNAK = "/honzahauzr_crm/static/src/img/hh-znak-email.png";
+
 function blokPodpis(podpis) {
     return `        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-tmave">${podpis || PODPIS}</p>
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <img src="${ZNAK}" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+              </div>
+              <div class="col-10">
+                <p class="hh-tmave">${podpis || PODPIS}</p>
+              </div>
+            </div>
           </div>
         </div>`;
 }
@@ -302,9 +313,17 @@ ${pod ? `
         <!-- podpis -->
         <tr>
           <td style="padding:0 22px 30px 22px;border-top:1px solid ${LINKA};">
-            <p style="margin:26px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:${GRAFIT};">
-              ${podpis || PODPIS}
-            </p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+              <tr>
+                <td valign="top" width="54" style="padding-right:14px;">
+                  <img src="${ZNAK}" alt="Honza Hauzr" width="40" height="40"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                </td>
+                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:${GRAFIT};">
+                  ${podpis || PODPIS}
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
