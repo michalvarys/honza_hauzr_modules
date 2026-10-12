@@ -26,7 +26,7 @@ const CIL = path.join(KOREN, "old/honzahauzr_crm/data/sekvence_po_vyzve.xml");
 /* ---------------------------------------------------------------- */
 
 const { P, OTAZKA, RAMECEK, GRAFIT, bloky, tabulky } =
-    require("./mail-bloky.js");
+    require("./mail-bloky-editorial.js");
 
 /* Adresa stranky s kalendarem. Je pro vsechny stejna, takze tu
    stoji primo - zadny zastupny text. Relativni zamerne: pri

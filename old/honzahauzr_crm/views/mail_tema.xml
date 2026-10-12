@@ -99,8 +99,6 @@
 .o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
 .o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
 .o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
-.o_mail_wrapper .hhe-znacka { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #23211d; margin: 0; }
-.o_mail_wrapper .hhe-znacka span { color: #a06a37; }
 .o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
 .o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
 .o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
@@ -109,6 +107,8 @@
 .o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
 .o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
 .o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
 .o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
 .o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
 .o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
@@ -141,6 +141,10 @@
         <div class="s_text_block pt24 pb0 o_mail_snippet_general">
           <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p class="hhe-oslo">&#123;&#123; object.hh_osloveni &#125;&#125;</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>tenhle odstavec přepiš. Pod ním můžeš další bloky přidávat, posouvat i mazat — přetáhni si je z panelu vpravo.</p>
             <p>Otázku pod tímhle textem můžeš smazat jako kterýkoliv jiný blok, nebo si ji přetáhnout jinam.</p>
           </div>
@@ -171,7 +175,7 @@
                 <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hhe-podpis">Honza</p>
+                <p class="hhe-podpis">Honza Hauzr</p>
                 <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>

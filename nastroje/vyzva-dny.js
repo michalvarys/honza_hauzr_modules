@@ -20,7 +20,7 @@ const path = require("path");
 const KOREN = path.join(__dirname, "..");
 const CIL = path.join(KOREN, "old/honzahauzr_crm/data/vyzva_dny.json");
 
-const { P, bloky, tabulky } = require("./mail-bloky.js");
+const { P, bloky, tabulky } = require("./mail-bloky-editorial.js");
 
 /* Osobní odkaz do výzvy. Tenhle zástupný text zůstává: každý má
    vlastní klíč a otevřou se mu jen dny, které už má odemčené. */

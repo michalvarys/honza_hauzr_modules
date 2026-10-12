@@ -50,71 +50,95 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Co z výzvy zůstane, až zavřeš notebook?</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Co z výzvy zůstane, až zavřeš notebook?</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>ve výzvě jsme prošli tři kroky: podívat se pravdivě na svůj život, vytvořit jeden malý důkaz a všimnout si rozhodnutí, které za tebe zatím dělá autopilot.</p>
             <p>Teď přijde obyčejný den. Práce, zprávy, povinnosti. A to, co ti při sledování dávalo smysl, může zase ustoupit do pozadí.</p>
             <p>Zkus se dnes vrátit k jedné věci:</p>
           </div>
         </div>
-        <div class="s_mail_blockquote o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-otazka">Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</p>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Třeba si vyhradíš čas, který pořád dáváš ostatním. Otevřeš odkládaný rozhovor. Nebo dodržíš svoje minimum, přestože dnešek není ideální.</p>
             <p>Pokud chceš na výzvu navázat s vedením, připravil jsem <strong>Tvůj tah</strong>. Během 40 dní půjdeme od pojmenování současné situace přes vlastní hranice a pravidla až ke konkrétnímu směru na dalších 90 dní.</p>
             <p>Prvním krokem je společný hovor. Probereme, co teď řešíš a jestli ti s tím program může pomoct.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -123,23 +147,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -147,53 +171,64 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Co z výzvy zůstane, až zavřeš notebook?</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co z výzvy zůstane, až zavřeš notebook?</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">ve výzvě jsme prošli tři kroky: podívat se pravdivě na svůj život, vytvořit jeden malý důkaz a všimnout si rozhodnutí, které za tebe zatím dělá autopilot.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Teď přijde obyčejný den. Práce, zprávy, povinnosti. A to, co ti při sledování dávalo smysl, může zase ustoupit do pozadí.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se dnes vrátit k jedné věci:</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">ve výzvě jsme prošli tři kroky: podívat se pravdivě na svůj život, vytvořit jeden malý důkaz a všimnout si rozhodnutí, které za tebe zatím dělá autopilot.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Teď přijde obyčejný den. Práce, zprávy, povinnosti. A to, co ti při sledování dávalo smysl, může zase ustoupit do pozadí.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Zkus se dnes vrátit k jedné věci:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#23211d;">
               <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</td>
+                <td style="padding:28px 30px;border-left:3px solid #c08a52;">
+                  <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c08a52;">Otázka na dnešek</p>
+                  <p style="margin:10px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;line-height:30px;font-weight:700;color:#f4efe6;">Co už nechceš dál přehlížet &#8212; a co s tím uděláš během příštích 24&#160;hodin?</p>
+                </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Třeba si vyhradíš čas, který pořád dáváš ostatním. Otevřeš odkládaný rozhovor. Nebo dodržíš svoje minimum, přestože dnešek není ideální.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš na výzvu navázat s vedením, připravil jsem <strong>Tvůj tah</strong>. Během 40 dní půjdeme od pojmenování současné situace přes vlastní hranice a pravidla až ke konkrétnímu směru na dalších 90 dní.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prvním krokem je společný hovor. Probereme, co teď řešíš a jestli ti s tím program může pomoct.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Třeba si vyhradíš čas, který pořád dáváš ostatním. Otevřeš odkládaný rozhovor. Nebo dodržíš svoje minimum, přestože dnešek není ideální.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Pokud chceš na výzvu navázat s vedením, připravil jsem <strong>Tvůj tah</strong>. Během 40 dní půjdeme od pojmenování současné situace přes vlastní hranice a pravidla až ke konkrétnímu směru na dalších 90 dní.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Prvním krokem je společný hovor. Probereme, co teď řešíš a jestli ti s tím program může pomoct.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_01"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -219,73 +254,97 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>„Já ale nemám žádný velký problém.“</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">„Já ale nemám žádný velký problém.“</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>práce nějak funguje. Máš kde bydlet. Možná máš vztah, rodinu a zvenku docela normální život.</p>
             <p>A tak si říkáš, jestli vůbec máš důvod něco řešit.</p>
             <p>Jenže vedle toho třeba už měsíce nemáš čas na sebe. V důležitých věcech automaticky ustupuješ. Nebo pokračuješ směrem, který sis vlastně nikdy sám nevybral.</p>
-            <p class="hh-tmave"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
+            <p class="hhe-tmave"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
             <p>Vybav si jednu situaci z posledního týdne, kdy jsi řekl „to je v pohodě“, ale uvnitř ti to úplně v pohodě nebylo.</p>
           </div>
         </div>
-        <div class="s_mail_blockquote o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-otazka">Co bys v té situaci potřeboval říct nebo udělat jinak?</p>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Co bys v té situaci potřeboval říct nebo udělat jinak?</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>I takové věci mají v Tvém tahu místo. Učíš se přesněji poznat, co potřebuješ, dát tomu slova a postupně podle toho jednat.</p>
             <p>Nemusíš čekat, až za tebe rozhodne krize.</p>
             <p>Jestli chceš zjistit, zda je program vhodný právě pro tebe, můžeme to probrat.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -294,23 +353,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -318,55 +377,66 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">„Já ale nemám žádný velký problém.“</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">„Já ale nemám žádný velký problém.“</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">práce nějak funguje. Máš kde bydlet. Možná máš vztah, rodinu a zvenku docela normální život.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A tak si říkáš, jestli vůbec máš důvod něco řešit.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jenže vedle toho třeba už měsíce nemáš čas na sebe. V důležitých věcech automaticky ustupuješ. Nebo pokračuješ směrem, který sis vlastně nikdy sám nevybral.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Vybav si jednu situaci z posledního týdne, kdy jsi řekl „to je v pohodě“, ale uvnitř ti to úplně v pohodě nebylo.</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">práce nějak funguje. Máš kde bydlet. Možná máš vztah, rodinu a zvenku docela normální život.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">A tak si říkáš, jestli vůbec máš důvod něco řešit.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Jenže vedle toho třeba už měsíce nemáš čas na sebe. V důležitých věcech automaticky ustupuješ. Nebo pokračuješ směrem, který sis vlastně nikdy sám nevybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;"><strong>Nemusí se ti nic rozpadnout, abys měl důvod něco změnit.</strong></p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Vybav si jednu situaci z posledního týdne, kdy jsi řekl „to je v pohodě“, ale uvnitř ti to úplně v pohodě nebylo.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#23211d;">
               <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co bys v té situaci potřeboval říct nebo udělat jinak?</td>
+                <td style="padding:28px 30px;border-left:3px solid #c08a52;">
+                  <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c08a52;">Otázka na dnešek</p>
+                  <p style="margin:10px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;line-height:30px;font-weight:700;color:#f4efe6;">Co bys v té situaci potřeboval říct nebo udělat jinak?</p>
+                </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">I takové věci mají v Tvém tahu místo. Učíš se přesněji poznat, co potřebuješ, dát tomu slova a postupně podle toho jednat.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš čekat, až za tebe rozhodne krize.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli chceš zjistit, zda je program vhodný právě pro tebe, můžeme to probrat.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">I takové věci mají v Tvém tahu místo. Učíš se přesněji poznat, co potřebuješ, dát tomu slova a postupně podle toho jednat.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Nemusíš čekat, až za tebe rozhodne krize.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Jestli chceš zjistit, zda je program vhodný právě pro tebe, můžeme to probrat.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_02"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -392,41 +462,61 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Co když zase začnu a nedokončím?</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Co když zase začnu a nedokončím?</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>možná se nebojíš začít. Bojíš se, že za týden zase přestaneš.</p>
             <p>Pár dní se držíš. Pak přijde náročnější den, vynecháš a v hlavě naskočí: „Tak zase nic.“</p>
             <p>U kouření jsem tenhle návrat ke starému návyku zažil opakovaně. Musel jsem se učit vracet, aniž bych každé uklouznutí bral jako důkaz, že všechno předtím bylo k ničemu.</p>
@@ -437,19 +527,20 @@
             <p>Jestli tě právě strach z dalšího nedokončeného pokusu brzdí, pojďme ho na hovoru probrat konkrétně.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -458,23 +549,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -482,50 +573,58 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Co když zase začnu a nedokončím?</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Co když zase začnu a nedokončím?</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">možná se nebojíš začít. Bojíš se, že za týden zase přestaneš.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pár dní se držíš. Pak přijde náročnější den, vynecháš a v hlavě naskočí: „Tak zase nic.“</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">U kouření jsem tenhle návrat ke starému návyku zažil opakovaně. Musel jsem se učit vracet, aniž bych každé uklouznutí bral jako důkaz, že všechno předtím bylo k ničemu.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Proto má Tvůj tah vedle lekcí také <strong>průběžnou podporu</strong>.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Víš, co máš dělat dál. Když se zasekneš, můžeš položit otázku. Během programu máme tři společná živá setkání. A když uvidím dva až tři dny bez pohybu, soukromě se ti ozvu.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Nemusíš před ostatními vysvětlovat svoje osobní věci. Potřebujeme zjistit, co ti brání pokračovat a jaký další krok je reálný.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Dokončení za tebe nikdo nezařídí. Ale na hledání cesty zpátky nemusíš být sám.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Jestli tě právě strach z dalšího nedokončeného pokusu brzdí, pojďme ho na hovoru probrat konkrétně.</p>
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">možná se nebojíš začít. Bojíš se, že za týden zase přestaneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Pár dní se držíš. Pak přijde náročnější den, vynecháš a v hlavě naskočí: „Tak zase nic.“</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">U kouření jsem tenhle návrat ke starému návyku zažil opakovaně. Musel jsem se učit vracet, aniž bych každé uklouznutí bral jako důkaz, že všechno předtím bylo k ničemu.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Proto má Tvůj tah vedle lekcí také <strong>průběžnou podporu</strong>.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Víš, co máš dělat dál. Když se zasekneš, můžeš položit otázku. Během programu máme tři společná živá setkání. A když uvidím dva až tři dny bez pohybu, soukromě se ti ozvu.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Nemusíš před ostatními vysvětlovat svoje osobní věci. Potřebujeme zjistit, co ti brání pokračovat a jaký další krok je reálný.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Dokončení za tebe nikdo nezařídí. Ale na hledání cesty zpátky nemusíš být sám.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Jestli tě právě strach z dalšího nedokončeného pokusu brzdí, pojďme ho na hovoru probrat konkrétně.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_03"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -551,71 +650,95 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>dlouho jsem věděl, že nechci pokračovat stejným způsobem v práci. Jenže pokaždé, když jsem připustil změnu, naskočila mi celá lavina otázek.</p>
           </div>
         </div>
-        <div class="s_mail_blockquote o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-otazka">Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</p>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Chtěl jsem mít jasno v celém dalším životě. Výsledkem bylo, že jsem často neudělal vůbec nic.</p>
             <p>Pomohlo mi začít tím, co už jsem věděl: co dál nechci a co potřebuju začít dělat jinak.</p>
             <p>To je důležité i pro vstup do Tvého tahu. Nemusíš na hovor přicházet s hotovým cílem. Klidně můžeš říct: „Vím, že takhle nechci pokračovat, ale nevím, co místo toho.“</p>
             <p>V programu budeme postupně hledat, co je pro tebe důležité, kde se přizpůsobuješ proti sobě a čemu chceš dát prostor. Z toho vznikne jedna konkrétní priorita na dalších 90 dní a první kroky.</p>
-            <p class="hh-tmave"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
+            <p class="hhe-tmave"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04" role="button" class="btn btn-primary">Probrat svůj další krok na hovoru</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -624,23 +747,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -648,53 +771,64 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Nemusíš vědět, co chceš dělat dalších dvacet let</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">dlouho jsem věděl, že nechci pokračovat stejným způsobem v práci. Jenže pokaždé, když jsem připustil změnu, naskočila mi celá lavina otázek.</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">dlouho jsem věděl, že nechci pokračovat stejným způsobem v práci. Jenže pokaždé, když jsem připustil změnu, naskočila mi celá lavina otázek.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#23211d;">
               <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</td>
+                <td style="padding:28px 30px;border-left:3px solid #c08a52;">
+                  <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c08a52;">Otázka na dnešek</p>
+                  <p style="margin:10px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;line-height:30px;font-weight:700;color:#f4efe6;">Co budu dělat? Co mi půjde? Jak se tím uživím? A co když si vyberu špatně?</p>
+                </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chtěl jsem mít jasno v celém dalším životě. Výsledkem bylo, že jsem často neudělal vůbec nic.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pomohlo mi začít tím, co už jsem věděl: co dál nechci a co potřebuju začít dělat jinak.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">To je důležité i pro vstup do Tvého tahu. Nemusíš na hovor přicházet s hotovým cílem. Klidně můžeš říct: „Vím, že takhle nechci pokračovat, ale nevím, co místo toho.“</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V programu budeme postupně hledat, co je pro tebe důležité, kde se přizpůsobuješ proti sobě a čemu chceš dát prostor. Z toho vznikne jedna konkrétní priorita na dalších 90 dní a první kroky.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Chtěl jsem mít jasno v celém dalším životě. Výsledkem bylo, že jsem často neudělal vůbec nic.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Pomohlo mi začít tím, co už jsem věděl: co dál nechci a co potřebuju začít dělat jinak.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">To je důležité i pro vstup do Tvého tahu. Nemusíš na hovor přicházet s hotovým cílem. Klidně můžeš říct: „Vím, že takhle nechci pokračovat, ale nevím, co místo toho.“</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">V programu budeme postupně hledat, co je pro tebe důležité, kde se přizpůsobuješ proti sobě a čemu chceš dát prostor. Z toho vznikne jedna konkrétní priorita na dalších 90 dní a první kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;"><strong>Celou cestu dnes vidět nemusíš.</strong></p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_04"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Probrat svůj další krok na hovoru</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Probrat svůj další krok na hovoru</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -720,41 +854,61 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Vejde se Tvůj tah do normálního života?</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Vejde se Tvůj tah do normálního života?</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>pokud máš práci, vztah a další povinnosti, otázka času je úplně na místě.</p>
             <p>Chci ti proto říct konkrétně, s čím počítat.</p>
             <p>Tvůj tah trvá 40 dní. Některé hlubší pracovní dny můžou zabrat 45&#8211;60 minut, někdy i víc. Vedle nich jsou kratší reflexní dny a čtyři skutečné volné dny.</p>
@@ -764,29 +918,33 @@
             <p>Zkus se podívat na svůj příští týden.</p>
           </div>
         </div>
-        <div class="s_mail_blockquote o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-otazka">Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</p>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Pokud si nejsi jistý, jestli je to ve tvé současné situaci reálné, probereme to předem. Hovor tě k nákupu nezavazuje.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -795,23 +953,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -819,55 +977,66 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Vejde se Tvůj tah do normálního života?</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Vejde se Tvůj tah do normálního života?</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">pokud máš práci, vztah a další povinnosti, otázka času je úplně na místě.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Chci ti proto říct konkrétně, s čím počítat.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah trvá 40 dní. Některé hlubší pracovní dny můžou zabrat 45&#8211;60 minut, někdy i víc. Vedle nich jsou kratší reflexní dny a čtyři skutečné volné dny.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V závěru šest dní používáš svůj plán v běžném životě. Samotné zaznamenání zkušenosti zabere přibližně 5&#8211;10 minut denně; čas na zvolenou akci záleží na tom, co sis vybral.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">K tomu patří tři společná živá setkání.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Prostor si tedy vyhradit potřebuješ. Nemusíš ale čtyřicet dní po sobě zvládat stejně náročnou lekci.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Zkus se podívat na svůj příští týden.</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">pokud máš práci, vztah a další povinnosti, otázka času je úplně na místě.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Chci ti proto říct konkrétně, s čím počítat.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Tvůj tah trvá 40 dní. Některé hlubší pracovní dny můžou zabrat 45&#8211;60 minut, někdy i víc. Vedle nich jsou kratší reflexní dny a čtyři skutečné volné dny.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">V závěru šest dní používáš svůj plán v běžném životě. Samotné zaznamenání zkušenosti zabere přibližně 5&#8211;10 minut denně; čas na zvolenou akci záleží na tom, co sis vybral.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">K tomu patří tři společná živá setkání.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Prostor si tedy vyhradit potřebuješ. Nemusíš ale čtyřicet dní po sobě zvládat stejně náročnou lekci.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Zkus se podívat na svůj příští týden.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#23211d;">
               <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</td>
+                <td style="padding:28px 30px;border-left:3px solid #c08a52;">
+                  <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c08a52;">Otázka na dnešek</p>
+                  <p style="margin:10px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;line-height:30px;font-weight:700;color:#f4efe6;">Kam by se ti vešel klidný blok pro sebe? A co bys kvůli němu musel přesunout nebo odmítnout?</p>
+                </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud si nejsi jistý, jestli je to ve tvé současné situaci reálné, probereme to předem. Hovor tě k nákupu nezavazuje.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Pokud si nejsi jistý, jestli je to ve tvé současné situaci reálné, probereme to předem. Hovor tě k nákupu nezavazuje.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_05"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -893,41 +1062,61 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>19&#160;990&#160;Kč je částka, u které dává smysl vědět, co přesně kupuješ a proč zrovna ode mě.</p>
             <p>Tvůj tah vychází i z mojí zkušenosti s životem, který navenek fungoval, ale ve kterém jsem postupně přestával vidět vlastní směr. Prošel jsem dvěma koučovacími výcviky a dál se vzdělávám. Při práci s tebou propojuju otázky, strukturu a konkrétní kroky.</p>
             <p>V ceně máš 40denní postup, 11 hlavních videí, fyzický workbook, tři společná živá setkání a průběžnou podporu. Víš, kde začít, máš kam zachytit vlastní odpovědi a koho se zeptat, když se zasekneš.</p>
@@ -935,32 +1124,33 @@
             <p>A za svou částí stojím i garancí.</p>
           </div>
         </div>
-        <div class="s_mail_alert o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <div class="hh-ramecek">
+        <div class="s_mail_alert pt8 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-ramecek">
               <p>Když projdeš celý 40denní program, uděláš všechny povinné úkoly včetně práce ve workbooku a závěrečné praxe a zúčastníš se finálního vyhodnocení na společném hovoru nebo v domluveném náhradním termínu, platí jednoduchý příslib:</p>
               <p>Pokud ti ani potom program nepřinese žádné nové uvědomění, jasnější orientaci ve vlastní situaci ani konkrétní posun, <strong>vrátím ti celou zaplacenou cenu</strong>. Osobní odpovědi nemusíš sdílet před skupinou.</p>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Na úvodním hovoru probereme, jestli je právě tohle vhodná cesta pro to, co řešíš. Když mi program pro tvoji situaci nebude dávat smysl, řeknu ti to.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -969,23 +1159,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -993,56 +1183,64 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Za co v Tvém tahu platíš 19&#160;990&#160;Kč</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">19&#160;990&#160;Kč je částka, u které dává smysl vědět, co přesně kupuješ a proč zrovna ode mě.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Tvůj tah vychází i z mojí zkušenosti s životem, který navenek fungoval, ale ve kterém jsem postupně přestával vidět vlastní směr. Prošel jsem dvěma koučovacími výcviky a dál se vzdělávám. Při práci s tebou propojuju otázky, strukturu a konkrétní kroky.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">V ceně máš 40denní postup, 11 hlavních videí, fyzický workbook, tři společná živá setkání a průběžnou podporu. Víš, kde začít, máš kam zachytit vlastní odpovědi a koho se zeptat, když se zasekneš.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Postupně si připravíš svoje pravidla, hranice a konkrétní 90denní prioritu. Na konci svůj plán šest dní zkoušíš v běžném životě a vyhodnotíš, co potřebuje upravit.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">A za svou částí stojím i garancí.</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;background-color:#f4efe6;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">19&#160;990&#160;Kč je částka, u které dává smysl vědět, co přesně kupuješ a proč zrovna ode mě.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Tvůj tah vychází i z mojí zkušenosti s životem, který navenek fungoval, ale ve kterém jsem postupně přestával vidět vlastní směr. Prošel jsem dvěma koučovacími výcviky a dál se vzdělávám. Při práci s tebou propojuju otázky, strukturu a konkrétní kroky.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">V ceně máš 40denní postup, 11 hlavních videí, fyzický workbook, tři společná živá setkání a průběžnou podporu. Víš, kde začít, máš kam zachytit vlastní odpovědi a koho se zeptat, když se zasekneš.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Postupně si připravíš svoje pravidla, hranice a konkrétní 90denní prioritu. Na konci svůj plán šest dní zkoušíš v běžném životě a vyhodnotíš, co potřebuje upravit.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">A za svou částí stojím i garancí.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#ffffff;">
               <tr>
-                <td style="padding:20px 22px 4px 22px;border:1px solid #e2dacb;">
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Když projdeš celý 40denní program, uděláš všechny povinné úkoly včetně práce ve workbooku a závěrečné praxe a zúčastníš se finálního vyhodnocení na společném hovoru nebo v domluveném náhradním termínu, platí jednoduchý příslib:</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">Pokud ti ani potom program nepřinese žádné nové uvědomění, jasnější orientaci ve vlastní situaci ani konkrétní posun, <strong>vrátím ti celou zaplacenou cenu</strong>. Osobní odpovědi nemusíš sdílet před skupinou.</p>
+                <td style="padding:24px 26px 6px 26px;border:1px solid #e3d9c8;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">Když projdeš celý 40denní program, uděláš všechny povinné úkoly včetně práce ve workbooku a závěrečné praxe a zúčastníš se finálního vyhodnocení na společném hovoru nebo v domluveném náhradním termínu, platí jednoduchý příslib:</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">Pokud ti ani potom program nepřinese žádné nové uvědomění, jasnější orientaci ve vlastní situaci ani konkrétní posun, <strong>vrátím ti celou zaplacenou cenu</strong>. Osobní odpovědi nemusíš sdílet před skupinou.</p>
                 </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Na úvodním hovoru probereme, jestli je právě tohle vhodná cesta pro to, co řešíš. Když mi program pro tvoji situaci nebude dávat smysl, řeknu ti to.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Na úvodním hovoru probereme, jestli je právě tohle vhodná cesta pro to, co řešíš. Když mi program pro tvoji situaci nebude dávat smysl, řeknu ti to.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_06"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
@@ -1068,41 +1266,61 @@
 
              body_arch je podoba pro editor (bloky), body_html to,
              co odejde do pošty (tabulky). Viz nastroje/mail-bloky.js. -->
-        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#f4efe6;" data-name="Mailing">
+        <field name="body_arch"><![CDATA[<div class="o_layout oe_unremovable oe_unmovable bg-200 oe_styling_vr o_mass_mailing_no_theme" style="background-color:#efe7d8;" data-name="Mailing">
 <style id="design-element">
-.o_mail_wrapper { font-family: Helvetica, Arial, sans-serif; color: #5d554b; }
-.o_mail_wrapper p { font-size: 16px; line-height: 1.65; margin: 0 0 18px 0; }
-.o_mail_wrapper h1 { font-size: 28px; line-height: 1.25; font-weight: bold; color: #23211d; margin: 0 0 24px 0; }
-.o_mail_wrapper .hh-eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #a89681; margin: 0 0 14px 0; }
-.o_mail_wrapper .hh-tmave { color: #23211d; }
-.o_mail_wrapper .hh-drobne { font-size: 12px; line-height: 1.6; color: #8c8276; margin: 0; }
-.o_mail_wrapper .hh-otazka { border-left: 3px solid #23211d; padding: 2px 0 2px 18px; font-size: 18px; line-height: 1.5; font-weight: bold; color: #23211d; margin: 0; }
-.o_mail_wrapper .hh-ramecek { background-color: #f4efe6; border: 1px solid #e2dacb; padding: 20px 22px 4px 22px; }
-.o_mail_wrapper .hh-ramecek p { color: #23211d; }
-.o_mail_wrapper .hh-linka-nad { border-top: 1px solid #e2dacb; }
-.o_mail_wrapper .hh-linka-pod { border-bottom: 1px solid #e2dacb; }
-.o_mail_wrapper a.btn.btn-primary { background-color: #23211d; border-color: #23211d; color: #ffffff; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: bold; padding: 16px 34px; border-radius: 0; }
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-ramecek { background-color: #ffffff; border: 1px solid #e3d9c8; padding: 24px 26px 6px 26px; }
+.o_mail_wrapper .hhe-ramecek p { color: #23211d; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
 </style>
   <div class="container o_mail_wrapper o_mail_regular oe_unremovable">
     <div class="row">
       <div class="col o_mail_no_options o_mail_wrapper_td bg-white oe_structure o_editable">
-        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general hh-linka-pod pt24 pb16">
-          <div class="container">
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
-              <div class="col-8">
-                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" style="width:190px;height:auto;" class="img-fluid"/>
+              <div class="col-7">
+                <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" style="width:170px;height:auto;" class="img-fluid"/>
               </div>
-              <div class="col-4" style="text-align:right;">
-                <p class="hh-eyebrow" style="margin:10px 0 0 0;">Honza Hauzr</p>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-eyebrow">Tvůj tah &#183; po výzvě</p>
-            <h1>Chceš na výzvu navázat?</h1>
-            <p class="hh-tmave">{{ object.hh_osloveni }}</p>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Chceš na výzvu navázat?</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">{{ object.hh_osloveni }}</p>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>v posledních e-mailech jsem ti ukázal, jak můžeš na výzvu navázat v Tvém tahu. Tímhle tuhle sérii uzavírám.</p>
             <p>Možná teď pokračuješ sám a první kroky ti fungují. Možná na program nemáš prostor. Nebo tě zajímá, ale zůstává jedna otázka, kvůli které ses zatím neozval.</p>
             <p>Pokud chceš pokračovat se mnou, dalším krokem je úvodní hovor.</p>
@@ -1110,29 +1328,33 @@
             <p>Ať se rozhodneš jakkoliv, vrať se ještě k jedné věci z výzvy:</p>
           </div>
         </div>
-        <div class="s_mail_blockquote o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
-            <p class="hh-otazka">Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</p>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</p>
+            </div>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general pt16 pb16" style="padding-left:15px;padding-right:15px;">
-          <div class="container s_allow_columns">
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
             <p>Odpověď může být malá. Důležité je, aby se dostala i do běžného dne.</p>
           </div>
         </div>
-        <div class="s_call_to_action o_mail_snippet_general pt8 pb24" style="text-align:center;">
-          <div class="container">
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
             <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07" role="button" class="btn btn-primary">Domluvit si úvodní hovor</a>
           </div>
         </div>
-        <div class="s_text_block o_mail_snippet_general hh-linka-nad pt24 pb24" style="padding-left:15px;padding-right:15px;">
-          <div class="container">
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
             <div class="row">
               <div class="col-2">
-                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" style="width:40px;height:auto;" class="img-fluid"/>
+                <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" style="width:44px;height:auto;" class="img-fluid"/>
               </div>
               <div class="col-10">
-                <p class="hh-tmave"><strong>Honza</strong></p>
+                <p class="hhe-podpis">Honza Hauzr</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
               </div>
             </div>
           </div>
@@ -1141,23 +1363,23 @@
     </div>
   </div>
 </div>]]></field>
-        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4efe6;margin:0;padding:0;">
+        <field name="body_html"><![CDATA[<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#efe7d8;margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
+    <td align="center" style="padding:32px 12px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e2dacb;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background-color:#f4efe6;border:1px solid #e3d9c8;">
 
         <!-- hlavicka: logo a jmeno -->
         <tr>
-          <td style="padding:24px 22px 20px 22px;border-bottom:1px solid #e2dacb;">
+          <td style="padding:28px 48px 24px 48px;border-bottom:1px solid #e3d9c8;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="190" height="35"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:35px;"/>
+                  <img src="/theme_honzahauzr/static/src/img/vr/vr-logo-email.png" alt="Vlastní režie" width="170" height="32"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:170px;height:32px;"/>
                 </td>
                 <td align="right" valign="middle"
-                    style="font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#5d554b;">
+                    style="font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a89681;">
                   Honza Hauzr
                 </td>
               </tr>
@@ -1165,53 +1387,64 @@
           </td>
         </tr>
 
+        <!-- nadpis -->
+        <tr>
+          <td style="padding:44px 48px 0 48px;">
+            <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#a06a37;">Tvůj tah &#183; po výzvě</p>
+            <h1 style="margin:14px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:34px;line-height:40px;font-weight:700;letter-spacing:-0.3px;color:#23211d;">Chceš na výzvu navázat?</h1>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+              <tr><td width="48" height="2" bgcolor="#a06a37" style="width:48px;height:2px;font-size:0;line-height:2px;">&#160;</td></tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- obsah -->
         <tr>
-          <td style="padding:30px 22px 8px 22px;">
-            <p style="margin:0 0 14px 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#a89681;">Tvůj tah &#183; po výzvě</p>
-            <h1 style="margin:0 0 24px 0;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:bold;color:#23211d;">Chceš na výzvu navázat?</h1>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#23211d;">{{ object.hh_osloveni }}</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">v posledních e-mailech jsem ti ukázal, jak můžeš na výzvu navázat v Tvém tahu. Tímhle tuhle sérii uzavírám.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Možná teď pokračuješ sám a první kroky ti fungují. Možná na program nemáš prostor. Nebo tě zajímá, ale zůstává jedna otázka, kvůli které ses zatím neozval.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Pokud chceš pokračovat se mnou, dalším krokem je úvodní hovor.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Probereme, co teď řešíš, co chceš mít jinak a jestli je pro tebe 40denní program vhodný. Když to bude dávat smysl oběma, domluvíme další postup.</p>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Ať se rozhodneš jakkoliv, vrať se ještě k jedné věci z výzvy:</p>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px 0;">
+          <td style="padding:28px 48px 0 48px;">
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#23211d;">{{ object.hh_osloveni }}</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">v posledních e-mailech jsem ti ukázal, jak můžeš na výzvu navázat v Tvém tahu. Tímhle tuhle sérii uzavírám.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Možná teď pokračuješ sám a první kroky ti fungují. Možná na program nemáš prostor. Nebo tě zajímá, ale zůstává jedna otázka, kvůli které ses zatím neozval.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Pokud chceš pokračovat se mnou, dalším krokem je úvodní hovor.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Probereme, co teď řešíš, co chceš mít jinak a jestli je pro tebe 40denní program vhodný. Když to bude dávat smysl oběma, domluvíme další postup.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Ať se rozhodneš jakkoliv, vrať se ještě k jedné věci z výzvy:</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:8px 0 26px 0;background-color:#23211d;">
               <tr>
-                <td style="padding:2px 0 2px 18px;border-left:3px solid #23211d;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.5;color:#23211d;font-weight:bold;">Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</td>
+                <td style="padding:28px 30px;border-left:3px solid #c08a52;">
+                  <p style="margin:0;font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c08a52;">Otázka na dnešek</p>
+                  <p style="margin:10px 0 0 0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;line-height:30px;font-weight:700;color:#f4efe6;">Co už nechceš dál přehlížet &#8212; a jak se to projeví v tvém příštím rozhodnutí?</p>
+                </td>
               </tr>
             </table>
-            <p style="margin:0 0 18px 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;color:#5d554b;">Odpověď může být malá. Důležité je, aby se dostala i do běžného dne.</p>
+            <p style="margin:0 0 18px 0;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:27px;color:#5d554b;">Odpověď může být malá. Důležité je, aby se dostala i do běžného dne.</p>
           </td>
         </tr>
 
         <!-- jedina vyzva k akci -->
         <tr>
-          <td align="center" style="padding:14px 22px 10px 22px;">
+          <td align="center" style="padding:34px 48px 10px 48px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="center" bgcolor="#23211d" style="background-color:#23211d;">
+                <td align="center" bgcolor="#a06a37" style="background-color:#a06a37;border-radius:3px;">
                   <a href="/uvodni-hovor?utm_source=email&amp;utm_medium=email&amp;utm_campaign=tvuj_tah_po_vyzve_v1&amp;utm_content=email_07"
-                     style="display:inline-block;padding:16px 34px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase;font-weight:bold;color:#ffffff;text-decoration:none;">Domluvit si úvodní hovor</a>
+                     style="display:inline-block;padding:17px 36px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:3px;">Domluvit si úvodní hovor</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <tr><td style="padding:0 22px 16px 22px;"></td></tr>
-
         <!-- podpis -->
         <tr>
-          <td style="padding:0 22px 30px 22px;border-top:1px solid #e2dacb;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;">
+          <td style="padding:36px 48px 40px 48px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #e3d9c8;">
               <tr>
-                <td valign="top" width="54" style="padding-right:14px;">
-                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="40" height="40"
-                       style="display:block;border:0;outline:none;text-decoration:none;width:40px;height:40px;"/>
+                <td width="58" valign="middle" style="padding-top:26px;">
+                  <img src="/honzahauzr_crm/static/src/img/hh-znak-email.png" alt="Honza Hauzr" width="44" height="44"
+                       style="display:block;border:0;outline:none;text-decoration:none;width:44px;height:44px;"/>
                 </td>
-                <td valign="middle" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#23211d;">
-                  <strong>Honza</strong>
+                <td valign="middle" style="padding-top:26px;">
+                  <p style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:#23211d;">Honza Hauzr</p>
+                  <p style="margin:2px 0 0 0;font-family:Inter,Arial,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a89681;">Mentor pro muže &#183; Vlastní režie</p>
                 </td>
               </tr>
             </table>
