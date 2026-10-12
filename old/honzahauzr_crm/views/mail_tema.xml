@@ -2,7 +2,7 @@
 <odoo>
 
 <!-- ================================================================
-     NÁŠ NÁVRH V GALERII EDITORU
+     NAŠE NÁVRHY V GALERII EDITORU
 
      Galerie, kterou editor nabídne u prázdné zprávy, se skládá ze
      šablony mass_mailing.email_designer_themes. Každá dlaždice je
@@ -13,21 +13,19 @@
      Obsah jsou bloky Odoo (o_mail_snippet_general). Jen takový blok
      umí editor vybrat, posunout, smazat a dát mezi něj jiný —
      a tlačítko jako <a class="btn btn-primary"> má volby, mezi
-     nimi odkaz. Dřív tu byla jedna velká tabulka a zpráva z ní
-     složená se dala jen přepsat.
+     nimi odkaz.
 
      Bez data-nowrap schválně: obal (o_layout, container,
      .oe_structure) ať postaví editor sám. V něm je jediné místo,
      kam jdou pouštět bloky.
 
-     data-layout-styles dává stránce kolem karty krémové pozadí,
-     stejné jako mají ostatní zprávy.
+     data-layout-styles dává stránce kolem karty barvu pozadí.
 
      Soubor vyrábí nastroje/mail-tema.js, needituje se ručně.
      ================================================================ -->
 
 <template id="theme_vr_vyzva" inherit_id="mass_mailing.email_designer_themes"
-          name="Vlastní režie — návrh do galerie">
+          name="Vlastní režie — návrhy do galerie">
     <xpath expr="." position="inside">
         <div data-name="vr_vyzva"
              title="Vlastní režie"
@@ -81,6 +79,103 @@
         <div class="s_text_block o_mail_snippet_general hh-linka-nad pt16 pb16" style="padding-left:15px;padding-right:15px;text-align:center;">
           <div class="container s_allow_columns">
             <p class="hh-drobne">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;<br/>Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy Z autopilota zpět do života.<br/><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;" style="text-decoration:underline;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
+          </div>
+        </div>
+        </div>
+
+        <div data-name="vr_editorial"
+             title="Vlastní režie — editorial"
+             data-layout-styles="background-color:#efe7d8;"
+             data-img="/honzahauzr_crm/static/src/img/tema_editorial">
+<style id="design-element">
+.o_mail_wrapper_td { background-color: #f4efe6 !important; border: 1px solid #e3d9c8; }
+.o_mail_wrapper { font-family: Inter, Arial, sans-serif; color: #5d554b; }
+.o_mail_wrapper p { font-size: 16px; line-height: 27px; margin: 0 0 18px 0; }
+.o_mail_wrapper h1.hhe-nadpis { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.3px; color: #23211d; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-znacka { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-znacka span { color: #a06a37; }
+.o_mail_wrapper .hhe-jmeno { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a89681; margin: 0; }
+.o_mail_wrapper .hhe-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #a06a37; margin: 0; }
+.o_mail_wrapper .hhe-prah { width: 48px; height: 2px; background-color: #a06a37; margin-top: 22px; font-size: 0; line-height: 2px; }
+.o_mail_wrapper .hhe-oslo { color: #23211d; font-weight: 600; }
+.o_mail_wrapper .hhe-tmave { color: #23211d; }
+.o_mail_wrapper .hhe-otazka { background-color: #23211d; border-left: 3px solid #c08a52; padding: 28px 30px; }
+.o_mail_wrapper .hhe-otazka .hhe-eyebrow { color: #c08a52; font-size: 10px; }
+.o_mail_wrapper .hhe-otazka p { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 30px; font-weight: 700; color: #f4efe6; margin: 10px 0 0 0; }
+.o_mail_wrapper .hhe-pod { font-size: 12.5px; line-height: 19px; color: #857b6e; margin: 14px 0 0 0; }
+.o_mail_wrapper .hhe-linka-nad { border-top: 1px solid #e3d9c8; }
+.o_mail_wrapper .hhe-znak { width: 44px; height: 44px; background-color: #23211d; border-radius: 22px; font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 700; color: #c08a52; text-align: center; line-height: 44px; }
+.o_mail_wrapper .hhe-podpis { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 700; color: #23211d; margin: 0; }
+.o_mail_wrapper .hhe-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a89681; margin: 2px 0 0 0; }
+.o_mail_wrapper .hhe-paticka { background-color: #23211d; }
+.o_mail_wrapper .hhe-paticka p { font-size: 12px; line-height: 19px; color: #9c958a; margin: 0; }
+.o_mail_wrapper .hhe-paticka .hhe-odesilatel { color: #d6cec1; }
+.o_mail_wrapper .hhe-paticka a { color: #c08a52; text-decoration: underline; }
+.o_mail_wrapper a.btn.btn-primary { background-color: #a06a37; border-color: #a06a37; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 17px 36px; border-radius: 3px; }
+</style>
+        <div class="s_header_logo o_mail_block_header_logo o_mail_snippet_general pt24 pb24" style="border-bottom:1px solid #e3d9c8;">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-7">
+                <p class="hhe-znacka">Vlastní <span>režie</span></p>
+              </div>
+              <div class="col-5" style="text-align:right;">
+                <p class="hhe-jmeno">Honza Hauzr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_title pt40 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-eyebrow">Tvůj tah &#183; po výzvě</p>
+            <h1 class="hhe-nadpis">Nadpis zprávy</h1>
+            <div class="hhe-prah">&#160;</div>
+          </div>
+        </div>
+        <div class="s_text_block pt24 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p class="hhe-oslo">&#123;&#123; object.hh_osloveni &#125;&#125;</p>
+            <p>tenhle odstavec přepiš. Pod ním můžeš další bloky přidávat, posouvat i mazat — přetáhni si je z panelu vpravo.</p>
+            <p>Otázku pod tímhle textem můžeš smazat jako kterýkoliv jiný blok, nebo si ji přetáhnout jinam.</p>
+          </div>
+        </div>
+        <div class="s_mail_blockquote pt24 pb24 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <div class="hhe-otazka">
+              <p class="hhe-eyebrow">Otázka na dnešek</p>
+              <p>Sem patří jedna věta, se kterou má člověk odejít.</p>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block pt0 pb0 o_mail_snippet_general">
+          <div class="container s_allow_columns" style="padding-left:48px;padding-right:48px;">
+            <p>Další odstavec. Tlačítko níž má zatím prázdný odkaz — klikni na něj a v liště nahoře mu adresu doplň.</p>
+          </div>
+        </div>
+        <div class="s_call_to_action o_mail_snippet_general pt32 pb8">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <a href="#" role="button" class="btn btn-primary">Text tlačítka</a>
+            <p class="hhe-pod">Nezávazně. Zhruba 30 minut.</p>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hhe-linka-nad pt32 pb32">
+          <div class="container" style="padding-left:48px;padding-right:48px;">
+            <div class="row">
+              <div class="col-2">
+                <p class="hhe-znak">H</p>
+              </div>
+              <div class="col-10">
+                <p class="hhe-podpis">Honza</p>
+                <p class="hhe-role">Mentor pro muže &#183; Vlastní režie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s_text_block o_mail_snippet_general hhe-paticka pt24 pb24">
+          <div class="container" style="padding-left:48px;padding-right:48px;text-align:center;">
+            <p class="hhe-odesilatel">&#123;&#123; object.hh_paticka_odesilatel &#125;&#125;</p>
+            <p style="margin-top:8px;">Tenhle e-mail ti přišel, protože ses přihlásil do bezplatné výzvy Z autopilota zpět do života.</p>
+            <p style="margin-top:10px;"><a href="&#123;&#123; object.hh_odkaz_odhlaseni &#125;&#125;">Nechceš ode mě další e-maily? Odhlas se.</a></p>
           </div>
         </div>
         </div>
