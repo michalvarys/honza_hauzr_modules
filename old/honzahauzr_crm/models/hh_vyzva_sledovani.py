@@ -182,14 +182,33 @@ class HhVyzvaSledovani(models.Model):
             zapis['nejdale'] = int(sekund)
         if den in ('1', '2', '3') and zaznam.den != den:
             zapis['den'] = den
-        if nazev and not zaznam.nazev:
-            zapis['nazev'] = nazev.strip()[:200]
         if stranka and not zaznam.stranka:
             zapis['stranka'] = stranka.strip()[:200]
+        if not zaznam.nazev:
+            zapis['nazev'] = self._hh_nazev(
+                nazev, den or zaznam.den, stranka or zaznam.stranka, video)
 
         zaznam.sudo().write(zapis)
         return zaznam
 
+
+    @api.model
+    def _hh_nazev(self, nazev, den, stranka, video):
+        """Jméno videa do seznamu. Nikdy prázdné.
+
+        Přehrávač titulek hlásí, ale ne vždycky - u videa nahraného
+        přímo na web žádný není a YouTube ho při prvním hlášení
+        ještě nemusí stihnout. Bez náhrady by se takový řádek
+        v seskupení schoval do skupiny "Žádné", která nikomu nic
+        neřekne.
+        """
+        if nazev and nazev.strip():
+            return nazev.strip()[:200]
+        if den in ('1', '2', '3'):
+            return 'Výzva – den %s' % den
+        if stranka:
+            return 'Video na %s' % stranka.strip()[:180]
+        return (video or 'Video')[:200]
 
     @api.model
     def _hh_doplnit_oznaceni(self):
@@ -205,11 +224,19 @@ class HhVyzvaSledovani(models.Model):
         stare = self.sudo().search([('video', '=', False)])
         for zaznam in stare:
             zaznam.video = 'vyzva-den-%s' % (zaznam.den or '0')
-        if stare:
+
+        # Jmeno do seznamu. Tyka se i radku, ktere oznaceni uz maji,
+        # ale vznikly driv, nez se jmeno vedlo.
+        bezejmenne = self.sudo().search([('nazev', '=', False)])
+        for zaznam in bezejmenne:
+            zaznam.nazev = self._hh_nazev(
+                None, zaznam.den, zaznam.stranka, zaznam.video)
+
+        if stare or bezejmenne:
             _logger.info(
-                'Honza Hauzr CRM: %s zaznamu sledovani dostalo '
-                'oznaceni videa.', len(stare))
-        return len(stare)
+                'Honza Hauzr CRM: sledovani - oznaceni doplneno %sx, '
+                'jmeno %sx.', len(stare), len(bezejmenne))
+        return len(stare), len(bezejmenne)
 
 
 class CrmLeadSledovani(models.Model):
