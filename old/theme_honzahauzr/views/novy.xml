@@ -377,6 +377,7 @@
                             </div>
                             <t t-call="honzahauzr_crm.hh_souhlas_udaje">
                                 <t t-set="hh_souhlas_id">hh_souhlas_novy</t>
+                                <t t-set="hh_souhlas_odber">1</t>
                                 <t t-set="hh_souhlas_ucel"> za účelem zasílání e-mailů</t>
                             </t>
                             <button type="submit" class="hh-btn s_website_form_send">Chci odebírat</button>

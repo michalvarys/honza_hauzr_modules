@@ -569,6 +569,7 @@
                                  prohlizec a skript hh-vyzva.js. -->
                             <t t-call="honzahauzr_crm.hh_souhlas_udaje">
                                 <t t-set="hh_souhlas_id">hhv_souhlas</t>
+                                <t t-set="hh_souhlas_odber">1</t>
                                 <t t-set="hh_souhlas_trida">hhv-consent</t>
                                 <t t-set="hh_souhlas_ucel"> za účelem zaslání třídenní výzvy</t>
                             </t>

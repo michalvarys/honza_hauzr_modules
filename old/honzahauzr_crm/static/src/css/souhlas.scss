@@ -133,3 +133,13 @@ form:not(.hh-odeslano) .hh-souhlas input:invalid ~ .hh-souhlas__chyba {
 .hh-pdf__form > .s_website_form_send {
     order: 1;
 }
+
+/* Citace souhlasu na stránce zásad. Má být vidět, že jde o přesné
+ * znění, které člověk u formuláře odsouhlasil, ne o převyprávění. */
+.hhd-text .hhd-uzky blockquote {
+    margin: 1rem 0 1.2rem;
+    padding: 0.9rem 1.2rem;
+    border-left: 3px solid currentColor;
+    opacity: 0.85;
+    font-style: italic;
+}

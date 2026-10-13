@@ -110,6 +110,32 @@
                         co psát.
                     </p>
 
+                    <h2>Obchodní sdělení</h2>
+                    <p>
+                        Když u formuláře zaškrtneš souhlas, dáváš mi
+                        tím najevo:
+                    </p>
+                    <blockquote>
+                        Chci od
+                        <strong>DOPLNIT: název a IČO</strong>,
+                        provozovatele Vlastní režie, dostávat e-mailem
+                        praktické tipy, novinky a nabídky programů
+                        Vlastní režie. Z odběru se můžu kdykoliv
+                        odhlásit.
+                    </blockquote>
+                    <p>
+                        Je to souhlas podle zákona č. 480/2004 Sb.,
+                        o některých službách informační společnosti.
+                        Bez něj ti obchodní sdělení posílat nesmím
+                        a taky je posílat nebudu.
+                    </p>
+                    <p>
+                        Odhlásit se dá jedním kliknutím odkazem na
+                        konci každého e-mailu. Žádný další ti pak
+                        nepřijde a nemusíš mi psát ani vysvětlovat
+                        proč.
+                    </p>
+
                     <h2>Jak dlouho si údaje nechávám</h2>
                     <p>
                         Dokud neodvoláš souhlas nebo mě nepožádáš
@@ -222,10 +248,24 @@
         <input type="checkbox" t-att-id="hh_souhlas_id"
                name="hh_souhlas" value="on" required="required"/>
         <span>
-            Souhlasím se zpracováním
-            <a href="/ochrana-osobnich-udaju" target="_blank"
-               rel="noopener">osobních údajů</a><t t-if="hh_souhlas_ucel">
-            <t t-esc="hh_souhlas_ucel"/></t>.
+            <!-- Kde clovek necha adresu kvuli e-mailum, nejde jen
+                 o zpracovani udaju, ale i o souhlas s obchodnimi
+                 sdelenimi podle zakona c. 480/2004 Sb. Proto delsi
+                 veta - zapina ji hh_souhlas_odber. -->
+            <t t-if="hh_souhlas_odber">
+                Chci od <t t-out="hh_spravce or 'DOPLNIT: název a IČO'"/>,
+                provozovatele Vlastní režie, dostávat e-mailem praktické
+                tipy, novinky a nabídky programů Vlastní režie.
+                Z odběru se můžu kdykoliv odhlásit. Souhlasím se zpracováním
+                <a href="/ochrana-osobnich-udaju" target="_blank"
+                   rel="noopener">osobních údajů</a>.
+            </t>
+            <t t-else="">
+                Souhlasím se zpracováním
+                <a href="/ochrana-osobnich-udaju" target="_blank"
+                   rel="noopener">osobních údajů</a><t t-if="hh_souhlas_ucel">
+                <t t-esc="hh_souhlas_ucel"/></t>.
+            </t>
             <span class="hh-souhlas__chyba">
                 Bez souhlasu to bohužel nejde odeslat.
             </span>

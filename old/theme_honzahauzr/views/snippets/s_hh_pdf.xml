@@ -27,6 +27,7 @@
                         </div>
                         <t t-call="honzahauzr_crm.hh_souhlas_udaje">
                             <t t-set="hh_souhlas_id">hh_souhlas_pdf</t>
+                            <t t-set="hh_souhlas_odber">1</t>
                             <t t-set="hh_souhlas_ucel"> za účelem zaslání PDF</t>
                         </t>
                         <button type="submit" class="s_website_form_send">Poslat PDF</button>
