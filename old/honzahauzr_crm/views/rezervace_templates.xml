@@ -204,6 +204,10 @@
                             <!-- Bez disabled zamerne: kdyz JavaScript nebezi,
                                  musi jit formular odeslat i tak. Tlacitko
                                  zablokuje az skript, dokud neni vybrany cas. -->
+                            <t t-call="honzahauzr_crm.hh_souhlas_udaje">
+                                <t t-set="hh_souhlas_id">hh_souhlas_rezervace</t>
+                                <t t-set="hh_souhlas_ucel"> za účelem domluvení hovoru</t>
+                            </t>
                             <button type="submit" class="hhr-cta" id="hhr_odeslat">
                                 Rezervovat termín
                             </button>

@@ -459,6 +459,10 @@
                                     <div class="s_website_form_field mb-3" data-type="text">
                                         <textarea class="hh-form__input s_website_form_input" name="description" placeholder="Co bys chtěl/a změnit? Napiš cokoliv..." rows="3"/>
                                     </div>
+                                    <t t-call="honzahauzr_crm.hh_souhlas_udaje">
+                                        <t t-set="hh_souhlas_id">hh_souhlas_blue</t>
+                                        <t t-set="hh_souhlas_ucel"> za účelem vyřízení přihlášky</t>
+                                    </t>
                                     <div class="s_website_form_submit mb-0">
                                         <span id="s_website_form_result"/>
                                         <a href="#" role="button" class="hh-btn hh-btn--primary hh-btn--large s_website_form_send">

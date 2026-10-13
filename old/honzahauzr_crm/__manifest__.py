@@ -77,6 +77,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
         'views/menu.xml',
         'views/crm_lead_views.xml',
         'views/hh_termin_views.xml',
+        'views/ochrana_udaju.xml',
         'views/rezervace_templates.xml',
         # Snippet az za sablonami - registrace do panelu odkazuje
         # na sablonu snippetu, takze uz musi existovat.
@@ -95,6 +96,7 @@ muselo po nasazení na server dělat znovu, kód se nasadí sám.
     # nemuze dosahnout - zadny obecny selektor tam neni.
     'assets': {
         'web.assets_frontend': [
+            'honzahauzr_crm/static/src/css/souhlas.scss',
             'honzahauzr_crm/static/src/css/rezervace.scss',
             'honzahauzr_crm/static/src/css/vyzva_obsah.scss',
             'honzahauzr_crm/static/src/css/odhlaseni.scss',

@@ -226,6 +226,16 @@ publicWidget.registry.hhRezervaceSnippet = publicWidget.Widget.extend({
             '<div class="hhr-pole"><input type="email" class="hhr-email" placeholder="E-mail" autocomplete="email"/></div>' +
             '<div class="hhr-pole"><input type="tel" class="hhr-telefon" placeholder="Telefon (nepovinné)" autocomplete="tel"/></div>' +
             '<div class="hhr-pole hhr-pole--siroke"><textarea class="hhr-poznamka" rows="3" placeholder="Chceš mi něco napsat dopředu? (nepovinné)"></textarea></div>' +
+            // Souhlas se zpracovanim udaju. Formular stavi skript,
+            // takze se sem sablona hh_souhlas_udaje nedostane -
+            // text i odkaz proto musi sedet s ni.
+            '<label class="hh-souhlas hhr-pole--siroke" for="hhr_souhlas">' +
+            '<input type="checkbox" id="hhr_souhlas" class="hhr-souhlas" required="required"/>' +
+            "<span>Souhlasím se zpracováním " +
+            '<a href="/ochrana-osobnich-udaju" target="_blank" rel="noopener">osobních údajů</a>' +
+            " za účelem domluvení hovoru." +
+            '<span class="hh-souhlas__chyba">Bez souhlasu to bohužel nejde odeslat.</span>' +
+            "</span></label>" +
             '<button type="button" class="hhr-cta hhr-odeslat" disabled="disabled">Rezervovat termín</button>' +
             '<p class="hhr-micro">Potvrzení ti přijde do e-mailu. Termín můžeš kdykoli zrušit odkazem, který v něm najdeš.</p>' +
             "</div>"
@@ -275,6 +285,17 @@ publicWidget.registry.hhRezervaceSnippet = publicWidget.Widget.extend({
 
         if (!jmeno || !email) {
             this.vykresliCasy(this.vybranyDen.datum, HLASKY.neuplne);
+            return;
+        }
+
+        // Bez souhlasu se neodesila. Formular neni <form>, takze
+        // required prohlizec sam nevyhodnoti - hlida se to tady
+        // a hlaska se ukaze primo u zaskrtavatka, ne nahore.
+        const souhlas = this.blok.querySelector(".hhr-souhlas");
+        if (souhlas && !souhlas.checked) {
+            souhlas.closest(".hh-souhlas")
+                .classList.add("hh-souhlas--chyba");
+            souhlas.focus();
             return;
         }
 

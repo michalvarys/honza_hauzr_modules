@@ -403,7 +403,9 @@
     grid-column: 1 / -1;
 }
 
-.hhr .hhr-udaje input,
+/* Jen textova pole. Bez vyjimky by sirku pres celou radku dostalo
+   i zaskrtavatko souhlasu a text by se vedle nej zlomil na slova. */
+.hhr .hhr-udaje input:not([type="checkbox"]),
 .hhr .hhr-udaje textarea {
     width: 100%;
     padding: 12px 14px;

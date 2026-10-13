@@ -52,6 +52,10 @@
                                 <textarea id="hh_zprava" class="form-control s_website_form_input"
                                           name="description" placeholder="Co bys chtěl/a změnit? Napiš klidně jen pár vět." rows="3"/>
                             </div>
+                            <t t-call="honzahauzr_crm.hh_souhlas_udaje">
+                                <t t-set="hh_souhlas_id">hh_souhlas_cta</t>
+                                <t t-set="hh_souhlas_ucel"> za účelem vyřízení přihlášky</t>
+                            </t>
                             <button type="submit" class="hh-btn hh-btn--primary hh-btn--large s_website_form_send">
                                 Domluvit úvodní hovor
                             </button>

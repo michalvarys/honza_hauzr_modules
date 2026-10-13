@@ -567,14 +567,11 @@
                                  odesila jen pojmenovana pole a neznamy nazev
                                  by zapis leadu shodil. Povinnost hlida
                                  prohlizec a skript hh-vyzva.js. -->
-                            <label class="hhv-consent" for="hhv_souhlas">
-                                <input type="checkbox" id="hhv_souhlas" required="required"/>
-                                <span>
-                                    Souhlasím se zpracováním osobních údajů za účelem zaslání
-                                    třídenní výzvy.
-                                    <span class="hhv-err">Bez souhlasu ti výzvu nemůžu poslat.</span>
-                                </span>
-                            </label>
+                            <t t-call="honzahauzr_crm.hh_souhlas_udaje">
+                                <t t-set="hh_souhlas_id">hhv_souhlas</t>
+                                <t t-set="hh_souhlas_trida">hhv-consent</t>
+                                <t t-set="hh_souhlas_ucel"> za účelem zaslání třídenní výzvy</t>
+                            </t>
                             <button type="submit" class="hhv-cta hhv-form__send s_website_form_send" data-hhv-misto="formular">
                                 Chci vstoupit do výzvy zdarma
                             </button>

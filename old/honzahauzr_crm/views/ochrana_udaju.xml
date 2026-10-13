@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =================================================================
+     ZÁSADY OCHRANY OSOBNÍCH ÚDAJŮ
+
+     Patička na tuhle adresu odkazovala od začátku, jenže stránka
+     neexistovala a odkaz končil na 404. Zároveň u každého formuláře
+     musí být zaškrtávátko se souhlasem a to potřebuje mít kam vést -
+     bez vysvětlení, k čemu člověk souhlas dává, je souhlas podle
+     GDPR neplatný.
+
+     Text vychází z nařízení (EU) 2016/679 a zákona č. 110/2019 Sb.
+     Popisuje, co systém opravdu dělá: co se ukládá z formulářů, co
+     se měří na webu a co se posílá e-mailem.
+
+     POZOR - údaje správce (jméno, IČO, sídlo, kontaktní e-mail) musí
+     doplnit Honza. Jsou v šabloně označené jako DOPLNIT a bez nich
+     zásady nejsou úplné. Nedají se uhodnout z kódu.
+
+     Blok souhlasu pro formuláře je ve stejném souboru níž, aby text
+     zaškrtávátka i odkaz na tuhle stránku stály na jednom místě.
+     ================================================================= -->
+
+<data noupdate="1">
+
+<template id="hh_stranka_osobni_udaje" name="Zásady ochrany osobních údajů">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Zásady ochrany osobních údajů</t>
+
+        <div id="wrap" class="oe_structure oe_empty hhd hhn">
+            <section class="hhd-hlava o_cc o_colored_level"
+                     data-name="Osobní údaje — hlavička">
+                <div class="container">
+                    <h1 class="hhd-h1">Zásady ochrany osobních údajů</h1>
+                    <p class="hhd-lead">
+                        Co o tobě vím, odkud to mám, k čemu to používám
+                        a jak se toho zbavíš.
+                    </p>
+                </div>
+            </section>
+
+            <section class="hhd-text o_cc o_colored_level"
+                     data-name="Osobní údaje — text">
+                <div class="container hhd-uzky">
+
+                    <h2>Kdo údaje zpracovává</h2>
+                    <p>
+                        Správcem osobních údajů je
+                        <strong>DOPLNIT: jméno a příjmení nebo název</strong>,
+                        IČO <strong>DOPLNIT</strong>, se sídlem
+                        <strong>DOPLNIT: adresa</strong>.
+                        Napsat mi můžeš na
+                        <strong>DOPLNIT: kontaktní e-mail</strong>.
+                    </p>
+                    <p>
+                        Pověřence pro ochranu osobních údajů nemám,
+                        zákon mi ho neukládá.
+                    </p>
+
+                    <h2>Co zpracovávám a proč</h2>
+
+                    <h3>Přihlášení k odběru e-mailů</h3>
+                    <p>
+                        Ukládám <strong>jméno a e-mailovou adresu</strong>,
+                        které vyplníš do formuláře. Používám je k tomu,
+                        abych ti posílal e-maily, které sis vyžádal.
+                        Právním základem je tvůj souhlas podle čl. 6
+                        odst. 1 písm. a) GDPR. Souhlas můžeš kdykoliv
+                        odvolat odkazem na konci každého e-mailu.
+                    </p>
+
+                    <h3>Třídenní výzva</h3>
+                    <p>
+                        Ukládám <strong>jméno a e-mailovou adresu</strong>
+                        a k nim údaj o tom, <strong>která videa výzvy sis
+                        pustil a jakou část jsi zhlédl</strong>. Díky tomu
+                        poznám, komu má smysl napsat a s čím. Právním
+                        základem je tvůj souhlas.
+                    </p>
+
+                    <h3>Rezervace úvodního hovoru</h3>
+                    <p>
+                        Ukládám <strong>jméno, e-mailovou adresu, telefon,
+                        pokud ho vyplníš, poznámku, kterou mi napíšeš,
+                        a vybraný termín</strong>. Potřebuji je, abych se
+                        s tebou mohl spojit a hovor proběhl. Právním
+                        základem je plnění smlouvy, respektive provedení
+                        opatření před jejím uzavřením podle čl. 6 odst. 1
+                        písm. b) GDPR.
+                    </p>
+
+                    <h3>Měření na webu</h3>
+                    <p>
+                        U videí si zaznamenávám, <strong>jak velkou část
+                        jsi zhlédl</strong>, u tlačítek a odkazů
+                        <strong>kolikrát se na ně kliklo</strong>, a u každé
+                        návštěvy <strong>ze kterého webu jsi přišel</strong>
+                        (Instagram, Facebook, YouTube, Google a podobně).
+                        Dělám to proto, abych věděl, co lidem pomáhá a co
+                        ne. Právním základem je oprávněný zájem podle
+                        čl. 6 odst. 1 písm. f) GDPR; proti tomuto
+                        zpracování můžeš podat námitku.
+                    </p>
+                    <p>
+                        Dokud nevyplníš formulář, měření se k žádné
+                        konkrétní osobě nepřiřazuje. Jakmile formulář
+                        odešleš nebo otevřeš svůj osobní odkaz, spojí se
+                        záznamy s tvým jménem - jinak bych nepoznal, komu
+                        co psát.
+                    </p>
+
+                    <h2>Jak dlouho si údaje nechávám</h2>
+                    <p>
+                        Dokud neodvoláš souhlas nebo mě nepožádáš
+                        o výmaz. U rezervací hovoru po dobu, kdy spolu
+                        jednáme, a pak po dobu, kterou mi ukládá zákon
+                        (například u vystavených dokladů deset let podle
+                        zákona o dani z přidané hodnoty).
+                    </p>
+
+                    <h2>Komu se údaje dostanou</h2>
+                    <p>
+                        Nikomu je neprodávám. Z povahy věci se k nim
+                        dostanou firmy, které mi pomáhají web a e-maily
+                        provozovat:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>DOPLNIT: poskytovatel hostingu</strong>
+                            - provoz webu a databáze,
+                        </li>
+                        <li>
+                            <strong>DOPLNIT: odesílatel e-mailů</strong>
+                            - rozesílání zpráv,
+                        </li>
+                        <li>
+                            <strong>Google Ireland Limited</strong> - videa
+                            jsou vložená z YouTube, takže se při jejich
+                            přehrání načítá obsah z jeho serverů.
+                        </li>
+                    </ul>
+                    <p>
+                        Mimo Evropskou unii údaje nepředávám nad rámec
+                        toho, co dělají výše uvedené služby v souladu
+                        s vlastními pravidly.
+                    </p>
+
+                    <h2>Co s tím můžeš dělat</h2>
+                    <p>Podle GDPR máš právo:</p>
+                    <ul>
+                        <li>vědět, co o tobě mám (právo na přístup),</li>
+                        <li>nechat si to opravit, když je to špatně,</li>
+                        <li>nechat si to smazat,</li>
+                        <li>omezit zpracování,</li>
+                        <li>dostat svoje údaje ve strojově čitelné podobě,</li>
+                        <li>
+                            podat námitku proti zpracování z oprávněného
+                            zájmu,
+                        </li>
+                        <li>kdykoliv odvolat souhlas.</li>
+                    </ul>
+                    <p>
+                        Stačí mi napsat na kontaktní e-mail výše.
+                        Z odběru e-mailů se odhlásíš odkazem na konci
+                        každé zprávy; žádný další ti pak nepřijde.
+                    </p>
+                    <p>
+                        Když budeš mít pocit, že s tvými údaji zacházím
+                        špatně, můžeš si stěžovat u Úřadu pro ochranu
+                        osobních údajů, Pplk. Sochora 27, 170 00
+                        Praha 7, <a href="https://www.uoou.cz"
+                        target="_blank" rel="noopener">uoou.cz</a>.
+                    </p>
+
+                    <h2>Cookies</h2>
+                    <p>
+                        Web ukládá do prohlížeče drobné soubory, bez
+                        kterých by nefungoval: přihlášení do
+                        administrace, jazyk a klíč, podle kterého tě
+                        pozná stránka výzvy, abys nemusel odkaz
+                        z e-mailu hledat znovu. Smažeš je v nastavení
+                        prohlížeče.
+                    </p>
+
+                    <h2>Změny</h2>
+                    <p>
+                        Když se na zpracování něco změní, upravím tuhle
+                        stránku.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </t>
+</template>
+
+<record id="hh_stranka_osobni_udaje_page" model="website.page">
+    <field name="name">Zásady ochrany osobních údajů</field>
+    <field name="url">/ochrana-osobnich-udaju</field>
+    <field name="view_id" ref="hh_stranka_osobni_udaje"/>
+    <field name="is_published" eval="True"/>
+    <field name="website_indexed" eval="True"/>
+</record>
+
+</data>
+
+<!-- =================================================================
+     SOUHLAS U FORMULÁŘŮ
+
+     Jeden blok pro všechna místa, kde se něco vyplňuje. Kdyby se
+     text psal u každého formuláře zvlášť, lišil by se a při změně
+     by se na některý zapomnělo.
+
+     Mimo noupdate schválně: text souhlasu se musí dát opravit
+     aktualizací ve všech formulářích najednou.
+     ================================================================= -->
+
+<template id="hh_souhlas_udaje" name="Souhlas se zpracováním údajů">
+    <t t-set="hh_souhlas_id" t-value="hh_souhlas_id or 'hh_souhlas'"/>
+    <label t-attf-class="hh-souhlas #{hh_souhlas_trida or ''}"
+           t-att-for="hh_souhlas_id">
+        <input type="checkbox" t-att-id="hh_souhlas_id"
+               required="required"/>
+        <span>
+            Souhlasím se zpracováním
+            <a href="/ochrana-osobnich-udaju" target="_blank"
+               rel="noopener">osobních údajů</a><t t-if="hh_souhlas_ucel">
+            <t t-esc="hh_souhlas_ucel"/></t>.
+            <span class="hh-souhlas__chyba">
+                Bez souhlasu to bohužel nejde odeslat.
+            </span>
+        </span>
+    </label>
+</template>
+
+</odoo>

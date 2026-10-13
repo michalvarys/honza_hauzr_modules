@@ -22,6 +22,12 @@ Obsahuje:
     'depends': [
         'website',
         'website_crm',
+        # Formulare tematu pouzivaji blok souhlasu se zpracovanim
+        # udaju a odkazuji na stranku se zasadami; obe veci jsou
+        # v honzahauzr_crm, protoze tam ty udaje vznikaji. Bez
+        # zavislosti by sablona pri instalaci samotneho tematu
+        # nenasla, na co se odkazuje.
+        'honzahauzr_crm',
     ],
     'data': [
         'data/generate_primary_template.xml',

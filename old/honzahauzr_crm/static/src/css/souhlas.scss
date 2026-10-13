@@ -1,0 +1,94 @@
+/* Souhlas se zpracováním osobních údajů u formulářů.
+ *
+ * Jeden vzhled pro všechna místa, kde se něco vyplňuje - od tmavé
+ * výzvy po světlou stránku s kalendářem. Barvu písma proto nebere
+ * natvrdo, ale dědí ji po okolí (currentColor se ztlumením); jinak
+ * by na jednom z pozadí nebyl text vidět.
+ *
+ * Vlastní třídu si formulář může přidat přes hh_souhlas_trida,
+ * když potřebuje něco doladit - například .hhv-consent ve výzvě.
+ */
+
+.hh-souhlas {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 16px 0 0 0;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.65;
+    color: currentColor;
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.hh-souhlas input {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.hh-souhlas a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Hláška se ukáže, až když se formulář odešle nezaškrtnutý.
+   Prohlížeč u povinného políčka hlásí svoje, tahle věta říká
+   totéž česky a na místě, kde ji člověk hledá. */
+.hh-souhlas__chyba {
+    display: none;
+    margin-top: 4px;
+    font-size: 11.5px;
+    color: #c0392b;
+}
+
+.hh-souhlas input:invalid ~ .hh-souhlas__chyba,
+.hh-souhlas.hh-souhlas--chyba .hh-souhlas__chyba {
+    display: block;
+}
+
+/* Dokud se formulář neodeslal, nemá červená hláška co svítit -
+   nezaškrtnuté políčko je na začátku normální stav. */
+form:not(.hh-odeslano) .hh-souhlas input:invalid ~ .hh-souhlas__chyba {
+    display: none;
+}
+
+/* Stránka se zásadami ochrany osobních údajů.
+ *
+ * Je to dlouhý text, který někdo čte, až když něco řeší - proto
+ * užší sloupec a vzduch mezi oddíly. Bez toho splývaly nadpisy
+ * s odstavci a hledalo se v tom špatně.
+ */
+.hhd-text .hhd-uzky {
+    max-width: 44rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+}
+
+.hhd-text .hhd-uzky h2 {
+    margin: 2.5rem 0 0.75rem;
+    font-size: 1.5rem;
+}
+
+.hhd-text .hhd-uzky h2:first-child {
+    margin-top: 0;
+}
+
+.hhd-text .hhd-uzky h3 {
+    margin: 1.75rem 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.hhd-text .hhd-uzky p,
+.hhd-text .hhd-uzky li {
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+}
+
+.hhd-text .hhd-uzky ul {
+    margin-bottom: 1.2rem;
+    padding-left: 1.3rem;
+}

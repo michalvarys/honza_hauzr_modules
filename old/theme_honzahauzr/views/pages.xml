@@ -248,6 +248,10 @@
                                        name="email_from" placeholder="Tvůj e-mail" required="required"/>
                                 <span class="hh-err">Bez e-mailu ti nemám co poslat.</span>
                             </div>
+                            <t t-call="honzahauzr_crm.hh_souhlas_udaje">
+                                <t t-set="hh_souhlas_id">hh_souhlas_pages</t>
+                                <t t-set="hh_souhlas_ucel"> za účelem zasílání e-mailů</t>
+                            </t>
                             <button type="submit" class="hh-btn s_website_form_send">Chci odebírat</button>
                         </form>
                         <div class="s_website_form_end_message d-none hh-done hh-done--inline">
