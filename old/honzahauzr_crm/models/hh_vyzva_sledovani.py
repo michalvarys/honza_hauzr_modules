@@ -111,6 +111,10 @@ class HhVyzvaSledovani(models.Model):
         string='Zhlédnuto',
         compute='_compute_procento',
         store=True,
+        # Ve skupine ma smysl prumer, ne soucet: "612 %" u sedmi
+        # lidi nerika nic, "87 %" rekne, jak daleko se v prumeru
+        # dostali.
+        aggregator='avg',
         help='Kolik procent videa má za sebou.',
     )
     dokoukano = fields.Boolean(
