@@ -187,6 +187,12 @@ class HhRezervace(http.Controller):
         if not termin_id or not jmeno or not email:
             return request.redirect('%s?chyba=neuplne' % zpet)
 
+        # Bez souhlasu se rezervace nezaklada. Zaskrtavatko ma
+        # v sablone required, ale na to se spolehnout neda - da se
+        # odskrtnout v nastrojich prohlizece.
+        if not (post.get('hh_souhlas') or '').strip():
+            return request.redirect('%s?chyba=souhlas' % zpet)
+
         Termin = request.env['hh.termin'].sudo()
         try:
             termin = Termin.browse(int(termin_id)).exists()
@@ -199,7 +205,9 @@ class HhRezervace(http.Controller):
             return request.redirect('%s?chyba=obsazeno' % zpet)
 
         try:
-            povedlo_se = termin.hh_rezervovat(jmeno, email, telefon, poznamka)
+            povedlo_se = termin.with_context(
+                hh_souhlas_dan=True).hh_rezervovat(
+                    jmeno, email, telefon, poznamka)
         except Exception as chyba:
             _logger.exception('Rezervace terminu %s selhala: %s',
                               termin_id, chyba)
@@ -287,12 +295,17 @@ class HhRezervace(http.Controller):
     @http.route('/rezervace/data/rezervovat', type='json', auth='public',
                 website=True)
     def data_rezervovat(self, termin_id=None, jmeno=None, email=None,
-                        telefon=None, poznamka=None, **kw):
+                        telefon=None, poznamka=None, souhlas=None, **kw):
         jmeno = (jmeno or '').strip()
         email = (email or '').strip()
 
         if not termin_id or not jmeno or not email:
             return {'ok': False, 'chyba': 'neuplne'}
+
+        # Souhlas se zpracovanim udaju. Skript ho hlida taky, jenze
+        # volani se da poslat i mimo nej.
+        if not souhlas:
+            return {'ok': False, 'chyba': 'souhlas'}
 
         Termin = request.env['hh.termin'].sudo()
         try:
@@ -304,7 +317,7 @@ class HhRezervace(http.Controller):
             return {'ok': False, 'chyba': 'obsazeno'}
 
         try:
-            povedlo_se = termin.hh_rezervovat(
+            povedlo_se = termin.with_context(hh_souhlas_dan=True).hh_rezervovat(
                 jmeno, email, (telefon or '').strip(), (poznamka or '').strip())
         except Exception as chyba:
             _logger.exception('Rezervace terminu %s selhala: %s',

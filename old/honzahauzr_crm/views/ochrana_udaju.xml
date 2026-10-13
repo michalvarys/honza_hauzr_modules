@@ -220,7 +220,7 @@
     <label t-attf-class="hh-souhlas #{hh_souhlas_trida or ''}"
            t-att-for="hh_souhlas_id">
         <input type="checkbox" t-att-id="hh_souhlas_id"
-               required="required"/>
+               name="hh_souhlas" value="on" required="required"/>
         <span>
             Souhlasím se zpracováním
             <a href="/ochrana-osobnich-udaju" target="_blank"

@@ -34,6 +34,9 @@
             <t t-if="chyba == 'obsazeno'">
                 Tenhle termín mezitím někdo zabral. Vyber si prosím jiný.
             </t>
+            <t t-elif="chyba == 'souhlas'">
+                Bez souhlasu se zpracováním osobních údajů to odeslat nejde.
+            </t>
             <t t-elif="chyba == 'neuplne'">
                 Potřebuju jméno i e-mail, jinak ti nemám kam napsat.
             </t>

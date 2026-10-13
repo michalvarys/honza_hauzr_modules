@@ -402,6 +402,8 @@ class HhTermin(models.Model):
                 hodnoty['phone'] = telefon
             if hodnoty:
                 lead.write(hodnoty)
+            if self.env.context.get('hh_souhlas_dan'):
+                self.env['crm.lead']._hh_zapsat_souhlas(lead)
             self._hh_do_sloupce_rezervaci(lead)
             return lead
 
@@ -413,7 +415,13 @@ class HhTermin(models.Model):
             'description': poznamka,
             'hh_zdroj': 'rezervace',
         }
-        return Lead.create(hodnoty)
+        lead = Lead.create(hodnoty)
+        # Souhlas uz overil controller; na karte ma byt zapsany
+        # stejne jako u formularu, aby se dal dolozit. U rucniho
+        # zapisu v kalendari zadny nebyl, proto jen s priznakem.
+        if self.env.context.get('hh_souhlas_dan'):
+            self.env['crm.lead']._hh_zapsat_souhlas(lead)
+        return lead
 
     def _hh_do_sloupce_rezervaci(self, lead):
         """Presune prilezitost do sloupce s rezervacemi hovoru.

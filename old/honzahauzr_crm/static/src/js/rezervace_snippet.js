@@ -18,6 +18,7 @@ import { rpc } from "@web/core/network/rpc";
 const HLASKY = {
     obsazeno: "Tenhle termín mezitím někdo zabral. Vyber si prosím jiný.",
     neuplne: "Potřebuju jméno i e-mail, jinak ti nemám kam napsat.",
+    souhlas: "Bez souhlasu se zpracováním osobních údajů to odeslat nejde.",
     chyba: "Něco se pokazilo. Zkus to prosím znovu.",
 };
 
@@ -310,6 +311,7 @@ publicWidget.registry.hhRezervaceSnippet = publicWidget.Widget.extend({
                 email,
                 telefon,
                 poznamka,
+                souhlas: !!(souhlas && souhlas.checked),
             });
         } catch {
             odpoved = { ok: false, chyba: "chyba" };
