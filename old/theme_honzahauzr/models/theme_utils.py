@@ -1,4 +1,8 @@
+import logging
+
 from odoo import models
+
+_logger = logging.getLogger(__name__)
 
 
 class ThemeUtils(models.AbstractModel):
@@ -27,3 +31,48 @@ class ThemeUtils(models.AbstractModel):
             "website.footer_custom",
         ):
             self.disable_view(pohled)
+
+        self._hh_smazat_dvojniky_assetu()
+
+    def _hh_smazat_dvojniky_assetu(self):
+        """Uklidí dvojníky, které po sobě nechá kopírování tématu.
+
+        Z theme.ir.asset vzniká při každé aktualizaci nový ir.asset,
+        aniž by Odoo poznalo, že tam stejný záznam už je. U šablon to
+        jen mate, u assetů to web **shodí**: záznam s direktivou
+        "remove" odebere soubor ze svazku, druhý stejný už nemá co
+        odebrat a stránka vrátí 500
+
+            ValueError: File(s) [...] not found in bundle
+            web.assets_frontend_lazy
+
+        Dělo se to po každém upgradu tématu a muselo se to uklízet
+        ručně, než na to někdo přišel. Běží tedy rovnou tady, hned po
+        kopírování.
+
+        Z každé skupiny stejných záznamů zůstane jeden, přednost má
+        ten bez vazby na konkrétní web - platí pro obě domény.
+        """
+        Asset = self.env["ir.asset"].sudo().with_context(active_test=False)
+        vsechny = Asset.search([("path", "like", "theme_honzahauzr%")])
+
+        skupiny = {}
+        for a in vsechny:
+            klic = (a.name, a.bundle, a.path or "", a.directive,
+                    a.target or "", a.sequence)
+            skupiny.setdefault(klic, []).append(a)
+
+        smazano = 0
+        for zaznamy in skupiny.values():
+            if len(zaznamy) < 2:
+                continue
+            zaznamy.sort(key=lambda a: (bool(a.website_id), a.id))
+            for a in zaznamy[1:]:
+                a.unlink()
+                smazano += 1
+
+        if smazano:
+            _logger.info(
+                "Honza Hauzr: po kopirovani tematu smazano %s dvojniku "
+                "v ir.asset.", smazano)
+        return smazano
