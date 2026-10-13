@@ -22,6 +22,18 @@
     cursor: pointer;
 }
 
+/* Text musi dostat zbytek radku. Bez toho se v nekterych
+   formularich smrskl na par pixelu a lamal se po pismenech -
+   videt na stare strance /blue. */
+.hh-souhlas {
+    width: 100%;
+}
+
+.hh-souhlas > span {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 .hh-souhlas input {
     flex: 0 0 auto;
     margin-top: 2px;
@@ -91,4 +103,33 @@ form:not(.hh-odeslano) .hh-souhlas input:invalid ~ .hh-souhlas__chyba {
 .hhd-text .hhd-uzky ul {
     margin-bottom: 1.2rem;
     padding-left: 1.3rem;
+}
+
+/* Souhlas v jednořádkovém formuláři.
+ *
+ * Newsletter i PDF mají pole a tlačítko vedle sebe v jednom řádku.
+ * Zaškrtávátko mezi ně nepatří - stlačilo by obojí a text okolo by
+ * se zlomil po slovech. Dostane proto celý řádek pod nimi.
+ *
+ * V kódu stojí před tlačítkem schválně: kdo se pohybuje
+ * klávesnicí, projde pole, pak souhlas a teprve pak odeslání.
+ * Vizuální pořadí srovná order.
+ */
+.hh-news__form,
+.hh-pdf__form,
+.s_website_form:has(> .hh-souhlas) {
+    flex-wrap: wrap;
+}
+
+.hh-news__form > .hh-souhlas,
+.hh-pdf__form > .hh-souhlas,
+.s_website_form > .hh-souhlas {
+    flex: 1 0 100%;
+    order: 2;
+    margin-top: 10px;
+}
+
+.hh-news__form > .s_website_form_send,
+.hh-pdf__form > .s_website_form_send {
+    order: 1;
 }

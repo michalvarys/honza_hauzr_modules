@@ -551,7 +551,7 @@
     flex-direction: column;
     gap: 12px;
 }
-.hh-form input,
+.hh-form input:not([type="checkbox"]),
 .hh-form textarea,
 .hh-form select {
     background: rgba(255, 255, 255, 0.08);
@@ -676,7 +676,7 @@
     .hh-final-cta__content { padding: 72px 0; }
     .hh-final-cta__inner h2 { font-size: 1.6rem; }
     .hh-form { gap: 10px; }
-    .hh-form input,
+    .hh-form input:not([type="checkbox"]),
     .hh-form textarea,
     .hh-form select { padding: 14px 16px; font-size: 0.92rem; }
 
@@ -2111,7 +2111,10 @@ html:has(.hh-landing) { scroll-padding-top: 24px; }
     max-width: 900px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr auto;
+    /* Meze obou sloupcu, ne "1fr auto": formular se souhlasem na
+       vlastnim radku je sirsi a bez nich si vzal tolik mista, ze se
+       text vlevo lamal po jednom slove na radek. */
+    grid-template-columns: minmax(11rem, 1fr) minmax(0, 25rem);
     gap: 32px;
     align-items: center;
     padding: 38px 40px;
